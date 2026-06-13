@@ -28,7 +28,7 @@ ifStatementPropagation(std::unique_ptr<InstrSetNode> &instrSet) {
     // Step 2: Get the region to be inserted
     std::unique_ptr<InstrSetNode> regionToInsert = nullptr;
     for (auto &ifRegion : branchNode->ifRegions) {
-      if (!ifRegion->condition->isValue) {
+      if (ifRegion->condition->kind != EXPRESSION_KIND_VALUE) {
         std::cerr << "Syntax Error: Value is not propagated in the if "
                      "statment condition. Found at "
                   << ifRegion->condition->loc << ".\n";

@@ -14,7 +14,7 @@ enum PropagationResult { ERROR = 0, PROPAGATED = 1, UNCHANGED = 2 };
 PropagationResult unrollingList(std::unique_ptr<ForNode> &forNode,
                                 std::unique_ptr<InstrSetNode> &regionToInsert) {
   // Step 2: Verify the for loop
-  if (!forNode->listExp->isValue) {
+  if (forNode->listExp->kind != EXPRESSION_KIND_VALUE) {
     std::cerr << "Syntax Error: Value is not propagated in the for "
                  "statment list. Found at "
               << forNode->listExp->loc << ".\n";
@@ -64,7 +64,7 @@ PropagationResult
 unrollingRange(std::unique_ptr<ForNode> &forNode,
                std::unique_ptr<InstrSetNode> &regionToInsert) {
   // Step 2: Verify the for loop
-  if (!forNode->fromExp->isValue) {
+  if (forNode->fromExp->kind != EXPRESSION_KIND_VALUE) {
     std::cerr << "Syntax Error: Value is not propagated in the if "
                  "statment range. Found at "
               << forNode->fromExp->loc << ".\n";
@@ -76,7 +76,7 @@ unrollingRange(std::unique_ptr<ForNode> &forNode,
               << forNode->fromExp->loc << ".\n";
     return PropagationResult::ERROR;
   }
-  if (!forNode->toExp->isValue) {
+  if (forNode->toExp->kind != EXPRESSION_KIND_VALUE) {
     std::cerr << "Syntax Error: Value is not propagated in the if "
                  "statment range. Found at "
               << forNode->toExp->loc << ".\n";

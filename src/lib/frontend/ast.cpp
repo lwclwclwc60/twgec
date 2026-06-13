@@ -253,11 +253,15 @@ std::unique_ptr<PositionalParamAppsNode> PositionalParamAppsNode::clone() {
 }
 
 std::unique_ptr<ExpressionNode> ExpressionNode::clone() {
-  if (isValue)
+  if (kind == EXPRESSION_KIND_VALUE)
     return std::make_unique<ExpressionNode>(value->clone(), loc);
-  else
-    return std::make_unique<ExpressionNode>(lhs->clone(), op,
-                                            rhs ? rhs->clone() : nullptr, loc);
+  std::vector<std::unique_ptr<ExpressionNode>> clonedArgs;
+  for (auto &arg : args)
+    clonedArgs.push_back(arg->clone());
+  if (kind == EXPRESSION_KIND_EXPRESSION)
+    return std::make_unique<ExpressionNode>(std::move(clonedArgs[0]),
+                                            std::move(clonedArgs[1]), op, loc);
+  return std::make_unique<ExpressionNode>(std::move(clonedArgs), op, loc);
 }
 
 std::unique_ptr<ValueNode> ValueNode::clone() {
@@ -423,19 +427,19 @@ bool PositionalParamAppsNode::propagateExp(
 bool ExpressionNode::propagateExp(
     std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
   bool ret = true;
-  if (isValue) {
+  if (kind == EXPRESSION_KIND_VALUE) {
     if (auto *varNode = dynamic_cast<VariableValueNode *>(value.get())) {
       if (varExpMap.find(varNode->value) == varExpMap.end())
         return false;
       auto &constExp = varExpMap[varNode->value];
-      if (constExp->isValue) {
+      if (constExp->kind == EXPRESSION_KIND_VALUE) {
         value = constExp->value->clone();
       } else {
         value = nullptr;
-        isValue = false;
-        lhs = constExp->lhs->clone();
-        if (constExp->rhs)
-          rhs = constExp->rhs->clone();
+        kind = constExp->kind;
+        args.clear();
+        for (auto &arg : constExp->args)
+          args.push_back(arg->clone());
         op = constExp->op;
       }
     } else if (auto *listNode = dynamic_cast<ListValueNode *>(value.get())) {
@@ -452,9 +456,8 @@ bool ExpressionNode::propagateExp(
       customWeaponNode->paramApps->propagateExp(varExpMap);
     }
   } else {
-    ret &= lhs->propagateExp(varExpMap);
-    if (rhs)
-      ret &= rhs->propagateExp(varExpMap);
+    for (auto &arg : args)
+      ret &= arg->propagateExp(varExpMap);
   }
   return ret;
 }
@@ -564,206 +567,294 @@ bool NamedParamAppsNode::foldValue() { return expNode->foldValue(); }
 
 bool PositionalParamAppsNode::foldValue() { return expNode->foldValue(); }
 
-bool ExpressionNode::foldValue() {
-  if (isValue) {
-    bool ret = true;
-    auto valuePoint = dynamic_cast<PointValueNode *>(value.get());
-    auto valueActorMatch = dynamic_cast<ActorMatchValueNode *>(value.get());
-    auto valueButton = dynamic_cast<ButtonValueNode *>(value.get());
-    auto valueCustomWeapon = dynamic_cast<CustomWeaponValueNode *>(value.get());
-    auto valueList = dynamic_cast<ListValueNode *>(value.get());
-    if (valuePoint) {
-      ret &= valuePoint->x->foldValue();
-      ret &= valuePoint->y->foldValue();
-    } else if (valueList) {
-      for (auto &item : valueList->items)
-        ret &= item->foldValue();
-    } else if (valueActorMatch) {
-      ret &= valueActorMatch->paramApps->foldValue();
-    } else if (valueButton) {
-      ret &= valueButton->paramApps->foldValue();
-    } else if (valueCustomWeapon) {
-      ret &= valueCustomWeapon->paramApps->foldValue();
-    }
-    return ret;
+namespace {
+
+bool foldNestedValueNode(ValueNode *valueNode) {
+  bool ret = true;
+  auto valuePoint = dynamic_cast<PointValueNode *>(valueNode);
+  auto valueActorMatch = dynamic_cast<ActorMatchValueNode *>(valueNode);
+  auto valueButton = dynamic_cast<ButtonValueNode *>(valueNode);
+  auto valueCustomWeapon = dynamic_cast<CustomWeaponValueNode *>(valueNode);
+  auto valueList = dynamic_cast<ListValueNode *>(valueNode);
+  if (valuePoint) {
+    ret &= valuePoint->x->foldValue();
+    ret &= valuePoint->y->foldValue();
+  } else if (valueList) {
+    for (auto &item : valueList->items)
+      ret &= item->foldValue();
+  } else if (valueActorMatch) {
+    ret &= valueActorMatch->paramApps->foldValue();
+  } else if (valueButton) {
+    ret &= valueButton->paramApps->foldValue();
+  } else if (valueCustomWeapon) {
+    ret &= valueCustomWeapon->paramApps->foldValue();
   }
-  if (!lhs->foldValue() || !lhs->isValue)
+  return ret;
+}
+
+std::unique_ptr<ValueNode>
+foldUnaryIntrinsicValue(const ExpressionNode &arg, ExpOpType op) {
+  auto argStr = dynamic_cast<StringValueNode *>(arg.value.get());
+  auto argInt = dynamic_cast<IntValueNode *>(arg.value.get());
+  auto argBool = dynamic_cast<BoolValueNode *>(arg.value.get());
+  auto argList = dynamic_cast<ListValueNode *>(arg.value.get());
+  if (argStr) {
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_STRING)
+      return std::make_unique<StringValueNode>(argStr->value, argStr->loc);
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_INT) {
+      std::istringstream iss(argStr->value);
+      int res;
+      if (iss >> res)
+        return std::make_unique<IntValueNode>(res, argStr->loc);
+    }
+    if (op == EXP_OP_TYPE_INTRINSIC_GET_LENGTH)
+      return std::make_unique<IntValueNode>(argStr->value.length(),
+                                            argStr->loc);
+  }
+  if (argInt) {
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_STRING)
+      return std::make_unique<StringValueNode>(std::to_string(argInt->value),
+                                               argInt->loc);
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_INT)
+      return std::make_unique<IntValueNode>(argInt->value, argInt->loc);
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_BOOL)
+      return std::make_unique<BoolValueNode>(argInt->value, argInt->loc);
+  }
+  if (argBool) {
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_INT)
+      return std::make_unique<IntValueNode>(argBool->value, argBool->loc);
+    if (op == EXP_OP_TYPE_INTRINSIC_TO_BOOL)
+      return std::make_unique<BoolValueNode>(argBool->value, argBool->loc);
+  }
+  if (argList) {
+    if (op == EXP_OP_TYPE_INTRINSIC_GET_LENGTH)
+      return std::make_unique<IntValueNode>(argList->items.size(),
+                                            argList->loc);
+  }
+  return nullptr;
+}
+
+bool foldStringBinary(ExpressionNode &exp, StringValueNode *lhs,
+                      StringValueNode *rhs) {
+  if (exp.op == EXP_OP_TYPE_ADD) {
+    exp.value =
+        std::make_unique<StringValueNode>(lhs->value + rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value == rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_NOT_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value != rhs->value, lhs->loc);
+    return true;
+  }
+  return false;
+}
+
+bool foldIntBinary(ExpressionNode &exp, IntValueNode *lhs, IntValueNode *rhs) {
+  if (exp.op == EXP_OP_TYPE_ADD) {
+    exp.value = std::make_unique<IntValueNode>(lhs->value + rhs->value,
+                                               lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_SUB) {
+    exp.value = std::make_unique<IntValueNode>(lhs->value - rhs->value,
+                                               lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_MUL) {
+    exp.value = std::make_unique<IntValueNode>(lhs->value * rhs->value,
+                                               lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_DIV) {
+    exp.value = std::make_unique<IntValueNode>(lhs->value / rhs->value,
+                                               lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_MOD) {
+    exp.value = std::make_unique<IntValueNode>(lhs->value % rhs->value,
+                                               lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value == rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_NOT_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value != rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_LESS_THAN) {
+    exp.value = std::make_unique<BoolValueNode>(lhs->value < rhs->value,
+                                                lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_LESS_THAN_EQUAL) {
+    exp.value = std::make_unique<BoolValueNode>(lhs->value <= rhs->value,
+                                                lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_GREATER_THAN) {
+    exp.value = std::make_unique<BoolValueNode>(lhs->value > rhs->value,
+                                                lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_GREATER_THAN_EQUAL) {
+    exp.value = std::make_unique<BoolValueNode>(lhs->value >= rhs->value,
+                                                lhs->loc);
+    return true;
+  }
+  return false;
+}
+
+bool foldBoolBinary(ExpressionNode &exp, BoolValueNode *lhs,
+                    BoolValueNode *rhs) {
+  if (exp.op == EXP_OP_TYPE_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value == rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_NOT_EQUAL) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value != rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_AND) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value && rhs->value, lhs->loc);
+    return true;
+  }
+  if (exp.op == EXP_OP_TYPE_OR) {
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value || rhs->value, lhs->loc);
+    return true;
+  }
+  return false;
+}
+
+bool isUnaryIntrinsicOp(ExpOpType op) {
+  return op == EXP_OP_TYPE_INTRINSIC_TO_STRING ||
+         op == EXP_OP_TYPE_INTRINSIC_TO_INT ||
+         op == EXP_OP_TYPE_INTRINSIC_TO_BOOL ||
+         op == EXP_OP_TYPE_INTRINSIC_GET_LENGTH;
+}
+
+bool isBinaryIntrinsicOp(ExpOpType op) {
+  return op == EXP_OP_TYPE_INTRINSIC_GET_INDEX;
+}
+
+void finalizeFoldedExpression(ExpressionNode &exp) {
+  exp.kind = EXPRESSION_KIND_VALUE;
+  exp.args.clear();
+  exp.op = EXP_OP_TYPE_VOID;
+}
+
+bool foldIntrinsicExpression(ExpressionNode &exp) {
+  if (exp.args.empty())
     return false;
-  if (rhs && (!rhs->foldValue() || !rhs->isValue))
+
+  for (auto &arg : exp.args) {
+    if (!arg->foldValue() || arg->kind != EXPRESSION_KIND_VALUE)
+      return false;
+  }
+
+  // Binary intrinsic
+  if (isBinaryIntrinsicOp(exp.op)) {
+    if (exp.args.size() != 2)
+      return false;
+    auto *lhsList = dynamic_cast<ListValueNode *>(exp.args[0]->value.get());
+    auto *lhsStr = dynamic_cast<StringValueNode *>(exp.args[0]->value.get());
+    auto *rhsInt = dynamic_cast<IntValueNode *>(exp.args[1]->value.get());
+    if (!rhsInt)
+      return false;
+    const int idx = rhsInt->value;
+    if (idx < 0)
+      return false;
+
+    if (lhsList) {
+      if (static_cast<size_t>(idx) >= lhsList->items.size())
+        return false;
+      exp.value = lhsList->items.at(static_cast<size_t>(idx))->value->clone();
+      finalizeFoldedExpression(exp);
+      return true;
+    }
+    if (lhsStr) {
+      if (static_cast<size_t>(idx) >= lhsStr->value.size())
+        return false;
+      exp.value =
+          std::make_unique<StringValueNode>(lhsStr->value.substr(idx, 1),
+                                            lhsStr->loc);
+      finalizeFoldedExpression(exp);
+      return true;
+    }
     return false;
-  auto isAnd = op == EXP_OP_TYPE_AND;
-  auto isOr = op == EXP_OP_TYPE_OR;
-  auto isEqual = op == EXP_OP_TYPE_EQUAL;
-  auto isNotEqual = op == EXP_OP_TYPE_NOT_EQUAL;
-  auto isLessThan = op == EXP_OP_TYPE_LESS_THAN;
-  auto isLessThanEqual = op == EXP_OP_TYPE_LESS_THAN_EQUAL;
-  auto isGreaterThan = op == EXP_OP_TYPE_GREATER_THAN;
-  auto isGreaterThanEqual = op == EXP_OP_TYPE_GREATER_THAN_EQUAL;
-  auto isAdd = op == EXP_OP_TYPE_ADD;
-  auto isSub = op == EXP_OP_TYPE_SUB;
-  auto isMul = op == EXP_OP_TYPE_MUL;
-  auto isDiv = op == EXP_OP_TYPE_DIV;
-  auto isMod = op == EXP_OP_TYPE_MOD;
-  auto isToString = op == EXP_OP_TYPE_INTRINSIC_TO_STRING;
-  auto isToInt = op == EXP_OP_TYPE_INTRINSIC_TO_INT;
-  auto isToBool = op == EXP_OP_TYPE_INTRINSIC_TO_BOOL;
-  auto isGetIndex = op == EXP_OP_TYPE_INTRINSIC_GET_INDEX;
-  auto isGetLength = op == EXP_OP_TYPE_INTRINSIC_GET_LENGTH;
+  }
+
+  // Unary intrinsic
+  if (!isUnaryIntrinsicOp(exp.op) || exp.args.size() != 1)
+    return false;
+
+  auto foldedValue = foldUnaryIntrinsicValue(*exp.args[0], exp.op);
+  if (!foldedValue)
+    return false;
+  exp.value = std::move(foldedValue);
+  finalizeFoldedExpression(exp);
+  return true;
+}
+
+bool foldBinaryExpression(ExpressionNode &exp) {
+  if (exp.args.size() != 2)
+    return false;
+
+  auto &lhs = exp.args[0];
+  auto &rhs = exp.args[1];
+  if (!lhs->foldValue() || lhs->kind != EXPRESSION_KIND_VALUE)
+    return false;
+  if (!rhs->foldValue() || rhs->kind != EXPRESSION_KIND_VALUE)
+    return false;
 
   assert(lhs->value.get());
+  assert(rhs->value.get());
+
   auto lhsStr = dynamic_cast<StringValueNode *>(lhs->value.get());
   auto lhsInt = dynamic_cast<IntValueNode *>(lhs->value.get());
   auto lhsBool = dynamic_cast<BoolValueNode *>(lhs->value.get());
-  auto lhsList = dynamic_cast<ListValueNode *>(lhs->value.get());
-  auto rhsValue = rhs ? rhs->value.get() : nullptr;
-  auto rhsStr = dynamic_cast<StringValueNode *>(rhsValue);
-  auto rhsInt = dynamic_cast<IntValueNode *>(rhsValue);
-  auto rhsBool = dynamic_cast<BoolValueNode *>(rhsValue);
+  auto rhsStr = dynamic_cast<StringValueNode *>(rhs->value.get());
+  auto rhsInt = dynamic_cast<IntValueNode *>(rhs->value.get());
+  auto rhsBool = dynamic_cast<BoolValueNode *>(rhs->value.get());
+
   bool isFolded = false;
-  if (lhsStr && rhsStr) {
-    if (isAdd) {
-      value = std::make_unique<StringValueNode>(lhsStr->value + rhsStr->value,
-                                                lhsStr->loc);
-      isFolded = true;
-    } else if (isEqual) {
-      value = std::make_unique<BoolValueNode>(lhsStr->value == rhsStr->value,
-                                              lhsStr->loc);
-      isFolded = true;
-    } else if (isNotEqual) {
-      value = std::make_unique<BoolValueNode>(lhsStr->value != rhsStr->value,
-                                              lhsStr->loc);
-      isFolded = true;
-    }
-  } else if (lhsInt && rhsInt) {
-    if (isAdd) {
-      value = std::make_unique<IntValueNode>(lhsInt->value + rhsInt->value,
-                                             lhsInt->loc);
-      isFolded = true;
-    } else if (isSub) {
-      value = std::make_unique<IntValueNode>(lhsInt->value - rhsInt->value,
-                                             lhsInt->loc);
-      isFolded = true;
-    } else if (isMul) {
-      value = std::make_unique<IntValueNode>(lhsInt->value * rhsInt->value,
-                                             lhsInt->loc);
-      isFolded = true;
-    } else if (isDiv) {
-      value = std::make_unique<IntValueNode>(lhsInt->value / rhsInt->value,
-                                             lhsInt->loc);
-      isFolded = true;
-    } else if (isMod) {
-      value = std::make_unique<IntValueNode>(lhsInt->value % rhsInt->value,
-                                             lhsInt->loc);
-      isFolded = true;
-    } else if (isEqual) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value == rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    } else if (isNotEqual) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value != rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    } else if (isLessThan) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value < rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    } else if (isLessThanEqual) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value <= rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    } else if (isGreaterThan) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value > rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    } else if (isGreaterThanEqual) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value >= rhsInt->value,
-                                              lhsInt->loc);
-      isFolded = true;
-    }
-  } else if (lhsBool && rhsBool) {
-    if (isEqual) {
-      value = std::make_unique<BoolValueNode>(lhsBool->value == rhsBool->value,
-                                              lhsBool->loc);
-      isFolded = true;
-    } else if (isNotEqual) {
-      value = std::make_unique<BoolValueNode>(lhsBool->value != rhsBool->value,
-                                              lhsBool->loc);
-      isFolded = true;
-    } else if (isAnd) {
-      value = std::make_unique<BoolValueNode>(lhsBool->value && rhsBool->value,
-                                              lhsBool->loc);
-      isFolded = true;
-    } else if (isOr) {
-      value = std::make_unique<BoolValueNode>(lhsBool->value || rhsBool->value,
-                                              lhsBool->loc);
-      isFolded = true;
-    }
-  } else if (lhsList && rhsInt) {
-    if (isGetIndex) {
-      auto idx = rhsInt->value;
-      if (idx > 0 || idx < lhsList->items.size()) {
-        value = lhsList->items.at(idx)->value->clone();
-        isFolded = true;
-      }
-    }
-  } else if (lhsStr && rhsInt) {
-    if (isGetIndex) {
-      auto idx = rhsInt->value;
-      if (idx > 0 || idx < lhsStr->value.size()) {
-        value = std::make_unique<StringValueNode>(lhsStr->value.substr(idx, 1),
-                                                  lhsStr->loc);
-        isFolded = true;
-      }
-    }
-  } else if (lhsStr && !rhs) {
-    if (isToString) {
-      value = std::make_unique<StringValueNode>(lhsStr->value, lhsStr->loc);
-      isFolded = true;
-    } else if (isToInt) {
-      std::istringstream iss(lhsStr->value);
-      int res;
-      if (iss >> res) {
-        value = std::make_unique<IntValueNode>(res, lhsStr->loc);
-        isFolded = true;
-      }
-    } else if (isGetLength) {
-      value =
-          std::make_unique<IntValueNode>(lhsStr->value.length(), lhsStr->loc);
-      isFolded = true;
-    }
-  } else if (lhsInt && !rhs) {
-    if (isToString) {
-      value = std::make_unique<StringValueNode>(std::to_string(lhsInt->value),
-                                                lhsInt->loc);
-      isFolded = true;
-    } else if (isToInt) {
-      value = std::make_unique<IntValueNode>(lhsInt->value, lhsInt->loc);
-      isFolded = true;
-    } else if (isToBool) {
-      value = std::make_unique<BoolValueNode>(lhsInt->value, lhsInt->loc);
-      isFolded = true;
-    }
-  } else if (lhsBool && !rhs) {
-    if (isToInt) {
-      value = std::make_unique<IntValueNode>(lhsBool->value, lhsBool->loc);
-      isFolded = true;
-    } else if (isToBool) {
-      value = std::make_unique<BoolValueNode>(lhsBool->value, lhsBool->loc);
-      isFolded = true;
-    }
-  } else if (lhsList && !rhs) {
-    if (isGetLength) {
-      value =
-          std::make_unique<IntValueNode>(lhsList->items.size(), lhsList->loc);
-      isFolded = true;
-    }
-  }
-  if (isFolded) {
-    isValue = true;
-    lhs = nullptr;
-    rhs = nullptr;
-  }
+  if (lhsStr && rhsStr)
+    isFolded = foldStringBinary(exp, lhsStr, rhsStr);
+  else if (lhsInt && rhsInt)
+    isFolded = foldIntBinary(exp, lhsInt, rhsInt);
+  else if (lhsBool && rhsBool)
+    isFolded = foldBoolBinary(exp, lhsBool, rhsBool);
+
+  if (isFolded)
+    finalizeFoldedExpression(exp);
   return isFolded;
+}
+
+} // namespace
+
+bool ExpressionNode::foldValue() {
+  if (kind == EXPRESSION_KIND_VALUE)
+    return foldNestedValueNode(value.get());
+
+  if (kind == EXPRESSION_KIND_INTRINSIC)
+    return foldIntrinsicExpression(*this);
+
+  if (kind == EXPRESSION_KIND_EXPRESSION)
+    return foldBinaryExpression(*this);
+
+  return false;
 }
 
 //------------ hasUnresolvedValue ------------//
@@ -865,7 +956,7 @@ bool PositionalParamAppsNode::hasUnresolvedValue(std::set<std::string> except) {
 }
 
 bool ExpressionNode::hasUnresolvedValue(std::set<std::string> except) {
-  if (isValue) {
+  if (kind == EXPRESSION_KIND_VALUE) {
     if (auto varNode = dynamic_cast<VariableValueNode *>(value.get())) {
       if (except.count(varNode->value) > 0)
         return false;

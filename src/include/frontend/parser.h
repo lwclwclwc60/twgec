@@ -32,7 +32,8 @@ private:
   std::unique_ptr<ExpressionNode> parseExpRelational();
   std::unique_ptr<ExpressionNode> parseExpAdditive();
   std::unique_ptr<ExpressionNode> parseExpMultiplicative();
-  std::unique_ptr<ExpressionNode> parseExpPrimivite();
+  std::unique_ptr<ExpressionNode> parseExpIntrinsic();
+  std::unique_ptr<ExpressionNode> parseExpPrimary();
   std::unique_ptr<ValueNode> parseValue();
   // Helper function
   std::string parseScopedIdentifier(bool errorThrowing = true);

@@ -71,6 +71,12 @@ enum ExpOpType {
   EXP_OP_TYPE_INTRINSIC_GET_LENGTH,
 };
 
+enum ExpressionKind {
+  EXPRESSION_KIND_VALUE,
+  EXPRESSION_KIND_INTRINSIC,
+  EXPRESSION_KIND_EXPRESSION,
+};
+
 //------------ Global level definition ------------//
 class ModuleNode {
 public:
@@ -546,21 +552,27 @@ public:
 class ExpressionNode {
 public:
   // Variable
-  bool isValue;
+  ExpressionKind kind;
   std::unique_ptr<ValueNode> value;
-  std::unique_ptr<ExpressionNode> lhs;
+  std::vector<std::unique_ptr<ExpressionNode>> args;
   ExpOpType op;
-  std::unique_ptr<ExpressionNode> rhs;
   Location loc;
 
   // Constructor
   ExpressionNode(std::unique_ptr<ValueNode> value, Location loc)
-      : value(std::move(value)), op(EXP_OP_TYPE_VOID), loc(loc), isValue(true) {
+      : kind(EXPRESSION_KIND_VALUE), value(std::move(value)),
+        op(EXP_OP_TYPE_VOID), loc(loc) {}
+  ExpressionNode(std::unique_ptr<ExpressionNode> lhs,
+                 std::unique_ptr<ExpressionNode> rhs, ExpOpType op,
+                 Location loc)
+      : kind(EXPRESSION_KIND_EXPRESSION), op(op), loc(loc) {
+    args.push_back(std::move(lhs));
+    args.push_back(std::move(rhs));
   }
-  ExpressionNode(std::unique_ptr<ExpressionNode> lhs, ExpOpType op,
-                 std::unique_ptr<ExpressionNode> rhs, Location loc)
-      : lhs(std::move(lhs)), op(op), rhs(std::move(rhs)), loc(loc),
-        isValue(false) {}
+  ExpressionNode(std::vector<std::unique_ptr<ExpressionNode>> args,
+                 ExpOpType op, Location loc)
+      : kind(EXPRESSION_KIND_INTRINSIC), args(std::move(args)), op(op),
+        loc(loc) {}
 
   // Function
   std::unique_ptr<ExpressionNode> clone();
@@ -771,16 +783,20 @@ inline std::ostream &operator<<(std::ostream &os,
 
 inline std::ostream &operator<<(std::ostream &os,
                                 const ExpressionNode &expNode) {
-  if (expNode.isValue)
+  if (expNode.kind == EXPRESSION_KIND_VALUE)
     os << expNode.value->clone();
-  else if (!expNode.rhs)
-    os << expNode.op << "(" << *expNode.lhs.get() << ")";
-  else if (expNode.op == EXP_OP_TYPE_INTRINSIC_GET_INDEX)
-    os << expNode.op << "(" << *expNode.lhs.get() << ", " << *expNode.rhs.get()
-       << ")";
-  else
-    os << "(" << *expNode.lhs.get() << " " << expNode.op << " "
-       << *expNode.rhs.get() << ")";
+  else if (expNode.kind == EXPRESSION_KIND_EXPRESSION) {
+    os << "(" << *expNode.args[0].get() << " " << expNode.op << " "
+       << *expNode.args[1].get() << ")";
+  } else {
+    os << expNode.op << "(";
+    for (size_t i = 0; i < expNode.args.size(); ++i) {
+      os << *expNode.args[i].get();
+      if (i < expNode.args.size() - 1)
+        os << ", ";
+    }
+    os << ")";
+  }
   return os;
 }
 
