@@ -6057,6 +6057,2648 @@
             "triggers": []
         },
         {
+            "id": "移動生成101_100",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_now",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_0}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_0",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_1}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_1",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_2}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_2",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_3}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_3",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_4}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_4",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_5}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_5",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_6}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_6",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_7}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_7",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_8}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{instance.map_x}_{instance.map_y}",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_now}"
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "1+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "14+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "7+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "7+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "8+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "8+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "0+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_e",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "0+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_e",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "13+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "14+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "14+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "15+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "15+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "4+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "17+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "4+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "19+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_n",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
+                                "y": "19+{chunk_{map_to_chunk_101_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_n",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{instance.map_x}_{instance.map_y}",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_{chunk_available_stack_now}",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_now",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "23",
+                                "y": "23",
+                                "w": "1",
+                                "h": "1"
+                            }
+                        ],
+                        "exRegions": [],
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{map_used_{instance.map_x}_{instance.map_y}}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{instance.map_x}",
+                        "operator": "==",
+                        "value2": "101",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{instance.map_y}",
+                        "operator": "==",
+                        "value2": "100",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_0}",
+                        "operator": "!=",
+                        "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_now}",
+                        "operator": "==",
+                        "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動生成101_101",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_now",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_0}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_0",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_1}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_1",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_2}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_2",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_3}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_3",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_4}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_4",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_5}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_5",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_6}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_6",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_7}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_7",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_8}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{instance.map_x}_{instance.map_y}",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_now}"
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "0+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_s",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "0+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "shine3_s",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "2+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "6+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "6+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "1+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "10+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "11+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "17+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "16+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "19+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
+                                "y": "19+{chunk_{map_to_chunk_101_101}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{instance.map_x}_{instance.map_y}",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_{chunk_available_stack_now}",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_now",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "23",
+                                "y": "23",
+                                "w": "1",
+                                "h": "1"
+                            }
+                        ],
+                        "exRegions": [],
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{map_used_{instance.map_x}_{instance.map_y}}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{instance.map_x}",
+                        "operator": "==",
+                        "value2": "101",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{instance.map_y}",
+                        "operator": "==",
+                        "value2": "101",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_0}",
+                        "operator": "!=",
+                        "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_now}",
+                        "operator": "==",
+                        "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "可分配區域更新",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_0",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_1}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_1",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_2}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_2",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_3}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_3",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_4}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_4",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_5}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_5",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_6}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_6",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_7}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_7",
+                        "valueType": "integer",
+                        "value": "{chunk_available_stack_8}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_0}",
+                        "operator": "==",
+                        "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_available_stack_1}+{chunk_available_stack_2}+
+            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
+            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}",
+                        "operator": "!=",
+                        "value2": "-8",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
             "id": "地圖初始化",
             "disabled": false,
             "folder": "地圖",
@@ -6223,7 +8865,7 @@
                     "data": {
                         "key": "map_used_101_100",
                         "valueType": "integer",
-                        "value": "1"
+                        "value": "0"
                     }
                 },
                 {
@@ -6231,7 +8873,7 @@
                     "data": {
                         "key": "map_used_101_101",
                         "valueType": "integer",
-                        "value": "1"
+                        "value": "0"
                     }
                 },
                 {
@@ -6247,7 +8889,7 @@
                     "data": {
                         "key": "chunk_used_1",
                         "valueType": "integer",
-                        "value": "1"
+                        "value": "0"
                     }
                 },
                 {
@@ -6255,7 +8897,135 @@
                     "data": {
                         "key": "chunk_used_2",
                         "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_3",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_4",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_5",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_6",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_7",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_8",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_now",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_0",
+                        "valueType": "integer",
                         "value": "1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_1",
+                        "valueType": "integer",
+                        "value": "2"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_2",
+                        "valueType": "integer",
+                        "value": "3"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_3",
+                        "valueType": "integer",
+                        "value": "4"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_4",
+                        "valueType": "integer",
+                        "value": "5"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_5",
+                        "valueType": "integer",
+                        "value": "6"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_6",
+                        "valueType": "integer",
+                        "value": "7"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_7",
+                        "valueType": "integer",
+                        "value": "8"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "-1"
                     }
                 },
                 {
@@ -6264,22 +9034,6 @@
                         "key": "map_to_chunk_100_100",
                         "valueType": "integer",
                         "value": "0"
-                    }
-                },
-                {
-                    "type": "SetGlobal",
-                    "data": {
-                        "key": "map_to_chunk_101_100",
-                        "valueType": "integer",
-                        "value": "1"
-                    }
-                },
-                {
-                    "type": "SetGlobal",
-                    "data": {
-                        "key": "map_to_chunk_101_101",
-                        "valueType": "integer",
-                        "value": "2"
                     }
                 },
                 {
@@ -8180,2071 +10934,6 @@
                             {
                                 "x": "19+{chunk_{map_to_chunk_100_100}_x}",
                                 "y": "19+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "1+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "14+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "6+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "7+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "7+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "3+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "8+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "8+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "0+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_e",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "0+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_e",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "13+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "14+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "14+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "15+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "15+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "4+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "4+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "19+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "19+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_n",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_100}_x}",
-                                "y": "19+{chunk_{map_to_chunk_101_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_n",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "0+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_s",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "0+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "shine3_s",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "2+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "Console",
-                    "data": {
-                        "logType": "error",
-                        "text": "無效Object:.  ",
-                        "value": ""
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "3+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "4+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "5+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "6+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "6+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "1+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "7+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "8+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "9+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "10+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "11+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "12+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "4+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "13+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "5+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "6+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "12+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "14+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "16+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "2+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "11+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "17+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "7+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "10+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "18+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "18+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "8+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "19+{chunk_{map_to_chunk_101_101}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "9+{chunk_{map_to_chunk_101_101}_x}",
-                                "y": "19+{chunk_{map_to_chunk_101_101}_y}",
                                 "range": "0"
                             }
                         ],

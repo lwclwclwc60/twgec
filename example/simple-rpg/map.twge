@@ -57,7 +57,7 @@ const 地圖::新手村近郊101n101 = [
 " .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  .  . ",
-" .  .  .  . t00 .  .  . .  ************ .  .  .  .  .  .  . ",
+" .  .  .  . t00 .  .  .  . ************ .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  . ************ .  .  .  .  . *** . ",
 " .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  . *** . ",
 " .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  . t00 . ",
@@ -157,6 +157,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if(object == "ExW") {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
+        // TODO: support twge::assert(bool, string)
         print(text = "無效Object:" + object, type = "error");
     }
 }
@@ -166,10 +167,10 @@ def 地圖::生成地圖100n100(xOffset, yOffset) : actions {
     print(text = "yOffset:" + yOffset);
     for(map_row in 0...(twge::get_length(地圖::新手村100n100) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村100n100, map_row))/3 - 1)) {
-            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-            twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 0) + 
-            twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 1) + 
-            twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 2));
+            地圖::生成地圖配置(
+                twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
+                twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 0, map_col*3 + 2)
+            );
         }
     }
 }
@@ -177,10 +178,10 @@ def 地圖::生成地圖100n100(xOffset, yOffset) : actions {
 def 地圖::生成地圖101n100(xOffset, yOffset) : actions {
     for(map_row in 0...(twge::get_length(地圖::新手村近郊101n100) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n100, map_row))/3 - 1)) {
-            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-            twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 0) + 
-            twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 1) + 
-            twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 2));
+            地圖::生成地圖配置(
+                twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
+                twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 0, map_col*3 + 2)
+            );
         }
     }
 }
@@ -188,10 +189,10 @@ def 地圖::生成地圖101n100(xOffset, yOffset) : actions {
 def 地圖::生成地圖101n101(xOffset, yOffset) : actions {
     for(map_row in 0...(twge::get_length(地圖::新手村近郊101n101) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n101, map_row))/3 - 1)) {
-            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-            twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 0) + 
-            twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 1) + 
-            twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 2));
+            地圖::生成地圖配置(
+                twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
+                twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 0, map_col*3 + 2)
+            );
         }
     }
 }
@@ -334,6 +335,66 @@ block 地圖移動進入往下 = 地圖::移動進入泛型("下");
 block 地圖移動進入往左 = 地圖::移動進入泛型("左");
 block 地圖移動進入往右 = 地圖::移動進入泛型("右");
 
+def 地圖::移動生成泛型(map_x, map_y) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 1, region_w = 1, region_x = 23, region_y = 23);
+        比較數字(lhs = "{map_used_{instance.map_x}_{instance.map_y}}", op = "==", rhs = "0");
+        比較數字(lhs = "{instance.map_x}", op = "==", rhs = map_x);
+        比較數字(lhs = "{instance.map_y}", op = "==", rhs = map_y);
+        比較數字(lhs = "{chunk_available_stack_0}", op = "!=", rhs = -1);
+        比較數字(lhs = "{chunk_available_stack_now}", op = "==", rhs = -1);
+    }
+    actions {
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = "{chunk_available_stack_0}");
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = "{chunk_available_stack_2}");
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = "{chunk_available_stack_3}");
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = "{chunk_available_stack_4}");
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = "{chunk_available_stack_5}");
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = "{chunk_available_stack_6}");
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = "{chunk_available_stack_7}");
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+        儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
+        if(map_x == 101 && map_y == 100) {
+            地圖::生成地圖101n100("{chunk_{map_to_chunk_101_100}_x}", "{chunk_{map_to_chunk_101_100}_y}");
+        } else if(map_x == 101 && map_y == 101) {
+            地圖::生成地圖101n101("{chunk_{map_to_chunk_101_101}_x}", "{chunk_{map_to_chunk_101_101}_y}");
+        }
+        儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+
+block 移動生成101_100 = 地圖::移動生成泛型(101,100);
+block 移動生成101_101 = 地圖::移動生成泛型(101,101);
+
+block 可分配區域更新 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
+        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
+            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
+            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+    }
+    actions {
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = "{chunk_available_stack_2}");
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = "{chunk_available_stack_3}");
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = "{chunk_available_stack_4}");
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = "{chunk_available_stack_5}");
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = "{chunk_available_stack_6}");
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = "{chunk_available_stack_7}");
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+    }
+}
+
 // 實際地圖分為九個chunk，編號為
 // 0 | 1 | 2
 // 3 | 4 | 5
@@ -352,6 +413,7 @@ block 地圖移動進入往右 = 地圖::移動進入泛型("右");
 // chunk到map_x的映射: int -> chunk_to_map_x_{chunk_id}
 // chunk到map_y的映射: int -> chunk_to_map_y_{chunk_id}
 // chunk使用狀態: [0,1] -> chunk_used_{chunk_id}
+// 空閒chunk的stack: [1,8] -> chunk_available_stack_{stack_id}
 
 // map可往東走: const [0,1] -> map_{map_x}_{map_y}_ExE
 // map可往南走: const [0,1] -> map_{map_x}_{map_y}_ExS
@@ -386,19 +448,31 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_8_x", type = "int", value = 54);
         儲存全域變數(key = "chunk_8_y", type = "int", value = 54);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        儲存全域變數(key = "map_used_101_100", type = "int", value = 1);
-        儲存全域變數(key = "map_used_101_101", type = "int", value = 1);
+        儲存全域變數(key = "map_used_101_100", type = "int", value = 0);
+        儲存全域變數(key = "map_used_101_101", type = "int", value = 0);
         儲存全域變數(key = "chunk_used_0", type = "int", value = 1);
-        儲存全域變數(key = "chunk_used_1", type = "int", value = 1);
-        儲存全域變數(key = "chunk_used_2", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_3", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_4", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_5", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_6", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_7", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_8", type = "int", value = 0);
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = 1);
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = 2);
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = 3);
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = 4);
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = 5);
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = 6);
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = 7);
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
-        儲存全域變數(key = "map_to_chunk_101_100", type = "int", value = 1);
-        儲存全域變數(key = "map_to_chunk_101_101", type = "int", value = 2);
         地圖::儲存地圖變量(100, 100, 地圖::新手村100n100);
         地圖::儲存地圖變量(101, 100, 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(101, 101, 地圖::新手村近郊101n101);
         地圖::生成地圖100n100("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}");
-        地圖::生成地圖101n100("{chunk_{map_to_chunk_101_100}_x}", "{chunk_{map_to_chunk_101_100}_y}");
-        地圖::生成地圖101n101("{chunk_{map_to_chunk_101_101}_x}", "{chunk_{map_to_chunk_101_101}_y}");
     }
 }
