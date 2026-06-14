@@ -1,3 +1,4 @@
+// OPTION: --stack-trace
 def testInt(v) : actions {
     actorTalk(duration = v);
 }

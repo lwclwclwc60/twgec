@@ -9,6 +9,7 @@ struct Option {
   bool printToken = false;
   bool printASTBefore = false;
   bool printASTAfter = false;
+  bool stackTrace = false;
   bool help = false;
   std::vector<std::string> runOnly = {};
   std::string argFilePath = "";
@@ -26,6 +27,8 @@ inline Option parseCommand(int argc, char *argv[]) {
       option.printASTBefore = true;
     } else if (std::string(argv[i]) == "--print-ast-after") {
       option.printASTAfter = true;
+    } else if (std::string(argv[i]) == "--stack-trace") {
+      option.stackTrace = true;
     } else if (std::string(argv[i]).substr(0, 11) == "--run-only=") {
       std::string token;
       std::stringstream ss(std::string(argv[i]).substr(11));

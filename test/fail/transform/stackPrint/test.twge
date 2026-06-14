@@ -1,3 +1,4 @@
+// OPTION: --stack-trace
 #include "utils.twge"
 
 def 自定義::點擊提升能力泛型(type, value) : block {

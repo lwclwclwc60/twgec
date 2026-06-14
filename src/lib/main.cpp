@@ -4,10 +4,12 @@
 #include "frontend/preprocessor.h"
 #include "option/option.h"
 #include "transform/transform.h"
+#include "utils/location.h"
 #include <fstream>
 
 int main(int argc, char *argv[]) {
   Option option = parseCommand(argc, argv);
+  Location::setStackTraceEnabled(option.stackTrace);
   if (option.argFilePath == "")
     return 0;
 

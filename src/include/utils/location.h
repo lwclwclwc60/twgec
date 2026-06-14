@@ -25,12 +25,27 @@ struct Location {
   Location(std::string filename, int line, int column)
       : filename(filename), line(line), column(column) {}
 
+  static bool &stackTraceEnabledFlag() {
+    static bool enabled = false;
+    return enabled;
+  }
+
+  static void setStackTraceEnabled(bool enabled) {
+    stackTraceEnabledFlag() = enabled;
+  }
+
+  static bool isStackTraceEnabled() { return stackTraceEnabledFlag(); }
+
   void pushCallFrame(const std::string &symbol, const Location &callSite) {
+    if (!isStackTraceEnabled())
+      return;
     callFrames.emplace_back(symbol, callSite.filename, callSite.line,
                             callSite.column);
   }
 
   void printCallTrace(std::ostream &os) const {
+    if (!isStackTraceEnabled())
+      return;
     os << "# frame 0: " << ownerSymbol << " at " << filename << ":" << line
        << ":" << column << "\n";
     int frameNo = 1;

@@ -8,6 +8,10 @@
 namespace {
 void syncTrace(Location &loc,
                const std::vector<std::shared_ptr<const std::vector<CallFrame>>> &traces) {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   std::optional<std::vector<CallFrame>> best;
   if (!loc.callFrames.empty())
     best = loc.callFrames;
@@ -288,6 +292,8 @@ std::unique_ptr<ExpressionNode> ExpressionNode::clone() {
 
 void ExpressionNode::appendCallFrame(const std::string &symbol,
                                      const Location &callSite) {
+  if (!Location::isStackTraceEnabled())
+    return;
   loc.pushCallFrame(symbol, callSite);
   if (kind == EXPRESSION_KIND_VALUE && value)
     value->loc.pushCallFrame(symbol, callSite);
@@ -297,6 +303,8 @@ void ExpressionNode::appendCallFrame(const std::string &symbol,
 }
 
 void ExpressionNode::appendCallFrames(const std::vector<CallFrame> &frames) {
+  if (!Location::isStackTraceEnabled())
+    return;
   for (const auto &frame : frames)
     loc.callFrames.push_back(frame);
   if (value)
@@ -321,6 +329,10 @@ std::unique_ptr<ValueNode> ListValueNode::clone() {
 }
 
 void ListValueNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   for (auto &item : items)
     item->refreshTrace();
   syncTrace(loc, {});
@@ -333,6 +345,10 @@ std::unique_ptr<ValueNode> PointValueNode::clone() {
 }
 
 void PointValueNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   x->refreshTrace();
   y->refreshTrace();
   syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(x->loc.callFrames),
@@ -344,6 +360,10 @@ std::unique_ptr<ValueNode> ActorMatchValueNode::clone() {
 }
 
 void ActorMatchValueNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   paramApps->refreshTrace();
   syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
 }
@@ -353,6 +373,10 @@ std::unique_ptr<ValueNode> ButtonValueNode::clone() {
 }
 
 void ButtonValueNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   paramApps->refreshTrace();
   syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
 }
@@ -362,6 +386,10 @@ std::unique_ptr<ValueNode> CustomWeaponValueNode::clone() {
 }
 
 void CustomWeaponValueNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   paramApps->refreshTrace();
   syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
 }
@@ -944,6 +972,10 @@ bool ExpressionNode::foldValue() {
 }
 
 void NamedParamAppsNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   if (expNode)
     expNode->refreshTrace();
   syncTrace(loc, {expNode ? std::make_shared<const std::vector<CallFrame>>(expNode->loc.callFrames)
@@ -951,6 +983,10 @@ void NamedParamAppsNode::refreshTrace() {
 }
 
 void PositionalParamAppsNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   if (expNode)
     expNode->refreshTrace();
   syncTrace(loc, {expNode ? std::make_shared<const std::vector<CallFrame>>(expNode->loc.callFrames)
@@ -969,6 +1005,10 @@ void ParamAppsNode::addPositionalArg(
 }
 
 void ParamAppsNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   for (auto &namedArg : named_args)
     namedArg->refreshTrace();
   for (auto &positionalArg : positional_args)
@@ -981,6 +1021,10 @@ void ParamAppsNode::refreshTrace() {
 }
 
 void ExpressionNode::refreshTrace() {
+  if (!Location::isStackTraceEnabled()) {
+    loc.callFrames.clear();
+    return;
+  }
   if (value)
     value->refreshTrace();
   for (auto &arg : args)

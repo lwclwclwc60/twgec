@@ -1,20 +1,20 @@
 Compilation Error: Found unresolvable expression `("{instance." + ("STR" + ("} + " + 1)))` at test/fail/transform/stackPrint/utils.twge:2:70
 # frame 0: 儲存物件變數 at test/fail/transform/stackPrint/utils.twge:2:70
-# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:6:9
-# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:10:18
+# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:7:9
+# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:11:18
 Compilation Error: Found unresolvable expression `("{instance." + ("CON" + ("} + " + 1)))` at test/fail/transform/stackPrint/utils.twge:2:70
 # frame 0: 儲存物件變數 at test/fail/transform/stackPrint/utils.twge:2:70
-# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:6:9
-# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:11:18
+# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:7:9
+# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:12:18
 Compilation Error: Found unresolvable expression `("{instance." + ("AGI" + ("} + " + 1)))` at test/fail/transform/stackPrint/utils.twge:2:70
 # frame 0: 儲存物件變數 at test/fail/transform/stackPrint/utils.twge:2:70
-# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:6:9
-# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:12:18
+# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:7:9
+# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:13:18
 Compilation Error: Found unresolvable expression `("{instance." + ("INT" + ("} + " + 1)))` at test/fail/transform/stackPrint/utils.twge:2:70
 # frame 0: 儲存物件變數 at test/fail/transform/stackPrint/utils.twge:2:70
-# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:6:9
-# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:13:18
+# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:7:9
+# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:14:18
 Compilation Error: Found unresolvable expression `("{instance." + ("PSY" + ("} + " + 1)))` at test/fail/transform/stackPrint/utils.twge:2:70
 # frame 0: 儲存物件變數 at test/fail/transform/stackPrint/utils.twge:2:70
-# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:6:9
-# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:14:18
+# frame 1: 自定義::儲存Instance整數 at test/fail/transform/stackPrint/test.twge:7:9
+# frame 2: 自定義::點擊提升能力泛型 at test/fail/transform/stackPrint/test.twge:15:18
