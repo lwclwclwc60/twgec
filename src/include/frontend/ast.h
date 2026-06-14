@@ -41,6 +41,9 @@ class PointValueNode;
 class StringValueNode;
 class VariableValueNode;
 
+using ExpressionMap = std::map<std::string, std::unique_ptr<ExpressionNode>>;
+using SymbolSet = std::set<std::string>;
+
 //------------ Enumeration definition ------------//
 enum FunDefType {
   FUN_DEF_TYPE_INVALID,
@@ -77,104 +80,114 @@ enum ExpressionKind {
   EXPRESSION_KIND_EXPRESSION,
 };
 
-//------------ Global level definition ------------//
-class ModuleNode {
+class ASTNode {
 public:
-  // Variable
   Location loc;
+
+  ASTNode(Location loc) : loc(loc) {}
+  virtual ~ASTNode() = default;
+
+  virtual void print(int indent = 0) {}
+  virtual bool propagateExp(ExpressionMap &) {
+    return true;
+  }
+  virtual bool foldValue() { return true; }
+  virtual bool hasUnresolvedValue(SymbolSet except = {}) {
+    return false;
+  }
+  virtual void refreshTrace() {}
+};
+
+//------------ Global level definition ------------//
+class ModuleNode : public ASTNode {
+public:
   std::vector<std::unique_ptr<MetadataNode>> metadatas;
   std::vector<std::unique_ptr<BlockNode>> blocks;
   std::vector<std::unique_ptr<FunDefNode>> funDefs;
   std::vector<std::unique_ptr<ConstDefNode>> constDefs;
 
   // Constructor
-  ModuleNode(Location loc) : loc(loc) {}
+  ModuleNode(Location loc) : ASTNode(loc) {}
 
   // Function
   void print(std::string title, int indent = 0);
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class MetadataNode {
+class MetadataNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string key;
   std::unique_ptr<ExpressionNode> expNode;
 
   // Constructor
   MetadataNode(std::string key, std::unique_ptr<ExpressionNode> expNode,
                Location loc)
-      : key(key), expNode(std::move(expNode)), loc(loc) {}
+      : ASTNode(loc), key(key), expNode(std::move(expNode)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<MetadataNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class FunDefNode {
+class FunDefNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string identifier;
   std::vector<std::string> params;
   std::unique_ptr<TypedInstrSetNode> typedInstrSet;
   std::unique_ptr<BlockBodyNode> blockBody;
 
   // Constructor
-  FunDefNode(const std::string &id, Location loc) : identifier(id), loc(loc) {}
+  FunDefNode(const std::string &id, Location loc)
+      : ASTNode(loc), identifier(id) {}
   FunDefNode(const std::string &id, Location loc,
              std::unique_ptr<TypedInstrSetNode> typedInstrSet)
-      : identifier(id), loc(loc), typedInstrSet(std::move(typedInstrSet)) {}
+      : ASTNode(loc), identifier(id), typedInstrSet(std::move(typedInstrSet)) {}
   FunDefNode(const std::string &id, Location loc,
              std::unique_ptr<BlockBodyNode> blockBody)
-      : identifier(id), loc(loc), blockBody(std::move(blockBody)) {}
+      : ASTNode(loc), identifier(id), blockBody(std::move(blockBody)) {}
 
   // Function
   void print(int indent = 0);
   std::unique_ptr<FunDefNode> clone();
 };
 
-class BlockNode {
+class BlockNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string identifier;
   std::unique_ptr<BlockBodyNode> blockBody;
   std::unique_ptr<InstructionNode> blockConstructor;
 
   // Constructor
-  BlockNode(const std::string &id, Location loc) : identifier(id), loc(loc) {}
+  BlockNode(const std::string &id, Location loc)
+      : ASTNode(loc), identifier(id) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<BlockNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class BlockBodyNode {
+class BlockBodyNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::vector<std::unique_ptr<MetadataNode>> metadatas;
   std::vector<std::unique_ptr<TypedInstrSetNode>> typedInstrSets;
 
   // Constructor
-  BlockBodyNode(Location loc) : loc(loc) {}
+  BlockBodyNode(Location loc) : ASTNode(loc) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<BlockBodyNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
   void setActionsIdx(int idx) { actionsIdx = idx; };
   void setChecksIdx(int idx) { checksIdx = idx; };
   void setTriggersIdx(int idx) { triggersIdx = idx; };
@@ -194,17 +207,15 @@ private:
   int triggersIdx = -1;
 };
 
-class ConstDefNode {
+class ConstDefNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string key;
   std::unique_ptr<ExpressionNode> expNode;
 
   // Constructor
   ConstDefNode(std::string key, std::unique_ptr<ExpressionNode> expNode,
                Location loc)
-      : key(key), expNode(std::move(expNode)), loc(loc) {}
+      : ASTNode(loc), key(key), expNode(std::move(expNode)) {}
 
   // Function
   void print(int indent = 0);
@@ -212,92 +223,82 @@ public:
 };
 
 //------------ Instruction Set level definition ------------//
-class TypedInstrSetNode {
+class TypedInstrSetNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   FunDefType type;
   std::unique_ptr<InstrSetNode> instrSet;
 
   // Constructor
   TypedInstrSetNode(Location loc, FunDefType type = FUN_DEF_TYPE_INVALID)
-      : loc(loc), type(type), instrSet(std::make_unique<InstrSetNode>(loc)) {}
+      : ASTNode(loc), type(type), instrSet(std::make_unique<InstrSetNode>(loc)) {}
   TypedInstrSetNode(Location loc, FunDefType type,
                     std::unique_ptr<InstrSetNode> instrSet)
-      : loc(loc), type(type), instrSet(std::move(instrSet)) {}
+      : ASTNode(loc), type(type), instrSet(std::move(instrSet)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<TypedInstrSetNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class InstrSetNode {
+class InstrSetNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::vector<std::unique_ptr<CompositeInstrNode>> instructions;
 
   // Constructor
-  InstrSetNode(Location loc) : loc(loc) {}
+  InstrSetNode(Location loc) : ASTNode(loc) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<InstrSetNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class CompositeInstrNode {
+class CompositeInstrNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::unique_ptr<InstructionNode> instruction;
   std::unique_ptr<BranchNode> branchNode;
   std::unique_ptr<ForNode> forNode;
 
   // Constructor
-  CompositeInstrNode(Location loc) : loc(loc) {}
+  CompositeInstrNode(Location loc) : ASTNode(loc) {}
   CompositeInstrNode(Location loc, std::unique_ptr<InstructionNode> instruction)
-      : loc(loc), instruction(std::move(instruction)) {}
+    : ASTNode(loc), instruction(std::move(instruction)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<BranchNode> branchNode)
-      : loc(loc), branchNode(std::move(branchNode)) {}
+    : ASTNode(loc), branchNode(std::move(branchNode)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<ForNode> forNode)
-      : loc(loc), forNode(std::move(forNode)) {}
+    : ASTNode(loc), forNode(std::move(forNode)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<CompositeInstrNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class BranchNode {
+class BranchNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::vector<std::unique_ptr<IfRegionNode>> ifRegions;
   std::unique_ptr<InstrSetNode> elseRegion;
 
   // Constructor
-  BranchNode(Location loc) : loc(loc) {}
+  BranchNode(Location loc) : ASTNode(loc) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<BranchNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class ForNode {
+class ForNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string iterArg;
   std::unique_ptr<ExpressionNode> listExp;
   std::unique_ptr<ExpressionNode> fromExp;
@@ -308,139 +309,127 @@ public:
   ForNode(std::string iterArg, std::unique_ptr<ExpressionNode> fromExp,
           std::unique_ptr<ExpressionNode> toExp,
           std::unique_ptr<InstrSetNode> region, Location loc)
-      : loc(loc), iterArg(iterArg), fromExp(std::move(fromExp)),
+      : ASTNode(loc), iterArg(iterArg), fromExp(std::move(fromExp)),
         toExp(std::move(toExp)), region(std::move(region)) {}
   // List Semantics Constructor `for i in list`
   ForNode(std::string iterArg, std::unique_ptr<ExpressionNode> listExp,
           std::unique_ptr<InstrSetNode> region, Location loc)
-      : loc(loc), iterArg(iterArg), listExp(std::move(listExp)),
+      : ASTNode(loc), iterArg(iterArg), listExp(std::move(listExp)),
         region(std::move(region)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<ForNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class IfRegionNode {
+class IfRegionNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::unique_ptr<ExpressionNode> condition;
   std::unique_ptr<InstrSetNode> region;
 
   // Constructor
   IfRegionNode(std::unique_ptr<ExpressionNode> condition,
                std::unique_ptr<InstrSetNode> region, Location loc)
-      : condition(std::move(condition)), region(std::move(region)), loc(loc) {}
+    : ASTNode(loc), condition(std::move(condition)),
+      region(std::move(region)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<IfRegionNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
 //------------ Instruction level definition ------------//
-class InstructionNode {
+class InstructionNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string identifier;
   std::unique_ptr<ParamAppsNode> paramApps;
 
   // Constructor
   InstructionNode(std::string identifier,
                   std::unique_ptr<ParamAppsNode> paramApps, Location loc)
-      : identifier(identifier), paramApps(std::move(paramApps)), loc(loc) {}
+      : ASTNode(loc), identifier(identifier), paramApps(std::move(paramApps)) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<InstructionNode> clone();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class ParamAppsNode {
+class ParamAppsNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::vector<std::unique_ptr<PositionalParamAppsNode>> positional_args;
   std::vector<std::unique_ptr<NamedParamAppsNode>> named_args;
 
   // Constructor
-  ParamAppsNode(Location loc) : loc(loc) {}
+  ParamAppsNode(Location loc) : ASTNode(loc) {}
 
   // Function
-  void print(int indent = 0);
+  void print(int indent = 0) override;
   std::unique_ptr<ParamAppsNode> clone();
   void addNamedArg(std::unique_ptr<NamedParamAppsNode> namedArg);
   void addPositionalArg(std::unique_ptr<PositionalParamAppsNode> positionalArg);
-  void refreshTrace();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  void refreshTrace() override;
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class NamedParamAppsNode {
+class NamedParamAppsNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::string key;
   std::unique_ptr<ExpressionNode> expNode;
 
   // Constructor
   NamedParamAppsNode(const std::string &key,
                      std::unique_ptr<ExpressionNode> &expNode, Location loc)
-      : key(key), expNode(std::move(expNode)), loc(loc) {
+      : ASTNode(loc), key(key), expNode(std::move(expNode)) {
     refreshTrace();
   }
 
   // Function
   std::unique_ptr<NamedParamAppsNode> clone();
-  void refreshTrace();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  void refreshTrace() override;
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
-class PositionalParamAppsNode {
+class PositionalParamAppsNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
   std::unique_ptr<ExpressionNode> expNode;
 
   // Constructor
   PositionalParamAppsNode(std::unique_ptr<ExpressionNode> &expNode,
                           Location loc)
-      : expNode(std::move(expNode)), loc(loc) {
+      : ASTNode(loc), expNode(std::move(expNode)) {
     refreshTrace();
   }
 
   // Function
   std::unique_ptr<PositionalParamAppsNode> clone();
-  void refreshTrace();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  void refreshTrace() override;
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
 //------------ Expression level definition ------------//
-class ValueNode {
+class ValueNode : public ASTNode {
 public:
-  // Variable
-  Location loc;
-
   // Constructor
-  ValueNode(Location loc) : loc(loc) {}
+  ValueNode(Location loc) : ASTNode(loc) {}
 
   // Function
   virtual std::unique_ptr<ValueNode> clone();
-  virtual void refreshTrace() {}
+  void refreshTrace() override {}
 };
 
 class ActorMatchValueNode : public ValueNode {
@@ -456,7 +445,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
-  void refreshTrace();
+  void refreshTrace() override;
 };
 
 class ButtonValueNode : public ValueNode {
@@ -472,7 +461,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
-  void refreshTrace();
+  void refreshTrace() override;
 };
 
 class CustomWeaponValueNode : public ValueNode {
@@ -488,7 +477,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
-  void refreshTrace();
+  void refreshTrace() override;
 };
 
 class BoolValueNode : public ValueNode {
@@ -527,7 +516,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
-  void refreshTrace();
+  void refreshTrace() override;
 };
 
 class PointValueNode : public ValueNode {
@@ -545,7 +534,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
-  void refreshTrace();
+  void refreshTrace() override;
 };
 
 class StringValueNode : public ValueNode {
@@ -574,33 +563,32 @@ public:
   std::unique_ptr<ValueNode> clone();
 };
 
-class ExpressionNode {
+class ExpressionNode : public ASTNode {
 public:
   // Variable
   ExpressionKind kind;
   std::unique_ptr<ValueNode> value;
   std::vector<std::unique_ptr<ExpressionNode>> args;
   ExpOpType op;
-  Location loc;
 
   // Constructor
   ExpressionNode(std::unique_ptr<ValueNode> value, Location loc)
       : kind(EXPRESSION_KIND_VALUE), value(std::move(value)),
-        op(EXP_OP_TYPE_VOID), loc(loc) {
+        op(EXP_OP_TYPE_VOID), ASTNode(loc) {
     refreshTrace();
   }
   ExpressionNode(std::unique_ptr<ExpressionNode> lhs,
                  std::unique_ptr<ExpressionNode> rhs, ExpOpType op,
                  Location loc)
-      : kind(EXPRESSION_KIND_EXPRESSION), op(op), loc(loc) {
+      : ASTNode(loc), kind(EXPRESSION_KIND_EXPRESSION), op(op) {
     args.push_back(std::move(lhs));
     args.push_back(std::move(rhs));
     refreshTrace();
   }
   ExpressionNode(std::vector<std::unique_ptr<ExpressionNode>> args,
                  ExpOpType op, Location loc)
-      : kind(EXPRESSION_KIND_INTRINSIC), args(std::move(args)), op(op),
-        loc(loc) {
+      : ASTNode(loc), kind(EXPRESSION_KIND_INTRINSIC),
+        args(std::move(args)), op(op) {
     refreshTrace();
   }
 
@@ -608,10 +596,10 @@ public:
   std::unique_ptr<ExpressionNode> clone();
   void appendCallFrame(const std::string &symbol, const Location &callSite);
   void appendCallFrames(const std::vector<CallFrame> &frames);
-  void refreshTrace();
-  bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
-  bool foldValue();
-  bool hasUnresolvedValue(std::set<std::string> except = {});
+  void refreshTrace() override;
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
 };
 
 //------------ operator<< ------------//
@@ -703,53 +691,53 @@ inline std::ostream &operator<<(std::ostream &os, ExpOpType type) {
   return os;
 }
 
-inline std::ostream &operator<<(std::ostream &os,
-                                std::unique_ptr<ValueNode> valueNode) {
-  if (auto stringNode = dynamic_cast<StringValueNode *>(valueNode.get())) {
+inline std::ostream &printValueNode(std::ostream &os, const ValueNode *valueNode) {
+  if (!valueNode)
+    return os;
+  if (auto stringNode = dynamic_cast<const StringValueNode *>(valueNode)) {
     os << "\"" << stringNode->value << "\"";
-  } else if (auto intNode = dynamic_cast<IntValueNode *>(valueNode.get())) {
+  } else if (auto intNode = dynamic_cast<const IntValueNode *>(valueNode)) {
     os << intNode->value;
-  } else if (auto boolNode = dynamic_cast<BoolValueNode *>(valueNode.get())) {
+  } else if (auto boolNode = dynamic_cast<const BoolValueNode *>(valueNode)) {
     os << (boolNode->value ? "true" : "false");
-  } else if (auto varNode =
-                 dynamic_cast<VariableValueNode *>(valueNode.get())) {
+  } else if (auto varNode = dynamic_cast<const VariableValueNode *>(valueNode)) {
     os << varNode->value;
-  } else if (auto ptNode = dynamic_cast<PointValueNode *>(valueNode.get())) {
-    os << "Point(" << *(ptNode->x.get()) << "," << *(ptNode->y.get()) << ")";
+  } else if (auto ptNode = dynamic_cast<const PointValueNode *>(valueNode)) {
+    os << "Point(" << *ptNode->x << "," << *ptNode->y << ")";
   } else if (auto actorMatchNode =
-                 dynamic_cast<ActorMatchValueNode *>(valueNode.get())) {
+                 dynamic_cast<const ActorMatchValueNode *>(valueNode)) {
     os << "ActorMatch(";
-    for (auto i = 0; i < actorMatchNode->paramApps->named_args.size(); i++) {
+    for (size_t i = 0; i < actorMatchNode->paramApps->named_args.size(); i++) {
       os << actorMatchNode->paramApps->named_args[i]->key << " = "
-         << *actorMatchNode->paramApps->named_args[i]->expNode.get();
+         << *actorMatchNode->paramApps->named_args[i]->expNode;
       if (i != actorMatchNode->paramApps->named_args.size() - 1)
         os << ", ";
     }
     os << ")";
   } else if (auto buttonNode =
-                 dynamic_cast<ButtonValueNode *>(valueNode.get())) {
+                 dynamic_cast<const ButtonValueNode *>(valueNode)) {
     os << "Button(";
-    for (auto i = 0; i < buttonNode->paramApps->named_args.size(); i++) {
+    for (size_t i = 0; i < buttonNode->paramApps->named_args.size(); i++) {
       os << buttonNode->paramApps->named_args[i]->key << " = "
-         << *buttonNode->paramApps->named_args[i]->expNode.get();
+         << *buttonNode->paramApps->named_args[i]->expNode;
       if (i != buttonNode->paramApps->named_args.size() - 1)
         os << ", ";
     }
     os << ")";
   } else if (auto customWeaponNode =
-                 dynamic_cast<CustomWeaponValueNode *>(valueNode.get())) {
+                 dynamic_cast<const CustomWeaponValueNode *>(valueNode)) {
     os << "CustomWeapon(";
-    for (auto i = 0; i < customWeaponNode->paramApps->named_args.size(); i++) {
+    for (size_t i = 0; i < customWeaponNode->paramApps->named_args.size(); i++) {
       os << customWeaponNode->paramApps->named_args[i]->key << " = "
-         << *customWeaponNode->paramApps->named_args[i]->expNode.get();
+         << *customWeaponNode->paramApps->named_args[i]->expNode;
       if (i != customWeaponNode->paramApps->named_args.size() - 1)
         os << ", ";
     }
     os << ")";
-  } else if (auto listNode = dynamic_cast<ListValueNode *>(valueNode.get())) {
+  } else if (auto listNode = dynamic_cast<const ListValueNode *>(valueNode)) {
     os << "[";
-    for (auto i = 0; i < listNode->items.size(); i++) {
-      os << *(listNode->items[i]->clone().get());
+    for (size_t i = 0; i < listNode->items.size(); i++) {
+      os << *(listNode->items[i]);
       if (i != listNode->items.size() - 1)
         os << ",";
     }
@@ -758,60 +746,14 @@ inline std::ostream &operator<<(std::ostream &os,
   return os;
 }
 
-// TODO: Unify it with the unique_ptr
+inline std::ostream &operator<<(std::ostream &os,
+                                std::unique_ptr<ValueNode> valueNode) {
+  return printValueNode(os, valueNode.get());
+}
+
 inline std::ostream &operator<<(std::ostream &os,
                                 std::shared_ptr<ValueNode> valueNode) {
-  if (auto stringNode = dynamic_cast<StringValueNode *>(valueNode.get())) {
-    os << "\"" << stringNode->value << "\"";
-  } else if (auto intNode = dynamic_cast<IntValueNode *>(valueNode.get())) {
-    os << intNode->value;
-  } else if (auto boolNode = dynamic_cast<BoolValueNode *>(valueNode.get())) {
-    os << (boolNode->value ? "true" : "false");
-  } else if (auto varNode =
-                 dynamic_cast<VariableValueNode *>(valueNode.get())) {
-    os << varNode->value;
-  } else if (auto ptNode = dynamic_cast<PointValueNode *>(valueNode.get())) {
-    os << "Point(" << *(ptNode->x.get()) << "," << *(ptNode->y.get()) << ")";
-  } else if (auto actorMatchNode =
-                 dynamic_cast<ActorMatchValueNode *>(valueNode.get())) {
-    os << "ActorMatch(";
-    for (auto i = 0; i < actorMatchNode->paramApps->named_args.size(); i++) {
-      os << actorMatchNode->paramApps->named_args[i]->key << " = "
-         << *actorMatchNode->paramApps->named_args[i]->expNode.get();
-      if (i != actorMatchNode->paramApps->named_args.size() - 1)
-        os << ", ";
-    }
-    os << ")";
-  } else if (auto buttonNode =
-                 dynamic_cast<ButtonValueNode *>(valueNode.get())) {
-    os << "Button(";
-    for (auto i = 0; i < buttonNode->paramApps->named_args.size(); i++) {
-      os << buttonNode->paramApps->named_args[i]->key << " = "
-         << *buttonNode->paramApps->named_args[i]->expNode.get();
-      if (i != buttonNode->paramApps->named_args.size() - 1)
-        os << ", ";
-    }
-    os << ")";
-  } else if (auto customWeaponNode =
-                 dynamic_cast<CustomWeaponValueNode *>(valueNode.get())) {
-    os << "CustomWeapon(";
-    for (auto i = 0; i < customWeaponNode->paramApps->named_args.size(); i++) {
-      os << customWeaponNode->paramApps->named_args[i]->key << " = "
-         << *customWeaponNode->paramApps->named_args[i]->expNode.get();
-      if (i != customWeaponNode->paramApps->named_args.size() - 1)
-        os << ", ";
-    }
-    os << ")";
-  } else if (auto listNode = dynamic_cast<ListValueNode *>(valueNode.get())) {
-    os << "[";
-    for (auto i = 0; i < listNode->items.size(); i++) {
-      os << *(listNode->items[i]->clone().get());
-      if (i != listNode->items.size() - 1)
-        os << ",";
-    }
-    os << "]";
-  }
-  return os;
+  return printValueNode(os, valueNode.get());
 }
 
 inline std::ostream &operator<<(std::ostream &os,
