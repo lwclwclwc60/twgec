@@ -72,6 +72,7 @@ enum ExpOpType {
   EXP_OP_TYPE_INTRINSIC_TO_BOOL,
   EXP_OP_TYPE_INTRINSIC_GET_INDEX,
   EXP_OP_TYPE_INTRINSIC_GET_LENGTH,
+  EXP_OP_TYPE_INTRINSIC_GET_SLICE,
 };
 
 enum ExpressionKind {
@@ -683,6 +684,9 @@ inline std::ostream &operator<<(std::ostream &os, ExpOpType type) {
     break;
   case EXP_OP_TYPE_INTRINSIC_GET_LENGTH:
     os << "twge::get_length";
+    break;
+  case EXP_OP_TYPE_INTRINSIC_GET_SLICE:
+    os << "twge::get_slice";
     break;
   default:
     os << "";

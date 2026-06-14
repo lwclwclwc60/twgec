@@ -10,7 +10,8 @@ bool isIntrinsicToken(TokenType type) {
          type == TokenType::INTRINSIC_TO_INT ||
          type == TokenType::INTRINSIC_TO_BOOL ||
          type == TokenType::INTRINSIC_GET_INDEX ||
-         type == TokenType::INTRINSIC_GET_LENGTH;
+      type == TokenType::INTRINSIC_GET_LENGTH ||
+      type == TokenType::INTRINSIC_GET_SLICE;
 }
 
 ExpOpType toIntrinsicOpType(TokenType type) {
@@ -25,6 +26,8 @@ ExpOpType toIntrinsicOpType(TokenType type) {
     return EXP_OP_TYPE_INTRINSIC_GET_INDEX;
   case TokenType::INTRINSIC_GET_LENGTH:
     return EXP_OP_TYPE_INTRINSIC_GET_LENGTH;
+  case TokenType::INTRINSIC_GET_SLICE:
+    return EXP_OP_TYPE_INTRINSIC_GET_SLICE;
   default:
     return EXP_OP_TYPE_VOID;
   }

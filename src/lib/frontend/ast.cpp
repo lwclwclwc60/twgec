@@ -863,6 +863,10 @@ bool isBinaryIntrinsicOp(ExpOpType op) {
   return op == EXP_OP_TYPE_INTRINSIC_GET_INDEX;
 }
 
+bool isTernaryIntrinsicOp(ExpOpType op) {
+  return op == EXP_OP_TYPE_INTRINSIC_GET_SLICE;
+}
+
 void finalizeFoldedExpression(ExpressionNode &exp) {
   exp.kind = EXPRESSION_KIND_VALUE;
   exp.args.clear();
@@ -907,6 +911,49 @@ bool foldIntrinsicExpression(ExpressionNode &exp) {
       finalizeFoldedExpression(exp);
       return true;
     }
+    return false;
+  }
+
+  // Ternary intrinsic
+  if (isTernaryIntrinsicOp(exp.op)) {
+    if (exp.args.size() != 3)
+      return false;
+
+    auto *fromInt = dynamic_cast<IntValueNode *>(exp.args[1]->value.get());
+    auto *toInt = dynamic_cast<IntValueNode *>(exp.args[2]->value.get());
+    if (!fromInt || !toInt)
+      return false;
+
+    const int fromIdx = fromInt->value;
+    const int toIdx = toInt->value;
+    if (fromIdx < 0 || toIdx < fromIdx)
+      return false;
+
+    if (auto *lhsStr =
+            dynamic_cast<StringValueNode *>(exp.args[0]->value.get())) {
+      if (static_cast<size_t>(toIdx) >= lhsStr->value.size())
+        return false;
+      exp.value = std::make_unique<StringValueNode>(
+          lhsStr->value.substr(static_cast<size_t>(fromIdx),
+                               static_cast<size_t>(toIdx - fromIdx + 1)),
+          lhsStr->loc);
+      finalizeFoldedExpression(exp);
+      return true;
+    }
+
+    if (auto *lhsList = dynamic_cast<ListValueNode *>(exp.args[0]->value.get())) {
+      if (static_cast<size_t>(toIdx) >= lhsList->items.size())
+        return false;
+
+      auto slicedList = std::make_unique<ListValueNode>(lhsList->loc);
+      for (int idx = fromIdx; idx <= toIdx; ++idx)
+        slicedList->items.push_back(lhsList->items.at(static_cast<size_t>(idx))->clone());
+      slicedList->refreshTrace();
+      exp.value = std::move(slicedList);
+      finalizeFoldedExpression(exp);
+      return true;
+    }
+
     return false;
   }
 

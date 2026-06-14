@@ -199,37 +199,18 @@ def 地圖::生成地圖101n101(xOffset, yOffset) : actions {
 }
 
 def 地圖::儲存地圖變量(x, y, map) : actions {
-    // TODO: Support string slicing
-    if(twge::get_index(twge::get_index(map,0),27) == "E" &&
-       twge::get_index(twge::get_index(map,0),28) == "x" &&
-       twge::get_index(twge::get_index(map,0),29) == "N" &&
-       twge::get_index(twge::get_index(map,0),30) == "E" &&
-       twge::get_index(twge::get_index(map,0),31) == "x" &&
-       twge::get_index(twge::get_index(map,0),32) == "N") {
+    if(twge::get_slice(twge::get_index(map,0),27,32) == "ExNExN") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExN", type = "int", value = 1);
     }
-    if(twge::get_index(twge::get_index(map,19),27) == "E" &&
-       twge::get_index(twge::get_index(map,19),28) == "x" &&
-       twge::get_index(twge::get_index(map,19),29) == "S" &&
-       twge::get_index(twge::get_index(map,19),30) == "E" &&
-       twge::get_index(twge::get_index(map,19),31) == "x" &&
-       twge::get_index(twge::get_index(map,19),32) == "S"){
+    if(twge::get_slice(twge::get_index(map,19),27,32) == "ExSExS"){
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExS", type = "int", value = 1);
     }
-    if(twge::get_index(twge::get_index(map,9),0) == "E" &&
-       twge::get_index(twge::get_index(map,9),1) == "x" &&
-       twge::get_index(twge::get_index(map,9),2) == "W" &&
-       twge::get_index(twge::get_index(map,10),0) == "E" &&
-       twge::get_index(twge::get_index(map,10),1) == "x" &&
-       twge::get_index(twge::get_index(map,10),2) == "W") {
+    if(twge::get_slice(twge::get_index(map,9),0,2) == "ExW" &&
+       twge::get_slice(twge::get_index(map,10),0,2) == "ExW") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExW", type = "int", value = 1);
     }
-    if(twge::get_index(twge::get_index(map,9),57) == "E" &&
-       twge::get_index(twge::get_index(map,9),58) == "x" &&
-       twge::get_index(twge::get_index(map,9),59) == "E" &&
-       twge::get_index(twge::get_index(map,10),57) == "E" &&
-       twge::get_index(twge::get_index(map,10),58) == "x" &&
-       twge::get_index(twge::get_index(map,10),59) == "E") {
+    if(twge::get_slice(twge::get_index(map,9),57,59) == "ExE" &&
+       twge::get_slice(twge::get_index(map,10),57,59) == "ExE") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExE", type = "int", value = 1);
     }
     儲存全域變數(key = "map_100_100_X", type = "int", value = 0);

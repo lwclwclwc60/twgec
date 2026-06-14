@@ -29,6 +29,7 @@
   LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_INDEX, "twge::get_index");  \
   LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_LENGTH,                     \
                           "twge::get_length");                                 \
+  LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_SLICE, "twge::get_slice"); \
   /* operation */                                                              \
   LEXER_PRINT_SWTICH_CASE(TokenType::OPENCUR, "{");                            \
   LEXER_PRINT_SWTICH_CASE(TokenType::CLOSECUR, "}");                           \
@@ -99,6 +100,7 @@ enum class TokenType {
   INTRINSIC_TO_BOOL,    // twge::to_bool
   INTRINSIC_GET_INDEX,  // twge::get_index
   INTRINSIC_GET_LENGTH, // twge::get_length
+  INTRINSIC_GET_SLICE,  // twge::get_slice
   /* Speical Character */
   OPENCUR,            // {
   CLOSECUR,           // }
