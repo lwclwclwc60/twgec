@@ -6,10 +6,6 @@ const 地圖::stride = 27;
 const 地圖::x座標100n100 = 0;
 const 地圖::y座標100n100 = 0;
 // TODO: support constant propagation in const (aka `const xlocation = stride`)
-const 地圖::x座標101n100 = 27;
-const 地圖::y座標101n100 = 0;
-const 地圖::x座標101n101 = 27;
-const 地圖::y座標101n101 = 27;
 
 const 地圖::新手村100n100 = [
 " .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . ",
@@ -166,9 +162,11 @@ def 地圖::生成地圖配置(x, y, object) : actions {
 }
 
 def 地圖::生成地圖100n100(xOffset, yOffset) : actions {
+    print(text = "xOffset:" + xOffset);
+    print(text = "yOffset:" + yOffset);
     for(map_row in 0...(twge::get_length(地圖::新手村100n100) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村100n100, map_row))/3 - 1)) {
-            地圖::生成地圖配置(map_col + xOffset, map_row + yOffset,
+            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
             twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 0) + 
             twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 1) + 
             twge::get_index(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 2));
@@ -179,7 +177,7 @@ def 地圖::生成地圖100n100(xOffset, yOffset) : actions {
 def 地圖::生成地圖101n100(xOffset, yOffset) : actions {
     for(map_row in 0...(twge::get_length(地圖::新手村近郊101n100) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n100, map_row))/3 - 1)) {
-            地圖::生成地圖配置(map_col + xOffset, map_row + yOffset,
+            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
             twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 0) + 
             twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 1) + 
             twge::get_index(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 2));
@@ -190,7 +188,7 @@ def 地圖::生成地圖101n100(xOffset, yOffset) : actions {
 def 地圖::生成地圖101n101(xOffset, yOffset) : actions {
     for(map_row in 0...(twge::get_length(地圖::新手村近郊101n101) - 1)) {
         for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n101, map_row))/3 - 1)) {
-            地圖::生成地圖配置(map_col + xOffset, map_row + yOffset,
+            地圖::生成地圖配置(twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
             twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 0) + 
             twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 1) + 
             twge::get_index(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 2));
@@ -241,85 +239,166 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2): actions {
     }
 }
 
-def 地圖::移動泛型(direction) : block {
+def 地圖::移動離開泛型(direction) : block {
     __repeat__ = -1;
     __label__ = "地圖";
     triggers {
         鍵盤按鍵(varName = "clicker", key = "Space");
     }
     checks {
-        // 27 is the stride, 32 is the pixel size
+        // 864 = 27*32 where 27 is the stride and 32 is the pixel size
         if(direction == "右") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = ">=", rhs = "19*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = "<=", rhs = "20*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.LocX}_{{clicker.id}.LocY}_ExE}", op = "==", rhs = 1);
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExE}", op = "==", rhs = 1);
         } else if(direction == "左") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = ">=", rhs = "0*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = "<=", rhs = "1*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.LocX}_{{clicker.id}.LocY}_ExW}", op = "==", rhs = 1);
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExW}", op = "==", rhs = 1);
         } else if(direction == "下") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = ">=", rhs = "19*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = "<=", rhs = "20*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.LocX}_{{clicker.id}.LocY}_ExS}", op = "==", rhs = 1);
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExS}", op = "==", rhs = 1);
         } else if(direction == "上") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = ">=", rhs = "0*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % (27*32)", op = "<=", rhs = "1*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % (27*32)", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.LocX}_{{clicker.id}.LocY}_ExN}", op = "==", rhs = 1);
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExN}", op = "==", rhs = 1);
         }
     }
     actions {
         setGlobal(key = "instance", type = "string", value = "{clicker.id}");
-        自定義::儲存Instance整數("tmp_X_pos_offset", "({instance.gamePosition.x}%(27*32))/32");
-        自定義::儲存Instance整數("tmp_Y_pos_offset", "({instance.gamePosition.y}%(27*32))/32");
+        自定義::儲存Instance整數("tmp_grid_x_offset", "({instance.gamePosition.x}%864)/32");
+        自定義::儲存Instance整數("tmp_grid_y_offset", "({instance.gamePosition.y}%864)/32");
         if(除錯模式) {
-            print(text = "x: {instance.LocX}, y: {instance.LocY}, direction: " + direction, type = "error");
-            print(text = "x_offset: {instance.tmp_X_pos_offset}, y_offset: {instance.tmp_X_pos_offset}", type = "error");
+            print(text = "x: {instance.map_x}, y: {instance.map_y}, direction: " + direction, type = "error");
+            print(text = "x_offset: {instance.tmp_grid_x_offset}, y_offset: {instance.tmp_grid_x_offset}", type = "error");
         }
+        儲存物件變數(key = "map_direction", object = "instance", type = "string", value = direction);
         if(direction == "右") {
-            自定義::儲存Instance整數("LocX", "{instance.LocX}+1");
+            自定義::儲存Instance整數("map_x", "{instance.map_x}+1");
         } else if(direction == "左") {
-            自定義::儲存Instance整數("LocX", "{instance.LocX}-1");
+            自定義::儲存Instance整數("map_x", "{instance.map_x}-1");
         } else if(direction == "下") {
-            自定義::儲存Instance整數("LocY", "{instance.LocY}+1");
+            自定義::儲存Instance整數("map_y", "{instance.map_y}+1");
         } else if(direction == "上") {
-            自定義::儲存Instance整數("LocY", "{instance.LocY}-1");
+            自定義::儲存Instance整數("map_y", "{instance.map_y}-1");
         }
         移動角色位置(actorId = "instance", x = 23, y = 23);
-        // Mocking infinite map UX and logic
-        等待(duration = 100);
-        if(direction == "右") {
-            移動角色位置(actorId = "instance", x = "{map_{instance.LocX}_{instance.LocY}_X}", y = "{map_{instance.LocX}_{instance.LocY}_Y}+{instance.tmp_Y_pos_offset}");
-        } else if(direction == "左") {
-            移動角色位置(actorId = "instance", x = "{map_{instance.LocX}_{instance.LocY}_X}+19", y = "{map_{instance.LocX}_{instance.LocY}_Y}+{instance.tmp_Y_pos_offset}");
-        } else if(direction == "下") {
-            移動角色位置(actorId = "instance", x = "{map_{instance.LocX}_{instance.LocY}_X}+{instance.tmp_X_pos_offset}", y = "{map_{instance.LocX}_{instance.LocY}_Y}");
-        } else if(direction == "上") {
-            移動角色位置(actorId = "instance", x = "{map_{instance.LocX}_{instance.LocY}_X}+{instance.tmp_X_pos_offset}", y = "{map_{instance.LocX}_{instance.LocY}_Y}+19");
-        }
     }
 }
 
-block 地圖移動往上 = 地圖::移動泛型("上");
-block 地圖移動往下 = 地圖::移動泛型("下");
-block 地圖移動往左 = 地圖::移動泛型("左");
-block 地圖移動往右 = 地圖::移動泛型("右");
+block 地圖移動離開往上 = 地圖::移動離開泛型("上");
+block 地圖移動離開往下 = 地圖::移動離開泛型("下");
+block 地圖移動離開往左 = 地圖::移動離開泛型("左");
+block 地圖移動離開往右 = 地圖::移動離開泛型("右");
+
+def 地圖::移動進入泛型(direction) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 1, region_w = 1, region_x = 23, region_y = 23);
+        比較數字(lhs = "{map_used_{instance.map_x}_{instance.map_y}}", op = "==", rhs = "1");
+        比對字串(str = direction, value = "{instance.map_direction}");
+    }
+    actions {
+        if(direction == "右") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if(direction == "左") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + 19",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if(direction == "下") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y}");
+        } else if(direction == "上") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + 19");
+        }
+    }
+}
+block 地圖移動進入往上 = 地圖::移動進入泛型("上");
+block 地圖移動進入往下 = 地圖::移動進入泛型("下");
+block 地圖移動進入往左 = 地圖::移動進入泛型("左");
+block 地圖移動進入往右 = 地圖::移動進入泛型("右");
+
+// 實際地圖分為九個chunk，編號為
+// 0 | 1 | 2
+// 3 | 4 | 5
+// 6 | 7 | 8
+// intra-chunk: size 20x20, stride 1x1
+// inter-chunk: size 3x3, stride 27x27
+// 0th chunk 固定為新手村位置, 1-8th chunk 則為動態分配
+
+// map 則為遊戲地圖概念
+// 例如新手村(100,100)則是map的其中一格
+
+// grid則為1x1的格子
+
+// chunk的x grid座標: const int -> chunk_{chunk_id}_x
+// chunk的y grid座標: const int -> chunk_{chunk_id}_y
+// chunk到map_x的映射: int -> chunk_to_map_x_{chunk_id}
+// chunk到map_y的映射: int -> chunk_to_map_y_{chunk_id}
+// chunk使用狀態: [0,1] -> chunk_used_{chunk_id}
+
+// map可往東走: const [0,1] -> map_{map_x}_{map_y}_ExE
+// map可往南走: const [0,1] -> map_{map_x}_{map_y}_ExS
+// map可往西走: const [0,1] -> map_{map_x}_{map_y}_ExW
+// map可往北走: const [0,1] -> map_{map_x}_{map_y}_ExN
+// map到chunk的映射: int -> map_to_chunk_{map_x}_{map_y}
+// map使用狀態: [0,1] -> map_used_{map_x}_{map_y}
+
+// 角色所在map: int -> instnace.map_x
+// 角色所在map: int -> instnace.map_y
+// 角色移動方向: [東,南,西,北] -> instance.map_direction
 
 block 地圖初始化 {
     __label__ = "地圖";
     actions {
-        地圖::生成地圖100n100(地圖::x座標100n100, 地圖::y座標100n100);
-        地圖::生成地圖101n100(地圖::x座標101n100, 地圖::y座標101n100);
-        地圖::生成地圖101n101(地圖::x座標101n101, 地圖::y座標101n101);
+        儲存全域變數(key = "chunk_0_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_0_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_1_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_1_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_2_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_2_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_3_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_3_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_4_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_4_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_5_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_5_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_6_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_6_y", type = "int", value = 54);
+        儲存全域變數(key = "chunk_7_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_7_y", type = "int", value = 54);
+        儲存全域變數(key = "chunk_8_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_8_y", type = "int", value = 54);
+        儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
+        儲存全域變數(key = "map_used_101_100", type = "int", value = 1);
+        儲存全域變數(key = "map_used_101_101", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_0", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 1);
+        儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_101_100", type = "int", value = 1);
+        儲存全域變數(key = "map_to_chunk_101_101", type = "int", value = 2);
         地圖::儲存地圖變量(100, 100, 地圖::新手村100n100);
         地圖::儲存地圖變量(101, 100, 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(101, 101, 地圖::新手村近郊101n101);
+        地圖::生成地圖100n100("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}");
+        地圖::生成地圖101n100("{chunk_{map_to_chunk_101_100}_x}", "{chunk_{map_to_chunk_101_100}_y}");
+        地圖::生成地圖101n101("{chunk_{map_to_chunk_101_101}_x}", "{chunk_{map_to_chunk_101_101}_y}");
     }
 }

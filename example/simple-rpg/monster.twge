@@ -34,13 +34,14 @@ block 野獸死亡三級鹿 = 自定義::野獸死亡泛型("monster_deer_lv03",
 // def 自定義::野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, strength, role) : block = 
 //      野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, "fist", "fist", strength, role);
 // TODO: Support typing
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
         計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
+        比較數字(lhs = map_used, op = "==", rhs = "1");
     }
     actions {
         新增角色(name = name, id = actor_id + "*", camp = "第三", 
@@ -50,5 +51,13 @@ def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, hp, s
     }
 }
 
-block 野獸重生一級鹿 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)", 地圖::x座標101n100 + 10, 地圖::y座標101n100 + 10, 60, 10, "鹿");
-block 野獸重生三級鹿 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)", 地圖::x座標101n101 + 10, 地圖::y座標101n101 + 10, 150, 25, "鹿");
+block 野獸重生一級鹿 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
+    "{chunk_{map_to_chunk_101_100}_x} + 10",
+    "{chunk_{map_to_chunk_101_100}_y} + 10",
+    "{map_used_101_100}",
+    60, 10, "鹿");
+block 野獸重生三級鹿 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
+    "{chunk_{map_to_chunk_101_101}_x} + 10",
+    "{chunk_{map_to_chunk_101_101}_y} + 10",
+    "{map_used_101_101}",
+    150, 25, "鹿");

@@ -106,8 +106,8 @@ block 玩家死亡 {
         角色死亡(actor = 角色::任何玩家, varName = "instance");
     }
     actions {
-            自定義::儲存Instance整數("LocX", 100);
-            自定義::儲存Instance整數("LocY", 100);
+            自定義::儲存Instance整數("map_x", 100);
+            自定義::儲存Instance整數("map_y", 100);
     }
 }
 
@@ -128,8 +128,8 @@ block 玩家初始化 {
         自定義::儲存Instance整數("Exp", 0);
         自定義::儲存Instance整數("ExpNeeded", 6);
         自定義::儲存Instance整數("HP", 100);
-        自定義::儲存Instance整數("LocX", 100);
-        自定義::儲存Instance整數("LocY", 100);
+        自定義::儲存Instance整數("map_x", 100);
+        自定義::儲存Instance整數("map_y", 100);
         儲存物件變數(key = "XSkill", object = "instance", type = "string", value = "無");
         取得玩家狀態(category = 狀態讀寫密鑰, key = "savedBefore", playerId = "{instance}", varName = "{instance}_savedBefore");
         人物裝備武器(actorCode = "instance", type = "fist", hand = 1);
@@ -139,9 +139,12 @@ block 玩家初始化 {
         等待(duration = 500);
         自定義::儲存Instance整數("completedInit", 1);
         // 角色重生位置用作設置可走區域
+        for(x in 0...2) {
+            for (y in 0...2) {
+                角色重生位置(actorId = "{instance}", x = x*27, y = y*27);
+            }
+        }
         角色重生位置(actorId = "{instance}", x = 23, y = 23);
-        角色重生位置(actorId = "{instance}", x = 27, y = 0);
-        角色重生位置(actorId = "{instance}", x = 27, y = 27);
         角色重生位置(actorId = "{instance}", x = 10, y = 10);
     }
 }
