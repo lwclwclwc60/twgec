@@ -1,8 +1,26 @@
 #include "frontend/ast.h"
 #include "utils/utils.h"
 #include <iostream>
+#include <optional>
 #include <sstream>
 #include <string>
+
+namespace {
+void syncTrace(Location &loc,
+               const std::vector<std::shared_ptr<const std::vector<CallFrame>>> &traces) {
+  std::optional<std::vector<CallFrame>> best;
+  if (!loc.callFrames.empty())
+    best = loc.callFrames;
+  for (const auto &trace : traces) {
+    if (trace && (!best.has_value() || trace->size() > best->size()))
+      best = std::vector<CallFrame>(trace->begin(), trace->end());
+  }
+  if (best.has_value())
+    loc.callFrames = best.value();
+  else
+    loc.callFrames.clear();
+}
+} // namespace
 
 //------------ print ------------//
 void ModuleNode::print(std::string title, int indent) {
@@ -236,20 +254,24 @@ std::unique_ptr<InstructionNode> InstructionNode::clone() {
 std::unique_ptr<ParamAppsNode> ParamAppsNode::clone() {
   auto newNode = std::make_unique<ParamAppsNode>(loc);
   for (auto &namedArg : named_args)
-    newNode.get()->named_args.push_back(namedArg.get()->clone());
+    newNode->addNamedArg(namedArg->clone());
   for (auto &positionalArg : positional_args)
-    newNode.get()->positional_args.push_back(positionalArg.get()->clone());
+    newNode->addPositionalArg(positionalArg->clone());
   return newNode;
 }
 
 std::unique_ptr<NamedParamAppsNode> NamedParamAppsNode::clone() {
   auto newExp = std::move(expNode.get()->clone());
-  return std::make_unique<NamedParamAppsNode>(key, newExp, loc);
+  auto newNode = std::make_unique<NamedParamAppsNode>(key, newExp, loc);
+  newNode->refreshTrace();
+  return newNode;
 }
 
 std::unique_ptr<PositionalParamAppsNode> PositionalParamAppsNode::clone() {
   auto newExp = std::move(expNode.get()->clone());
-  return std::make_unique<PositionalParamAppsNode>(newExp, loc);
+  auto newNode = std::make_unique<PositionalParamAppsNode>(newExp, loc);
+  newNode->refreshTrace();
+  return newNode;
 }
 
 std::unique_ptr<ExpressionNode> ExpressionNode::clone() {
@@ -264,6 +286,27 @@ std::unique_ptr<ExpressionNode> ExpressionNode::clone() {
   return std::make_unique<ExpressionNode>(std::move(clonedArgs), op, loc);
 }
 
+void ExpressionNode::appendCallFrame(const std::string &symbol,
+                                     const Location &callSite) {
+  loc.pushCallFrame(symbol, callSite);
+  if (kind == EXPRESSION_KIND_VALUE && value)
+    value->loc.pushCallFrame(symbol, callSite);
+  for (auto &arg : args)
+    arg->appendCallFrame(symbol, callSite);
+  refreshTrace();
+}
+
+void ExpressionNode::appendCallFrames(const std::vector<CallFrame> &frames) {
+  for (const auto &frame : frames)
+    loc.callFrames.push_back(frame);
+  if (value)
+    for (const auto &frame : frames)
+      value->loc.callFrames.push_back(frame);
+  for (auto &arg : args)
+    arg->appendCallFrames(frames);
+  refreshTrace();
+}
+
 std::unique_ptr<ValueNode> ValueNode::clone() {
   assert(false && "ValueNode clone is forbidden\n");
   return nullptr;
@@ -273,23 +316,54 @@ std::unique_ptr<ValueNode> ListValueNode::clone() {
   auto newNode = std::make_unique<ListValueNode>(loc);
   for (auto &item : items)
     newNode.get()->items.push_back(item->clone());
+  newNode->refreshTrace();
   return newNode;
+}
+
+void ListValueNode::refreshTrace() {
+  for (auto &item : items)
+    item->refreshTrace();
+  syncTrace(loc, {});
+  for (const auto &item : items)
+    syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(item->loc.callFrames)});
 }
 
 std::unique_ptr<ValueNode> PointValueNode::clone() {
   return std::make_unique<PointValueNode>(x->clone(), y->clone(), loc);
 }
 
+void PointValueNode::refreshTrace() {
+  x->refreshTrace();
+  y->refreshTrace();
+  syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(x->loc.callFrames),
+                  std::make_shared<const std::vector<CallFrame>>(y->loc.callFrames)});
+}
+
 std::unique_ptr<ValueNode> ActorMatchValueNode::clone() {
   return std::make_unique<ActorMatchValueNode>(paramApps->clone(), loc);
+}
+
+void ActorMatchValueNode::refreshTrace() {
+  paramApps->refreshTrace();
+  syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
 }
 
 std::unique_ptr<ValueNode> ButtonValueNode::clone() {
   return std::make_unique<ButtonValueNode>(paramApps->clone(), loc);
 }
 
+void ButtonValueNode::refreshTrace() {
+  paramApps->refreshTrace();
+  syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
+}
+
 std::unique_ptr<ValueNode> CustomWeaponValueNode::clone() {
   return std::make_unique<CustomWeaponValueNode>(paramApps->clone(), loc);
+}
+
+void CustomWeaponValueNode::refreshTrace() {
+  paramApps->refreshTrace();
+  syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(paramApps->loc.callFrames)});
 }
 
 std::unique_ptr<ValueNode> StringValueNode::clone() {
@@ -411,17 +485,22 @@ bool ParamAppsNode::propagateExp(
     ret &= namedArg->propagateExp(varExpMap);
   for (auto &positionalArg : positional_args)
     ret &= positionalArg->propagateExp(varExpMap);
+  refreshTrace();
   return ret;
 }
 
 bool NamedParamAppsNode::propagateExp(
     std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
-  return expNode->propagateExp(varExpMap);
+  bool ret = expNode->propagateExp(varExpMap);
+  refreshTrace();
+  return ret;
 }
 
 bool PositionalParamAppsNode::propagateExp(
     std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
-  return expNode->propagateExp(varExpMap);
+  bool ret = expNode->propagateExp(varExpMap);
+  refreshTrace();
+  return ret;
 }
 
 bool ExpressionNode::propagateExp(
@@ -431,17 +510,12 @@ bool ExpressionNode::propagateExp(
     if (auto *varNode = dynamic_cast<VariableValueNode *>(value.get())) {
       if (varExpMap.find(varNode->value) == varExpMap.end())
         return false;
-      auto &constExp = varExpMap[varNode->value];
-      if (constExp->kind == EXPRESSION_KIND_VALUE) {
-        value = constExp->value->clone();
-      } else {
-        value = nullptr;
-        kind = constExp->kind;
-        args.clear();
-        for (auto &arg : constExp->args)
-          args.push_back(arg->clone());
-        op = constExp->op;
-      }
+      auto constExp = varExpMap[varNode->value]->clone();
+      constExp->appendCallFrames(loc.callFrames);
+      kind = constExp->kind;
+      value = std::move(constExp->value);
+      args = std::move(constExp->args);
+      op = constExp->op;
     } else if (auto *listNode = dynamic_cast<ListValueNode *>(value.get())) {
       for (auto &item : listNode->items)
         item->propagateExp(varExpMap);
@@ -459,6 +533,7 @@ bool ExpressionNode::propagateExp(
     for (auto &arg : args)
       ret &= arg->propagateExp(varExpMap);
   }
+  refreshTrace();
   return ret;
 }
 
@@ -560,12 +635,21 @@ bool ParamAppsNode::foldValue() {
     ret &= namedArg->foldValue();
   for (auto &positionalArg : positional_args)
     ret &= positionalArg->foldValue();
+  refreshTrace();
   return ret;
 }
 
-bool NamedParamAppsNode::foldValue() { return expNode->foldValue(); }
+bool NamedParamAppsNode::foldValue() {
+  bool ret = expNode->foldValue();
+  refreshTrace();
+  return ret;
+}
 
-bool PositionalParamAppsNode::foldValue() { return expNode->foldValue(); }
+bool PositionalParamAppsNode::foldValue() {
+  bool ret = expNode->foldValue();
+  refreshTrace();
+  return ret;
+}
 
 namespace {
 
@@ -845,19 +929,70 @@ bool foldBinaryExpression(ExpressionNode &exp) {
 } // namespace
 
 bool ExpressionNode::foldValue() {
+  bool ret = true;
   if (kind == EXPRESSION_KIND_VALUE)
-    return foldNestedValueNode(value.get());
+    ret = foldNestedValueNode(value.get());
 
   if (kind == EXPRESSION_KIND_INTRINSIC)
-    return foldIntrinsicExpression(*this);
+    ret = foldIntrinsicExpression(*this);
 
   if (kind == EXPRESSION_KIND_EXPRESSION)
-    return foldBinaryExpression(*this);
+    ret = foldBinaryExpression(*this);
 
-  return false;
+  refreshTrace();
+  return ret;
 }
 
-//------------ hasUnresolvedValue ------------//
+void NamedParamAppsNode::refreshTrace() {
+  if (expNode)
+    expNode->refreshTrace();
+  syncTrace(loc, {expNode ? std::make_shared<const std::vector<CallFrame>>(expNode->loc.callFrames)
+                          : std::shared_ptr<const std::vector<CallFrame>>()});
+}
+
+void PositionalParamAppsNode::refreshTrace() {
+  if (expNode)
+    expNode->refreshTrace();
+  syncTrace(loc, {expNode ? std::make_shared<const std::vector<CallFrame>>(expNode->loc.callFrames)
+                          : std::shared_ptr<const std::vector<CallFrame>>()});
+}
+
+void ParamAppsNode::addNamedArg(std::unique_ptr<NamedParamAppsNode> namedArg) {
+  named_args.push_back(std::move(namedArg));
+  refreshTrace();
+}
+
+void ParamAppsNode::addPositionalArg(
+    std::unique_ptr<PositionalParamAppsNode> positionalArg) {
+  positional_args.push_back(std::move(positionalArg));
+  refreshTrace();
+}
+
+void ParamAppsNode::refreshTrace() {
+  for (auto &namedArg : named_args)
+    namedArg->refreshTrace();
+  for (auto &positionalArg : positional_args)
+    positionalArg->refreshTrace();
+  syncTrace(loc, {});
+  for (const auto &namedArg : named_args)
+    syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(namedArg->loc.callFrames)});
+  for (const auto &positionalArg : positional_args)
+    syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(positionalArg->loc.callFrames)});
+}
+
+void ExpressionNode::refreshTrace() {
+  if (value)
+    value->refreshTrace();
+  for (auto &arg : args)
+    arg->refreshTrace();
+  if (value)
+    syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(value->loc.callFrames)});
+  else
+    syncTrace(loc, {});
+  for (const auto &arg : args)
+    syncTrace(loc, {std::make_shared<const std::vector<CallFrame>>(arg->loc.callFrames)});
+}
+
 bool ModuleNode::hasUnresolvedValue(std::set<std::string> except) {
   bool ret = false;
   for (auto &metadata : metadatas)
@@ -935,39 +1070,59 @@ bool ForNode::hasUnresolvedValue(std::set<std::string> except) {
 }
 
 bool InstructionNode::hasUnresolvedValue(std::set<std::string> except) {
+  if (paramApps)
+    paramApps->loc.ownerSymbol = identifier;
   return paramApps->hasUnresolvedValue(except);
 }
 
 bool ParamAppsNode::hasUnresolvedValue(std::set<std::string> except) {
   bool ret = false;
-  for (auto &namedArg : named_args)
+  for (auto &namedArg : named_args) {
+    namedArg->loc.ownerSymbol = loc.ownerSymbol;
     ret |= namedArg->hasUnresolvedValue(except);
-  for (auto &positionalArg : positional_args)
+  }
+  for (auto &positionalArg : positional_args) {
+    positionalArg->loc.ownerSymbol = loc.ownerSymbol;
     ret |= positionalArg->hasUnresolvedValue(except);
+  }
   return ret;
 }
 
 bool NamedParamAppsNode::hasUnresolvedValue(std::set<std::string> except) {
+  if (expNode && expNode->loc.ownerSymbol.empty())
+    expNode->loc.ownerSymbol = loc.ownerSymbol;
   return expNode->hasUnresolvedValue(except);
 }
 
 bool PositionalParamAppsNode::hasUnresolvedValue(std::set<std::string> except) {
+  if (expNode && expNode->loc.ownerSymbol.empty())
+    expNode->loc.ownerSymbol = loc.ownerSymbol;
   return expNode->hasUnresolvedValue(except);
 }
 
 bool ExpressionNode::hasUnresolvedValue(std::set<std::string> except) {
+  if (!loc.ownerSymbol.empty()) {
+    if (value && value->loc.ownerSymbol.empty())
+      value->loc.ownerSymbol = loc.ownerSymbol;
+    for (auto &arg : args)
+      if (arg && arg->loc.ownerSymbol.empty())
+        arg->loc.ownerSymbol = loc.ownerSymbol;
+  }
+
   if (kind == EXPRESSION_KIND_VALUE) {
     if (auto varNode = dynamic_cast<VariableValueNode *>(value.get())) {
       if (except.count(varNode->value) > 0)
         return false;
       std::cerr << "Compilation Error: Found unresolvable variable `"
                 << varNode->value << "` at " << varNode->loc << "\n";
+      loc.printCallTrace(std::cerr);
       return true;
     }
     return false;
   } else {
     std::cerr << "Compilation Error: Found unresolvable expression `" << *this
               << "` at " << loc << "\n";
+    loc.printCallTrace(std::cerr);
     return true;
   }
 }

@@ -418,14 +418,14 @@ std::unique_ptr<ParamAppsNode> Parser::parseParamAppsNode() {
         return nullptr;
       std::unique_ptr<NamedParamAppsNode> namedArgNode =
           std::make_unique<NamedParamAppsNode>(identifierToken, expNode, loc);
-      paramAppsNode->named_args.push_back(std::move(namedArgNode));
+        paramAppsNode->addNamedArg(std::move(namedArgNode));
     } else {
       std::unique_ptr<ExpressionNode> expNode = parseExp();
       if (!expNode)
         return nullptr;
       std::unique_ptr<PositionalParamAppsNode> posArgNode =
           std::make_unique<PositionalParamAppsNode>(expNode, loc);
-      paramAppsNode->positional_args.push_back(std::move(posArgNode));
+        paramAppsNode->addPositionalArg(std::move(posArgNode));
     }
     if (consume(TokenType::COMMA, /*errorThrowing*/ false))
       continue;
@@ -663,6 +663,7 @@ std::unique_ptr<ValueNode> Parser::parseValue() {
       if (!item)
         return nullptr;
       listNode->items.push_back(std::move(item));
+      listNode->refreshTrace();
       firstItem = false;
     }
     consume(TokenType::CLOSESQR);

@@ -76,8 +76,10 @@ bool functionInling(
     auto &callerInstr = compositeInstrs[idx]->instruction;
     auto pos = compositeInstrs.begin() + idx;
     auto funDefNode = funDefMap[callerInstr->identifier]->clone();
-    for (auto &arg : callerInstr->paramApps->named_args)
+    for (auto &arg : callerInstr->paramApps->named_args) {
+      arg->expNode->appendCallFrame(callerInstr->identifier, callerInstr->loc);
       callerParamMap.insert({arg->key, std::move(arg->expNode)});
+    }
     compositeInstrs.erase(pos);
     auto clonedFunRootInstrSet =
         funDefNode.get()->typedInstrSet.get()->instrSet->clone();

@@ -17,8 +17,11 @@ bool blockInling(const unique_ptr<ModuleNode> &moduleNode, PassConfig config) {
   for (auto &blockNode : moduleNode->blocks)
     if (blockNode->blockConstructor) {
       std::map<std::string, unique_ptr<ExpressionNode>> callerParamMap;
-      for (auto &arg : blockNode->blockConstructor->paramApps->named_args)
+      for (auto &arg : blockNode->blockConstructor->paramApps->named_args) {
+        arg->expNode->appendCallFrame(blockNode->blockConstructor->identifier,
+                                      blockNode->blockConstructor->loc);
         callerParamMap.insert({arg->key, std::move(arg->expNode)});
+      }
       blockNode->blockBody =
           blockDefMap.at(blockNode->blockConstructor->identifier)->clone();
       blockNode->blockBody->propagateExp(callerParamMap);

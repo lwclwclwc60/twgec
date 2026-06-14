@@ -28,6 +28,7 @@ bool argBinding(std::map<std::string, std::unique_ptr<FunDefNode>> &funDefs,
       std::make_move_iterator(bindedArgs.begin()),
       std::make_move_iterator(bindedArgs.end()));
   instr->paramApps->positional_args.clear();
+  instr->paramApps->refreshTrace();
   if (instr->paramApps->named_args.size() != funParam.size()) {
     std::cerr << "Syntax Error: Unmatched number of arguments of function `"
               << instr->identifier << "`. Expected: " << funParam.size()

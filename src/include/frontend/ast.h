@@ -378,6 +378,9 @@ public:
   // Function
   void print(int indent = 0);
   std::unique_ptr<ParamAppsNode> clone();
+  void addNamedArg(std::unique_ptr<NamedParamAppsNode> namedArg);
+  void addPositionalArg(std::unique_ptr<PositionalParamAppsNode> positionalArg);
+  void refreshTrace();
   bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
   bool foldValue();
   bool hasUnresolvedValue(std::set<std::string> except = {});
@@ -393,10 +396,13 @@ public:
   // Constructor
   NamedParamAppsNode(const std::string &key,
                      std::unique_ptr<ExpressionNode> &expNode, Location loc)
-      : key(key), expNode(std::move(expNode)), loc(loc) {}
+      : key(key), expNode(std::move(expNode)), loc(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<NamedParamAppsNode> clone();
+  void refreshTrace();
   bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
   bool foldValue();
   bool hasUnresolvedValue(std::set<std::string> except = {});
@@ -411,10 +417,13 @@ public:
   // Constructor
   PositionalParamAppsNode(std::unique_ptr<ExpressionNode> &expNode,
                           Location loc)
-      : expNode(std::move(expNode)), loc(loc) {}
+      : expNode(std::move(expNode)), loc(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<PositionalParamAppsNode> clone();
+  void refreshTrace();
   bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
   bool foldValue();
   bool hasUnresolvedValue(std::set<std::string> except = {});
@@ -431,6 +440,7 @@ public:
 
   // Function
   virtual std::unique_ptr<ValueNode> clone();
+  virtual void refreshTrace() {}
 };
 
 class ActorMatchValueNode : public ValueNode {
@@ -440,10 +450,13 @@ public:
 
   // Constructor
   ActorMatchValueNode(std::unique_ptr<ParamAppsNode> paramApps, Location loc)
-      : paramApps(std::move(paramApps)), ValueNode(loc) {}
+      : paramApps(std::move(paramApps)), ValueNode(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace();
 };
 
 class ButtonValueNode : public ValueNode {
@@ -453,10 +466,13 @@ public:
 
   // Constructor
   ButtonValueNode(std::unique_ptr<ParamAppsNode> paramApps, Location loc)
-      : paramApps(std::move(paramApps)), ValueNode(loc) {}
+      : paramApps(std::move(paramApps)), ValueNode(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace();
 };
 
 class CustomWeaponValueNode : public ValueNode {
@@ -466,10 +482,13 @@ public:
 
   // Constructor
   CustomWeaponValueNode(std::unique_ptr<ParamAppsNode> paramApps, Location loc)
-      : paramApps(std::move(paramApps)), ValueNode(loc) {}
+      : paramApps(std::move(paramApps)), ValueNode(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace();
 };
 
 class BoolValueNode : public ValueNode {
@@ -482,6 +501,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace() override {}
 };
 
 class IntValueNode : public ValueNode {
@@ -494,6 +514,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace() override {}
 };
 
 class ListValueNode : public ValueNode {
@@ -506,6 +527,7 @@ public:
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace();
 };
 
 class PointValueNode : public ValueNode {
@@ -517,10 +539,13 @@ public:
   // Constructor
   PointValueNode(std::unique_ptr<ExpressionNode> x,
                  std::unique_ptr<ExpressionNode> y, Location loc)
-      : x(std::move(x)), y(std::move(y)), ValueNode(loc) {}
+      : x(std::move(x)), y(std::move(y)), ValueNode(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<ValueNode> clone();
+  void refreshTrace();
 };
 
 class StringValueNode : public ValueNode {
@@ -561,21 +586,29 @@ public:
   // Constructor
   ExpressionNode(std::unique_ptr<ValueNode> value, Location loc)
       : kind(EXPRESSION_KIND_VALUE), value(std::move(value)),
-        op(EXP_OP_TYPE_VOID), loc(loc) {}
+        op(EXP_OP_TYPE_VOID), loc(loc) {
+    refreshTrace();
+  }
   ExpressionNode(std::unique_ptr<ExpressionNode> lhs,
                  std::unique_ptr<ExpressionNode> rhs, ExpOpType op,
                  Location loc)
       : kind(EXPRESSION_KIND_EXPRESSION), op(op), loc(loc) {
     args.push_back(std::move(lhs));
     args.push_back(std::move(rhs));
+    refreshTrace();
   }
   ExpressionNode(std::vector<std::unique_ptr<ExpressionNode>> args,
                  ExpOpType op, Location loc)
       : kind(EXPRESSION_KIND_INTRINSIC), args(std::move(args)), op(op),
-        loc(loc) {}
+        loc(loc) {
+    refreshTrace();
+  }
 
   // Function
   std::unique_ptr<ExpressionNode> clone();
+  void appendCallFrame(const std::string &symbol, const Location &callSite);
+  void appendCallFrames(const std::vector<CallFrame> &frames);
+  void refreshTrace();
   bool propagateExp(std::map<std::string, std::unique_ptr<ExpressionNode>> &);
   bool foldValue();
   bool hasUnresolvedValue(std::set<std::string> except = {});

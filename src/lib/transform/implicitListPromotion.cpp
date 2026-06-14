@@ -17,7 +17,9 @@ bool implicitListPromotion(const unique_ptr<ModuleNode> &moduleNode,
       auto listNode =
           std::make_unique<ListValueNode>(metadata->expNode->value->loc);
       listNode->items.push_back(metadata->expNode->clone());
+      listNode->refreshTrace();
       metadata->expNode->value = std::move(listNode);
+      metadata->expNode->refreshTrace();
     }
   }
   return true;

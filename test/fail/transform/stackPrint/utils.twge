@@ -1,0 +1,3 @@
+def 自定義::儲存Instance整數(key, value): actions {
+    儲存物件變數(key = key, object = "instance", type = "integer", value = value);
+}

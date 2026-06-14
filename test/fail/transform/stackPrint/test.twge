@@ -1,0 +1,14 @@
+#include "utils.twge"
+
+def 自定義::點擊提升能力泛型(type, value) : block {
+    __repeat__ = -1;
+    actions {
+        自定義::儲存Instance整數(type, "{instance."+type+"} + " + value);
+    }
+}
+
+block 點擊提升一點力量 = 自定義::點擊提升能力泛型("STR", 1);
+block 點擊提升一點體質 = 自定義::點擊提升能力泛型("CON", 1);
+block 點擊提升一點敏捷 = 自定義::點擊提升能力泛型("AGI", 1);
+block 點擊提升一點智慧 = 自定義::點擊提升能力泛型("INT", 1);
+block 點擊提升一點精神 = 自定義::點擊提升能力泛型("PSY", 1);

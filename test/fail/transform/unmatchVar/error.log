@@ -1,2 +1,4 @@
 Compilation Error: Found unresolvable variable `camp2` at test/fail/transform/unmatchVar/test.twge:2:34
+# frame 0: addActor at test/fail/transform/unmatchVar/test.twge:2:34
 Compilation Error: Found unresolvable variable `camp2` at test/fail/transform/unmatchVar/test.twge:3:34
+# frame 0: addActor at test/fail/transform/unmatchVar/test.twge:3:34

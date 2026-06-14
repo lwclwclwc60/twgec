@@ -1,3 +1,9 @@
 Compilation Error: Found unresolvable expression `(true + "string")` at test/fail/transform/constantFolding/test.twge:2:26
+# frame 0: actorTalk at test/fail/transform/constantFolding/test.twge:2:26
+# frame 1: testInt at test/fail/transform/constantFolding/test.twge:7:9
 Compilation Error: Found unresolvable expression `(3 * true)` at test/fail/transform/constantFolding/test.twge:2:26
+# frame 0: actorTalk at test/fail/transform/constantFolding/test.twge:2:26
+# frame 1: testInt at test/fail/transform/constantFolding/test.twge:8:9
 Compilation Error: Found unresolvable variable `tmp` at test/fail/transform/constantFolding/test.twge:9:21
+# frame 0: actorTalk at test/fail/transform/constantFolding/test.twge:2:26
+# frame 1: testInt at test/fail/transform/constantFolding/test.twge:9:9
