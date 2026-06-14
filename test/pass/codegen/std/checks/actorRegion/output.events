@@ -87,6 +87,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },

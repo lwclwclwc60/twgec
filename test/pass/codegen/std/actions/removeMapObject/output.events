@@ -76,13 +76,15 @@
                     "type": "RemoveMapObject",
                     "data": {
                         "locType": "regions",
-                        "regions": {
-                            "defType": "rect",
-                            "x": "0",
-                            "y": "0",
-                            "w": "10",
-                            "h": "10"
-                        },
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "0",
+                                "w": "10",
+                                "h": "10"
+                            }
+                        ],
                         "exRegions": [],
                         "resourceType": "all"
                     }

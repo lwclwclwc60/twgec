@@ -32,7 +32,7 @@ check::CheckActorCount::method(DefaultMap defaultMap,
     });
     JsonArrayNode regionsNode =
         JsonArrayNode(std::make_shared<JsonObjectNode>(regionNode));
-    resNode.addNode("regions", regionNode.to_string(24));
+    resNode.addNode("regions", regionsNode.to_string(24));
   }
   return resNode;
 }
@@ -54,6 +54,7 @@ check::CheckActorRegion::method(DefaultMap defaultMap,
       {"actorCode", defaultMap.get("actorId")},
       {"regions", regionsNode.to_string(24)},
       {"exRegions", "[]"},
+      {"checkAlive", defaultMap.get("checkAlive")},
       {"_logi", _logiNode.to_string(24)},
       {"_elseEventId", "\"\""},
   });

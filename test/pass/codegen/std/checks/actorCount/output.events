@@ -126,13 +126,15 @@
                         },
                         "_elseEventId": "",
                         "checkRegion": true,
-                        "regions": {
-                            "defType": "rect",
-                            "x": "10",
-                            "y": "10",
-                            "w": "20",
-                            "h": "20"
-                        }
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "10",
+                                "y": "10",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
                     }
                 }
             ],

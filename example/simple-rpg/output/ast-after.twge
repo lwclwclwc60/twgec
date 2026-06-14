@@ -501,9 +501,41 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         } else if(((map_x == 101) && (map_y == 101))) {
             地圖::生成地圖101n101("{chunk_{map_to_chunk_101_101}_x}", "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(chunk_id)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
 }
 def 自定義::點擊提升能力泛型(type, typeZh, value) : block {
@@ -580,14 +612,28 @@ block 地圖移動進入往左 = 地圖::移動進入泛型("左");
 block 地圖移動進入往右 = 地圖::移動進入泛型("右");
 block 移動生成101_100 = 地圖::移動生成泛型(101, 100);
 block 移動生成101_101 = 地圖::移動生成泛型(101, 101);
+block 移動移除物件1 = 地圖::移動移除物件泛型(1);
+block 移動移除物件2 = 地圖::移動移除物件泛型(2);
+block 移動移除物件3 = 地圖::移動移除物件泛型(3);
+block 移動移除物件4 = 地圖::移動移除物件泛型(4);
+block 移動移除物件5 = 地圖::移動移除物件泛型(5);
+block 移動移除物件6 = 地圖::移動移除物件泛型(6);
+block 移動移除物件7 = 地圖::移動移除物件泛型(7);
+block 移動移除物件8 = 地圖::移動移除物件泛型(8);
+block 移動移除人物1 = 地圖::移動移除人物泛型(1);
+block 移動移除人物2 = 地圖::移動移除人物泛型(2);
+block 移動移除人物3 = 地圖::移動移除人物泛型(3);
+block 移動移除人物4 = 地圖::移動移除人物泛型(4);
+block 移動移除人物5 = 地圖::移動移除人物泛型(5);
+block 移動移除人物6 = 地圖::移動移除人物泛型(6);
+block 移動移除人物7 = 地圖::移動移除人物泛型(7);
+block 移動移除人物8 = 地圖::移動移除人物泛型(8);
 block 可分配區域更新 {
     __repeat__ = -1;
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -645,6 +691,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         地圖::儲存地圖變量(100, 100, 地圖::新手村100n100);
         地圖::儲存地圖變量(101, 100, 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(101, 101, 地圖::新手村近郊101n101);
@@ -1273,9 +1321,41 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         } else if(((map_x == 101) && (map_y == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(chunk_id)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
 }
 def 自定義::點擊提升能力泛型(type, typeZh, value) : block {
@@ -1352,14 +1432,28 @@ block 地圖移動進入往左 = 地圖::移動進入泛型(direction = "左");
 block 地圖移動進入往右 = 地圖::移動進入泛型(direction = "右");
 block 移動生成101_100 = 地圖::移動生成泛型(map_x = 101, map_y = 100);
 block 移動生成101_101 = 地圖::移動生成泛型(map_x = 101, map_y = 101);
+block 移動移除物件1 = 地圖::移動移除物件泛型(chunk_id = 1);
+block 移動移除物件2 = 地圖::移動移除物件泛型(chunk_id = 2);
+block 移動移除物件3 = 地圖::移動移除物件泛型(chunk_id = 3);
+block 移動移除物件4 = 地圖::移動移除物件泛型(chunk_id = 4);
+block 移動移除物件5 = 地圖::移動移除物件泛型(chunk_id = 5);
+block 移動移除物件6 = 地圖::移動移除物件泛型(chunk_id = 6);
+block 移動移除物件7 = 地圖::移動移除物件泛型(chunk_id = 7);
+block 移動移除物件8 = 地圖::移動移除物件泛型(chunk_id = 8);
+block 移動移除人物1 = 地圖::移動移除人物泛型(chunk_id = 1);
+block 移動移除人物2 = 地圖::移動移除人物泛型(chunk_id = 2);
+block 移動移除人物3 = 地圖::移動移除人物泛型(chunk_id = 3);
+block 移動移除人物4 = 地圖::移動移除人物泛型(chunk_id = 4);
+block 移動移除人物5 = 地圖::移動移除人物泛型(chunk_id = 5);
+block 移動移除人物6 = 地圖::移動移除人物泛型(chunk_id = 6);
+block 移動移除人物7 = 地圖::移動移除人物泛型(chunk_id = 7);
+block 移動移除人物8 = 地圖::移動移除人物泛型(chunk_id = 8);
 block 可分配區域更新 {
     __repeat__ = -1;
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -1417,6 +1511,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         地圖::儲存地圖變量(x = 100, y = 100, map = 地圖::新手村100n100);
         地圖::儲存地圖變量(x = 101, y = 100, map = 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(x = 101, y = 101, map = 地圖::新手村近郊101n101);
@@ -2045,9 +2141,41 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         } else if(((map_x == 101) && (map_y == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(chunk_id)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
 }
 def 自定義::點擊提升能力泛型(type, typeZh, value) : block {
@@ -2822,6 +2950,8 @@ block 移動生成101_100 {
         } else if(((101 == 101) && (100 == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -2856,9 +2986,251 @@ block 移動生成101_101 {
         } else if(((101 == 101) && (101 == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(1)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(2)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(3)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(4)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(5)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(6)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(7)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(8)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
 }
 block 可分配區域更新 {
@@ -2866,9 +3238,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -2926,6 +3296,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         地圖::儲存地圖變量(x = 100, y = 100, map = 地圖::新手村100n100);
         地圖::儲存地圖變量(x = 101, y = 100, map = 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(x = 101, y = 101, map = 地圖::新手村近郊101n101);
@@ -3754,9 +4126,41 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         } else if(((map_x == 101) && (map_y == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(chunk_id)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
 }
 def 自定義::點擊提升能力泛型(type, typeZh, value) : block {
@@ -4589,6 +4993,8 @@ block 移動生成101_100 {
         } else if(((101 == 101) && (100 == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -4625,9 +5031,283 @@ block 移動生成101_101 {
         } else if(((101 == 101) && (101 == 101))) {
             地圖::生成地圖101n101(xOffset = "{chunk_{map_to_chunk_101_101}_x}", yOffset = "{chunk_{map_to_chunk_101_101}_y}");
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(1)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(2)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+    triggers {
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(3)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+    triggers {
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(4)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+    triggers {
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(5)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+    triggers {
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(6)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+    triggers {
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(7)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+    triggers {
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(8)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+    triggers {
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
     triggers {
     }
@@ -4637,9 +5317,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -4699,6 +5377,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         地圖::儲存地圖變量(x = 100, y = 100, map = 地圖::新手村100n100);
         地圖::儲存地圖變量(x = 101, y = 100, map = 地圖::新手村近郊101n100);
         地圖::儲存地圖變量(x = 101, y = 101, map = 地圖::新手村近郊101n101);
@@ -6136,6 +6816,8 @@ block 移動生成101_100 {
                 }
             }
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -6306,9 +6988,283 @@ block 移動生成101_101 {
                 }
             }
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(1)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(1) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(2)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(2) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+    triggers {
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(3)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(3) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+    triggers {
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(4)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(4) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+    triggers {
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(5)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(5) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+    triggers {
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(6)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(6) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+    triggers {
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(7)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(7) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+    triggers {
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(8)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(8) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+    triggers {
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(1) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((1 % 3) * 27), region_y = ((1 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(2) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((2 % 3) * 27), region_y = ((2 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(3) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((3 % 3) * 27), region_y = ((3 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(4) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((4 % 3) * 27), region_y = ((4 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(5) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((5 % 3) * 27), region_y = ((5 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(6) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((6 % 3) * 27), region_y = ((6 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(7) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((7 % 3) * 27), region_y = ((7 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(8) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((8 % 3) * 27), region_y = ((8 / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
     triggers {
     }
@@ -6318,9 +7274,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -6380,6 +7334,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         if((twge::get_slice(twge::get_index(地圖::新手村100n100, 0), 27, 32) == "ExNExN")) {
             儲存全域變數(key = ("map_" + (twge::to_string(100) + ("_" + (twge::to_string(100) + "_ExN")))), type = "int", value = 1);
         }
@@ -8810,6 +9766,8 @@ block 移動生成101_100 {
             if(true) {
             }
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -9699,9 +10657,283 @@ block 移動生成101_101 {
             if(true) {
             }
         }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_1_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_1_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_2_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_2_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+    triggers {
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        儲存全域變數(key = "chunk_used_3", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_3_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_3_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+    triggers {
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        儲存全域變數(key = "chunk_used_4", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_4_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_4_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+    triggers {
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        儲存全域變數(key = "chunk_used_5", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_5_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_5_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+    triggers {
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        儲存全域變數(key = "chunk_used_6", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_6_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_6_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+    triggers {
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        儲存全域變數(key = "chunk_used_7", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_7_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_7_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+    triggers {
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        儲存全域變數(key = "chunk_used_8", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_8_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_8_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+    triggers {
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
     triggers {
     }
@@ -9711,9 +10943,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -9773,6 +11003,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         if(false) {
             儲存全域變數(key = "map_100_100_ExN", type = "int", value = 1);
         }
@@ -11926,6 +13158,8 @@ block 移動生成101_100 {
         新增地圖物件(x = "6+{chunk_{map_to_chunk_101_100}_x}", y = "18+{chunk_{map_to_chunk_101_100}_y}", object = "草地");
         新增地圖物件(x = "9+{chunk_{map_to_chunk_101_100}_x}", y = "19+{chunk_{map_to_chunk_101_100}_y}", object = "白光(下)");
         新增地圖物件(x = "10+{chunk_{map_to_chunk_101_100}_x}", y = "19+{chunk_{map_to_chunk_101_100}_y}", object = "白光(下)");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -12013,9 +13247,283 @@ block 移動生成101_101 {
         新增地圖物件(x = "18+{chunk_{map_to_chunk_101_101}_x}", y = "18+{chunk_{map_to_chunk_101_101}_y}", object = "3x3綠樹");
         新增地圖物件(x = "8+{chunk_{map_to_chunk_101_101}_x}", y = "19+{chunk_{map_to_chunk_101_101}_y}", object = "草地");
         新增地圖物件(x = "9+{chunk_{map_to_chunk_101_101}_x}", y = "19+{chunk_{map_to_chunk_101_101}_y}", object = "草地");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_1_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_1_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_2_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_2_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+    triggers {
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        儲存全域變數(key = "chunk_used_3", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_3_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_3_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+    triggers {
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        儲存全域變數(key = "chunk_used_4", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_4_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_4_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+    triggers {
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        儲存全域變數(key = "chunk_used_5", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_5_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_5_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+    triggers {
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        儲存全域變數(key = "chunk_used_6", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_6_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_6_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+    triggers {
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        儲存全域變數(key = "chunk_used_7", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_7_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_7_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+    triggers {
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        儲存全域變數(key = "chunk_used_8", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_8_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_8_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+    triggers {
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
     triggers {
     }
@@ -12025,9 +13533,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -12087,6 +13593,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_100_100_ExE", type = "int", value = 1);
         儲存全域變數(key = "map_100_100_X", type = "int", value = 0);
         儲存全域變數(key = "map_100_100_Y", type = "int", value = 0);
@@ -13388,6 +14896,8 @@ block 移動生成101_100 {
         新增地圖物件(x = "6+{chunk_{map_to_chunk_101_100}_x}", y = "18+{chunk_{map_to_chunk_101_100}_y}", object = "草地");
         新增地圖物件(x = "9+{chunk_{map_to_chunk_101_100}_x}", y = "19+{chunk_{map_to_chunk_101_100}_y}", object = "白光(下)");
         新增地圖物件(x = "10+{chunk_{map_to_chunk_101_100}_x}", y = "19+{chunk_{map_to_chunk_101_100}_y}", object = "白光(下)");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
@@ -13475,9 +14985,283 @@ block 移動生成101_101 {
         新增地圖物件(x = "18+{chunk_{map_to_chunk_101_101}_x}", y = "18+{chunk_{map_to_chunk_101_101}_y}", object = "3x3綠樹");
         新增地圖物件(x = "8+{chunk_{map_to_chunk_101_101}_x}", y = "19+{chunk_{map_to_chunk_101_101}_y}", object = "草地");
         新增地圖物件(x = "9+{chunk_{map_to_chunk_101_101}_x}", y = "19+{chunk_{map_to_chunk_101_101}_y}", object = "草地");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
         儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
         儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 0);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_1_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_1_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 1);
+    }
+    triggers {
+    }
+}
+block 移動移除物件2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 0);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_2_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_2_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 2);
+    }
+    triggers {
+    }
+}
+block 移動移除物件3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 27);
+        儲存全域變數(key = "chunk_used_3", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_3_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_3_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 3);
+    }
+    triggers {
+    }
+}
+block 移動移除物件4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 27);
+        儲存全域變數(key = "chunk_used_4", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_4_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_4_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 4);
+    }
+    triggers {
+    }
+}
+block 移動移除物件5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 27);
+        儲存全域變數(key = "chunk_used_5", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_5_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_5_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 5);
+    }
+    triggers {
+    }
+}
+block 移動移除物件6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 0, region_y = 54);
+        儲存全域變數(key = "chunk_used_6", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_6_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_6_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 6);
+    }
+    triggers {
+    }
+}
+block 移動移除物件7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 27, region_y = 54);
+        儲存全域變數(key = "chunk_used_7", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_7_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_7_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 7);
+    }
+    triggers {
+    }
+}
+block 移動移除物件8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = ActorMatch(controller = "player"), op = "==", value = 0, region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        移除地圖物件(region_h = 20, region_w = 20, region_x = 54, region_y = 54);
+        儲存全域變數(key = "chunk_used_8", type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_8_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_8_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = 8);
+    }
+    triggers {
+    }
+}
+block 移動移除人物1 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_1}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物2 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_2}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 0, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物3 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_3}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物4 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_4}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物5 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_5}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 27, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物6 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_6}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 0, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物7 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_7}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 27, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+    triggers {
+    }
+}
+block 移動移除人物8 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_8}", op = "==", rhs = 0);
+        找出所有角色(actor = ActorMatch(controller = "ai"), varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = 54, region_y = 54, checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
     }
     triggers {
     }
@@ -13487,9 +15271,7 @@ block 可分配區域更新 {
     __label__ = "地圖";
     checks {
         比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
-        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
     }
     actions {
         儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
@@ -13549,6 +15331,8 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_100_100_ExE", type = "int", value = 1);
         儲存全域變數(key = "map_100_100_X", type = "int", value = 0);
         儲存全域變數(key = "map_100_100_Y", type = "int", value = 0);

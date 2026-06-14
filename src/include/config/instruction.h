@@ -415,6 +415,7 @@ const InstructionConfig actorCountConfig =
 const InstructionConfig actorRegionConfig =
     InstructionConfig("actorRegion", "角色所在區域")
         .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        .addParam("checkAlive", AST_BOOL, CODEGEN_BOOL, "false")
         .addParam("region_x", AST_INT, CODEGEN_STRING, "0")
         .addParam("region_y", AST_INT, CODEGEN_STRING, "0")
         .addParam("region_w", AST_INT, CODEGEN_STRING, "0")

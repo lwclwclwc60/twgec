@@ -150,7 +150,7 @@ Supported Checks:
     actorCount                  計算人數
         actor: ActorMatch, op: string, region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string, value: int|string, varname: string
     actorRegion                 角色所在區域
-        actorId: string, region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string
+        actorId: string, checkAlive: bool, region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string
     checkNumber                 比較數字
         lhs: int|string, op: string, rhs: int|string
     checkString                 比對字串

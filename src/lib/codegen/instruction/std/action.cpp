@@ -413,7 +413,7 @@ action::ActionRemoveDevice::method(DefaultMap defaultMap,
   return JsonObjectNode({
       {"searchType", "\"byLoc\""},
       {"setDeviceType", "\"all\""},
-      {"regions", regionNode.to_string(24)},
+      {"regions", regionsNode.to_string(24)},
       {"exRegions", "[]"},
       {"action", "\"remove\""},
   });
@@ -433,7 +433,7 @@ action::ActionRemoveMapObject::method(DefaultMap defaultMap,
       JsonArrayNode(std::make_shared<JsonObjectNode>(regionNode));
   return JsonObjectNode({
       {"locType", "\"regions\""},
-      {"regions", regionNode.to_string(24)},
+      {"regions", regionsNode.to_string(24)},
       {"exRegions", "[]"},
       {"resourceType", "\"all\""},
   });

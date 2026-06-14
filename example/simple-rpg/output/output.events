@@ -5704,6 +5704,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -5810,6 +5811,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -5916,6 +5918,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -6022,6 +6025,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -7262,6 +7266,22 @@
                 {
                     "type": "SetGlobal",
                     "data": {
+                        "key": "chunk_to_map_{chunk_available_stack_now}_x",
+                        "valueType": "integer",
+                        "value": "{instance.map_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_to_map_{chunk_available_stack_now}_y",
+                        "valueType": "integer",
+                        "value": "{instance.map_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
                         "key": "map_used_{instance.map_x}_{instance.map_y}",
                         "valueType": "integer",
                         "value": "1"
@@ -7328,6 +7348,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -8450,6 +8471,22 @@
                 {
                     "type": "SetGlobal",
                     "data": {
+                        "key": "chunk_to_map_{chunk_available_stack_now}_x",
+                        "valueType": "integer",
+                        "value": "{instance.map_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_to_map_{chunk_available_stack_now}_y",
+                        "valueType": "integer",
+                        "value": "{instance.map_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
                         "key": "map_used_{instance.map_x}_{instance.map_y}",
                         "valueType": "integer",
                         "value": "1"
@@ -8516,6 +8553,7 @@
                             }
                         ],
                         "exRegions": [],
+                        "checkAlive": false,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -8576,6 +8614,1862 @@
                         "value1": "{chunk_available_stack_now}",
                         "operator": "==",
                         "value2": "-1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件1",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_1",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_1_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_1_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_1}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件2",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_2",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_2_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_2_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "2"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_2}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件3",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_3",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_3_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_3_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "3"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_3}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件4",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_4",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_4_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_4_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "4"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_4}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件5",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_5",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_5_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_5_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "5"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_5}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件6",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_6",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_6_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_6_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "6"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_6}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件7",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_7",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_7_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_7_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "7"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_7}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除物件8",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "RemoveDevice",
+                    "data": {
+                        "searchType": "byLoc",
+                        "setDeviceType": "all",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "action": "remove"
+                    }
+                },
+                {
+                    "type": "RemoveMapObject",
+                    "data": {
+                        "locType": "regions",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "resourceType": "all"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_used_8",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_x",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_8_x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_tmp_to_release_y",
+                        "valueType": "integer",
+                        "value": "{chunk_to_map_8_y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}",
+                        "valueType": "integer",
+                        "value": "-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_available_stack_8",
+                        "valueType": "integer",
+                        "value": "8"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "player",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "==",
+                        "varname": "",
+                        "value": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": "",
+                        "checkRegion": true,
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_8}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物1",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_1}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物2",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_2}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "0",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物3",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_3}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物4",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_4}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物5",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_5}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "27",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物6",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_6}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "0",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物7",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_7}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "27",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "移動移除人物8",
+            "disabled": false,
+            "folder": "地圖",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ActorDisappear",
+                    "data": {
+                        "actorCode": "instance",
+                        "duration": "600",
+                        "delay": "0"
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{chunk_used_8}",
+                        "operator": "==",
+                        "value2": "0",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ForEachActor",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": ""
+                                    }
+                                ],
+                                "brain": "ai",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "maxTriggers": "0",
+                        "donotActOnEachPass": false,
+                        "varnameTotalLoops": "totalLoops",
+                        "varnameOfPassCount": "totalPasses",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "ActorRegion",
+                    "data": {
+                        "actorCode": "instance",
+                        "regions": [
+                            {
+                                "defType": "rect",
+                                "x": "54",
+                                "y": "54",
+                                "w": "20",
+                                "h": "20"
+                            }
+                        ],
+                        "exRegions": [],
+                        "checkAlive": true,
                         "_logi": {
                             "_and_or": ""
                         },
@@ -8684,9 +10578,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{chunk_available_stack_1}+{chunk_available_stack_2}+
-            {chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+
-            {chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}",
+                        "value1": "{chunk_available_stack_1}+{chunk_available_stack_2}+{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}",
                         "operator": "!=",
                         "value2": "-8",
                         "_logi": {
@@ -9034,6 +10926,22 @@
                         "key": "map_to_chunk_100_100",
                         "valueType": "integer",
                         "value": "0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_to_map_0_x",
+                        "valueType": "integer",
+                        "value": "100"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "chunk_to_map_0_y",
+                        "valueType": "integer",
+                        "value": "100"
                     }
                 },
                 {
