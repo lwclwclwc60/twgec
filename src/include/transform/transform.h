@@ -1,6 +1,11 @@
 #include "ast.h"
 #include "option/option.h"
+#include <chrono>
 #include <functional>
+
+namespace {
+  using namespace std::chrono;
+}
 
 namespace transform {
 
@@ -71,14 +76,28 @@ private:
   };
 
   bool singlePass(std::string passName, PassConfig config) {
+    const auto start = steady_clock::now();
     std::function<bool(const std::unique_ptr<ModuleNode> &, PassConfig)>
         passFunc = passMap[passName];
     if (opt.printASTBefore && !config.hidden)
       moduleNode->print(std::string("AST Before ") + passName);
-    if (!passFunc(std::move(moduleNode), config))
+    if (!passFunc(std::move(moduleNode), config)) {
+      if (opt.profilePass) {
+        const auto end = steady_clock::now();
+        const auto ms = duration_cast<milliseconds>(end - start)
+                .count();
+        std::cerr << "[pass-profile] " << passName << " failed in " << ms
+                  << " ms\n";
+      }
       return false;
+    }
     if (opt.printASTAfter && !config.hidden)
       moduleNode->print(std::string("AST After ") + passName);
+    if (opt.profilePass) {
+      const auto end = steady_clock::now();
+      const auto ms = duration_cast<milliseconds>(end - start).count();
+      std::cerr << "[pass-profile] " << passName << ": " << ms << " ms\n";
+    }
     return true;
   }
 
@@ -112,14 +131,25 @@ private:
 
 public:
   bool execute() {
-    if (opt.runOnly.empty())
-      return pipeline();
-    // TODO: Allow loopUnrolling with constandFolding OTF
-    PassConfig config = {.hidden = false, .allowUnresolvedExpression = false};
-    for (std::string pass : opt.runOnly)
-      if (!singlePass(pass, config))
-        return false;
-    return true;
+    const auto start = steady_clock::now();
+    bool ret = true;
+    if (opt.runOnly.empty()) {
+      ret = pipeline();
+    } else {
+      // TODO: Allow loopUnrolling with constandFolding OTF
+      PassConfig config = {.hidden = false, .allowUnresolvedExpression = false};
+      for (std::string pass : opt.runOnly)
+        if (!singlePass(pass, config)) {
+          ret = false;
+          break;
+        }
+    }
+    if (opt.profilePass) {
+      const auto end = steady_clock::now();
+      const auto ms = duration_cast<milliseconds>(end - start).count();
+      std::cerr << "[pass-profile] total: " << ms << " ms\n";
+    }
+    return ret;
   }
 
   PassManager(const std::unique_ptr<ModuleNode> &moduleNode, Option opt)

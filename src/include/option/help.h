@@ -24,6 +24,7 @@ Options:
     --print-ast-after                         Print the AST after each transformation.
     --print-token                             Print the Token of the language.
     --stack-trace                             Enable stack trace collection and printing.
+    --profile-pass                            Print elapsed time of each transform pass.
     
 Passes:
     symbolChecking
