@@ -51,12 +51,30 @@ def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_u
     }
 }
 
-block 野獸重生一級鹿 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
+// 一級鹿
+block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
+    "{chunk_{map_to_chunk_99_100}_x} + 10",
+    "{chunk_{map_to_chunk_99_100}_y} + 10",
+    "{map_used_99_100}",
+    60, 10, "鹿");
+block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
     "{chunk_{map_to_chunk_101_100}_x} + 10",
     "{chunk_{map_to_chunk_101_100}_y} + 10",
     "{map_used_101_100}",
     60, 10, "鹿");
-block 野獸重生三級鹿 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
+block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
+    "{chunk_{map_to_chunk_100_101}_x} + 10",
+    "{chunk_{map_to_chunk_100_101}_y} + 10",
+    "{map_used_100_101}",
+    60, 10, "鹿");
+    
+// 三級鹿
+block 野獸重生x99y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
+    "{chunk_{map_to_chunk_99_101}_x} + 10",
+    "{chunk_{map_to_chunk_99_101}_y} + 10",
+    "{map_used_99_101}",
+    150, 25, "鹿");
+block 野獸重生x101y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
     "{chunk_{map_to_chunk_101_101}_x} + 10",
     "{chunk_{map_to_chunk_101_101}_y} + 10",
     "{map_used_101_101}",

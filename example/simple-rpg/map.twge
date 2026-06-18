@@ -7,6 +7,33 @@ const 地圖::x座標100n100 = 0;
 const 地圖::y座標100n100 = 0;
 // TODO: support constant propagation in const (aka `const xlocation = stride`)
 
+// [099, 100]---[100, 100]---[101, 100]
+//     |            |            |
+// [099, 101]---[100, 101]---[101, 101]
+
+const 地圖::新手村近郊99n100 = [
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ****** . ***",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ************",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  . ***",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ***",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  . t00 .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00",
+" .  .  .  .  .  .  .  .  .  .  .  . t00 .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  . ExE",
+" .  .  .  .  .  .  . t00 .  .  .  .  . ********* .  .  . ExE",
+" .  .  .  .  .  .  .  .  .  .  .  .  . ****** . *** .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  . *** . *** .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+"t00 .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  . *************** .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  . *** .  . *** .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" . ************ . ****** .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  . ****** . ****** .  . ExSExS .  .  .  .  .  .  .  .  . "
+];
+
 const 地圖::新手村100n100 = [
 " .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  . ********* .  .  .  . ",
@@ -17,17 +44,17 @@ const 地圖::新手村100n100 = [
 " .  . LBx--- . NP1 .  .  .  .  .  . SS3 . ------------ .  . ",
 " .  . ------SW1SW2SW3 .  .  .  .  .  .  .  .  . *** .  .  . ",
 " .  .  .  .  . ****** .  .  .  .  .  .  .  . ********* .  . ",
-" .  .  . ************ .  .  .  .  .  .  . ***************ExE",
-" .  .  . ************ .  .  .  .  .  .  .  . ********* . ExE",
-" .  .  . ********* .  .  .  .  .  .  .  .  .  . *** .  .  . ",
+"ExW .  . ************ .  .  .  .  .  .  . ***************ExE",
+"ExW .  . ************ .  .  .  .  .  .  .  . ********* . ExE",
+" .  .  . ********* .  .  .  .  .  .  .  .  .  . ***SP0 .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
-"****** .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  . ",
-"*** .  .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  . ",
-" . SP0 .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  . ",
-" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
-" .  .  . SP1 . SP2 . SP3 . SP4 . SP5 .  .  .  .  .  .  .  . ",
+"****** .  .  .  .  .  . *** .  .  .  .  .  .  .  . SP1 .  . ",
+"*** .  .  .  .  .  . ********* .  .  .  .  .  .  . SP2 .  . ",
+" .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  . SP3 .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . SP4 .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . SP5 .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******",
-" .  .  .  .  .  .  . ********* .  .  .  .  .  .  . *********"
+" .  .  .  .  .  . *********ExSExS .  .  .  .  .  . *********"
 ];
 
 const 地圖::新手村近郊101n100 = [
@@ -53,6 +80,53 @@ const 地圖::新手村近郊101n100 = [
 " .  .  .  .  .  .  .  .  . ExSExS .  .  .  .  .  .  .  .  . "
 ];
 
+const 地圖::新手村近郊99n101 = [
+"t00 .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  . *** .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ********* . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ************ . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** . t00",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" . ****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+"t00*** .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  . ExE",
+" .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  . ExE",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00 .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  . ****** . *** .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  . ************ .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00 .  . ",
+" .  .  .  .  .  .  .  .  .  . t00 .  .  .  .  .  .  .  .  . "
+];
+
+
+const 地圖::新手村近郊100n101 = [
+ " .  .  .  . *** .  .  .  . ExNExN .  .  . ****** .  .  .  . ",
+ " .  .  . ****** .  .  .  .  .  .  .  .  . *************** . ",
+ " .  .  . *** . ****** .  .  .  .  .  .  . ************ . ***",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******t00 . ",
+ " .  .  .  . *** .  .  . *** .  .  .  .  . *** .  . ****** . ",
+ " .  .  .  .  .  .  .  . *** .  .  .  .  .  . ********* .  . ",
+ " .  .  .  .  .  .  .  . ***t00 .  .  . t00 .  . ***t00 .  . ",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ "ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE",
+ "ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  .  .  .  .  . t00 .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  . *** . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  . *** . t00*** .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+ " .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "
+];
+
 const 地圖::新手村近郊101n101 = [
 " .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
@@ -63,8 +137,8 @@ const 地圖::新手村近郊101n101 = [
 " .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  . t00 . ",
 " . t00 .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  . ",
-" .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  . ",
-" .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  . ",
+"ExW .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  . ",
+"ExW .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** . ",
 " .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  . ****** . ",
 " .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  . *** . ",
@@ -78,7 +152,7 @@ const 地圖::新手村近郊101n101 = [
 
 def 地圖::新增能力點告示牌(x, y, text, type) : actions {
     新增地圖物件(x = x, y = y, object = "石椅");
-    新增告示牌(x = x, y = y, rotation = 270, text = text, buttons = [
+    新增告示牌(x = x, y = y, rotation = 180, text = text, buttons = [
         Button(id = "increase" + type + "1", text = "提升一點"),
         Button(id = "increase" + type + "10", text = "提升十點")
     ]);
@@ -90,7 +164,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     // 生成木板 SP - Point, SW - Weapon, SS - Skill
     else if(object == "SP0") {
         新增地圖物件(x = x, y = y, object = "石椅");
-        新增告示牌(x = x, y = y, rotation = 0, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
     } else if(object == "SP1") {
         地圖::新增能力點告示牌(x, y, 文字::力量描述, "STR");
     } else if(object == "SP2") {
@@ -162,36 +236,14 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     }
 }
 
-def 地圖::生成地圖100n100(xOffset, yOffset) : actions {
+def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
     print(text = "xOffset:" + xOffset);
     print(text = "yOffset:" + yOffset);
-    for(map_row in 0...(twge::get_length(地圖::新手村100n100) - 1)) {
-        for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村100n100, map_row))/3 - 1)) {
+    for(map_row in 0...(twge::get_length(mapArray) - 1)) {
+        for(map_col in 0...(twge::get_length(twge::get_index(mapArray, map_row))/3 - 1)) {
             地圖::生成地圖配置(
                 twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-                twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), map_col*3 + 0, map_col*3 + 2)
-            );
-        }
-    }
-}
-
-def 地圖::生成地圖101n100(xOffset, yOffset) : actions {
-    for(map_row in 0...(twge::get_length(地圖::新手村近郊101n100) - 1)) {
-        for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n100, map_row))/3 - 1)) {
-            地圖::生成地圖配置(
-                twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-                twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), map_col*3 + 0, map_col*3 + 2)
-            );
-        }
-    }
-}
-
-def 地圖::生成地圖101n101(xOffset, yOffset) : actions {
-    for(map_row in 0...(twge::get_length(地圖::新手村近郊101n101) - 1)) {
-        for(map_col in 0...(twge::get_length(twge::get_index(地圖::新手村近郊101n101, map_row))/3 - 1)) {
-            地圖::生成地圖配置(
-                twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-                twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), map_col*3 + 0, map_col*3 + 2)
+                twge::get_slice(twge::get_index(mapArray, map_row), map_col*3 + 0, map_col*3 + 2)
             );
         }
     }
@@ -212,12 +264,7 @@ def 地圖::儲存地圖變量(x, y, map) : actions {
        twge::get_slice(twge::get_index(map,10),57,59) == "ExE") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExE", type = "int", value = 1);
     }
-    儲存全域變數(key = "map_100_100_X", type = "int", value = 0);
-    儲存全域變數(key = "map_100_100_Y", type = "int", value = 0);
-    儲存全域變數(key = "map_101_100_X", type = "int", value = 27);
-    儲存全域變數(key = "map_101_100_Y", type = "int", value = 0);
-    儲存全域變數(key = "map_101_101_X", type = "int", value = 27);
-    儲存全域變數(key = "map_101_101_Y", type = "int", value = 27);
+    儲存全域變數(key = "map_used_" + twge::to_string(x) + "_" + twge::to_string(y), type = "int", value = 0);
 }
 
 def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2): actions {
@@ -359,10 +406,16 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
-        if(map_x == 101 && map_y == 100) {
-            地圖::生成地圖101n100("{chunk_{map_to_chunk_101_100}_x}", "{chunk_{map_to_chunk_101_100}_y}");
+        if(map_x == 99 && map_y == 100) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊99n100);
+        } else if(map_x == 101 && map_y == 100) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n100);
+        } else if(map_x == 99 && map_y == 101) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊99n101);
+        } else if(map_x == 100 && map_y == 101) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}",  地圖::新手村近郊100n101);
         } else if(map_x == 101 && map_y == 101) {
-            地圖::生成地圖101n101("{chunk_{map_to_chunk_101_101}_x}", "{chunk_{map_to_chunk_101_101}_y}");
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}",  地圖::新手村近郊101n101);
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -372,7 +425,10 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
     }
 }
 
+block 移動生成99_100 = 地圖::移動生成泛型(99,100);
 block 移動生成101_100 = 地圖::移動生成泛型(101,100);
+block 移動生成99_101 = 地圖::移動生成泛型(99,101);
+block 移動生成100_101 = 地圖::移動生成泛型(100,101);
 block 移動生成101_101 = 地圖::移動生成泛型(101,101);
 
 def 地圖::移動移除物件泛型(chunk_id) : block {
@@ -510,9 +566,6 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_7_y", type = "int", value = 54);
         儲存全域變數(key = "chunk_8_x", type = "int", value = 54);
         儲存全域變數(key = "chunk_8_y", type = "int", value = 54);
-        儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        儲存全域變數(key = "map_used_101_100", type = "int", value = 0);
-        儲存全域變數(key = "map_used_101_101", type = "int", value = 0);
         儲存全域變數(key = "chunk_used_0", type = "int", value = 1);
         儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
         儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
@@ -532,12 +585,17 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_available_stack_6", type = "int", value = 7);
         儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
-        儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
-        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
-        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
+        地圖::儲存地圖變量(99, 100, 地圖::新手村近郊99n100);
         地圖::儲存地圖變量(100, 100, 地圖::新手村100n100);
         地圖::儲存地圖變量(101, 100, 地圖::新手村近郊101n100);
+        地圖::儲存地圖變量(99, 101, 地圖::新手村近郊99n101);
+        地圖::儲存地圖變量(100, 101, 地圖::新手村近郊100n101);
         地圖::儲存地圖變量(101, 101, 地圖::新手村近郊101n101);
-        地圖::生成地圖100n100("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}");
+        // 特化(100,100)新手村地圖
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
+        儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
+        地圖::生成地圖("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}", 地圖::新手村100n100);
     }
 }
