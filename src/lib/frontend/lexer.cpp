@@ -265,6 +265,8 @@ Token Lexer::nextToken() {
                    "*");
     } else if (current == '/' && next('/')) {
       return commentToken();
+    } else if (current == '/' && next('*')) {
+      return blockCommentToken();
     } else if (current == '/') {
       Lexer::column++;
       pos++;
@@ -402,6 +404,35 @@ Token Lexer::commentToken() {
     column++;
   column = 1;
   return Token(TokenType::COMMENT, filename, Lexer::line++, startColumn,
+               input.substr(start, pos - start));
+}
+
+Token Lexer::blockCommentToken() {
+  size_t start = pos;
+  int startLine = line;
+  int startColumn = column;
+
+  pos += 2;
+  column += 2;
+
+  while (pos < input.length()) {
+    if (input[pos] == '*' && next('/')) {
+      pos += 2;
+      column += 2;
+      return Token(TokenType::COMMENT, filename, startLine, startColumn,
+                   input.substr(start, pos - start));
+    }
+    if (input[pos] == '\n') {
+      pos++;
+      line++;
+      column = 1;
+      continue;
+    }
+    pos++;
+    column++;
+  }
+
+  return Token(TokenType::UNKNOWN, filename, startLine, startColumn,
                input.substr(start, pos - start));
 }
 

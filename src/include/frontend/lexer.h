@@ -27,6 +27,7 @@ private:
   Token nextToken();
   Token metadataToken();
   Token commentToken();
+  Token blockCommentToken();
   Token integerToken();
   Token stringToken();
   Token identifierToken();

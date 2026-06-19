@@ -513,36 +513,38 @@ block 可分配區域更新 {
     }
 }
 
-// 實際地圖分為九個chunk，編號為
-// 0 | 1 | 2
-// 3 | 4 | 5
-// 6 | 7 | 8
-// intra-chunk: size 20x20, stride 1x1
-// inter-chunk: size 3x3, stride 27x27
-// 0th chunk 固定為新手村位置, 1-8th chunk 則為動態分配
+/*
+實際地圖分為九個chunk，編號為
+0 | 1 | 2
+3 | 4 | 5
+6 | 7 | 8
+intra-chunk: size 20x20, stride 1x1
+inter-chunk: size 3x3, stride 27x27
+0th chunk 固定為新手村位置, 1-8th chunk 則為動態分配
 
-// map 則為遊戲地圖概念
-// 例如新手村(100,100)則是map的其中一格
+map 則為遊戲地圖概念
+例如新手村(100,100)則是map的其中一格
 
-// grid則為1x1的格子
+grid則為1x1的格子
 
-// chunk的x grid座標: const int -> chunk_{chunk_id}_x
-// chunk的y grid座標: const int -> chunk_{chunk_id}_y
-// chunk到map_x的映射: int -> chunk_to_map_x_{chunk_id}
-// chunk到map_y的映射: int -> chunk_to_map_y_{chunk_id}
-// chunk使用狀態: [0,1] -> chunk_used_{chunk_id}
-// 空閒chunk的stack: [1,8] -> chunk_available_stack_{stack_id}
+chunk的x grid座標: const int -> chunk_{chunk_id}_x
+chunk的y grid座標: const int -> chunk_{chunk_id}_y
+chunk到map_x的映射: int -> chunk_to_map_x_{chunk_id}
+chunk到map_y的映射: int -> chunk_to_map_y_{chunk_id}
+chunk使用狀態: [0,1] -> chunk_used_{chunk_id}
+空閒chunk的stack: [1,8] -> chunk_available_stack_{stack_id}
 
-// map可往東走: const [0,1] -> map_{map_x}_{map_y}_ExE
-// map可往南走: const [0,1] -> map_{map_x}_{map_y}_ExS
-// map可往西走: const [0,1] -> map_{map_x}_{map_y}_ExW
-// map可往北走: const [0,1] -> map_{map_x}_{map_y}_ExN
-// map到chunk的映射: int -> map_to_chunk_{map_x}_{map_y}
-// map使用狀態: [0,1] -> map_used_{map_x}_{map_y}
+map可往東走: const [0,1] -> map_{map_x}_{map_y}_ExE
+map可往南走: const [0,1] -> map_{map_x}_{map_y}_ExS
+map可往西走: const [0,1] -> map_{map_x}_{map_y}_ExW
+map可往北走: const [0,1] -> map_{map_x}_{map_y}_ExN
+map到chunk的映射: int -> map_to_chunk_{map_x}_{map_y}
+map使用狀態: [0,1] -> map_used_{map_x}_{map_y}
 
-// 角色所在map: int -> instnace.map_x
-// 角色所在map: int -> instnace.map_y
-// 角色移動方向: [東,南,西,北] -> instance.map_direction
+角色所在map: int -> instnace.map_x
+角色所在map: int -> instnace.map_y
+角色移動方向: [東,南,西,北] -> instance.map_direction
+*/
 
 block 地圖初始化 {
     __label__ = "地圖";
