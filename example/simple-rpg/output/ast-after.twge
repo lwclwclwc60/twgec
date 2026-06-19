@@ -201,17 +201,25 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
-        比較數字(lhs = map_used, op = "==", rhs = "1");
+        if(((monster_type == "鹿") && (level == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + (chunk_x + ("_" + (chunk_y + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = name, id = (actor_id + "*"), camp = "第三", hp = hp, x = x, y = y, range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = strength, role = role);
+        if(((monster_type == "鹿") && (level == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -297,10 +305,10 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW2")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW3")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SS1")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -375,10 +383,8 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2) : actions {
     } else if(((x1 < x2) && (y1 == y2))) {
         設定地圖傳送點(fromX = x1, fromY = y1, toX = x2, toY = y2, direction = "右");
         設定地圖傳送點(fromX = x2, fromY = y2, toX = x1, toY = y1, direction = "左");
-    } else if(((x1 == x2) && (y1 == y2))) {
-        print(type = "error", text = "Cannot set the same point as the mapWarp src and dst");
     } else {
-        print(type = "error", text = "Bidirectional mapWarp requires x or y to be the same value");
+        twge::assert(false, ("Cannot construct bidirectional mapWarp between (" + (twge::to_string(x1) + ("," + (twge::to_string(y1) + (") and (" + (twge::to_string(x2) + ("," + (twge::to_string(y2) + ")")))))))));
     }
 }
 def 地圖::移動離開泛型(direction) : block {
@@ -583,11 +589,11 @@ block 拾取經驗一級鹿 = 自定義::拾取經驗泛型("deer_exp_01", 1);
 block 拾取經驗三級鹿 = 自定義::拾取經驗泛型("deer_exp_03", 3);
 block 野獸死亡一級鹿 = 自定義::野獸死亡泛型("monster_deer_lv01", "deer_exp_01", "sariraFire");
 block 野獸死亡三級鹿 = 自定義::野獸死亡泛型("monster_deer_lv03", "deer_exp_03", "sariraFire");
-block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)", "{chunk_{map_to_chunk_99_100}_x} + 10", "{chunk_{map_to_chunk_99_100}_y} + 10", "{map_used_99_100}", 60, 10, "鹿");
-block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)", "{chunk_{map_to_chunk_101_100}_x} + 10", "{chunk_{map_to_chunk_101_100}_y} + 10", "{map_used_101_100}", 60, 10, "鹿");
-block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)", "{chunk_{map_to_chunk_100_101}_x} + 10", "{chunk_{map_to_chunk_100_101}_y} + 10", "{map_used_100_101}", 60, 10, "鹿");
-block 野獸重生x99y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)", "{chunk_{map_to_chunk_99_101}_x} + 10", "{chunk_{map_to_chunk_99_101}_y} + 10", "{map_used_99_101}", 150, 25, "鹿");
-block 野獸重生x101y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)", "{chunk_{map_to_chunk_101_101}_x} + 10", "{chunk_{map_to_chunk_101_101}_y} + 10", "{map_used_101_101}", 150, 25, "鹿");
+block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, "99", "100", "鹿", 1);
+block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, "101", "100", "鹿", 1);
+block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, "100", "101", "鹿", 1);
+block 野獸重生x99y101 = 自定義::野獸重生泛型(12000, "99", "101", "鹿", 3);
+block 野獸重生x101y101 = 自定義::野獸重生泛型(12000, "101", "101", "鹿", 3);
 block 點擊設定技能火星領域 = 自定義::點擊設定技能泛型(別名::技能火星領域EN, 別名::技能火星領域ZH);
 block 點擊設定技能震撼 = 自定義::點擊設定技能泛型(別名::技能震撼EN, 別名::技能震撼ZH);
 block 點擊設定技能土靈召喚 = 自定義::點擊設定技能泛型(別名::技能土靈召喚EN, 別名::技能土靈召喚ZH);
@@ -1018,17 +1024,25 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
-        比較數字(lhs = map_used, op = "==", rhs = "1");
+        if(((monster_type == "鹿") && (level == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + (chunk_x + ("_" + (chunk_y + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = name, id = (actor_id + "*"), camp = "第三", hp = hp, x = x, y = y, range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = strength, role = role);
+        if(((monster_type == "鹿") && (level == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -1114,10 +1128,10 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW2")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW3")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SS1")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -1192,10 +1206,8 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2) : actions {
     } else if(((x1 < x2) && (y1 == y2))) {
         設定地圖傳送點(fromX = x1, fromY = y1, toX = x2, toY = y2, direction = "右");
         設定地圖傳送點(fromX = x2, fromY = y2, toX = x1, toY = y1, direction = "左");
-    } else if(((x1 == x2) && (y1 == y2))) {
-        print(type = "error", text = "Cannot set the same point as the mapWarp src and dst");
     } else {
-        print(type = "error", text = "Bidirectional mapWarp requires x or y to be the same value");
+        twge::assert(false, ("Cannot construct bidirectional mapWarp between (" + (twge::to_string(x1) + ("," + (twge::to_string(y1) + (") and (" + (twge::to_string(x2) + ("," + (twge::to_string(y2) + ")")))))))));
     }
 }
 def 地圖::移動離開泛型(direction) : block {
@@ -1400,11 +1412,11 @@ block 拾取經驗一級鹿 = 自定義::拾取經驗泛型(drop_item_code = "de
 block 拾取經驗三級鹿 = 自定義::拾取經驗泛型(drop_item_code = "deer_exp_03", exp = 3);
 block 野獸死亡一級鹿 = 自定義::野獸死亡泛型(actor_id = "monster_deer_lv01", drop_item_code = "deer_exp_01", drop_item_type = "sariraFire");
 block 野獸死亡三級鹿 = 自定義::野獸死亡泛型(actor_id = "monster_deer_lv03", drop_item_code = "deer_exp_03", drop_item_type = "sariraFire");
-block 野獸重生x99y100 = 自定義::野獸重生泛型(interval = 8000, max_num = 4, actor_id = "monster_deer_lv01", name = "鹿(60)", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", map_used = "{map_used_99_100}", hp = 60, strength = 10, role = "鹿");
-block 野獸重生x101y100 = 自定義::野獸重生泛型(interval = 8000, max_num = 4, actor_id = "monster_deer_lv01", name = "鹿(60)", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", map_used = "{map_used_101_100}", hp = 60, strength = 10, role = "鹿");
-block 野獸重生x100y101 = 自定義::野獸重生泛型(interval = 8000, max_num = 4, actor_id = "monster_deer_lv01", name = "鹿(60)", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", map_used = "{map_used_100_101}", hp = 60, strength = 10, role = "鹿");
-block 野獸重生x99y101 = 自定義::野獸重生泛型(interval = 12000, max_num = 3, actor_id = "monster_deer_lv03", name = "鹿(150)", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", map_used = "{map_used_99_101}", hp = 150, strength = 25, role = "鹿");
-block 野獸重生x101y101 = 自定義::野獸重生泛型(interval = 12000, max_num = 3, actor_id = "monster_deer_lv03", name = "鹿(150)", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", map_used = "{map_used_101_101}", hp = 150, strength = 25, role = "鹿");
+block 野獸重生x99y100 = 自定義::野獸重生泛型(interval = 8000, chunk_x = "99", chunk_y = "100", monster_type = "鹿", level = 1);
+block 野獸重生x101y100 = 自定義::野獸重生泛型(interval = 8000, chunk_x = "101", chunk_y = "100", monster_type = "鹿", level = 1);
+block 野獸重生x100y101 = 自定義::野獸重生泛型(interval = 8000, chunk_x = "100", chunk_y = "101", monster_type = "鹿", level = 1);
+block 野獸重生x99y101 = 自定義::野獸重生泛型(interval = 12000, chunk_x = "99", chunk_y = "101", monster_type = "鹿", level = 3);
+block 野獸重生x101y101 = 自定義::野獸重生泛型(interval = 12000, chunk_x = "101", chunk_y = "101", monster_type = "鹿", level = 3);
 block 點擊設定技能火星領域 = 自定義::點擊設定技能泛型(name = 別名::技能火星領域EN, nameZh = 別名::技能火星領域ZH);
 block 點擊設定技能震撼 = 自定義::點擊設定技能泛型(name = 別名::技能震撼EN, nameZh = 別名::技能震撼ZH);
 block 點擊設定技能土靈召喚 = 自定義::點擊設定技能泛型(name = 別名::技能土靈召喚EN, nameZh = 別名::技能土靈召喚ZH);
@@ -1835,17 +1847,25 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
-        比較數字(lhs = map_used, op = "==", rhs = "1");
+        if(((monster_type == "鹿") && (level == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + (chunk_x + ("_" + (chunk_y + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = name, id = (actor_id + "*"), camp = "第三", hp = hp, x = x, y = y, range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = strength, role = role);
+        if(((monster_type == "鹿") && (level == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -1931,10 +1951,10 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW2")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW3")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SS1")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -2009,10 +2029,8 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2) : actions {
     } else if(((x1 < x2) && (y1 == y2))) {
         設定地圖傳送點(fromX = x1, fromY = y1, toX = x2, toY = y2, direction = "右");
         設定地圖傳送點(fromX = x2, fromY = y2, toX = x1, toY = y1, direction = "左");
-    } else if(((x1 == x2) && (y1 == y2))) {
-        print(type = "error", text = "Cannot set the same point as the mapWarp src and dst");
     } else {
-        print(type = "error", text = "Bidirectional mapWarp requires x or y to be the same value");
+        twge::assert(false, ("Cannot construct bidirectional mapWarp between (" + (twge::to_string(x1) + ("," + (twge::to_string(y1) + (") and (" + (twge::to_string(x2) + ("," + (twge::to_string(y2) + ")")))))))));
     }
 }
 def 地圖::移動離開泛型(direction) : block {
@@ -2462,11 +2480,19 @@ block 野獸重生x99y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -2476,11 +2502,19 @@ block 野獸重生x101y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -2490,11 +2524,19 @@ block 野獸重生x100y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("100" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -2504,11 +2546,19 @@ block 野獸重生x99y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -2518,11 +2568,19 @@ block 野獸重生x101y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -3991,17 +4049,25 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
-        比較數字(lhs = map_used, op = "==", rhs = "1");
+        if(((monster_type == "鹿") && (level == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + (chunk_x + ("_" + (chunk_y + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = name, id = (actor_id + "*"), camp = "第三", hp = hp, x = x, y = y, range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = strength, role = role);
+        if(((monster_type == "鹿") && (level == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if(((monster_type == "鹿") && (level == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
@@ -4087,10 +4153,10 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW2")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SW3")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
     } else if((object == "SS1")) {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -4165,10 +4231,8 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2) : actions {
     } else if(((x1 < x2) && (y1 == y2))) {
         設定地圖傳送點(fromX = x1, fromY = y1, toX = x2, toY = y2, direction = "右");
         設定地圖傳送點(fromX = x2, fromY = y2, toX = x1, toY = y1, direction = "左");
-    } else if(((x1 == x2) && (y1 == y2))) {
-        print(type = "error", text = "Cannot set the same point as the mapWarp src and dst");
     } else {
-        print(type = "error", text = "Bidirectional mapWarp requires x or y to be the same value");
+        twge::assert(false, ("Cannot construct bidirectional mapWarp between (" + (twge::to_string(x1) + ("," + (twge::to_string(y1) + (") and (" + (twge::to_string(x2) + ("," + (twge::to_string(y2) + ")")))))))));
     }
 }
 def 地圖::移動離開泛型(direction) : block {
@@ -4656,11 +4720,19 @@ block 野獸重生x99y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -4672,11 +4744,19 @@ block 野獸重生x101y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -4688,11 +4768,19 @@ block 野獸重生x100y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("100" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -4704,11 +4792,19 @@ block 野獸重生x99y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -4720,11 +4816,19 @@ block 野獸重生x101y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -6505,11 +6609,19 @@ block 野獸重生x99y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -6521,11 +6633,19 @@ block 野獸重生x101y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("100" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -6537,11 +6657,19 @@ block 野獸重生x100y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
-        比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("100" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = ("monster_deer_lv01" + "*"), camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if((("鹿" == "鹿") && (1 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (1 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -6553,11 +6681,19 @@ block 野獸重生x99y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("99" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -6569,11 +6705,19 @@ block 野獸重生x101y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
-        比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = ("{map_used_" + ("101" + ("_" + ("101" + "}")))), op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = ("monster_deer_lv03" + "*"), camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if((("鹿" == "鹿") && (3 == 1))) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if((("鹿" == "鹿") && (3 == 3))) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -7105,10 +7249,10 @@ block 移動生成99_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7176,10 +7320,10 @@ block 移動生成99_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7247,10 +7391,10 @@ block 移動生成99_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7318,10 +7462,10 @@ block 移動生成99_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7389,10 +7533,10 @@ block 移動生成99_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7494,10 +7638,10 @@ block 移動生成101_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7565,10 +7709,10 @@ block 移動生成101_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7636,10 +7780,10 @@ block 移動生成101_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7707,10 +7851,10 @@ block 移動生成101_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7778,10 +7922,10 @@ block 移動生成101_100 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7883,10 +8027,10 @@ block 移動生成99_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -7954,10 +8098,10 @@ block 移動生成99_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8025,10 +8169,10 @@ block 移動生成99_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8096,10 +8240,10 @@ block 移動生成99_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8167,10 +8311,10 @@ block 移動生成99_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8272,10 +8416,10 @@ block 移動生成100_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8343,10 +8487,10 @@ block 移動生成100_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8414,10 +8558,10 @@ block 移動生成100_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8485,10 +8629,10 @@ block 移動生成100_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8556,10 +8700,10 @@ block 移動生成100_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8661,10 +8805,10 @@ block 移動生成101_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8732,10 +8876,10 @@ block 移動生成101_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8803,10 +8947,10 @@ block 移動生成101_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8874,10 +9018,10 @@ block 移動生成101_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -8945,10 +9089,10 @@ block 移動生成101_101 {
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
-                        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                        新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "小箱子");
                         新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -9440,10 +9584,10 @@ block 地圖初始化 {
                     新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                 } else if((twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW2")) {
                     新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), object = "小箱子");
-                    新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                    新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                 } else if((twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SW3")) {
                     新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), object = "小箱子");
-                    新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                    新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
                 } else if((twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "SS1")) {
                     新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), object = "小箱子");
                     新增告示牌(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
@@ -10350,11 +10494,15 @@ block 野獸重生x99y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        if(true) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        }
         比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if(true) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -10366,11 +10514,15 @@ block 野獸重生x101y100 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        if(true) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        }
         比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if(true) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -10382,11 +10534,15 @@ block 野獸重生x100y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        if(true) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        }
         比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        if(true) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -10398,11 +10554,15 @@ block 野獸重生x99y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        if(true) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
         比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if(true) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -10414,11 +10574,15 @@ block 野獸重生x101y101 {
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        if(true) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
         比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        if(true) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -16121,11 +16285,11 @@ block 地圖初始化 {
         }
         if(true) {
             新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-            新增告示牌(x = 5, y = 7, rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+            新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         }
         if(true) {
             新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-            新增告示牌(x = 6, y = 7, rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+            新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         }
         if(true) {
         }
@@ -17476,7 +17640,7 @@ block 野獸重生x99y100 {
         比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -17492,7 +17656,7 @@ block 野獸重生x101y100 {
         比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -17508,7 +17672,7 @@ block 野獸重生x100y101 {
         比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -17524,7 +17688,7 @@ block 野獸重生x99y101 {
         比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -17540,7 +17704,7 @@ block 野獸重生x101y101 {
         比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -18684,9 +18848,9 @@ block 地圖初始化 {
         新增地圖物件(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
         新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "16+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
@@ -19510,7 +19674,7 @@ block 野獸重生x99y100 {
         比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -19526,7 +19690,7 @@ block 野獸重生x101y100 {
         比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -19542,7 +19706,7 @@ block 野獸重生x100y101 {
         比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", hp = 60, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -19558,7 +19722,7 @@ block 野獸重生x99y101 {
         比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -19574,7 +19738,7 @@ block 野獸重生x101y101 {
         比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", hp = 150, range = 10, localVarname = "actor", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -20718,9 +20882,9 @@ block 地圖初始化 {
         新增地圖物件(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
         新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "16+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");

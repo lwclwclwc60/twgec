@@ -34,48 +34,41 @@ block 野獸死亡三級鹿 = 自定義::野獸死亡泛型("monster_deer_lv03",
 // def 自定義::野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, strength, role) : block = 
 //      野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, "fist", "fist", strength, role);
 // TODO: Support typing
-def 自定義::野獸重生泛型(interval, max_num, actor_id, name, x, y, map_used, hp, strength, role) : block {
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
-        計算人數(actor = ActorMatch(id = actor_id, matchKind = "contain"), op = "<", value = max_num);
-        比較數字(lhs = map_used, op = "==", rhs = "1");
+        if(monster_type == "鹿" && level == 1) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv01", matchKind = "contain"), op = "<", value = 4);
+        } else if(monster_type == "鹿" && level == 3) {
+            計算人數(actor = ActorMatch(id = "monster_deer_lv03", matchKind = "contain"), op = "<", value = 3);
+        }
+        比較數字(lhs = "{map_used_" + chunk_x +"_" + chunk_y + "}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = name, id = actor_id + "*", camp = "第三", 
-                hp = hp, x = x, y = y, range = 10, localVarname = "actor", 
-                weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = strength, role = role);
+        if(monster_type == "鹿" && level == 1) {
+            新增角色(name = "鹿(60)", id = "monster_deer_lv01*", camp = "第三", 
+                    hp = 60, range = 10, localVarname = "actor",
+                    x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
+                    y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
+                    weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 10, role = "鹿");
+        } else if(monster_type == "鹿" && level == 3) {
+            新增角色(name = "鹿(150)", id = "monster_deer_lv03*", camp = "第三", 
+                    hp = 150, range = 10, localVarname = "actor",
+                    x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
+                    y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
+                    weapon1 = "fist", weapon2 = "fist", teamId = 101, strength = 25, role = "鹿");
+        }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
 
 // 一級鹿
-block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
-    "{chunk_{map_to_chunk_99_100}_x} + 10",
-    "{chunk_{map_to_chunk_99_100}_y} + 10",
-    "{map_used_99_100}",
-    60, 10, "鹿");
-block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
-    "{chunk_{map_to_chunk_101_100}_x} + 10",
-    "{chunk_{map_to_chunk_101_100}_y} + 10",
-    "{map_used_101_100}",
-    60, 10, "鹿");
-block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, 4, "monster_deer_lv01", "鹿(60)",
-    "{chunk_{map_to_chunk_100_101}_x} + 10",
-    "{chunk_{map_to_chunk_100_101}_y} + 10",
-    "{map_used_100_101}",
-    60, 10, "鹿");
-    
+block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, "99", "100", "鹿", 1);
+block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, "101", "100", "鹿", 1);
+block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, "100", "101", "鹿", 1);
 // 三級鹿
-block 野獸重生x99y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
-    "{chunk_{map_to_chunk_99_101}_x} + 10",
-    "{chunk_{map_to_chunk_99_101}_y} + 10",
-    "{map_used_99_101}",
-    150, 25, "鹿");
-block 野獸重生x101y101 = 自定義::野獸重生泛型(12000, 3, "monster_deer_lv03", "鹿(150)",
-    "{chunk_{map_to_chunk_101_101}_x} + 10",
-    "{chunk_{map_to_chunk_101_101}_y} + 10",
-    "{map_used_101_101}",
-    150, 25, "鹿");
+block 野獸重生x99y101 = 自定義::野獸重生泛型(12000, "99", "101", "鹿", 3);
+block 野獸重生x101y101 = 自定義::野獸重生泛型(12000, "101", "101", "鹿", 3);

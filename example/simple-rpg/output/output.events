@@ -15209,8 +15209,8 @@
                         "localVarname": "",
                         "locs": [
                             {
-                                "x": "5",
-                                "y": "7",
+                                "x": "5+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "7+{chunk_{map_to_chunk_100_100}_y}",
                                 "range": "0"
                             }
                         ],
@@ -15264,8 +15264,8 @@
                         "localVarname": "",
                         "locs": [
                             {
-                                "x": "6",
-                                "y": "7",
+                                "x": "6+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "7+{chunk_{map_to_chunk_100_100}_y}",
                                 "range": "0"
                             }
                         ],

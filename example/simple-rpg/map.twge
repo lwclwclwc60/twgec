@@ -180,10 +180,10 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
     } else if(object == "SW2") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 5, y = 7, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
     } else if(object == "SW3") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = 6, y = 7, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
     } else if(object == "SS1") {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [
@@ -279,10 +279,10 @@ def 自定義::設定雙向地圖傳送點(x1, y1, x2, y2): actions {
     } else if (x1 < x2 && y1 == y2) {
         設定地圖傳送點(fromX = x1, fromY = y1, toX = x2, toY = y2, direction = "右");
         設定地圖傳送點(fromX = x2, fromY = y2, toX = x1, toY = y1, direction = "左");
-    } else if (x1 == x2 && y1 == y2) {
-        print(type = "error", text = "Cannot set the same point as the mapWarp src and dst");
     } else {
-        print(type = "error", text = "Bidirectional mapWarp requires x or y to be the same value");
+        twge::assert(false, "Cannot construct bidirectional mapWarp between (" +
+            twge::to_string(x1) + "," + twge::to_string(y1) + ") and (" +
+            twge::to_string(x2) + "," + twge::to_string(y2) + ")");
     }
 }
 
