@@ -137,6 +137,8 @@ Supported Actions:
         category: string, key: string, playerId: string, type: string, value: string
     setWeaponAbility            設定武器技能
         ability: string, level: int|string, operation: string, weapon: string
+    showSelectDialog            彈出選項視窗
+        actorId: string, message: string, options: list[Button]
     tipOnMap                    地圖標示文字
         duration: int|string, html: bool, text: string, x: int|string, y: int|string
     wait                        等待
@@ -169,6 +171,8 @@ Supported Triggers:
         actor: ActorMatch, actorVarName: string, damageValueVarName: string, hitter: ActorMatch, hitterVarName: string, weapon: string
     clickButton                 告示牌按鈕
         actor: ActorMatch, buttonId: string, varName: string
+    dialogConfirm               視窗確認
+        buttonName: string, playerLocalId: string
     keyboardPressed             鍵盤按鍵
         actorId: string, key: string, timing: string, varName: string
     itemPickup                  拾取武器道具

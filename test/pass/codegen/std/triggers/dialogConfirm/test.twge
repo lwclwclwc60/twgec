@@ -1,0 +1,5 @@
+block init {
+    triggers {
+        dialogConfirm(buttonName = "dialog_point", playerLocalId = "instance");
+    }
+}

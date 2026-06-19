@@ -14,6 +14,7 @@ extern DefaultMap customWeaponDefaultMap;
 
 JsonArrayNode getActorMatchesNode(const std::shared_ptr<ValueNode> &);
 JsonArrayNode getButtonListNode(const std::shared_ptr<ValueNode> &);
+JsonArrayNode getDialogButtonListNode(const std::shared_ptr<ValueNode> &);
 JsonArrayNode getCustomWeaponsListNode(const std::shared_ptr<ValueNode> &);
 JsonArrayNode getPatrolPathListNode(const std::shared_ptr<ValueNode> &);
 JsonArrayNode getSpawnPointListNode(const std::shared_ptr<ValueNode> &);

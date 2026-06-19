@@ -183,6 +183,8 @@ void CodeGenerator::codegenAction(std::ofstream &of,
     of << action::ActionSetUserState::CODEGEN_FUNC;
   if (identifier == "setWeaponAbility" || identifier == "設定武器技能")
     of << action::ActionSetWeaponAbility::CODEGEN_FUNC;
+  if (identifier == "showSelectDialog" || identifier == "彈出選項視窗")
+    of << action::ActionShowSelectDialog::CODEGEN_FUNC;
   if (identifier == "tipOnMap" || identifier == "地圖標示文字")
     of << action::ActionTipOnMap::CODEGEN_FUNC;
   if (identifier == "wait" || identifier == "等待")
@@ -246,6 +248,8 @@ void CodeGenerator::codegenTrigger(
     of << trigger::TriggerActorHit::CODEGEN_FUNC;
   if (identifier == "clickButton" || identifier == "告示牌按鈕")
     of << trigger::TriggerClickButton::CODEGEN_FUNC;
+  if (identifier == "dialogConfirm" || identifier == "視窗確認")
+    of << trigger::TriggerDialogConfirm::CODEGEN_FUNC;
   if (identifier == "keyboardPressed" || identifier == "鍵盤按鍵")
     of << trigger::TriggerKeyboardPressed::CODEGEN_FUNC;
   if (identifier == "itemPickup" || identifier == "拾取武器道具")

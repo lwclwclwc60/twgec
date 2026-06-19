@@ -19,6 +19,7 @@ string getCodeGen(config::CodegenType codegenType, string text) {
   case config::CODEGEN_ACTOR_MATCH:
   case config::CODEGEN_ENHFF_ACTOR_MATCH:
   case config::CODEGEN_LIST_BUTTON:
+  case config::CODEGEN_LIST_BUTTON_DIALOG:
   case config::CODEGEN_LIST_CUSTOM_WEAPON:
   case config::CODEGEN_LIST_SPAWN_POINT:
   case config::CODEGEN_LIST_PATROL_POINT:
@@ -94,6 +95,8 @@ string DefaultMap::get(string key, keyword::KeywordEnum keywordEnum,
   switch (codegenType) {
   case config::CODEGEN_LIST_BUTTON:
     return getButtonListNode(input).to_string(28);
+  case config::CODEGEN_LIST_BUTTON_DIALOG:
+    return getDialogButtonListNode(input).to_string(28);
   case config::CODEGEN_LIST_CUSTOM_WEAPON:
     return getCustomWeaponsListNode(input).to_string(16);
   case config::CODEGEN_LIST_SPAWN_POINT:

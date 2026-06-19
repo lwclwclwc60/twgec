@@ -61,6 +61,7 @@ enum CodegenType {
   CODEGEN_ACTOR_MATCH,
   CODEGEN_ENHFF_ACTOR_MATCH,
   CODEGEN_LIST_BUTTON,
+  CODEGEN_LIST_BUTTON_DIALOG,
   CODEGEN_LIST_CUSTOM_WEAPON,
   CODEGEN_LIST_STRING,
   CODEGEN_LIST_SPAWN_POINT,  // {x,y}
@@ -328,6 +329,11 @@ const InstructionConfig setWeaponAbilityConfig =
         .addParam("level", AST_INT, CODEGEN_INT, "1")
         .addParam("operation", AST_STRING, CODEGEN_STRING, "set")
         .addParam("ability", AST_STRING, CODEGEN_STRING, "sounded");
+const InstructionConfig showSelectDialogConfig =
+    InstructionConfig("showSelectDialog", "彈出選項視窗")
+        .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        .addParam("message", AST_STRING, CODEGEN_STRING, "")
+        .addParam("options", AST_LIST_BUTTON, CODEGEN_LIST_BUTTON_DIALOG, "[]");
 const InstructionConfig tipOnMapConfig =
     InstructionConfig("tipOnMap", "地圖標示文字")
         .addParam("x", AST_INT, CODEGEN_STRING, "0")
@@ -396,6 +402,7 @@ const std::vector<InstructionConfig> actionList = {
     setObjectVarConfig,
     setUserStateConfig,
     setWeaponAbilityConfig,
+    showSelectDialogConfig,
     tipOnMapConfig,
     waitConfig,
     EnhFFPlayerMousePositionConfig,
@@ -470,6 +477,10 @@ const InstructionConfig clickButtonConfig =
         .addParam("varName", AST_STRING, CODEGEN_STRING, "")
         .addParam("buttonId", AST_STRING, CODEGEN_STRING, "")
         .setCodegenName("TalkButton");
+const InstructionConfig dialogConfirmConfig =
+    InstructionConfig("dialogConfirm", "視窗確認")
+        .addParam("buttonName", AST_STRING, CODEGEN_STRING, "")
+        .addParam("playerLocalId", AST_STRING, CODEGEN_STRING, "");
 const InstructionConfig keyboardPressedConfig =
     InstructionConfig("keyboardPressed", "鍵盤按鍵")
         .addParam("actorId", AST_STRING, CODEGEN_STRING, "*")
@@ -499,9 +510,10 @@ const InstructionConfig releasePowerConfig =
         .addParam("weapon", AST_STRING, CODEGEN_STRING, "");
 
 const std::vector<InstructionConfig> triggerList = {
-    actorAddedConfig, actorDeadConfig,   actorFireConfig,
-    actorHitConfig,   clickButtonConfig, keyboardPressedConfig,
-    itemPickupConfig, mouseEventConfig,  releasePowerConfig,
+    actorAddedConfig,      actorDeadConfig,   actorFireConfig,
+    actorHitConfig,        clickButtonConfig, dialogConfirmConfig,
+    keyboardPressedConfig, itemPickupConfig,  mouseEventConfig,
+    releasePowerConfig,
 };
 } // namespace config
 

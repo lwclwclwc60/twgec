@@ -1,0 +1,5 @@
+block init {
+    actions {
+        showSelectDialog(actorId = "{instance}", message = "<div>Player Info</div>", options = [Button(id = "dialog_point", text = "分配能力")]);
+    }
+}

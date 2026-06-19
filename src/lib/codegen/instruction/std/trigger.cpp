@@ -81,6 +81,17 @@ trigger::TriggerClickButton::method(DefaultMap defaultMap,
 }
 
 JsonObjectNode
+trigger::TriggerDialogConfirm::method(DefaultMap defaultMap,
+                                      UserDefinedMetadata userDefinedMeta) {
+  return JsonObjectNode({
+      {"dialogId", "\"\""},
+      {"playerCodeVarname", defaultMap.get("playerLocalId")},
+      {"value", defaultMap.get("buttonName")},
+      {"evtLocal", "\"\""},
+  });
+}
+
+JsonObjectNode
 trigger::TriggerKeyboardPressed::method(DefaultMap defaultMap,
                                         UserDefinedMetadata userDefinedMeta) {
   return JsonObjectNode({

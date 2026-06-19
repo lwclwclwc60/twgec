@@ -13,11 +13,25 @@ JsonObjectNode getButtonNode(std::unique_ptr<ExpressionNode> &expNode) {
     std::cerr << "Button-typed value is expected at " << expNode->loc << "\n";
     return JsonObjectNode();
   }
-  buttonDefaultMap.addInputMap(
-      buttonValueNode->paramApps->named_args);
+  buttonDefaultMap.addInputMap(buttonValueNode->paramApps->named_args);
   return JsonObjectNode({
       {"buttonCode", buttonDefaultMap.get("id")},
       {"close", "true"},
+      {"label", buttonDefaultMap.get("text")},
+      {"icon", "\"\""},
+  });
+}
+
+JsonObjectNode getDialogButtonNode(std::unique_ptr<ExpressionNode> &expNode) {
+  buttonDefaultMap.clearInputMap();
+  auto buttonValueNode = dynamic_cast<ButtonValueNode *>(expNode->value.get());
+  if (!buttonValueNode) {
+    std::cerr << "Button-typed value is expected at " << expNode->loc << "\n";
+    return JsonObjectNode();
+  }
+  buttonDefaultMap.addInputMap(buttonValueNode->paramApps->named_args);
+  return JsonObjectNode({
+      {"value", buttonDefaultMap.get("id")},
       {"label", buttonDefaultMap.get("text")},
       {"icon", "\"\""},
   });
@@ -225,6 +239,18 @@ JsonArrayNode getButtonListNode(const std::shared_ptr<ValueNode> &valueNode) {
   if (auto listNode = dynamic_cast<ListValueNode *>(valueNode.get()))
     for (auto &item : listNode->items)
       arrayNode.addNode(std::make_shared<JsonObjectNode>(getButtonNode(item)));
+  else
+    std::cerr << "list-typed value is expected at " << valueNode->loc << "\n";
+  return arrayNode;
+}
+
+JsonArrayNode
+getDialogButtonListNode(const std::shared_ptr<ValueNode> &valueNode) {
+  JsonArrayNode arrayNode = JsonArrayNode();
+  if (auto listNode = dynamic_cast<ListValueNode *>(valueNode.get()))
+    for (auto &item : listNode->items)
+      arrayNode.addNode(
+          std::make_shared<JsonObjectNode>(getDialogButtonNode(item)));
   else
     std::cerr << "list-typed value is expected at " << valueNode->loc << "\n";
   return arrayNode;

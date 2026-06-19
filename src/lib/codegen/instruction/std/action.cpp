@@ -282,6 +282,47 @@ action::ActionConsole::method(DefaultMap defaultMap,
 }
 
 JsonObjectNode
+action::ActionShowSelectDialog::method(DefaultMap defaultMap,
+                                       UserDefinedMetadata userDefinedMeta) {
+  JsonObjectNode msgImageNode =
+      JsonObjectNode(std::vector<std::pair<std::string, std::string>>{
+          {"msgImageAlias", "\"\""},
+          {"msgImageSide", "\"left\""},
+      });
+  JsonObjectNode controlsNode = JsonObjectNode({
+      {"buttonIconSide", "\"right\""},
+      {"conBottom", "8"},
+      {"conBottomUnit", "\"px\""},
+      {"confirmLabel", "\"確定\""},
+      {"confirmIcon", "\"check\""},
+      {"hideCancelButton", "true"},
+  });
+  JsonObjectNode transitionNode = JsonObjectNode({
+      {"tranClaz", "\"slide\""},
+      {"tranDuration", "\"250\""},
+      {"tranDirection", "\"up\""},
+  });
+  JsonObjectNode optionsNode = JsonObjectNode({
+      {"maxWidth", "\"\""},
+      {"backgroundImage", "\"\""},
+      {"transition", transitionNode.to_string(28)},
+  });
+  return JsonObjectNode({
+      {"playerTarget", "\"one\""},
+      {"playerId", defaultMap.get("actorId")},
+      {"dialogId", "\"\""},
+      {"title", "\"\""},
+      {"message", defaultMap.get("message")},
+      {"messageType", "\"html\""},
+      {"msgImage", msgImageNode.to_string(24)},
+      {"controls", controlsNode.to_string(24)},
+      {"options", optionsNode.to_string(24)},
+      {"defaultValue", "\"\""},
+      {"selectOptions", defaultMap.get("options")},
+  });
+}
+
+JsonObjectNode
 action::ActionDeltaHp::method(DefaultMap defaultMap,
                               UserDefinedMetadata userDefinedMeta) {
   return JsonObjectNode({
