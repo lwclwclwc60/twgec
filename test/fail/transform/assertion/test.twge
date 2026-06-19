@@ -1,0 +1,6 @@
+block init {
+    actions {
+        twge::assert(1 == 1, "1 is not equal to 1");
+        twge::assert(2 == 1, "2 is not equal to 1");
+    }
+}

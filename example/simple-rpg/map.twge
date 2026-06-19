@@ -231,8 +231,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if(object == "ExW") {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
-        // TODO: support twge::assert(bool, string)
-        print(text = "無效Object:" + object, type = "error");
+        twge::assert(false, "無效地圖物件: " + object);
     }
 }
 

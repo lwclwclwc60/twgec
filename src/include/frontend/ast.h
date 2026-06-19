@@ -346,15 +346,25 @@ public:
 };
 
 //------------ Instruction level definition ------------//
+enum InstructionIntrinsicType {
+  INSTRUCTION_INTRINSIC_NON,
+  INSTRUCTION_INTRINSIC_ASSERT,
+};
+
 class InstructionNode : public ASTNode {
 public:
   std::string identifier;
   std::unique_ptr<ParamAppsNode> paramApps;
+  InstructionIntrinsicType intrinsicType = INSTRUCTION_INTRINSIC_NON;
+  bool isNoOp = false;
 
   // Constructor
   InstructionNode(std::string identifier,
-                  std::unique_ptr<ParamAppsNode> paramApps, Location loc)
-      : ASTNode(loc), identifier(identifier), paramApps(std::move(paramApps)) {}
+                  std::unique_ptr<ParamAppsNode> paramApps, Location loc,
+                  InstructionIntrinsicType intrinsicType,
+                  bool isNoOp = false)
+      : ASTNode(loc), identifier(identifier), paramApps(std::move(paramApps)),
+        intrinsicType(intrinsicType), isNoOp(isNoOp) {}
 
   // Function
   void print(int indent = 0) override;

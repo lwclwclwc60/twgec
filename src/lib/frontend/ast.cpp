@@ -5,6 +5,7 @@
 #include <optional>
 #include <sstream>
 #include <string>
+#include <cstdlib>
 
 namespace {
 using TraceRef = std::reference_wrapper<const std::vector<CallFrame>>;
@@ -255,7 +256,8 @@ std::unique_ptr<ForNode> ForNode::clone() {
 }
 
 std::unique_ptr<InstructionNode> InstructionNode::clone() {
-  return std::make_unique<InstructionNode>(identifier, paramApps->clone(), loc);
+  return std::make_unique<InstructionNode>(
+      identifier, paramApps->clone(), loc, intrinsicType, isNoOp);
 }
 
 std::unique_ptr<ParamAppsNode> ParamAppsNode::clone() {
@@ -594,8 +596,14 @@ bool TypedInstrSetNode::foldValue() { return instrSet->foldValue(); }
 
 bool InstrSetNode::foldValue() {
   bool ret = true;
-  for (auto &compositeInstr : instructions)
-    ret &= compositeInstr->foldValue();
+  for (auto iter = instructions.begin(); iter != instructions.end();) {
+    ret &= (*iter)->foldValue();
+    if ((*iter)->instruction && (*iter)->instruction->isNoOp) {
+      iter = instructions.erase(iter);
+      continue;
+    }
+    ++iter;
+  }
   return ret;
 }
 
@@ -657,7 +665,49 @@ bool ForNode::foldValue() {
   return ret;
 }
 
-bool InstructionNode::foldValue() { return paramApps->foldValue(); }
+bool InstructionNode::foldValue() {
+  bool ret = paramApps->foldValue();
+  if (!ret)
+    return false;
+
+  if (intrinsicType != INSTRUCTION_INTRINSIC_ASSERT)
+    return true;
+
+  if (!paramApps->named_args.empty() || paramApps->positional_args.size() != 2) {
+    std::cerr << "Compilation Error: twge::assert expects exactly 2 positional "
+                 "arguments (bool, string) at "
+              << loc << "\n";
+    loc.printCallTrace(std::cerr);
+    return false;
+  }
+
+    auto *conditionExp = paramApps->positional_args[0]->expNode.get();
+    auto *messageExp = paramApps->positional_args[1]->expNode.get();
+    auto *conditionVal =
+      conditionExp ? dynamic_cast<BoolValueNode *>(conditionExp->value.get())
+             : nullptr;
+    auto *messageVal =
+      messageExp ? dynamic_cast<StringValueNode *>(messageExp->value.get())
+           : nullptr;
+
+  if (!conditionVal || !conditionVal) {
+    std::cerr << "Compilation Error: twge::assert expects argument types "
+                 "(bool, string) at "
+              << loc << "\n";
+    loc.printCallTrace(std::cerr);
+    return false;
+  }
+
+  if (conditionVal->value) {
+    isNoOp = true;
+    return true;
+  }
+
+  std::cerr << "Compilation Error: twge::assert failed: " << messageVal->value
+            << " at " << loc << "\n";
+  loc.printCallTrace(std::cerr);
+  std::abort();
+}
 
 bool ParamAppsNode::foldValue() {
   bool ret = true;

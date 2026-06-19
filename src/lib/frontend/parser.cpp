@@ -10,8 +10,8 @@ bool isIntrinsicToken(TokenType type) {
          type == TokenType::INTRINSIC_TO_INT ||
          type == TokenType::INTRINSIC_TO_BOOL ||
          type == TokenType::INTRINSIC_GET_INDEX ||
-      type == TokenType::INTRINSIC_GET_LENGTH ||
-      type == TokenType::INTRINSIC_GET_SLICE;
+         type == TokenType::INTRINSIC_GET_LENGTH ||
+         type == TokenType::INTRINSIC_GET_SLICE;
 }
 
 ExpOpType toIntrinsicOpType(TokenType type) {
@@ -286,7 +286,8 @@ std::unique_ptr<CompositeInstrNode> Parser::parseCompositeInstr() {
   Location loc = tokens.front().location;
   std::unique_ptr<CompositeInstrNode> compositeInstrNode =
       std::make_unique<CompositeInstrNode>(loc);
-  if (tokens.front().type == TokenType::IDENTIFIER) {
+  if (tokens.front().type == TokenType::IDENTIFIER ||
+      tokens.front().type == TokenType::INTRINSIC_ASSERT) {
     compositeInstrNode->instruction = std::move(parseInstruction());
     if (!compositeInstrNode->instruction)
       return nullptr;
@@ -387,12 +388,22 @@ std::unique_ptr<ForNode> Parser::parseFor() {
 
 std::unique_ptr<InstructionNode> Parser::parseInstruction() {
   Location loc = tokens.front().location;
-  std::string identifier = parseScopedIdentifier();
+  std::string identifier;
+  InstructionIntrinsicType intrinsicType = INSTRUCTION_INTRINSIC_NON;
+  if (tokens.front().type == TokenType::INTRINSIC_ASSERT) {
+    identifier = "twge::assert";
+    intrinsicType = INSTRUCTION_INTRINSIC_ASSERT;
+    if (!consume(TokenType::INTRINSIC_ASSERT))
+      return nullptr;
+  } else {
+    identifier = parseScopedIdentifier();
+  }
   if (identifier == "")
     return nullptr;
   std::unique_ptr<InstructionNode> instructionNode =
       std::make_unique<InstructionNode>(identifier,
-                                        std::move(parseParamAppsNode()), loc);
+                      std::move(parseParamAppsNode()), loc,
+                      intrinsicType);
   if (!instructionNode->paramApps)
     return nullptr;
   if (!consume(TokenType::SEMICOLON))

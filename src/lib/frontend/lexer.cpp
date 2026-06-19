@@ -30,6 +30,7 @@ std::string IntrinsicToBool = "twge::to_bool";
 std::string IntrinsicGetIndex = "twge::get_index";
 std::string IntrinsicGetLength = "twge::get_length";
 std::string IntrinsicGetSlice = "twge::get_slice";
+std::string IntrinsicAssert = "twge::assert";
 
 const std::map<std::string, TokenType> initMap = {
     {_true, TokenType::TRUE},
@@ -54,6 +55,7 @@ const std::map<std::string, TokenType> initMap = {
     {IntrinsicGetIndex, TokenType::INTRINSIC_GET_INDEX},
     {IntrinsicGetLength, TokenType::INTRINSIC_GET_LENGTH},
     {IntrinsicGetSlice, TokenType::INTRINSIC_GET_SLICE},
+    {IntrinsicAssert, TokenType::INTRINSIC_ASSERT},
 };
 } // namespace keyword
 
@@ -301,6 +303,7 @@ Token Lexer::nextToken() {
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::IntrinsicGetIndex)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::IntrinsicGetLength)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::IntrinsicGetSlice)
+    LEXER_MATCH_KEYWORD_AND_RETURN(keyword::IntrinsicAssert)
     else if (isValidIdentifierLeadingCharacter(current)) {
       return identifierToken();
     }

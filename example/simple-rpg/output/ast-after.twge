@@ -335,7 +335,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if((object == "ExW")) {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
-        print(text = ("無效Object:" + object), type = "error");
+        twge::assert(false, ("無效地圖物件: " + object));
     }
 }
 def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
@@ -1152,7 +1152,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if((object == "ExW")) {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
-        print(text = ("無效Object:" + object), type = "error");
+        twge::assert(false, ("無效地圖物件: " + object));
     }
 }
 def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
@@ -1969,7 +1969,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if((object == "ExW")) {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
-        print(text = ("無效Object:" + object), type = "error");
+        twge::assert(false, ("無效地圖物件: " + object));
     }
 }
 def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
@@ -4125,7 +4125,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     } else if((object == "ExW")) {
         新增地圖物件(x = x, y = y, object = "白光(左)");
     } else {
-        print(text = ("無效Object:" + object), type = "error");
+        twge::assert(false, ("無效地圖物件: " + object));
     }
 }
 def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
@@ -7143,7 +7143,7 @@ block 移動生成99_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7214,7 +7214,7 @@ block 移動生成99_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7285,7 +7285,7 @@ block 移動生成99_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7356,7 +7356,7 @@ block 移動生成99_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7427,7 +7427,7 @@ block 移動生成99_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7532,7 +7532,7 @@ block 移動生成101_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7603,7 +7603,7 @@ block 移動生成101_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7674,7 +7674,7 @@ block 移動生成101_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7745,7 +7745,7 @@ block 移動生成101_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7816,7 +7816,7 @@ block 移動生成101_100 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7921,7 +7921,7 @@ block 移動生成99_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -7992,7 +7992,7 @@ block 移動生成99_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8063,7 +8063,7 @@ block 移動生成99_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8134,7 +8134,7 @@ block 移動生成99_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8205,7 +8205,7 @@ block 移動生成99_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8310,7 +8310,7 @@ block 移動生成100_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8381,7 +8381,7 @@ block 移動生成100_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8452,7 +8452,7 @@ block 移動生成100_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8523,7 +8523,7 @@ block 移動生成100_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8594,7 +8594,7 @@ block 移動生成100_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8699,7 +8699,7 @@ block 移動生成101_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8770,7 +8770,7 @@ block 移動生成101_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8841,7 +8841,7 @@ block 移動生成101_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊99n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8912,7 +8912,7 @@ block 移動生成101_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊100n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -8983,7 +8983,7 @@ block 移動生成101_101 {
                     } else if((twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                         新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{chunk_available_stack_now}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{chunk_available_stack_now}_y}")), object = "白光(左)");
                     } else {
-                        print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                        twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村近郊101n101, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                     }
                 }
             }
@@ -9478,7 +9478,7 @@ block 地圖初始化 {
                 } else if((twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)) == "ExW")) {
                     新增地圖物件(x = (twge::to_string(map_col) + ("+" + "{chunk_{map_to_chunk_100_100}_x}")), y = (twge::to_string(map_row) + ("+" + "{chunk_{map_to_chunk_100_100}_y}")), object = "白光(左)");
                 } else {
-                    print(text = ("無效Object:" + twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))), type = "error");
+                    twge::assert(false, ("無效地圖物件: " + twge::get_slice(twge::get_index(地圖::新手村100n100, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2))));
                 }
             }
         }

@@ -22,7 +22,7 @@ unit_test() {
             if [[ $first_line == //\ OPTION:\ * ]]; then
                 option="${first_line:11}"
             fi
-            $BUILD_DIR/twgec $test_file $option -o=$output_event 2> $output_error
+            { $BUILD_DIR/twgec $test_file $option -o=$output_event 2> $output_error; } 2> /dev/null
             if diff $output_error $test_error ; then
                 echo "twge test success:    $test_file"
             else

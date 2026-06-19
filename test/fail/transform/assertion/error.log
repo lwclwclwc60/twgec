@@ -1,0 +1,1 @@
+Compilation Error: twge::assert failed: 2 is not equal to 1 at test/fail/transform/assertion/test.twge:4:9
