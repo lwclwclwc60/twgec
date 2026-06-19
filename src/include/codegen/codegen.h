@@ -29,7 +29,7 @@ private:
 public:
   // Constructor
   CodeGenerator(const std::unique_ptr<ModuleNode> &moduleNode)
-      : moduleNode(moduleNode){};
+      : moduleNode(moduleNode) {};
   // Functions
   void codegen(std::string filepath);
 };

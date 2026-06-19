@@ -119,12 +119,13 @@ PropagationResult forLoopUnrolling(std::unique_ptr<InstrSetNode> &instrSet) {
   for (int idx = 0; idx < compositeInstrs.size(); idx++) {
     if (compositeInstrs[idx]->forNode)
       forIdxes.push_back(idx);
-    if (auto& branchNode = compositeInstrs[idx]->branchNode) {
-      for(auto& ifRegion: branchNode->ifRegions)
-        if(PropagationResult::ERROR == forLoopUnrolling(ifRegion->region))
+    if (auto &branchNode = compositeInstrs[idx]->branchNode) {
+      for (auto &ifRegion : branchNode->ifRegions)
+        if (PropagationResult::ERROR == forLoopUnrolling(ifRegion->region))
           return PropagationResult::ERROR;
       if (branchNode->elseRegion)
-        if(PropagationResult::ERROR == forLoopUnrolling(branchNode->elseRegion))
+        if (PropagationResult::ERROR ==
+            forLoopUnrolling(branchNode->elseRegion))
           return PropagationResult::ERROR;
     }
   }

@@ -89,13 +89,9 @@ public:
   virtual ~ASTNode() = default;
 
   virtual void print(int indent = 0) {}
-  virtual bool propagateExp(ExpressionMap &) {
-    return true;
-  }
+  virtual bool propagateExp(ExpressionMap &) { return true; }
   virtual bool foldValue() { return true; }
-  virtual bool hasUnresolvedValue(SymbolSet except = {}) {
-    return false;
-  }
+  virtual bool hasUnresolvedValue(SymbolSet except = {}) { return false; }
   virtual void refreshTrace() {}
 };
 
@@ -231,7 +227,8 @@ public:
 
   // Constructor
   TypedInstrSetNode(Location loc, FunDefType type = FUN_DEF_TYPE_INVALID)
-      : ASTNode(loc), type(type), instrSet(std::make_unique<InstrSetNode>(loc)) {}
+      : ASTNode(loc), type(type),
+        instrSet(std::make_unique<InstrSetNode>(loc)) {}
   TypedInstrSetNode(Location loc, FunDefType type,
                     std::unique_ptr<InstrSetNode> instrSet)
       : ASTNode(loc), type(type), instrSet(std::move(instrSet)) {}
@@ -268,11 +265,11 @@ public:
   // Constructor
   CompositeInstrNode(Location loc) : ASTNode(loc) {}
   CompositeInstrNode(Location loc, std::unique_ptr<InstructionNode> instruction)
-    : ASTNode(loc), instruction(std::move(instruction)) {}
+      : ASTNode(loc), instruction(std::move(instruction)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<BranchNode> branchNode)
-    : ASTNode(loc), branchNode(std::move(branchNode)) {}
+      : ASTNode(loc), branchNode(std::move(branchNode)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<ForNode> forNode)
-    : ASTNode(loc), forNode(std::move(forNode)) {}
+      : ASTNode(loc), forNode(std::move(forNode)) {}
 
   // Function
   void print(int indent = 0) override;
@@ -334,8 +331,8 @@ public:
   // Constructor
   IfRegionNode(std::unique_ptr<ExpressionNode> condition,
                std::unique_ptr<InstrSetNode> region, Location loc)
-    : ASTNode(loc), condition(std::move(condition)),
-      region(std::move(region)) {}
+      : ASTNode(loc), condition(std::move(condition)),
+        region(std::move(region)) {}
 
   // Function
   void print(int indent = 0) override;
@@ -361,8 +358,7 @@ public:
   // Constructor
   InstructionNode(std::string identifier,
                   std::unique_ptr<ParamAppsNode> paramApps, Location loc,
-                  InstructionIntrinsicType intrinsicType,
-                  bool isNoOp = false)
+                  InstructionIntrinsicType intrinsicType, bool isNoOp = false)
       : ASTNode(loc), identifier(identifier), paramApps(std::move(paramApps)),
         intrinsicType(intrinsicType), isNoOp(isNoOp) {}
 
@@ -598,8 +594,8 @@ public:
   }
   ExpressionNode(std::vector<std::unique_ptr<ExpressionNode>> args,
                  ExpOpType op, Location loc)
-      : ASTNode(loc), kind(EXPRESSION_KIND_INTRINSIC),
-        args(std::move(args)), op(op) {
+      : ASTNode(loc), kind(EXPRESSION_KIND_INTRINSIC), args(std::move(args)),
+        op(op) {
     refreshTrace();
   }
 
@@ -705,7 +701,8 @@ inline std::ostream &operator<<(std::ostream &os, ExpOpType type) {
   return os;
 }
 
-inline std::ostream &printValueNode(std::ostream &os, const ValueNode *valueNode) {
+inline std::ostream &printValueNode(std::ostream &os,
+                                    const ValueNode *valueNode) {
   if (!valueNode)
     return os;
   if (auto stringNode = dynamic_cast<const StringValueNode *>(valueNode)) {
@@ -714,7 +711,8 @@ inline std::ostream &printValueNode(std::ostream &os, const ValueNode *valueNode
     os << intNode->value;
   } else if (auto boolNode = dynamic_cast<const BoolValueNode *>(valueNode)) {
     os << (boolNode->value ? "true" : "false");
-  } else if (auto varNode = dynamic_cast<const VariableValueNode *>(valueNode)) {
+  } else if (auto varNode =
+                 dynamic_cast<const VariableValueNode *>(valueNode)) {
     os << varNode->value;
   } else if (auto ptNode = dynamic_cast<const PointValueNode *>(valueNode)) {
     os << "Point(" << *ptNode->x << "," << *ptNode->y << ")";
@@ -741,7 +739,8 @@ inline std::ostream &printValueNode(std::ostream &os, const ValueNode *valueNode
   } else if (auto customWeaponNode =
                  dynamic_cast<const CustomWeaponValueNode *>(valueNode)) {
     os << "CustomWeapon(";
-    for (size_t i = 0; i < customWeaponNode->paramApps->named_args.size(); i++) {
+    for (size_t i = 0; i < customWeaponNode->paramApps->named_args.size();
+         i++) {
       os << customWeaponNode->paramApps->named_args[i]->key << " = "
          << *customWeaponNode->paramApps->named_args[i]->expNode;
       if (i != customWeaponNode->paramApps->named_args.size() - 1)

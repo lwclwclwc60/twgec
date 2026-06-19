@@ -8,7 +8,8 @@ class Preprocessor {
 public:
   Preprocessor(const std::string &filename, const std::string &content)
       : filename(filename), content(content) {}
-  bool preprocess(std::vector<std::pair<std::string, std::string>> &sourceFiles);
+  bool
+  preprocess(std::vector<std::pair<std::string, std::string>> &sourceFiles);
 
 private:
   std::string filename;

@@ -23,7 +23,7 @@ done
 
 mkdir -p $WORKSPACE/build
 cd $WORKSPACE/build
-cmake $WORKSPACE/src
+cmake $WORKSPACE/src -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 if cmake --build .; then
     cd $WORKSPACE
     if [ "$RUN_TESTS" -eq 1 ]; then

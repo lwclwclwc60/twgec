@@ -29,8 +29,8 @@
   LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_INDEX, "twge::get_index");  \
   LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_LENGTH,                     \
                           "twge::get_length");                                 \
-  LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_SLICE, "twge::get_slice"); \
-  LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_ASSERT, "twge::assert");       \
+  LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_GET_SLICE, "twge::get_slice");  \
+  LEXER_PRINT_SWTICH_CASE(TokenType::INTRINSIC_ASSERT, "twge::assert");        \
   /* operation */                                                              \
   LEXER_PRINT_SWTICH_CASE(TokenType::OPENCUR, "{");                            \
   LEXER_PRINT_SWTICH_CASE(TokenType::CLOSECUR, "}");                           \

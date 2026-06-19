@@ -4,7 +4,7 @@
 #include <functional>
 
 namespace {
-  using namespace std::chrono;
+using namespace std::chrono;
 }
 
 namespace transform {
@@ -84,8 +84,7 @@ private:
     if (!passFunc(std::move(moduleNode), config)) {
       if (opt.profilePass) {
         const auto end = steady_clock::now();
-        const auto ms = duration_cast<milliseconds>(end - start)
-                .count();
+        const auto ms = duration_cast<milliseconds>(end - start).count();
         std::cerr << "[pass-profile] " << passName << " failed in " << ms
                   << " ms\n";
       }
@@ -153,6 +152,6 @@ public:
   }
 
   PassManager(const std::unique_ptr<ModuleNode> &moduleNode, Option opt)
-      : moduleNode(moduleNode), opt(opt){};
+      : moduleNode(moduleNode), opt(opt) {};
 };
 } // namespace transform

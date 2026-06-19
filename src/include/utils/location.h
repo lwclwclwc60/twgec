@@ -51,9 +51,8 @@ struct Location {
     int frameNo = 1;
     for (int idx = static_cast<int>(callFrames.size()) - 1; idx >= 0; --idx) {
       const auto &frame = callFrames[idx];
-      os << "# frame " << frameNo << ": "
-         << frame.symbol << " at " << frame.filename << ":" << frame.line
-         << ":" << frame.column << "\n";
+      os << "# frame " << frameNo << ": " << frame.symbol << " at "
+         << frame.filename << ":" << frame.line << ":" << frame.column << "\n";
       ++frameNo;
     }
   }

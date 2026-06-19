@@ -1,11 +1,11 @@
 #include "frontend/ast.h"
 #include "utils/utils.h"
+#include <cstdlib>
 #include <functional>
 #include <iostream>
 #include <optional>
 #include <sstream>
 #include <string>
-#include <cstdlib>
 
 namespace {
 using TraceRef = std::reference_wrapper<const std::vector<CallFrame>>;
@@ -256,8 +256,8 @@ std::unique_ptr<ForNode> ForNode::clone() {
 }
 
 std::unique_ptr<InstructionNode> InstructionNode::clone() {
-  return std::make_unique<InstructionNode>(
-      identifier, paramApps->clone(), loc, intrinsicType, isNoOp);
+  return std::make_unique<InstructionNode>(identifier, paramApps->clone(), loc,
+                                           intrinsicType, isNoOp);
 }
 
 std::unique_ptr<ParamAppsNode> ParamAppsNode::clone() {
@@ -673,7 +673,8 @@ bool InstructionNode::foldValue() {
   if (intrinsicType != INSTRUCTION_INTRINSIC_ASSERT)
     return true;
 
-  if (!paramApps->named_args.empty() || paramApps->positional_args.size() != 2) {
+  if (!paramApps->named_args.empty() ||
+      paramApps->positional_args.size() != 2) {
     std::cerr << "Compilation Error: twge::assert expects exactly 2 positional "
                  "arguments (bool, string) at "
               << loc << "\n";
@@ -681,14 +682,14 @@ bool InstructionNode::foldValue() {
     return false;
   }
 
-    auto *conditionExp = paramApps->positional_args[0]->expNode.get();
-    auto *messageExp = paramApps->positional_args[1]->expNode.get();
-    auto *conditionVal =
+  auto *conditionExp = paramApps->positional_args[0]->expNode.get();
+  auto *messageExp = paramApps->positional_args[1]->expNode.get();
+  auto *conditionVal =
       conditionExp ? dynamic_cast<BoolValueNode *>(conditionExp->value.get())
-             : nullptr;
-    auto *messageVal =
+                   : nullptr;
+  auto *messageVal =
       messageExp ? dynamic_cast<StringValueNode *>(messageExp->value.get())
-           : nullptr;
+                 : nullptr;
 
   if (!conditionVal || !conditionVal) {
     std::cerr << "Compilation Error: twge::assert expects argument types "
@@ -756,8 +757,8 @@ bool foldNestedValueNode(ValueNode *valueNode) {
   return ret;
 }
 
-std::unique_ptr<ValueNode>
-foldUnaryIntrinsicValue(const ExpressionNode &arg, ExpOpType op) {
+std::unique_ptr<ValueNode> foldUnaryIntrinsicValue(const ExpressionNode &arg,
+                                                   ExpOpType op) {
   auto argStr = dynamic_cast<StringValueNode *>(arg.value.get());
   auto argInt = dynamic_cast<IntValueNode *>(arg.value.get());
   auto argBool = dynamic_cast<BoolValueNode *>(arg.value.get());
@@ -820,28 +821,28 @@ bool foldStringBinary(ExpressionNode &exp, StringValueNode *lhs,
 
 bool foldIntBinary(ExpressionNode &exp, IntValueNode *lhs, IntValueNode *rhs) {
   if (exp.op == EXP_OP_TYPE_ADD) {
-    exp.value = std::make_unique<IntValueNode>(lhs->value + rhs->value,
-                                               lhs->loc);
+    exp.value =
+        std::make_unique<IntValueNode>(lhs->value + rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_SUB) {
-    exp.value = std::make_unique<IntValueNode>(lhs->value - rhs->value,
-                                               lhs->loc);
+    exp.value =
+        std::make_unique<IntValueNode>(lhs->value - rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_MUL) {
-    exp.value = std::make_unique<IntValueNode>(lhs->value * rhs->value,
-                                               lhs->loc);
+    exp.value =
+        std::make_unique<IntValueNode>(lhs->value * rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_DIV) {
-    exp.value = std::make_unique<IntValueNode>(lhs->value / rhs->value,
-                                               lhs->loc);
+    exp.value =
+        std::make_unique<IntValueNode>(lhs->value / rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_MOD) {
-    exp.value = std::make_unique<IntValueNode>(lhs->value % rhs->value,
-                                               lhs->loc);
+    exp.value =
+        std::make_unique<IntValueNode>(lhs->value % rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_EQUAL) {
@@ -855,23 +856,23 @@ bool foldIntBinary(ExpressionNode &exp, IntValueNode *lhs, IntValueNode *rhs) {
     return true;
   }
   if (exp.op == EXP_OP_TYPE_LESS_THAN) {
-    exp.value = std::make_unique<BoolValueNode>(lhs->value < rhs->value,
-                                                lhs->loc);
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value < rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_LESS_THAN_EQUAL) {
-    exp.value = std::make_unique<BoolValueNode>(lhs->value <= rhs->value,
-                                                lhs->loc);
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value <= rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_GREATER_THAN) {
-    exp.value = std::make_unique<BoolValueNode>(lhs->value > rhs->value,
-                                                lhs->loc);
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value > rhs->value, lhs->loc);
     return true;
   }
   if (exp.op == EXP_OP_TYPE_GREATER_THAN_EQUAL) {
-    exp.value = std::make_unique<BoolValueNode>(lhs->value >= rhs->value,
-                                                lhs->loc);
+    exp.value =
+        std::make_unique<BoolValueNode>(lhs->value >= rhs->value, lhs->loc);
     return true;
   }
   return false;
@@ -955,9 +956,8 @@ bool foldIntrinsicExpression(ExpressionNode &exp) {
     if (lhsStr) {
       if (static_cast<size_t>(idx) >= lhsStr->value.size())
         return false;
-      exp.value =
-          std::make_unique<StringValueNode>(lhsStr->value.substr(idx, 1),
-                                            lhsStr->loc);
+      exp.value = std::make_unique<StringValueNode>(
+          lhsStr->value.substr(idx, 1), lhsStr->loc);
       finalizeFoldedExpression(exp);
       return true;
     }
@@ -991,13 +991,15 @@ bool foldIntrinsicExpression(ExpressionNode &exp) {
       return true;
     }
 
-    if (auto *lhsList = dynamic_cast<ListValueNode *>(exp.args[0]->value.get())) {
+    if (auto *lhsList =
+            dynamic_cast<ListValueNode *>(exp.args[0]->value.get())) {
       if (static_cast<size_t>(toIdx) >= lhsList->items.size())
         return false;
 
       auto slicedList = std::make_unique<ListValueNode>(lhsList->loc);
       for (int idx = fromIdx; idx <= toIdx; ++idx)
-        slicedList->items.push_back(lhsList->items.at(static_cast<size_t>(idx))->clone());
+        slicedList->items.push_back(
+            lhsList->items.at(static_cast<size_t>(idx))->clone());
       slicedList->refreshTrace();
       exp.value = std::move(slicedList);
       finalizeFoldedExpression(exp);

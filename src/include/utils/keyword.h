@@ -16,7 +16,7 @@ public:
   const map<string, string> codegenMap;
   // Constructor
   KeywordEnum(const string enumType, const map<string, string> codegenMap)
-      : enumType(enumType), codegenMap(codegenMap){};
+      : enumType(enumType), codegenMap(codegenMap) {};
   // Functions
   const std::pair<bool, string> get(string key,
                                     std::map<string, string> extraEnum = {});

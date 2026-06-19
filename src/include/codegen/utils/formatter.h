@@ -16,21 +16,21 @@ using std::vector;
 
 class JsonNode {
 public:
-  JsonNode(){};
+  JsonNode() {};
   virtual string to_string(int indentation) { return ""; };
 };
 
 class JsonValueNode : public JsonNode {
 public:
   string value;
-  JsonValueNode(string value) : JsonNode(), value(value){};
+  JsonValueNode(string value) : JsonNode(), value(value) {};
   string to_string(int indentation) override { return value; }
 };
 
 class JsonArrayNode : public JsonNode {
 public:
   vector<shared_ptr<JsonNode>> nodeList;
-  JsonArrayNode(){};
+  JsonArrayNode() {};
   JsonArrayNode(shared_ptr<JsonNode> node) { addNode(node); };
   JsonArrayNode addNode(shared_ptr<JsonNode> node) {
     nodeList.push_back(node);
@@ -53,7 +53,7 @@ public:
 
 class JsonObjectNode : public JsonNode {
 public:
-  JsonObjectNode() : JsonNode(){};
+  JsonObjectNode() : JsonNode() {};
   JsonObjectNode(string key, string value) : JsonNode() {
     addNode(key, value);
   };
