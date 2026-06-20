@@ -12,3 +12,14 @@ jobs:
           python-version: '3.10'
       - run: pip install pre-commit
       - run: pre-commit run --all-files
+
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configure CMake
+        run: cmake -S src -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+      - name: Build
+        run: cmake --build build --config Release
+      - name: Run test script with build artifact
+        run: bash test/run-test.sh
