@@ -5,16 +5,13 @@
 
 ## Setup Syntax Highlighter
 
-To set up the highlighter, please make sure you have already installed the `vsce` package. If not, you can run
-```
-npm install -g vsce
-```
-After that, you have to go to the highlighter repo and build the VSCode extension as follows:
-```
-cd tool/twge-syntax-highlighter
-vsce package
-```
-The vscode extension (`twge-syntax-highlighter-<version>.vsix`) will be built. You just need to right click that extension and choose `Install Extension VSIX`.
+Developers can install the prebuilt VSIX directly from `tool/bin`.
+
+1. Open VS Code.
+2. Run `Extensions: Install from VSIX...`.
+3. Select `tool/bin/twge-syntax-highlighter-0.0.1.vsix`.
+
+For extension development, packaging, and local build flow, see `tool/twge-syntax-highlighter/README.md`.
 
 With the syntax highlighter. the `.twge` will have syntax highlighting as shown below:
 
