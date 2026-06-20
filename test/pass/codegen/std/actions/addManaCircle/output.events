@@ -1,0 +1,128 @@
+{
+    "$schema": "https://code.gamelet.com/gassets/schema/events/v1",
+    "config": {
+        "stage": {
+            "width": 600,
+            "height": 500,
+            "backgroundColor": "#999999",
+            "resolutionPolicy": "showAll",
+            "alignHorizontal": "center",
+            "alignVertical": "middle"
+        },
+        "preload": {
+            "sources": [],
+            "resourcesExclude": []
+        },
+        "configs": {
+            "TwilightWarsConfig": {
+                "title": "我的任務",
+                "serverConfig": {
+                    "minPlayers": 1,
+                    "supportSignin": true,
+                    "mustLogin": true,
+                    "allowGuest": true,
+                    "supportMsgServer": true,
+                    "gamezoneCode": "mission",
+                    "roomType": "close",
+                    "roomSize": 4
+                },
+                "runGame": true,
+                "gameStartFadein": "fadein",
+                "lives": 3,
+                "debugCamp": "ask",
+                "releaseCamp": "ask",
+                "setInitFocus": false,
+                "initFocus": {
+                    "x": "0",
+                    "y": "0"
+                },
+                "campOptions": {
+                    "campOpSkydow": true,
+                    "campOpRoyal": true,
+                    "campOpThird": true
+                },
+                "map": "CG.TWEventsGameTemplate/gamemap.twmap",
+                "maxAbilityLevel": 2,
+                "nextGameEnabled": true,
+                "disableNextGameOnMissionComplete": false,
+                "playDefaultMusic": true,
+                "cameraAfterOver": "restrict",
+                "useDefaultItems": false,
+                "useDefaultCampLocs": false,
+                "skydowLocs": [],
+                "royalLocs": [],
+                "thirdLocs": [],
+                "useCustomWeapons": false,
+                "customWeapons": [],
+                "useCustomItems": false,
+                "customItems": [],
+                "enabled": true,
+                "@use": 0
+            }
+        }
+    },
+    "events": [
+        {
+            "id": "init",
+            "disabled": false,
+            "folder": "",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": 0,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "AddManaCircle",
+                    "data": {
+                        "deviceCode": "device",
+                        "localVarname": "random",
+                        "locs": [
+                            {
+                                "x": "10",
+                                "y": "10",
+                                "range": "0"
+                            }
+                        ],
+                        "actorMatch": {
+                            "skip": true
+                        },
+                        "power": "0",
+                        "useColor": "origin",
+                        "layer": "groundTop",
+                        "heal": false,
+                        "healPower": "0",
+                        "healActorCooldown": "2000",
+                        "healDeviceCooldown": "200"
+                    }
+                },
+                {
+                    "type": "AddManaCircle",
+                    "data": {
+                        "deviceCode": "device",
+                        "localVarname": "random",
+                        "locs": [
+                            {
+                                "x": "10",
+                                "y": "10",
+                                "range": "0"
+                            }
+                        ],
+                        "actorMatch": {
+                            "skip": true
+                        },
+                        "power": "0",
+                        "useColor": "origin",
+                        "layer": "groundTop",
+                        "heal": true,
+                        "healPower": "10",
+                        "healActorCooldown": "2000",
+                        "healDeviceCooldown": "200"
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": []
+        }
+    ]
+}

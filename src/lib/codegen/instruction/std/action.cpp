@@ -221,6 +221,33 @@ action::ActionAddMapSign::method(DefaultMap defaultMap,
 }
 
 JsonObjectNode
+action::ActionAddManaCircle::method(DefaultMap defaultMap,
+                                    UserDefinedMetadata userDefinedMeta) {
+  JsonObjectNode locNode = JsonObjectNode({
+      {"x", defaultMap.get("x")},
+      {"y", defaultMap.get("y")},
+      {"range", "\"0\""},
+  });
+  JsonArrayNode locsNode =
+      JsonArrayNode(std::make_shared<JsonObjectNode>(locNode));
+  JsonObjectNode actorMatchNode = JsonObjectNode("skip", "true");
+  std::string heal = defaultMap.get("heal") == "\"0\"" ? "false" : "true";
+  return JsonObjectNode({
+      {"deviceCode", "\"device\""},
+      {"localVarname", "\"random\""},
+      {"locs", locsNode.to_string(24)},
+      {"actorMatch", actorMatchNode.to_string(24)},
+      {"power", "\"0\""},
+      {"useColor", "\"origin\""},
+      {"layer", "\"groundTop\""},
+      {"heal", heal},
+      {"healPower", defaultMap.get("heal")},
+      {"healActorCooldown", defaultMap.get("healActorCooldown")},
+      {"healDeviceCooldown", defaultMap.get("healDeviceCooldown")},
+  });
+}
+
+JsonObjectNode
 action::ActionAddMapObject::method(DefaultMap defaultMap,
                                    UserDefinedMetadata userDefinedMeta) {
   JsonObjectNode locNode = JsonObjectNode({

@@ -206,6 +206,13 @@ const InstructionConfig addDropItemConfig =
         .addParam("scale", AST_INT, CODEGEN_STRING, "1")
         .addParam("type", AST_STRING, CODEGEN_STRING, "paper")
         .addParam("localVarname", AST_STRING, CODEGEN_STRING, "");
+const InstructionConfig addManaCircleConfig =
+    InstructionConfig("addManaCircle", "新增回氣魔法陣")
+        .addParam("x", AST_INT, CODEGEN_STRING, "0")
+        .addParam("y", AST_INT, CODEGEN_STRING, "0")
+        .addParam("heal", AST_INT, CODEGEN_STRING, "10")
+        .addParam("healActorCooldown", AST_INT, CODEGEN_STRING, "1000")
+        .addParam("healDeviceCooldown", AST_INT, CODEGEN_STRING, "200");
 const InstructionConfig addMapObjectConfig =
     InstructionConfig("addMapObject", "新增地圖物件")
         .addParam("x", AST_INT, CODEGEN_STRING, "0")
@@ -387,6 +394,7 @@ const std::vector<InstructionConfig> actionList = {
     actorTalkConfig,
     addActorConfig,
     addDropItemConfig,
+    addManaCircleConfig,
     addMapObjectConfig,
     addMapSignConfig,
     addStuffConfig,

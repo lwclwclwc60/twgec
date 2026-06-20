@@ -1,0 +1,6 @@
+block init {
+    actions {
+        addManaCircle(x = "10", y = "10", heal = "0", healActorCooldown = "2000", healDeviceCooldown = "200");
+        addManaCircle(x = "10", y = "10", heal = 10, healActorCooldown = "2000", healDeviceCooldown = "200");
+    }
+}

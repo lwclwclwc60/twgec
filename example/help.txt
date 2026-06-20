@@ -97,6 +97,8 @@ Supported Actions:
         camp: string, externRole: string, hp: int|string, id: string, localVarname: string, movableRange: int|string, name: string, patrol: list[Point], range: int|string, role: string, rotation: int|string, strength: int|string, teamId: int|string, weapon1: string, weapon2: string, x: int|string, y: int|string
     addDropItem                 新增放置可拾取道具
         itemCode: string, localVarname: string, range: int|string, scale: int|string, type: string, x: int|string, y: int|string
+    addManaCircle               新增回氣魔法陣
+        heal: int|string, healActorCooldown: int|string, healDeviceCooldown: int|string, x: int|string, y: int|string
     addMapObject                新增地圖物件
         autoTuneHeight: bool, object: string, range: int|string, walkable: bool, x: int|string, y: int|string
     addMapSign                  新增告示牌
