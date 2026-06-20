@@ -9,7 +9,7 @@ Developers can install the prebuilt VSIX directly from `tool/bin`.
 
 1. Open VS Code.
 2. Run `Extensions: Install from VSIX...`.
-3. Select `tool/bin/twge-syntax-highlighter-0.0.1.vsix`.
+3. Select the latest `tool/bin/twge-syntax-highlighter-<version>.vsix`.
 
 For extension development, packaging, and local build flow, see `tool/twge-syntax-highlighter/README.md`.
 
