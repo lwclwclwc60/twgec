@@ -48,11 +48,11 @@ const 地圖::新手村100n100 = [
 "ExW .  . ************ .  .  .  .  .  .  .  . ********* . ExE",
 " .  .  . ********* .  .  .  .  .  .  .  .  .  . ***SP0 .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
-"****** .  .  .  .  .  . *** .  .  .  .  .  .  .  . SP1 .  . ",
-"*** .  .  .  .  .  . ********* .  .  .  .  .  .  . SP2 .  . ",
-" .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  . SP3 .  . ",
-" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . SP4 .  . ",
-" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . SP5 .  . ",
+"****** .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  . ",
+"*** .  .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
+" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******",
 " .  .  .  .  .  . *********ExSExS .  .  .  .  .  . *********"
 ];
@@ -150,14 +150,6 @@ const 地圖::新手村近郊101n101 = [
 " .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  . "
 ];
 
-def 地圖::新增能力點告示牌(x, y, text, type) : actions {
-    新增地圖物件(x = x, y = y, object = "石椅");
-    新增告示牌(x = x, y = y, rotation = 180, text = text, buttons = [
-        Button(id = "increase" + type + "1", text = "提升一點"),
-        Button(id = "increase" + type + "10", text = "提升十點")
-    ]);
-}
-
 def 地圖::生成地圖配置(x, y, object) : actions {
     // '---' 用作padding
     if(object == "---" || object == " . ") {}
@@ -165,16 +157,6 @@ def 地圖::生成地圖配置(x, y, object) : actions {
     else if(object == "SP0") {
         新增地圖物件(x = x, y = y, object = "石椅");
         新增告示牌(x = x, y = y, rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
-    } else if(object == "SP1") {
-        地圖::新增能力點告示牌(x, y, 文字::力量描述, "STR");
-    } else if(object == "SP2") {
-        地圖::新增能力點告示牌(x, y, 文字::體質描述, "CON");
-    } else if(object == "SP3") {
-        地圖::新增能力點告示牌(x, y, 文字::敏捷描述, "AGI");
-    } else if(object == "SP4") {
-        地圖::新增能力點告示牌(x, y, 文字::智慧描述, "INT");
-    } else if(object == "SP5") {
-        地圖::新增能力點告示牌(x, y, 文字::精神描述, "PSY");
     } else if(object == "SW1") {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"), Button(id = "wearNone", text = "卸下")]);

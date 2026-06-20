@@ -4,39 +4,7 @@
 #include "monster.twge"
 #include "skill.twge"
 #include "map.twge"
-
-def 自定義::點擊提升能力泛型(type, typeZh, value) : block {
-    __repeat__ = -1;
-    __label__ = "玩家";
-    triggers {
-        告示牌按鈕(varName = "instance", buttonId = "increase" + type + twge::to_string(value));
-    }
-    checks {
-        比較數字(lhs = "{instance.Point}", op = ">=", rhs = value);
-    }
-    actions {
-        自定義::儲存Instance整數("Point", "{instance.Point} - " + twge::to_string(value));
-        自定義::儲存Instance整數(type, "{instance."+type+"} + " + twge::to_string(value));
-        if(value == 1) {
-            角色說話(actorId = "instance", text = "成功提升一點" + typeZh + "，尚餘{instance.Point}點能力點");
-        } else if (value == 10) {
-            角色說話(actorId = "instance", text = "成功提升十點" + typeZh + "，尚餘{instance.Point}點能力點");
-        }
-        自定義::更新角色屬性("instance");
-        自定義::上載Instance數據();
-    }
-}
-
-block 點擊提升一點力量 = 自定義::點擊提升能力泛型("STR", "力量", 1);
-block 點擊提升一點體質 = 自定義::點擊提升能力泛型("CON", "體質", 1);
-block 點擊提升一點敏捷 = 自定義::點擊提升能力泛型("AGI", "敏捷", 1);
-block 點擊提升一點智慧 = 自定義::點擊提升能力泛型("INT", "智慧", 1);
-block 點擊提升一點精神 = 自定義::點擊提升能力泛型("PSY", "精神", 1);
-block 點擊提升十點力量 = 自定義::點擊提升能力泛型("STR", "力量", 10);
-block 點擊提升十點體質 = 自定義::點擊提升能力泛型("CON", "體質", 10);
-block 點擊提升十點敏捷 = 自定義::點擊提升能力泛型("AGI", "敏捷", 10);
-block 點擊提升十點智慧 = 自定義::點擊提升能力泛型("INT", "智慧", 10);
-block 點擊提升十點精神 = 自定義::點擊提升能力泛型("PSY", "精神", 10);
+#include "dialog.twge"
 
 block 點擊重置能力 {
     __repeat__ = -1;
@@ -85,17 +53,6 @@ block 回血 {
     }
     actions {
         角色加減血(actorCode = "instance", value = 公式::Instance恢復量);
-    }
-}
-
-block 查看面板 {
-    __repeat__ = -1;
-    __label__ = "玩家";
-    triggers {
-        鍵盤按鍵(varName = "instance", key = "Z");
-    }
-    actions {
-        角色說話(actorId = "{instance.id}", text = 文字::Instance訊息);
     }
 }
 

@@ -15913,61 +15913,6 @@
                         "pick": "random",
                         "locs": [
                             {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【力量】\n每一點可提升若干的武器物理傷害\n詳細見各武器描述",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "increaseSTR1",
-                                    "close": true,
-                                    "label": "提升一點",
-                                    "icon": ""
-                                },
-                                {
-                                    "buttonCode": "increaseSTR10",
-                                    "close": true,
-                                    "label": "提升十點",
-                                    "icon": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
                                 "x": "0+{chunk_{map_to_chunk_100_100}_x}",
                                 "y": "14+{chunk_{map_to_chunk_100_100}_y}",
                                 "range": "0"
@@ -16036,61 +15981,6 @@
                         "pick": "random",
                         "locs": [
                             {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "14+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "14+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【體質】\n每一點可提升半點恢復力\n及增加十點血量上限",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "increaseCON1",
-                                    "close": true,
-                                    "label": "提升一點",
-                                    "icon": ""
-                                },
-                                {
-                                    "buttonCode": "increaseCON10",
-                                    "close": true,
-                                    "label": "提升十點",
-                                    "icon": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
                                 "x": "8+{chunk_{map_to_chunk_100_100}_x}",
                                 "y": "15+{chunk_{map_to_chunk_100_100}_y}",
                                 "range": "0"
@@ -16099,171 +15989,6 @@
                         "resource": "sky012",
                         "autoLayer": true,
                         "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "15+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "15+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【敏捷】\n每一點可提升若干的匕首物理傷害\n並降低重量及提升武器攻擊速度",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "increaseAGI1",
-                                    "close": true,
-                                    "label": "提升一點",
-                                    "icon": ""
-                                },
-                                {
-                                    "buttonCode": "increaseAGI10",
-                                    "close": true,
-                                    "label": "提升十點",
-                                    "icon": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "16+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【智慧】\n每一點可提升若干的杖類傷害\n詳細見各武器描述",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "increaseINT1",
-                                    "close": true,
-                                    "label": "提升一點",
-                                    "icon": ""
-                                },
-                                {
-                                    "buttonCode": "increaseINT10",
-                                    "close": true,
-                                    "label": "提升十點",
-                                    "icon": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "17+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【精神】\n每一點可提升一點恢復力\n及提升小量的杖類傷害",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "increasePSY1",
-                                    "close": true,
-                                    "label": "提升一點",
-                                    "icon": ""
-                                },
-                                {
-                                    "buttonCode": "increasePSY10",
-                                    "close": true,
-                                    "label": "提升十點",
-                                    "icon": ""
-                                }
-                            ]
-                        }
                     }
                 },
                 {
@@ -16441,9 +16166,9 @@
             "triggers": []
         },
         {
-            "id": "點擊提升一點力量",
+            "id": "查看主面板",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
@@ -16451,12 +16176,205 @@
             "devOnly": false,
             "actions": [
                 {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "instance",
+                        "valueType": "string",
+                        "value": "{clicker.id}"
+                    }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_main",
+                        "title": "",
+                        "message": "<div>【Lv{instance.Level}】</div><div>Exp:{instance.Exp}/{instance.ExpNeeded}</div><div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>體質：{instance.CON}</div><div>敏捷：{instance.AGI}</div><div>智慧：{instance.INT}</div><div>精神：{instance.PSY}\n</div><div>按鍵X技能: 【{instance.XSkill}】</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point",
+                                    "label": "分配點數",
+                                    "icon": ""
+                                }
+                            ]
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "KeyboardPressed",
+                    "data": {
+                        "playerId": "*",
+                        "playerLocal": "clicker",
+                        "timing": "",
+                        "key": 90,
+                        "keyLocal": "",
+                        "ctrl": "",
+                        "shift": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "查看能力面板",
+            "disabled": false,
+            "folder": "面板",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "DialogConfirm",
+                    "data": {
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point",
+                        "evtLocal": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "點擊能力分配一點力量",
+            "disabled": false,
+            "folder": "面板",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
+                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
                         "key": "Point",
                         "valueType": "integer",
-                        "value": "{instance.Point} - 1"
+                        "value": "{instance.Point} - 01"
                     }
                 },
                 {
@@ -16465,18 +16383,7 @@
                         "objectId": "instance",
                         "key": "STR",
                         "valueType": "integer",
-                        "value": "{instance.STR} + 1"
-                    }
-                },
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升一點力量，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
+                        "value": "{instance.STR} + 01"
                     }
                 },
                 {
@@ -16654,6 +16561,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -16662,7 +16654,7 @@
                     "data": {
                         "value1": "{instance.Point}",
                         "operator": ">=",
-                        "value2": "1",
+                        "value2": "01",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -16672,21 +16664,20 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseSTR1",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_STR_01",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升一點體質",
+            "id": "點擊能力分配一點體質",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
@@ -16694,12 +16685,21 @@
             "devOnly": false,
             "actions": [
                 {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
+                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
                         "key": "Point",
                         "valueType": "integer",
-                        "value": "{instance.Point} - 1"
+                        "value": "{instance.Point} - 01"
                     }
                 },
                 {
@@ -16708,18 +16708,7 @@
                         "objectId": "instance",
                         "key": "CON",
                         "valueType": "integer",
-                        "value": "{instance.CON} + 1"
-                    }
-                },
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升一點體質，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
+                        "value": "{instance.CON} + 01"
                     }
                 },
                 {
@@ -16897,6 +16886,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -16905,7 +16979,7 @@
                     "data": {
                         "value1": "{instance.Point}",
                         "operator": ">=",
-                        "value2": "1",
+                        "value2": "01",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -16915,21 +16989,20 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseCON1",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_CON_01",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升一點敏捷",
+            "id": "點擊能力分配一點敏捷",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
@@ -16937,12 +17010,21 @@
             "devOnly": false,
             "actions": [
                 {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
+                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
                         "key": "Point",
                         "valueType": "integer",
-                        "value": "{instance.Point} - 1"
+                        "value": "{instance.Point} - 01"
                     }
                 },
                 {
@@ -16951,18 +17033,7 @@
                         "objectId": "instance",
                         "key": "AGI",
                         "valueType": "integer",
-                        "value": "{instance.AGI} + 1"
-                    }
-                },
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升一點敏捷，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
+                        "value": "{instance.AGI} + 01"
                     }
                 },
                 {
@@ -17140,6 +17211,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -17148,7 +17304,7 @@
                     "data": {
                         "value1": "{instance.Point}",
                         "operator": ">=",
-                        "value2": "1",
+                        "value2": "01",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -17158,21 +17314,20 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseAGI1",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_AGI_01",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升一點智慧",
+            "id": "點擊能力分配一點智慧",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
@@ -17180,12 +17335,21 @@
             "devOnly": false,
             "actions": [
                 {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
+                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
                         "key": "Point",
                         "valueType": "integer",
-                        "value": "{instance.Point} - 1"
+                        "value": "{instance.Point} - 01"
                     }
                 },
                 {
@@ -17194,18 +17358,7 @@
                         "objectId": "instance",
                         "key": "INT",
                         "valueType": "integer",
-                        "value": "{instance.INT} + 1"
-                    }
-                },
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升一點智慧，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
+                        "value": "{instance.INT} + 01"
                     }
                 },
                 {
@@ -17383,6 +17536,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -17391,7 +17629,7 @@
                     "data": {
                         "value1": "{instance.Point}",
                         "operator": ">=",
-                        "value2": "1",
+                        "value2": "01",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -17401,21 +17639,20 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseINT1",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_INT_01",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升一點精神",
+            "id": "點擊能力分配一點精神",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
@@ -17423,12 +17660,21 @@
             "devOnly": false,
             "actions": [
                 {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
+                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
                         "key": "Point",
                         "valueType": "integer",
-                        "value": "{instance.Point} - 1"
+                        "value": "{instance.Point} - 01"
                     }
                 },
                 {
@@ -17437,18 +17683,7 @@
                         "objectId": "instance",
                         "key": "PSY",
                         "valueType": "integer",
-                        "value": "{instance.PSY} + 1"
-                    }
-                },
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升一點精神，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
+                        "value": "{instance.PSY} + 01"
                     }
                 },
                 {
@@ -17626,6 +17861,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -17634,7 +17954,7 @@
                     "data": {
                         "value1": "{instance.Point}",
                         "operator": ">=",
-                        "value2": "1",
+                        "value2": "01",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -17644,27 +17964,35 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increasePSY1",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_PSY_01",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升十點力量",
+            "id": "點擊能力分配十點力量",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetObjectVar",
                     "data": {
@@ -17684,17 +18012,6 @@
                     }
                 },
                 {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升十點力量，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
-                    }
-                },
-                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
@@ -17869,6 +18186,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -17887,27 +18289,35 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseSTR10",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_STR_10",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升十點體質",
+            "id": "點擊能力分配十點體質",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetObjectVar",
                     "data": {
@@ -17927,17 +18337,6 @@
                     }
                 },
                 {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升十點體質，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
-                    }
-                },
-                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
@@ -18112,6 +18511,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -18130,27 +18614,35 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseCON10",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_CON_10",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升十點敏捷",
+            "id": "點擊能力分配十點敏捷",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetObjectVar",
                     "data": {
@@ -18170,17 +18662,6 @@
                     }
                 },
                 {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升十點敏捷，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
-                    }
-                },
-                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
@@ -18355,6 +18836,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -18373,27 +18939,35 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseAGI10",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_AGI_10",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升十點智慧",
+            "id": "點擊能力分配十點智慧",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetObjectVar",
                     "data": {
@@ -18413,17 +18987,6 @@
                     }
                 },
                 {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升十點智慧，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
-                    }
-                },
-                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
@@ -18598,6 +19161,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -18616,27 +19264,35 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increaseINT10",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_INT_10",
+                        "evtLocal": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊提升十點精神",
+            "id": "點擊能力分配十點精神",
             "disabled": false,
-            "folder": "玩家",
+            "folder": "面板",
             "startTime": 0,
             "checkInterval": 10,
             "repeats": -1,
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetObjectVar",
                     "data": {
@@ -18656,17 +19312,6 @@
                     }
                 },
                 {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "成功提升十點精神，尚餘{instance.Point}點能力點",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "instance"
-                    }
-                },
-                {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
@@ -18841,6 +19486,91 @@
                         "valueType": "integer",
                         "value": "1"
                     }
+                },
+                {
+                    "type": "ShowSelectDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_point",
+                        "title": "",
+                        "message": "<div>尚餘能力點：{instance.Point}</div><div>力量：{instance.STR}</div><div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div><div>體質：{instance.CON}</div><div>每一點可提升半點恢復力，及增加十點血量上限</div><div>敏捷：{instance.AGI}</div><div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div><div>智慧：{instance.INT}</div><div>每一點可提升若干的杖類傷害，詳細見各武器描述</div><div>精神：{instance.PSY}\n</div><div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>",
+                        "messageType": "html",
+                        "msgImage": {
+                            "msgImageAlias": "",
+                            "msgImageSide": "left"
+                        },
+                        "controls": {
+                            "buttonIconSide": "right",
+                            "conBottom": 8,
+                            "conBottomUnit": "px",
+                            "confirmLabel": "確定",
+                            "confirmIcon": "check",
+                            "hideCancelButton": true
+                        },
+                        "options": {
+                            "maxWidth": "",
+                            "backgroundImage": "",
+                            "transition": {
+                                "tranClaz": "slide",
+                                "tranDuration": "250",
+                                "tranDirection": "up"
+                            }
+                        },
+                        "defaultValue": "",
+                        "selectOptions": [
+                                {
+                                    "value": "dialog_button_point_STR_01",
+                                    "label": "分配一點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_STR_10",
+                                    "label": "分配十點力量",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_01",
+                                    "label": "分配一點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_CON_10",
+                                    "label": "分配十點體質",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_01",
+                                    "label": "分配一點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_AGI_10",
+                                    "label": "分配十點敏捷",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_01",
+                                    "label": "分配一點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_INT_10",
+                                    "label": "分配十點智慧",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_01",
+                                    "label": "分配一點精神",
+                                    "icon": ""
+                                },
+                                {
+                                    "value": "dialog_button_point_PSY_10",
+                                    "label": "分配十點精神",
+                                    "icon": ""
+                                }
+                            ]
+                    }
                 }
             ],
             "checks": [
@@ -18859,13 +19589,12 @@
             ],
             "triggers": [
                 {
-                    "type": "TalkButton",
+                    "type": "DialogConfirm",
                     "data": {
-                        "actorMatches": [],
-                        "varname": "instance",
-                        "checkButtoncode": true,
-                        "buttonCode": "increasePSY10",
-                        "varnameDevice": ""
+                        "dialogId": "",
+                        "playerCodeVarname": "instance",
+                        "value": "dialog_button_point_PSY_10",
+                        "evtLocal": ""
                     }
                 }
             ]
@@ -19439,44 +20168,6 @@
                 }
             ],
             "triggers": []
-        },
-        {
-            "id": "查看面板",
-            "disabled": false,
-            "folder": "玩家",
-            "startTime": 0,
-            "checkInterval": 10,
-            "repeats": -1,
-            "repeatInterval": 0,
-            "devOnly": false,
-            "actions": [
-                {
-                    "type": "ActorTalk",
-                    "data": {
-                        "cleanTalk": true,
-                        "speech": "【Lv{{instance.id}.Level}】\nExp:{{instance.id}.Exp}/{{instance.id}.ExpNeeded}\n尚餘能力點：{{instance.id}.Point}\n力量：{{instance.id}.STR}\n體質：{{instance.id}.CON}\n敏捷：{{instance.id}.AGI}\n智慧：{{instance.id}.INT}\n精神：{{instance.id}.PSY}\n\n按鍵X技能: 【{{instance.id}.XSkill}】",
-                        "duration": "3000",
-                        "wait": false,
-                        "waitMore": "100",
-                        "actorCode": "{instance.id}"
-                    }
-                }
-            ],
-            "checks": [],
-            "triggers": [
-                {
-                    "type": "KeyboardPressed",
-                    "data": {
-                        "playerId": "*",
-                        "playerLocal": "instance",
-                        "timing": "",
-                        "key": 90,
-                        "keyLocal": "",
-                        "ctrl": "",
-                        "shift": ""
-                    }
-                }
-            ]
         },
         {
             "id": "玩家死亡",

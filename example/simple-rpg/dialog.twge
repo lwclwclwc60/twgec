@@ -1,0 +1,96 @@
+const 面板::主頁 =
+"<div>【Lv{instance.Level}】</div>" +
+"<div>Exp:{instance.Exp}/{instance.ExpNeeded}</div>" +
+"<div>尚餘能力點：{instance.Point}</div>" +
+"<div>力量：{instance.STR}</div>" +
+"<div>體質：{instance.CON}</div>" +
+"<div>敏捷：{instance.AGI}</div>" +
+"<div>智慧：{instance.INT}</div>" +
+"<div>精神：{instance.PSY}\n</div>" +
+"<div>按鍵X技能: 【{instance.XSkill}】</div>";
+
+const 面板::能力頁 = 
+"<div>尚餘能力點：{instance.Point}</div>" +
+"<div>力量：{instance.STR}</div>" +
+"<div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div>" +
+"<div>體質：{instance.CON}</div>" +
+"<div>每一點可提升半點恢復力，及增加十點血量上限</div>" +
+"<div>敏捷：{instance.AGI}</div>" +
+"<div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div>" +
+"<div>智慧：{instance.INT}</div>" +
+"<div>每一點可提升若干的杖類傷害，詳細見各武器描述</div>" +
+"<div>精神：{instance.PSY}\n</div>" +
+"<div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>";
+
+def 面板::顯示能力面板(): actions {
+    彈出選項視窗(actorId = "{instance}", dialogId = "dialog_point",
+        message = 面板::能力頁,
+        options = [
+            Button(id = "dialog_button_point_STR_01", text = "分配一點力量"),
+            Button(id = "dialog_button_point_STR_10", text = "分配十點力量"),
+            Button(id = "dialog_button_point_CON_01", text = "分配一點體質"),
+            Button(id = "dialog_button_point_CON_10", text = "分配十點體質"),
+            Button(id = "dialog_button_point_AGI_01", text = "分配一點敏捷"),
+            Button(id = "dialog_button_point_AGI_10", text = "分配十點敏捷"),
+            Button(id = "dialog_button_point_INT_01", text = "分配一點智慧"),
+            Button(id = "dialog_button_point_INT_10", text = "分配十點智慧"),
+            Button(id = "dialog_button_point_PSY_01", text = "分配一點精神"),
+            Button(id = "dialog_button_point_PSY_10", text = "分配十點精神")
+        ]
+    );
+}
+
+block 查看主面板 {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        鍵盤按鍵(varName = "clicker", key = "Z");
+    }
+    actions {
+        儲存全域變數(key = "instance", type = "string", value = "{clicker.id}");
+        彈出選項視窗(actorId = "{instance}", dialogId = "dialog_main", message = 面板::主頁, options = [
+            Button(id = "dialog_button_point", text = "分配點數")]
+        );
+    }
+}
+
+block 查看能力面板 {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        視窗確認(buttonName = "dialog_button_point", playerLocalId = "instance");
+    }
+    actions {
+        面板::顯示能力面板();
+    }
+}
+
+def 面板::點擊能力分配泛型(type, typeZh, value) : block {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        視窗確認(buttonName = "dialog_button_point_" + type + "_" + value, playerLocalId = "instance");
+    }
+    checks {
+        比較數字(lhs = "{instance.Point}", op = ">=", rhs = value);
+    }
+    actions {
+        關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_point");
+        自定義::儲存Instance整數("Point", "{instance.Point} - " + value);
+        自定義::儲存Instance整數(type, "{instance."+type+"} + " + value);
+        自定義::更新角色屬性("instance");
+        自定義::上載Instance數據();
+        面板::顯示能力面板();
+    }
+}
+
+block 點擊能力分配一點力量 = 面板::點擊能力分配泛型("STR", "力量", "01");
+block 點擊能力分配一點體質 = 面板::點擊能力分配泛型("CON", "體質", "01");
+block 點擊能力分配一點敏捷 = 面板::點擊能力分配泛型("AGI", "敏捷", "01");
+block 點擊能力分配一點智慧 = 面板::點擊能力分配泛型("INT", "智慧", "01");
+block 點擊能力分配一點精神 = 面板::點擊能力分配泛型("PSY", "精神", "01");
+block 點擊能力分配十點力量 = 面板::點擊能力分配泛型("STR", "力量", "10");
+block 點擊能力分配十點體質 = 面板::點擊能力分配泛型("CON", "體質", "10");
+block 點擊能力分配十點敏捷 = 面板::點擊能力分配泛型("AGI", "敏捷", "10");
+block 點擊能力分配十點智慧 = 面板::點擊能力分配泛型("INT", "智慧", "10");
+block 點擊能力分配十點精神 = 面板::點擊能力分配泛型("PSY", "精神", "10");

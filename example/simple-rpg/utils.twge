@@ -5,22 +5,6 @@ const 公式::Instance恢復量 = "1 + {instance.PSY} + {instance.CON}/2";
 const 公式::InstanceX坐標 = "{instance.gamePosition.x}/32";
 const 公式::InstanceY坐標 = "{instance.gamePosition.y}/32";
 
-const 文字::Instance訊息 =
-"【Lv{{instance.id}.Level}】\n" +
-"Exp:{{instance.id}.Exp}/{{instance.id}.ExpNeeded}\n" +
-"尚餘能力點：{{instance.id}.Point}\n" +
-"力量：{{instance.id}.STR}\n" +
-"體質：{{instance.id}.CON}\n" +
-"敏捷：{{instance.id}.AGI}\n" +
-"智慧：{{instance.id}.INT}\n" +
-"精神：{{instance.id}.PSY}\n\n" +
-"按鍵X技能: 【{{instance.id}.XSkill}】";
-
-const 文字::力量描述 = "【力量】\n每一點可提升若干的武器物理傷害\n詳細見各武器描述";
-const 文字::體質描述 = "【體質】\n每一點可提升半點恢復力\n及增加十點血量上限";
-const 文字::敏捷描述 = "【敏捷】\n每一點可提升若干的匕首物理傷害\n並降低重量及提升武器攻擊速度";
-const 文字::智慧描述 = "【智慧】\n每一點可提升若干的杖類傷害\n詳細見各武器描述";
-const 文字::精神描述 = "【精神】\n每一點可提升一點恢復力\n及提升小量的杖類傷害";
 const 文字::HTML等級提升 = "<span style='color: green'>Level Up</span>";
 
 const 角色::任何 = ActorMatch();
