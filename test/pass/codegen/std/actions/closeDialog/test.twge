@@ -1,0 +1,5 @@
+block init {
+    actions {
+        closeDialog(actorId = "{instance}");
+    }
+}

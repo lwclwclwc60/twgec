@@ -84,7 +84,7 @@ JsonObjectNode
 trigger::TriggerDialogConfirm::method(DefaultMap defaultMap,
                                       UserDefinedMetadata userDefinedMeta) {
   return JsonObjectNode({
-      {"dialogId", "\"\""},
+      {"dialogId", defaultMap.get("dialogId")},
       {"playerCodeVarname", defaultMap.get("playerLocalId")},
       {"value", defaultMap.get("buttonName")},
       {"evtLocal", "\"\""},

@@ -272,6 +272,17 @@ action::ActionAvoidFriendFire::method(DefaultMap defaultMap,
 }
 
 JsonObjectNode
+action::ActionCloseDialog::method(DefaultMap defaultMap,
+                                  UserDefinedMetadata userDefinedMeta) {
+  return JsonObjectNode({
+      {"playerTarget", "\"one\""},
+      {"playerId", defaultMap.get("actorId")},
+      {"dialogId", defaultMap.get("dialogId")},
+      {"closeMehtod", "\"cancel\""},
+  });
+}
+
+JsonObjectNode
 action::ActionConsole::method(DefaultMap defaultMap,
                               UserDefinedMetadata userDefinedMeta) {
   return JsonObjectNode({
@@ -310,7 +321,7 @@ action::ActionShowSelectDialog::method(DefaultMap defaultMap,
   return JsonObjectNode({
       {"playerTarget", "\"one\""},
       {"playerId", defaultMap.get("actorId")},
-      {"dialogId", "\"\""},
+      {"dialogId", defaultMap.get("dialogId")},
       {"title", "\"\""},
       {"message", defaultMap.get("message")},
       {"messageType", "\"html\""},

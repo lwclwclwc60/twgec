@@ -238,6 +238,10 @@ const InstructionConfig avoidFriendFireConfig =
     InstructionConfig("avoidFriendFire", "迴避友軍攻擊")
         .addParam("value", AST_BOOL, CODEGEN_BOOL, "true")
         .setCodegenName("GameRule");
+const InstructionConfig closeDialogConfig =
+    InstructionConfig("closeDialog", "關閉彈出視窗")
+        .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        .addParam("dialogId", AST_STRING, CODEGEN_STRING, "");
 const InstructionConfig deltaHpConfig =
     InstructionConfig("deltaHp", "角色加減血")
         .addParam("actorCode", AST_STRING, CODEGEN_STRING, "")
@@ -332,6 +336,7 @@ const InstructionConfig setWeaponAbilityConfig =
 const InstructionConfig showSelectDialogConfig =
     InstructionConfig("showSelectDialog", "彈出選項視窗")
         .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        .addParam("dialogId", AST_STRING, CODEGEN_STRING, "")
         .addParam("message", AST_STRING, CODEGEN_STRING, "")
         .addParam("options", AST_LIST_BUTTON, CODEGEN_LIST_BUTTON_DIALOG, "[]");
 const InstructionConfig tipOnMapConfig =
@@ -386,6 +391,7 @@ const std::vector<InstructionConfig> actionList = {
     addMapSignConfig,
     addStuffConfig,
     avoidFriendFireConfig,
+    closeDialogConfig,
     deltaHpConfig,
     enblastEffectConfig,
     equipWeaponConfig,
@@ -480,6 +486,7 @@ const InstructionConfig clickButtonConfig =
 const InstructionConfig dialogConfirmConfig =
     InstructionConfig("dialogConfirm", "視窗確認")
         .addParam("buttonName", AST_STRING, CODEGEN_STRING, "")
+        .addParam("dialogId", AST_STRING, CODEGEN_STRING, "")
         .addParam("playerLocalId", AST_STRING, CODEGEN_STRING, "");
 const InstructionConfig keyboardPressedConfig =
     InstructionConfig("keyboardPressed", "鍵盤按鍵")

@@ -151,6 +151,8 @@ void CodeGenerator::codegenAction(std::ofstream &of,
     of << action::ActionAddStuff::CODEGEN_FUNC;
   if (identifier == "avoidFriendFire" || identifier == "迴避友軍攻擊")
     of << action::ActionAvoidFriendFire::CODEGEN_FUNC;
+  if (identifier == "closeDialog" || identifier == "關閉彈出視窗")
+    of << action::ActionCloseDialog::CODEGEN_FUNC;
   if (identifier == "deltaHp" || identifier == "角色加減血")
     of << action::ActionDeltaHp::CODEGEN_FUNC;
   if (identifier == "enblastEffect" || identifier == "光彈特效")
