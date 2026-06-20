@@ -10498,23 +10498,6 @@
                         "pick": "random",
                         "locs": [
                             {
-                                "x": "13+{chunk_{chunk_available_stack_now}_x}",
-                                "y": "6+{chunk_{chunk_available_stack_now}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "tree0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
                                 "x": "16+{chunk_{chunk_available_stack_now}_x}",
                                 "y": "6+{chunk_{chunk_available_stack_now}_y}",
                                 "range": "0"
@@ -10537,7 +10520,7 @@
                                 "range": "0"
                             }
                         ],
-                        "resource": "tree0",
+                        "resource": "sky012",
                         "autoLayer": true,
                         "forceBlock": false
                     }
@@ -10674,6 +10657,23 @@
                             }
                         ],
                         "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "16+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "17+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "tree0",
                         "autoLayer": true,
                         "forceBlock": false
                     }
@@ -15813,73 +15813,7 @@
                         "pick": "random",
                         "locs": [
                             {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "chair0",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapSIgn",
-                    "data": {
-                        "localVarname": "",
-                        "locs": [
-                            {
-                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "11+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "shape": "wood",
-                        "rotation": "180",
-                        "speech": "【重置能力點分配】",
-                        "parsePolicy": "view",
-                        "showButtons": true,
-                        "btnsGroup": {
-                            "rowSize": "1",
-                            "btnMinWidth": "1",
-                            "textAlign": "center",
-                            "varnameButton": "",
-                            "btns": [
-                                {
-                                    "buttonCode": "ResetPoint",
-                                    "close": true,
-                                    "label": "確認",
-                                    "icon": ""
-                                }
-                            ]
-                        }
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
                                 "x": "0+{chunk_{map_to_chunk_100_100}_x}",
-                                "y": "13+{chunk_{map_to_chunk_100_100}_y}",
-                                "range": "0"
-                            }
-                        ],
-                        "resource": "sky012",
-                        "autoLayer": true,
-                        "forceBlock": false
-                    }
-                },
-                {
-                    "type": "AddMapObject",
-                    "data": {
-                        "locType": "locs",
-                        "pick": "random",
-                        "locs": [
-                            {
-                                "x": "1+{chunk_{map_to_chunk_100_100}_x}",
                                 "y": "13+{chunk_{map_to_chunk_100_100}_y}",
                                 "range": "0"
                             }
@@ -15921,6 +15855,61 @@
                         "resource": "sky012",
                         "autoLayer": true,
                         "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddActor",
+                    "data": {
+                        "actorCode": "npc04*",
+                        "name": "村長",
+                        "role": {
+                            "dr": 8,
+                            "rsrc": "TWilightGameEventCompiler.character_village_head"
+                        },
+                        "actorType": "defaultType",
+                        "weapon0": {
+                            "w0Type": "kongfu"
+                        },
+                        "weapon1": {
+                            "w1Type": "kongfu"
+                        },
+                        "camp": "third",
+                        "group": "100",
+                        "location": {
+                            "x": "6+{chunk_{map_to_chunk_100_100}_x}",
+                            "y": "14+{chunk_{map_to_chunk_100_100}_y}",
+                            "range": "0"
+                        },
+                        "shiftX": 0,
+                        "shiftY": 0,
+                        "spawnLoc": true,
+                        "rotation": "0",
+                        "idleRotate": true,
+                        "maxhp": "100",
+                        "manaPower": "0",
+                        "lives": "1",
+                        "preferAbilityLevel": "smart",
+                        "maxAbilityLevel": 1,
+                        "weight": "4",
+                        "strength": "1",
+                        "vision": "300",
+                        "range": "10000",
+                        "score": "10",
+                        "bloodType": "default",
+                        "unbrokenArmor": true,
+                        "tornadoRes": "none",
+                        "distractWhenHit": true,
+                        "thinkInterval": 60,
+                        "farAutoLevel": "0",
+                        "patrols": true,
+                        "patrolPath": [],
+                        "bornDelayDuration": "0",
+                        "bornDuration": "1000",
+                        "bornLockDuration": "1000",
+                        "bornEffect": "none",
+                        "bornAnim": "fadein",
+                        "localVarname": "actor",
+                        "globalVarname": ""
                     }
                 },
                 {
@@ -15975,6 +15964,96 @@
                     }
                 },
                 {
+                    "type": "AddManaCircle",
+                    "data": {
+                        "deviceCode": "device",
+                        "localVarname": "random",
+                        "locs": [
+                            {
+                                "x": "15+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "14+{chunk_{map_to_chunk_100_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "actorMatch": {
+                            "skip": true
+                        },
+                        "power": "0",
+                        "useColor": "origin",
+                        "layer": "groundTop",
+                        "heal": true,
+                        "healPower": "10",
+                        "healActorCooldown": "4000",
+                        "healDeviceCooldown": "1000"
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "14+{chunk_{map_to_chunk_100_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "chair0",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapSIgn",
+                    "data": {
+                        "localVarname": "",
+                        "locs": [
+                            {
+                                "x": "17+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "14+{chunk_{map_to_chunk_100_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "shape": "wood",
+                        "rotation": "180",
+                        "speech": "【重置能力點分配】",
+                        "parsePolicy": "view",
+                        "showButtons": true,
+                        "btnsGroup": {
+                            "rowSize": "1",
+                            "btnMinWidth": "1",
+                            "textAlign": "center",
+                            "varnameButton": "",
+                            "btns": [
+                                {
+                                    "buttonCode": "ResetPoint",
+                                    "close": true,
+                                    "label": "確認",
+                                    "icon": ""
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "15+{chunk_{map_to_chunk_100_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "house1",
+                        "autoLayer": true,
+                        "forceBlock": true
+                    }
+                },
+                {
                     "type": "AddMapObject",
                     "data": {
                         "locType": "locs",
@@ -15989,6 +16068,77 @@
                         "resource": "sky012",
                         "autoLayer": true,
                         "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddActor",
+                    "data": {
+                        "actorCode": "npc03*",
+                        "name": "祭司",
+                        "role": {
+                            "dr": 51
+                        },
+                        "actorType": "defaultType",
+                        "weapon0": {
+                            "w0Type": "kongfu"
+                        },
+                        "weapon1": {
+                            "w1Type": "kongfu"
+                        },
+                        "camp": "third",
+                        "group": "100",
+                        "location": {
+                            "x": "16+{chunk_{map_to_chunk_100_100}_x}",
+                            "y": "15+{chunk_{map_to_chunk_100_100}_y}",
+                            "range": "0"
+                        },
+                        "shiftX": 0,
+                        "shiftY": 0,
+                        "spawnLoc": true,
+                        "rotation": "270",
+                        "idleRotate": true,
+                        "maxhp": "100",
+                        "manaPower": "0",
+                        "lives": "1",
+                        "preferAbilityLevel": "smart",
+                        "maxAbilityLevel": 1,
+                        "weight": "4",
+                        "strength": "1",
+                        "vision": "300",
+                        "range": "10000",
+                        "score": "10",
+                        "bloodType": "default",
+                        "unbrokenArmor": true,
+                        "tornadoRes": "none",
+                        "distractWhenHit": true,
+                        "thinkInterval": 60,
+                        "farAutoLevel": "0",
+                        "patrols": true,
+                        "patrolPath": [],
+                        "bornDelayDuration": "0",
+                        "bornDuration": "1000",
+                        "bornLockDuration": "1000",
+                        "bornEffect": "none",
+                        "bornAnim": "fadein",
+                        "localVarname": "actor",
+                        "globalVarname": ""
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{map_to_chunk_100_100}_x}",
+                                "y": "16+{chunk_{map_to_chunk_100_100}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "box0",
+                        "autoLayer": true,
+                        "forceBlock": true
                     }
                 },
                 {
