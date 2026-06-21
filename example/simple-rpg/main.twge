@@ -3,7 +3,8 @@
 #include "weapon.twge"
 #include "monster.twge"
 #include "skill.twge"
-#include "map.twge"
+#include "map/map.twge"
+#include "map/chunk.twge"
 #include "dialog.twge"
 
 block 點擊重置能力 {

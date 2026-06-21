@@ -1,0 +1,211 @@
+/*
+chunk.twge用作處理物理的區塊
+實際地圖分為九個chunk，編號為
+0 | 1 | 2
+3 | 4 | 5
+6 | 7 | 8
+intra-chunk: size 20x20, stride 1x1
+inter-chunk: size 3x3, stride 27x27
+0th chunk 固定為新手村位置, 1-8th chunk 則為動態分配
+
+if(進入新chunk) {
+    if(沒有chunk) {
+        chunk_used = 1
+        chunk_entering = 1
+        生成地圖
+    }
+    移動人物
+    wait
+    chunk_entering = 0
+}
+
+if(no player && chunk_used = 1 && chunk_entering = 0) {
+    移除chunk物件
+    chunk_used = 0
+}
+
+if(chunk_used = 0) {
+    移除chunk人物
+}
+*/
+
+def 地圖::移動離開泛型(direction) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    triggers {
+        鍵盤按鍵(varName = "clicker", key = "Space");
+    }
+    checks {
+        // 864 = 27*32 where 27 is the stride and 32 is the pixel size
+        if(direction == "右") {
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExE}", op = "==", rhs = 1);
+        } else if(direction == "左") {
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExW}", op = "==", rhs = 1);
+        } else if(direction == "下") {
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExS}", op = "==", rhs = 1);
+        } else if(direction == "上") {
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExN}", op = "==", rhs = 1);
+        }
+    }
+    actions {
+        setGlobal(key = "instance", type = "string", value = "{clicker.id}");
+        自定義::儲存Instance整數("tmp_grid_x_offset", "({instance.gamePosition.x}%864)/32");
+        自定義::儲存Instance整數("tmp_grid_y_offset", "({instance.gamePosition.y}%864)/32");
+        if(除錯模式) {
+            print(text = "x: {instance.map_x}, y: {instance.map_y}, direction: " + direction, type = "error");
+            print(text = "x_offset: {instance.tmp_grid_x_offset}, y_offset: {instance.tmp_grid_x_offset}", type = "error");
+        }
+        儲存物件變數(key = "map_direction", object = "instance", type = "string", value = direction);
+        if(direction == "右") {
+            自定義::儲存Instance整數("map_x", "{instance.map_x}+1");
+        } else if(direction == "左") {
+            自定義::儲存Instance整數("map_x", "{instance.map_x}-1");
+        } else if(direction == "下") {
+            自定義::儲存Instance整數("map_y", "{instance.map_y}+1");
+        } else if(direction == "上") {
+            自定義::儲存Instance整數("map_y", "{instance.map_y}-1");
+        }
+        移動角色位置(actorId = "instance", x = 23, y = 23);
+    }
+}
+
+block 地圖移動離開往上 = 地圖::移動離開泛型("上");
+block 地圖移動離開往下 = 地圖::移動離開泛型("下");
+block 地圖移動離開往左 = 地圖::移動離開泛型("左");
+block 地圖移動離開往右 = 地圖::移動離開泛型("右");
+
+def 地圖::移動進入泛型(direction) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 1, region_w = 1, region_x = 23, region_y = 23);
+        比較數字(lhs = "{map_used_{instance.map_x}_{instance.map_y}}", op = "==", rhs = "1");
+        比對字串(str = direction, value = "{instance.map_direction}");
+    }
+    actions {
+        if(direction == "右") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if(direction == "左") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + 19",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if(direction == "下") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y}");
+        } else if(direction == "上") {
+            移動角色位置(actorId = "instance",
+                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + 19");
+        }
+        等待(duration = 1000);
+        儲存全域變數(key = "chunk_entering_{map_to_chunk_{instance.map_x}_{instance.map_y}}", type = "int", value = 0);
+    }
+}
+block 地圖移動進入往上 = 地圖::移動進入泛型("上");
+block 地圖移動進入往下 = 地圖::移動進入泛型("下");
+block 地圖移動進入往左 = 地圖::移動進入泛型("左");
+block 地圖移動進入往右 = 地圖::移動進入泛型("右");
+
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0,
+            region_h = 20, region_w = 20,
+            region_x = (chunk_id%3)*27,
+            region_y = (chunk_id/3)*27);
+        比較數字(lhs = "{chunk_entering_" + twge::to_string(chunk_id) + "}", op = "==", rhs = 0);
+        比較數字(lhs = "{chunk_used_" + twge::to_string(chunk_id) + "}", op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20,
+            region_x = (chunk_id%3)*27,
+            region_y = (chunk_id/3)*27);
+        移除地圖物件(region_h = 20, region_w = 20,
+            region_x = (chunk_id%3)*27,
+            region_y = (chunk_id/3)*27);
+        儲存全域變數(key = "chunk_used_" + twge::to_string(chunk_id), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = "{chunk_to_map_" + twge::to_string(chunk_id) + "_x}");
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = "{chunk_to_map_" + twge::to_string(chunk_id) + "_y}");
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+
+block 移動移除物件1 = 地圖::移動移除物件泛型(1);
+block 移動移除物件2 = 地圖::移動移除物件泛型(2);
+block 移動移除物件3 = 地圖::移動移除物件泛型(3);
+block 移動移除物件4 = 地圖::移動移除物件泛型(4);
+block 移動移除物件5 = 地圖::移動移除物件泛型(5);
+block 移動移除物件6 = 地圖::移動移除物件泛型(6);
+block 移動移除物件7 = 地圖::移動移除物件泛型(7);
+block 移動移除物件8 = 地圖::移動移除物件泛型(8);
+
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_used_" + twge::to_string(chunk_id) + "}", op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance",
+            region_h = 20, region_w = 20,
+            region_x = (chunk_id%3)*27,
+            region_y = (chunk_id/3)*27,
+            checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+
+block 移動移除人物1 = 地圖::移動移除人物泛型(1);
+block 移動移除人物2 = 地圖::移動移除人物泛型(2);
+block 移動移除人物3 = 地圖::移動移除人物泛型(3);
+block 移動移除人物4 = 地圖::移動移除人物泛型(4);
+block 移動移除人物5 = 地圖::移動移除人物泛型(5);
+block 移動移除人物6 = 地圖::移動移除人物泛型(6);
+block 移動移除人物7 = 地圖::移動移除人物泛型(7);
+block 移動移除人物8 = 地圖::移動移除人物泛型(8);
+
+block 可分配區域更新 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
+        比較數字(lhs = "{chunk_available_stack_1}+{chunk_available_stack_2}+" + 
+            "{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" +
+            "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}", op = "!=", rhs = -8);
+    }
+    actions {
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = "{chunk_available_stack_2}");
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = "{chunk_available_stack_3}");
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = "{chunk_available_stack_4}");
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = "{chunk_available_stack_5}");
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = "{chunk_available_stack_6}");
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = "{chunk_available_stack_7}");
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+    }
+}
