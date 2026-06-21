@@ -47,6 +47,7 @@ block 查看主面板 {
         鍵盤按鍵(varName = "clicker", key = "Z");
     }
     actions {
+        關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_main");
         儲存全域變數(key = "instance", type = "string", value = "{clicker.id}");
         彈出選項視窗(actorId = "{instance}", dialogId = "dialog_main", message = 面板::主頁, options = [
             Button(id = "dialog_button_point", text = "分配點數")]

@@ -16,6 +16,7 @@ def 自定義::拾取經驗泛型(drop_item_code, exp) : block {
 block 拾取經驗一級鹿 = 自定義::拾取經驗泛型("deer_exp_01", 1);
 block 拾取經驗三級鹿 = 自定義::拾取經驗泛型("deer_exp_03", 3);
 block 拾取經驗五級鹿 = 自定義::拾取經驗泛型("deer_exp_05", 5);
+block 拾取經驗五級山嶺石怪 = 自定義::拾取經驗泛型("stone_exp_05", 7);
 
 def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : block {
     __repeat__ = -1;
@@ -31,6 +32,7 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
 block 野獸死亡一級鹿 = 自定義::野獸死亡泛型("monster_deer_lv01", "deer_exp_01", "sariraFire");
 block 野獸死亡三級鹿 = 自定義::野獸死亡泛型("monster_deer_lv03", "deer_exp_03", "sariraFire");
 block 野獸死亡五級鹿 = 自定義::野獸死亡泛型("monster_deer_lv05", "deer_exp_05", "sariraFire");
+block 野獸死亡五級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv05", "stone_exp_05", "redStone");
 
 // TODO: Support syntax
 // def 自定義::野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, strength, role) : block = 
@@ -43,33 +45,55 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     __label__ = "怪物";
     checks {
         if(monster_type == "鹿") {
-            計算人數(actor = ActorMatch(id = "monster_deer_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 4);
+            if(chunk_x == "101" && chunk_y == "102") {
+                計算人數(actor = ActorMatch(id = "monster_deer_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 2);
+            } else {
+                計算人數(actor = ActorMatch(id = "monster_deer_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 4);
+            }
+        }
+        if(monster_type == "山嶺石怪") {
+            計算人數(actor = ActorMatch(id = "monster_stone_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 1);
         }
         比較數字(lhs = "{map_used_" + chunk_x +"_" + chunk_y + "}", op = "==", rhs = "1");
     }
     actions {
         if(monster_type == "鹿") {
-            新增角色(name = "鹿(Lv" + twge::to_string(level) + ")",
+            新增角色(name = monster_type + "(Lv" + twge::to_string(level) + ")",
                     id = "monster_deer_lv0" + twge::to_string(level) + "*",
-                    hp = 10 + 50 * level,
-                    strength = 4 + 6 * level,
+                    hp = 15 + 45 * level,
+                    strength = 5 + 5 * level,
                     x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
                     y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
                     camp = "第三", range = 10, localVarname = "actor",
                     weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        }
+        if(monster_type == "山嶺石怪") {
+            新增角色(name = monster_type + "(Lv" + twge::to_string(level) + ")",
+                    id = "monster_stone_lv0" + twge::to_string(level) + "*",
+                    hp = 20 + 80 * level,
+                    strength = 10 * level,
+                    x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
+                    y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
+                    camp = "第三", range = 10, localVarname = "actor",
+                    weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
+            設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.1");
         }
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
 }
 
 // 一級鹿
-block 野獸重生x99y100 = 自定義::野獸重生泛型(8000, "99", "100", "鹿", 1);
-block 野獸重生x101y100 = 自定義::野獸重生泛型(8000, "101", "100", "鹿", 1);
-block 野獸重生x100y101 = 自定義::野獸重生泛型(8000, "100", "101", "鹿", 1);
+block 野獸重生x099y100鹿 = 自定義::野獸重生泛型(8000, "99", "100", "鹿", 1);
+block 野獸重生x101y100鹿 = 自定義::野獸重生泛型(8000, "101", "100", "鹿", 1);
+block 野獸重生x100y101鹿 = 自定義::野獸重生泛型(8000, "100", "101", "鹿", 1);
 // 三級鹿
-block 野獸重生x99y101 = 自定義::野獸重生泛型(10000, "99", "101", "鹿", 3);
-block 野獸重生x101y101 = 自定義::野獸重生泛型(10000, "101", "101", "鹿", 3);
-block 野獸重生x100y102 = 自定義::野獸重生泛型(10000, "100", "102", "鹿", 3);
+block 野獸重生x099y101鹿 = 自定義::野獸重生泛型(10000, "99", "101", "鹿", 3);
+block 野獸重生x101y101鹿 = 自定義::野獸重生泛型(10000, "101", "101", "鹿", 3);
+block 野獸重生x100y102鹿 = 自定義::野獸重生泛型(10000, "100", "102", "鹿", 3);
 // 五級鹿
-block 野獸重生x99y102 = 自定義::野獸重生泛型(12000, "99", "102", "鹿", 5);
-block 野獸重生x101y102 = 自定義::野獸重生泛型(12000, "101", "102", "鹿", 5);
+block 野獸重生x099y102鹿 = 自定義::野獸重生泛型(12000, "99", "102", "鹿", 5);
+block 野獸重生x101y102鹿 = 自定義::野獸重生泛型(12000, "101", "102", "鹿", 5);
+
+// 五級山嶺石怪
+block 野獸重生x101y102山嶺石怪 = 自定義::野獸重生泛型(10000, "101", "102", "山嶺石怪", 5);

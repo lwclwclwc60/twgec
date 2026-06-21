@@ -808,6 +808,18 @@ const string keywordTree1 = "tree1";
 const string keywordTree1Zh = "3x3淺綠樹";
 const string keywordTree5 = "tree5";
 const string keywordTree5Zh = "3x3棕樹";
+const string keywordRock0 = "rock0";
+const string keywordRock0Zh = "3x3黑石";
+const string keywordRock1 = "rock1";
+const string keywordRock1Zh = "3x3金石";
+const string keywordRock2 = "rock2";
+const string keywordRock2Zh = "2x2白石";
+const string keywordRock3 = "rock3";
+const string keywordRock3Zh = "1x1黑石";
+const string keywordRock4 = "rock4";
+const string keywordRock4Zh = "1x1金石";
+const string keywordRock5 = "rock5";
+const string keywordRock5Zh = "2x2棕石";
 const string keywordShine1E = "shine1_e";
 const string keywordShine1EZh = "白光(弱左)";
 const string keywordShine1N = "shine1_n";
@@ -847,6 +859,12 @@ static KeywordEnum keywordEnum(
         {keywordTree0, keywordTree0},     {keywordTree0Zh, keywordTree0},
         {keywordTree1, keywordTree1},     {keywordTree1Zh, keywordTree1},
         {keywordTree5, keywordTree5},     {keywordTree5Zh, keywordTree5},
+        {keywordRock0, keywordRock0},     {keywordRock0Zh, keywordRock0},
+        {keywordRock1, keywordRock1},     {keywordRock1Zh, keywordRock1},
+        {keywordRock2, keywordRock2},     {keywordRock2Zh, keywordRock2},
+        {keywordRock3, keywordRock3},     {keywordRock3Zh, keywordRock3},
+        {keywordRock4, keywordRock4},     {keywordRock4Zh, keywordRock4},
+        {keywordRock5, keywordRock5},     {keywordRock5Zh, keywordRock5},
         {keywordShine1E, keywordShine1E}, {keywordShine1EZh, keywordShine1E},
         {keywordShine1N, keywordShine1N}, {keywordShine1NZh, keywordShine1N},
         {keywordShine1S, keywordShine1S}, {keywordShine1SZh, keywordShine1S},

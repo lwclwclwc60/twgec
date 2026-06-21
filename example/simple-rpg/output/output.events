@@ -2003,6 +2003,174 @@
             ]
         },
         {
+            "id": "拾取經驗五級山嶺石怪",
+            "disabled": false,
+            "folder": "怪物",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "SetObjectVar",
+                    "data": {
+                        "objectId": "instance",
+                        "key": "Exp",
+                        "valueType": "integer",
+                        "value": "{instance.Exp}+7"
+                    }
+                },
+                {
+                    "type": "TipOnMap",
+                    "data": {
+                        "locs": [
+                            {
+                                "x": "{instance.gamePosition.x}/32",
+                                "y": "{instance.gamePosition.y}/32",
+                                "range": "0"
+                            }
+                        ],
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "cleanTalk": false,
+                        "speech": "<span style='color: green'>EXP+7</span>",
+                        "html": true,
+                        "align": "center",
+                        "scalePolicy": "withWindowMinOne",
+                        "stay": "time",
+                        "duration": "3000"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "Point",
+                        "valueType": "string",
+                        "value": "{{instance}.Point}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "ExpNeeded",
+                        "valueType": "string",
+                        "value": "{{instance}.ExpNeeded}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "Level",
+                        "valueType": "string",
+                        "value": "{{instance}.Level}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "STR",
+                        "valueType": "string",
+                        "value": "{{instance}.STR}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "CON",
+                        "valueType": "string",
+                        "value": "{{instance}.CON}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "AGI",
+                        "valueType": "string",
+                        "value": "{{instance}.AGI}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "INT",
+                        "valueType": "string",
+                        "value": "{{instance}.INT}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "PSY",
+                        "valueType": "string",
+                        "value": "{{instance}.PSY}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "Exp",
+                        "valueType": "string",
+                        "value": "{{instance}.Exp}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "HP",
+                        "valueType": "string",
+                        "value": "{{instance}.HP}"
+                    }
+                },
+                {
+                    "type": "SetUserState",
+                    "data": {
+                        "playerId": "{instance}",
+                        "category": "simple-rpg-test",
+                        "key": "savedBefore",
+                        "valueType": "integer",
+                        "value": "1"
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ItemPickup",
+                    "data": {
+                        "actorMatches": [],
+                        "varname": "instance",
+                        "itemMatch": {
+                            "method": "equal",
+                            "itemCode": "stone_exp_05",
+                            "itemType": ""
+                        },
+                        "itemVarname": ""
+                    }
+                }
+            ]
+        },
+        {
             "id": "野獸死亡一級鹿",
             "disabled": false,
             "folder": "怪物",
@@ -2171,7 +2339,63 @@
             ]
         },
         {
-            "id": "野獸重生x99y100",
+            "id": "野獸死亡五級山嶺石怪",
+            "disabled": false,
+            "folder": "怪物",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "AddDropItem",
+                    "data": {
+                        "location": {
+                            "x": "{instance.gamePosition.x}/32-0.5",
+                            "y": "{instance.gamePosition.y}/32-0.5",
+                            "range": "0"
+                        },
+                        "shiftX": 0,
+                        "shiftY": 0,
+                        "itemCode": "stone_exp_05",
+                        "itemType": "redStone",
+                        "itemScale": "1",
+                        "localVarname": ""
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ActorDead",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": "monster_stone_lv05"
+                                    }
+                                ],
+                                "brain": "all",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "varname": "instance",
+                        "timing": "preDead",
+                        "deathsVarname": "deaths",
+                        "hitterMatches": [],
+                        "hitterVarname": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": "野獸重生x099y100鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2287,7 +2511,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x101y100",
+            "id": "野獸重生x101y100鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2403,7 +2627,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x100y101",
+            "id": "野獸重生x100y101鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2519,7 +2743,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x99y101",
+            "id": "野獸重生x099y101鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2555,13 +2779,13 @@
                         "spawnLoc": true,
                         "rotation": "0",
                         "idleRotate": true,
-                        "maxhp": "160",
+                        "maxhp": "150",
                         "manaPower": "0",
                         "lives": "1",
                         "preferAbilityLevel": "smart",
                         "maxAbilityLevel": 1,
                         "weight": "4",
-                        "strength": "22",
+                        "strength": "20",
                         "vision": "300",
                         "range": "10000",
                         "score": "10",
@@ -2635,7 +2859,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x101y101",
+            "id": "野獸重生x101y101鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2671,13 +2895,13 @@
                         "spawnLoc": true,
                         "rotation": "0",
                         "idleRotate": true,
-                        "maxhp": "160",
+                        "maxhp": "150",
                         "manaPower": "0",
                         "lives": "1",
                         "preferAbilityLevel": "smart",
                         "maxAbilityLevel": 1,
                         "weight": "4",
-                        "strength": "22",
+                        "strength": "20",
                         "vision": "300",
                         "range": "10000",
                         "score": "10",
@@ -2751,7 +2975,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x100y102",
+            "id": "野獸重生x100y102鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2787,13 +3011,13 @@
                         "spawnLoc": true,
                         "rotation": "0",
                         "idleRotate": true,
-                        "maxhp": "160",
+                        "maxhp": "150",
                         "manaPower": "0",
                         "lives": "1",
                         "preferAbilityLevel": "smart",
                         "maxAbilityLevel": 1,
                         "weight": "4",
-                        "strength": "22",
+                        "strength": "20",
                         "vision": "300",
                         "range": "10000",
                         "score": "10",
@@ -2867,7 +3091,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x99y102",
+            "id": "野獸重生x099y102鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -2903,13 +3127,13 @@
                         "spawnLoc": true,
                         "rotation": "0",
                         "idleRotate": true,
-                        "maxhp": "260",
+                        "maxhp": "240",
                         "manaPower": "0",
                         "lives": "1",
                         "preferAbilityLevel": "smart",
                         "maxAbilityLevel": 1,
                         "weight": "4",
-                        "strength": "34",
+                        "strength": "30",
                         "vision": "300",
                         "range": "10000",
                         "score": "10",
@@ -2983,7 +3207,7 @@
             "triggers": []
         },
         {
-            "id": "野獸重生x101y102",
+            "id": "野獸重生x101y102鹿",
             "disabled": false,
             "folder": "怪物",
             "startTime": 1000,
@@ -3019,13 +3243,13 @@
                         "spawnLoc": true,
                         "rotation": "0",
                         "idleRotate": true,
-                        "maxhp": "260",
+                        "maxhp": "240",
                         "manaPower": "0",
                         "lives": "1",
                         "preferAbilityLevel": "smart",
                         "maxAbilityLevel": 1,
                         "weight": "4",
-                        "strength": "34",
+                        "strength": "30",
                         "vision": "300",
                         "range": "10000",
                         "score": "10",
@@ -3076,7 +3300,161 @@
                         ],
                         "operator": "<",
                         "varname": "",
-                        "value": "4",
+                        "value": "2",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                },
+                {
+                    "type": "NumberCheck",
+                    "data": {
+                        "value1": "{map_used_101_102}",
+                        "operator": "==",
+                        "value2": "1",
+                        "_logi": {
+                            "_and_or": ""
+                        },
+                        "_elseEventId": ""
+                    }
+                }
+            ],
+            "triggers": []
+        },
+        {
+            "id": "野獸重生x101y102山嶺石怪",
+            "disabled": false,
+            "folder": "怪物",
+            "startTime": 1000,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 10000,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "AddActor",
+                    "data": {
+                        "actorCode": "monster_stone_lv05*",
+                        "name": "山嶺石怪(Lv5)",
+                        "role": {
+                            "dr": 22
+                        },
+                        "actorType": "defaultType",
+                        "weapon0": {
+                            "w0Type": "kongfu"
+                        },
+                        "weapon1": {
+                            "w1Type": "kongfu"
+                        },
+                        "camp": "third",
+                        "group": "101",
+                        "location": {
+                            "x": "{chunk_{map_to_chunk_101_102}_x} + 10",
+                            "y": "{chunk_{map_to_chunk_101_102}_y} + 10",
+                            "range": "10"
+                        },
+                        "shiftX": 0,
+                        "shiftY": 0,
+                        "spawnLoc": true,
+                        "rotation": "0",
+                        "idleRotate": true,
+                        "maxhp": "420",
+                        "manaPower": "0",
+                        "lives": "1",
+                        "preferAbilityLevel": "smart",
+                        "maxAbilityLevel": 1,
+                        "weight": "4",
+                        "strength": "50",
+                        "vision": "300",
+                        "range": "10000",
+                        "score": "10",
+                        "bloodType": "default",
+                        "unbrokenArmor": true,
+                        "tornadoRes": "none",
+                        "distractWhenHit": true,
+                        "thinkInterval": 60,
+                        "farAutoLevel": "0",
+                        "patrols": true,
+                        "patrolPath": [],
+                        "bornDelayDuration": "0",
+                        "bornDuration": "1000",
+                        "bornLockDuration": "1000",
+                        "bornEffect": "none",
+                        "bornAnim": "fadein",
+                        "localVarname": "actor",
+                        "globalVarname": ""
+                    }
+                },
+                {
+                    "type": "ActorAttributes",
+                    "data": {
+                        "actorCode": "{actor}",
+                        "ops": [
+                            {
+                                "attr": "weight",
+                                "operation": "set",
+                                "value": "6"
+                            }
+                        ],
+                        "takeFriendAIFire": "u",
+                        "takeFriendPlayerFire": "u",
+                        "exitWormhole": "u",
+                        "setStatic": "u",
+                        "setTornadoRes": "u",
+                        "bloodType": "u"
+                    }
+                },
+                {
+                    "type": "ActorAttributes",
+                    "data": {
+                        "actorCode": "{actor}",
+                        "ops": [
+                            {
+                                "attr": "bodyScale",
+                                "operation": "set",
+                                "value": "1.1"
+                            }
+                        ],
+                        "takeFriendAIFire": "u",
+                        "takeFriendPlayerFire": "u",
+                        "exitWormhole": "u",
+                        "setStatic": "u",
+                        "setTornadoRes": "u",
+                        "bloodType": "u"
+                    }
+                },
+                {
+                    "type": "ActorFollow",
+                    "data": {
+                        "actorCode": "actor",
+                        "followType": "self",
+                        "targetCode": ""
+                    }
+                }
+            ],
+            "checks": [
+                {
+                    "type": "ActorCount",
+                    "data": {
+                        "actorMatches": [
+                            {
+                                "actorCodes": [
+                                    {
+                                        "method": "contain",
+                                        "actorCode": "monster_stone_lv05"
+                                    }
+                                ],
+                                "brain": "all",
+                                "camp": {
+                                    "campAll": true
+                                },
+                                "excludeActorCodes": []
+                            }
+                        ],
+                        "operator": "<",
+                        "varname": "",
+                        "value": "1",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -14612,6 +14990,23 @@
                         "pick": "random",
                         "locs": [
                             {
+                                "x": "13+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "13+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock3",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
                                 "x": "0+{chunk_{chunk_available_stack_now}_x}",
                                 "y": "14+{chunk_{chunk_available_stack_now}_y}",
                                 "range": "0"
@@ -14652,6 +15047,40 @@
                             }
                         ],
                         "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "5+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "15+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock4",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "18+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "15+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock3",
                         "autoLayer": true,
                         "forceBlock": false
                     }
@@ -14754,6 +15183,40 @@
                             }
                         ],
                         "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "3+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "18+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock5",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "7+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "18+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock3",
                         "autoLayer": true,
                         "forceBlock": false
                     }
@@ -14833,12 +15296,63 @@
                         "pick": "random",
                         "locs": [
                             {
+                                "x": "18+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "18+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock5",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "2+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "19+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock4",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
                                 "x": "11+{chunk_{chunk_available_stack_now}_x}",
                                 "y": "19+{chunk_{chunk_available_stack_now}_y}",
                                 "range": "0"
                             }
                         ],
                         "resource": "sky012",
+                        "autoLayer": true,
+                        "forceBlock": false
+                    }
+                },
+                {
+                    "type": "AddMapObject",
+                    "data": {
+                        "locType": "locs",
+                        "pick": "random",
+                        "locs": [
+                            {
+                                "x": "17+{chunk_{chunk_available_stack_now}_x}",
+                                "y": "19+{chunk_{chunk_available_stack_now}_y}",
+                                "range": "0"
+                            }
+                        ],
+                        "resource": "rock4",
                         "autoLayer": true,
                         "forceBlock": false
                     }
@@ -20502,6 +21016,15 @@
             "repeatInterval": 0,
             "devOnly": false,
             "actions": [
+                {
+                    "type": "CloseDialog",
+                    "data": {
+                        "playerTarget": "one",
+                        "playerId": "{instance}",
+                        "dialogId": "dialog_main",
+                        "closeMehtod": "cancel"
+                    }
+                },
                 {
                     "type": "SetGlobal",
                     "data": {
