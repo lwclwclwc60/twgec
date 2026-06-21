@@ -51,6 +51,38 @@ inline std::string toString(ASTType astType) {
     return "?";
   }
 }
+
+inline std::string defaultToString(ASTType astType,
+                                   const std::string &defaultValue) {
+  if (!defaultValue.empty()) {
+    if (astType == AST_STRING) {
+      return "\"" + defaultValue + "\"";
+    }
+    return defaultValue;
+  }
+
+  switch (astType) {
+  case AST_STRING:
+    return "\"\"";
+  case AST_BOOL:
+    return "false";
+  case AST_LIST_BUTTON:
+  case AST_LIST_CUSTOM_WEAPON:
+  case AST_LIST_POINT:
+  case AST_LIST_STRING:
+    return "[]";
+  case AST_POINT:
+    return "Point(0, 0)";
+  case AST_ACTOR_MATCH:
+    return "ActorMatch(controller = \"\", id = \"\", matchKind = \"\", "
+           "group = 0)";
+  case AST_INT:
+    return "0";
+  case AST_INVALID:
+  default:
+    return "?";
+  }
+}
 } // namespace
 
 enum CodegenType {
@@ -125,7 +157,9 @@ public:
                 return a.key < b.key;
               });
     for (auto param : params)
-      ret += " " + param.key + ": " + ::config::toString(param.astType) + ",";
+      ret += " " + param.key + ": " + ::config::toString(param.astType) +
+             " = " +
+             ::config::defaultToString(param.astType, param.defaultValue) + ",";
     if (ret.back() == ',')
       ret.pop_back();
     return ret;

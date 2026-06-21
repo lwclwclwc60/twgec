@@ -82,107 +82,107 @@ Supported Block Metadata:
 
 Supported Actions:
     actorAttributes             設定角色屬性
-        actorId: string, attr: string, value: int|string
+        actorId: string = "", attr: string = "", value: int|string = 0
     actorDisappear              角色消失
-        actorId: string, delay: int|string, duration: int|string
+        actorId: string = "", delay: int|string = 0, duration: int|string = 600
     actorFollow                 跟隨人物
-        actorId: string, targetId: string, type: string
+        actorId: string = "", targetId: string = "", type: string = "actor"
     actorRelocate               移動角色位置
-        actorId: string, keepAbility: bool, x: int|string, y: int|string
+        actorId: string = "", keepAbility: bool = false, x: int|string = 0, y: int|string = 0
     actorSpawnLoc               角色重生位置
-        actorId: string, x: int|string, y: int|string
+        actorId: string = "", x: int|string = 0, y: int|string = 0
     actorTalk                   角色說話
-        actorId: string, cleanTalk: bool, duration: int|string, text: string, wait: bool
+        actorId: string = "", cleanTalk: bool = true, duration: int|string = 3000, text: string = "", wait: bool = false
     addActor                    新增角色
-        camp: string, externRole: string, hp: int|string, id: string, localVarname: string, movableRange: int|string, name: string, patrol: list[Point], range: int|string, role: string, rotation: int|string, strength: int|string, teamId: int|string, weapon1: string, weapon2: string, x: int|string, y: int|string
+        camp: string = "skydow", externRole: string = "", hp: int|string = 100, id: string = "ai*", localVarname: string = "actor", movableRange: int|string = 10000, name: string = "", patrol: list[Point] = [], range: int|string = 0, role: string = "0", rotation: int|string = 0, strength: int|string = 1, teamId: int|string = 0, weapon1: string = "default", weapon2: string = "default", x: int|string = 0, y: int|string = 0
     addDropItem                 新增放置可拾取道具
-        itemCode: string, localVarname: string, range: int|string, scale: int|string, type: string, x: int|string, y: int|string
+        itemCode: string = "", localVarname: string = "", range: int|string = 0, scale: int|string = 1, type: string = "paper", x: int|string = 0, y: int|string = 0
     addManaCircle               新增回氣魔法陣
-        heal: int|string, healActorCooldown: int|string, healDeviceCooldown: int|string, x: int|string, y: int|string
+        heal: int|string = 10, healActorCooldown: int|string = 1000, healDeviceCooldown: int|string = 200, x: int|string = 0, y: int|string = 0
     addMapObject                新增地圖物件
-        autoTuneHeight: bool, object: string, range: int|string, walkable: bool, x: int|string, y: int|string
+        autoTuneHeight: bool = true, object: string = "tree0", range: int|string = 0, walkable: bool = true, x: int|string = 0, y: int|string = 0
     addMapSign                  新增告示牌
-        buttons: list[Button], range: int|string, rotation: int|string, showButtons: bool, text: string, x: int|string, y: int|string
+        buttons: list[Button] = [], range: int|string = 0, rotation: int|string = 0, showButtons: bool = true, text: string = "", x: int|string = 0, y: int|string = 0
     addStuff                    新增武器道具
-        code: string, item: string, range: int|string, refill: bool, refillInterval: int|string, rotation: int|string, x: int|string, y: int|string
+        code: string = "item*", item: string = "magazine", range: int|string = 0, refill: bool = true, refillInterval: int|string = 10000, rotation: int|string = 0, x: int|string = 0, y: int|string = 0
     avoidFriendFire             迴避友軍攻擊
-        value: bool
+        value: bool = true
     closeDialog                 關閉彈出視窗
-        actorId: string, dialogId: string
+        actorId: string = "", dialogId: string = ""
     deltaHp                     角色加減血
-        actorCode: string, casterCode: string, type: string, value: int|string
+        actorCode: string = "", casterCode: string = "", type: string = "heal", value: int|string = 0
     enblastEffect               光彈特效
-        damage: int|string, fromActor: string, fromType: string, scale: int|string, speed: int|string, toAngle: int|string, toType: string
+        damage: int|string = 30, fromActor: string = "instance", fromType: string = "actor", scale: int|string = 1, speed: int|string = 0.7, toAngle: int|string = 0, toType: string = "angle"
     equipWeapon                 人物裝備武器
-        actorCode: string, hand: int|string, isDefault: bool, type: string
+        actorCode: string = "", hand: int|string = -1, isDefault: bool = true, type: string = "fist"
     getCookie                   取得Cookies
-        cookies: string, varName: string
+        cookies: string = "", varName: string = ""
     getUserState                取得玩家狀態
-        category: string, key: string, playerId: string, varName: string
+        category: string = "", key: string = "", playerId: string = "", varName: string = ""
     mapWarp                     設定地圖傳送點
-        direction: string, fromX: int|string, fromY: int|string, toX: int|string, toY: int|string
+        direction: string = "right", fromX: int|string = 0, fromY: int|string = 0, toX: int|string = 0, toY: int|string = 0
     missionComplete             任務完成
-        camp: string
+        camp: string = "all"
     longBo                      龍波
-        actorCode: string
+        actorCode: string = ""
     print                       控制台輸出
-        text: string, type: string
+        text: string = "", type: string = "log"
     removeDevice                移除地圖機關
-        region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string
+        region_h: int|string = 0, region_w: int|string = 0, region_x: int|string = 0, region_y: int|string = 0
     removeMapObject             移除地圖物件
-        region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string
+        region_h: int|string = 0, region_w: int|string = 0, region_x: int|string = 0, region_y: int|string = 0
     setCookie                   儲存Cookies
-        cookies: string, playerId: string, type: string, value: string
+        cookies: string = "", playerId: string = "", type: string = "string", value: string = ""
     setGlobal                   儲存全域變數
-        key: string, type: string, value: int|string
+        key: string = "", type: string = "string", value: int|string = 0
     setObjectVar                儲存物件變數
-        key: string, object: string, type: string, value: int|string
+        key: string = "", object: string = "", type: string = "string", value: int|string = 0
     setUserState                儲存玩家狀態
-        category: string, key: string, playerId: string, type: string, value: string
+        category: string = "", key: string = "", playerId: string = "", type: string = "", value: string = ""
     setWeaponAbility            設定武器技能
-        ability: string, level: int|string, operation: string, weapon: string
+        ability: string = "sounded", level: int|string = 1, operation: string = "set", weapon: string = ""
     showSelectDialog            彈出選項視窗
-        actorId: string, dialogId: string, message: string, options: list[Button]
+        actorId: string = "", dialogId: string = "", message: string = "", options: list[Button] = []
     tipOnMap                    地圖標示文字
-        duration: int|string, html: bool, text: string, x: int|string, y: int|string
+        duration: int|string = 3000, html: bool = false, text: string = "", x: int|string = 0, y: int|string = 0
     wait                        等待
-        duration: int|string
+        duration: int|string = 0
     EnhFF::playerMousePosition  EnhFF::玩家滑鼠座標
-        actorId: string, varX: string, varY: string
+        actorId: string = "", varX: string = "x", varY: string = "y"
     EnhFF::generalCircularRange EnhFF::廣義圓形範圍
-        actorId: string, color: string, deltaHpCD: int|string, deltaHpCasterCode: string, deltaHpTarget: ActorMatch, deltaHpType: string, deltaHpValue: int|string, duration: int|string, lineWidth: int|string, offsetX: int|string, offsetY: int|string, radius: int|string, x: int|string, y: int|string
+        actorId: string = "", color: string = "#ffffff", deltaHpCD: int|string = 10000, deltaHpCasterCode: string = "", deltaHpTarget: ActorMatch = [], deltaHpType: string = "heal", deltaHpValue: int|string = 0, duration: int|string = 10000, lineWidth: int|string = 1, offsetX: int|string = 0, offsetY: int|string = 0, radius: int|string = 0, x: int|string = 0, y: int|string = 0
 
 Supported Checks:
     actorCount                  計算人數
-        actor: ActorMatch, op: string, region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string, value: int|string, varname: string
+        actor: ActorMatch = [], op: string = "==", region_h: int|string = 0, region_w: int|string = 0, region_x: int|string = 0, region_y: int|string = 0, value: int|string = 0, varname: string = ""
     actorRegion                 角色所在區域
-        actorId: string, checkAlive: bool, region_h: int|string, region_w: int|string, region_x: int|string, region_y: int|string
+        actorId: string = "", checkAlive: bool = false, region_h: int|string = 0, region_w: int|string = 0, region_x: int|string = 0, region_y: int|string = 0
     checkNumber                 比較數字
-        lhs: int|string, op: string, rhs: int|string
+        lhs: int|string = 0, op: string = "==", rhs: int|string = 0
     checkString                 比對字串
-        matchKind: string, str: string, value: string
+        matchKind: string = "contain", str: string = "", value: string = ""
     forEachActor                找出所有角色
-        actor: ActorMatch, varname: string
+        actor: ActorMatch = [], varname: string = ""
 
 Supported Triggers:
     actorAdded                  角色進入戰場
-        actor: ActorMatch, varName: string
+        actor: ActorMatch = [], varName: string = ""
     actorDead                   角色死亡
-        actor: ActorMatch, hitterVarName: string, varName: string
+        actor: ActorMatch = [], hitterVarName: string = "", varName: string = ""
     actorFire                   角色發動攻擊
-        actor: ActorMatch, varName: string, weapon: string
+        actor: ActorMatch = [], varName: string = "", weapon: string = ""
     actorHit                    角色受傷
-        actor: ActorMatch, actorVarName: string, damageValueVarName: string, hitter: ActorMatch, hitterVarName: string, weapon: string
+        actor: ActorMatch = [], actorVarName: string = "", damageValueVarName: string = "", hitter: ActorMatch = [], hitterVarName: string = "", weapon: string = ""
     clickButton                 告示牌按鈕
-        actor: ActorMatch, buttonId: string, varName: string
+        actor: ActorMatch = [], buttonId: string = "", varName: string = ""
     dialogConfirm               視窗確認
-        buttonName: string, dialogId: string, playerLocalId: string
+        buttonName: string = "", dialogId: string = "", playerLocalId: string = ""
     keyboardPressed             鍵盤按鍵
-        actorId: string, key: string, timing: string, varName: string
+        actorId: string = "*", key: string = "65", timing: string = "", varName: string = ""
     itemPickup                  拾取武器道具
-        actor: ActorMatch, actorVarname: string, itemMatchCode: string, itemVarname: string, matchKind: string
+        actor: ActorMatch = [], actorVarname: string = "", itemMatchCode: string = "", itemVarname: string = "", matchKind: string = "contain"
     mouseEvent                  滑鼠點擊
-        XVarName: string, YVarName: string, actorId: string, actorVarName: string
+        XVarName: string = "", YVarName: string = "", actorId: string = "*", actorVarName: string = ""
     releasePower                發動技能
-        ability: string, actor: ActorMatch, manaUsage: int|string, preventDefault: bool, varName: string, weapon: string
+        ability: string = "", actor: ActorMatch = [], manaUsage: int|string = 0, preventDefault: bool = false, varName: string = "", weapon: string = ""
 
