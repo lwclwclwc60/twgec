@@ -2159,8 +2159,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*-1",
+                            "y": "{y}+random(-16,16)+64*-1"
                         },
                         "region": {
                             "defType": "circle",
@@ -2168,7 +2168,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2181,7 +2181,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2225,8 +2225,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*-1",
+                            "y": "{y}+random(-16,16)+64*0"
                         },
                         "region": {
                             "defType": "circle",
@@ -2234,7 +2234,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2247,7 +2247,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2291,8 +2291,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*-1",
+                            "y": "{y}+random(-16,16)+64*1"
                         },
                         "region": {
                             "defType": "circle",
@@ -2300,7 +2300,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2313,7 +2313,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2357,8 +2357,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*0",
+                            "y": "{y}+random(-16,16)+64*-1"
                         },
                         "region": {
                             "defType": "circle",
@@ -2366,7 +2366,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2379,7 +2379,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2423,8 +2423,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*0",
+                            "y": "{y}+random(-16,16)+64*0"
                         },
                         "region": {
                             "defType": "circle",
@@ -2432,7 +2432,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2445,7 +2445,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2489,8 +2489,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*0",
+                            "y": "{y}+random(-16,16)+64*1"
                         },
                         "region": {
                             "defType": "circle",
@@ -2498,7 +2498,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2511,7 +2511,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2555,8 +2555,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*1",
+                            "y": "{y}+random(-16,16)+64*-1"
                         },
                         "region": {
                             "defType": "circle",
@@ -2564,7 +2564,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2577,7 +2577,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2621,8 +2621,8 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-96,96)",
-                            "y": "{y}+random(-96,96)"
+                            "x": "{x}+random(-16,16)+64*1",
+                            "y": "{y}+random(-16,16)+64*0"
                         },
                         "region": {
                             "defType": "circle",
@@ -2630,7 +2630,7 @@
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "15000",
+                        "duration": "20000",
                         "color": "#b17302",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -2643,7 +2643,73 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-16,16)+64*1",
+                            "y": "{y}+random(-16,16)+64*1"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -2921,7 +2987,7 @@
                     "data": {
                         "actorCode": "instance",
                         "deltaType": "damage",
-                        "hp": "30+{attacker.STR}*3+{attacker.AGI}",
+                        "hp": "10+{attacker.STR}*1.5+{attacker.AGI}",
                         "casterCode": "attacker"
                     }
                 }
@@ -2990,7 +3056,7 @@
                     "data": {
                         "actorCode": "instance",
                         "deltaType": "damage",
-                        "hp": "50+{attacker.STR}*3+{attacker.CON}",
+                        "hp": "30+{attacker.STR}*3+{attacker.CON}",
                         "casterCode": "attacker"
                     }
                 }
@@ -3257,7 +3323,7 @@
                         "dhCD": "600",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/3",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -3329,7 +3395,7 @@
                         "dhCD": "600",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/3",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -3401,7 +3467,7 @@
                         "dhCD": "600",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/3",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -3473,7 +3539,7 @@
                         "dhCD": "600",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/3",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -3581,7 +3647,7 @@
                         "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
-                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "hp": "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15",
                             "casterCode": "{instance}",
                             "damageType": {
                                 "damageTypeCode": "none"
@@ -23074,7 +23140,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 30+力量×3+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷6\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2",
+                        "speech": "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 10+力量×1.5+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷3\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -23129,7 +23195,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質",
+                        "speech": "【巨錘】\n【普通攻擊】\n - 武器傷害: 30+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -23257,7 +23323,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 10+智慧+精神÷2\n【技能 - 石刺林】召喚8個持續15秒的石刺",
+                        "speech": "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 15+智慧×1.5+精神×0.75\n【技能 - 石刺林】召喚9個持續20秒的石刺",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {

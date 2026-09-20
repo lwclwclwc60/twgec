@@ -5,13 +5,13 @@ const 公式::鐵劍技能恢復 = "1 + {instance.STR}/6 + {instance.CON}/3";
 const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
-const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
-const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍物理傷害 = "10+{attacker.STR}*1.5+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/3";
 const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
-const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘物理傷害 = "30+{attacker.STR}*3+{attacker.CON}";
 const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 公式::土杖石刺傷害 = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15";
 
 const 文字::風杖描述 =
 "【風杖】\n" + 
@@ -36,22 +36,22 @@ const 文字::匕首描述 =
 const 文字::銀槍描述 =
 "【銀槍】\n" +
 "【普通攻擊】對攻擊方向造成延伸範圍傷害\n" +
-" - 武器傷害: 30+力量×3+敏捷\n" +
-" - 延伸傷害: 1+力量÷3+敏捷÷6\n" +
+" - 武器傷害: 10+力量×1.5+敏捷\n" +
+" - 延伸傷害: 1+力量÷3+敏捷÷3\n" +
 "【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" +
 " - 技能傷害：10+力量÷2";
 const 文字::巨錘描述 =
 "【巨錘】\n" +
 "【普通攻擊】\n" +
-" - 武器傷害: 50+力量×3+體質\n" +
+" - 武器傷害: 30+力量×3+體質\n" +
 "【技能 - 撼地一擊】造成三段範圍傷害\n" +
 " - 技能傷害: 10+力量+體質";
 const 文字::土杖描述 =
 "【土杖】\n" +
 "【普通攻擊】召喚持續3秒的石刺\n" +
 " - 武器傷害: 5+力量÷2\n" +
-" - 石刺傷害: 10+智慧+精神÷2\n" +
-"【技能 - 石刺林】召喚8個持續15秒的石刺";
+" - 石刺傷害: 15+智慧×1.5+精神×0.75\n" +
+"【技能 - 石刺林】召喚9個持續20秒的石刺";
 
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
@@ -140,10 +140,12 @@ def 自定義::釋放技能泛型(weapon) : block {
         }
         if(weapon == 別名::武器土杖) {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        for(i in 1...8) {
-            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000,
-                color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害,
-                deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        for(i in -1...1) {
+            for(j in -1...1) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*"+twge::to_string(i), y = "{y}+random(-16,16)+64*"+twge::to_string(j), radius = 20, duration = 20000,
+                    color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害,
+                    deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
             }
         }
     }
