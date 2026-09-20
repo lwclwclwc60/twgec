@@ -23,15 +23,18 @@ const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
 const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
 const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖地震傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
-const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
-const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
-const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
-const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】\n" + " - 武器傷害: 30+力量×3+敏捷"));
-const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + " - 武器傷害: 50+力量×3+體質"));
-const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + " - 地震傷害: 10+智慧+精神÷2")));
+const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 30+力量×3+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷6\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 50+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 10+智慧+精神÷2\n" + "【技能 - 石刺林】召喚8個持續15秒的石刺"))));
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
 const 別名::武器匕首 = "custom_dagger";
@@ -175,6 +178,33 @@ def 自定義::釋放技能泛型(weapon) : block {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((weapon == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((weapon == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((weapon == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
 }
@@ -604,6 +634,9 @@ block 點擊裝備武器拳頭 = 自定義::點擊裝備武器泛型("None", "fi
 block 釋放技能風杖 = 自定義::釋放技能泛型(別名::武器風杖);
 block 釋放技能鐵劍 = 自定義::釋放技能泛型(別名::武器鐵劍);
 block 釋放技能匕首 = 自定義::釋放技能泛型(別名::武器匕首);
+block 釋放技能銀槍 = 自定義::釋放技能泛型(別名::武器銀槍);
+block 釋放技能巨錘 = 自定義::釋放技能泛型(別名::武器巨錘);
+block 釋放技能土杖 = 自定義::釋放技能泛型(別名::武器土杖);
 block 風杖物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器風杖, 公式::風杖物理傷害);
 block 鐵劍物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器鐵劍, 公式::鐵劍物理傷害);
 block 匕首物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器匕首, 公式::匕首物理傷害);
@@ -620,7 +653,28 @@ block 風杖光彈攻擊 {
         光彈特效(fromActor = "instance", toAngle = 公式::Instance角度, scale = "0.5", damage = 公式::風杖光彈傷害);
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -628,7 +682,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 32), duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖地震傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
 }
 block 武器初始化 {
@@ -637,6 +691,9 @@ block 武器初始化 {
         設定武器技能(weapon = 別名::武器風杖);
         設定武器技能(weapon = 別名::武器鐵劍);
         設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
     }
 }
 block 拾取經驗一級鹿 = 自定義::拾取經驗泛型("deer_exp_01", 10);
@@ -949,15 +1006,18 @@ const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
 const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
 const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖地震傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
-const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
-const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
-const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
-const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】\n" + " - 武器傷害: 30+力量×3+敏捷"));
-const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + " - 武器傷害: 50+力量×3+體質"));
-const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + " - 地震傷害: 10+智慧+精神÷2")));
+const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 30+力量×3+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷6\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 50+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 10+智慧+精神÷2\n" + "【技能 - 石刺林】召喚8個持續15秒的石刺"))));
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
 const 別名::武器匕首 = "custom_dagger";
@@ -1101,6 +1161,33 @@ def 自定義::釋放技能泛型(weapon) : block {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((weapon == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((weapon == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((weapon == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
 }
@@ -1530,6 +1617,9 @@ block 點擊裝備武器拳頭 = 自定義::點擊裝備武器泛型(button = "N
 block 釋放技能風杖 = 自定義::釋放技能泛型(weapon = 別名::武器風杖);
 block 釋放技能鐵劍 = 自定義::釋放技能泛型(weapon = 別名::武器鐵劍);
 block 釋放技能匕首 = 自定義::釋放技能泛型(weapon = 別名::武器匕首);
+block 釋放技能銀槍 = 自定義::釋放技能泛型(weapon = 別名::武器銀槍);
+block 釋放技能巨錘 = 自定義::釋放技能泛型(weapon = 別名::武器巨錘);
+block 釋放技能土杖 = 自定義::釋放技能泛型(weapon = 別名::武器土杖);
 block 風杖物理攻擊 = 自定義::武器物理攻擊泛型(weapon = 別名::武器風杖, value = 公式::風杖物理傷害);
 block 鐵劍物理攻擊 = 自定義::武器物理攻擊泛型(weapon = 別名::武器鐵劍, value = 公式::鐵劍物理傷害);
 block 匕首物理攻擊 = 自定義::武器物理攻擊泛型(weapon = 別名::武器匕首, value = 公式::匕首物理傷害);
@@ -1546,7 +1636,28 @@ block 風杖光彈攻擊 {
         光彈特效(fromActor = "instance", toAngle = 公式::Instance角度, scale = "0.5", damage = 公式::風杖光彈傷害);
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -1554,7 +1665,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 32), duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖地震傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
 }
 block 武器初始化 {
@@ -1563,6 +1674,9 @@ block 武器初始化 {
         設定武器技能(weapon = 別名::武器風杖);
         設定武器技能(weapon = 別名::武器鐵劍);
         設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
     }
 }
 block 拾取經驗一級鹿 = 自定義::拾取經驗泛型(drop_item_code = "deer_exp_01", exp = 10);
@@ -1875,15 +1989,18 @@ const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
 const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
 const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖地震傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
-const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
-const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
-const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
-const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】\n" + " - 武器傷害: 30+力量×3+敏捷"));
-const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + " - 武器傷害: 50+力量×3+體質"));
-const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + " - 地震傷害: 10+智慧+精神÷2")));
+const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 30+力量×3+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷6\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 50+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 10+智慧+精神÷2\n" + "【技能 - 石刺林】召喚8個持續15秒的石刺"))));
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
 const 別名::武器匕首 = "custom_dagger";
@@ -2027,6 +2144,33 @@ def 自定義::釋放技能泛型(weapon) : block {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((weapon == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((weapon == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((weapon == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
 }
@@ -2606,6 +2750,33 @@ block 釋放技能風杖 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器風杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
 }
 block 釋放技能鐵劍 {
@@ -2631,6 +2802,33 @@ block 釋放技能鐵劍 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器鐵劍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
 }
 block 釋放技能匕首 {
@@ -2655,6 +2853,189 @@ block 釋放技能匕首 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器匕首 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+}
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器銀槍);
+    }
+    actions {
+        if((別名::武器銀槍 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器銀槍 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器銀槍 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器銀槍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器巨錘);
+    }
+    actions {
+        if((別名::武器巨錘 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器巨錘 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器巨錘 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器巨錘 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器土杖);
+    }
+    actions {
+        if((別名::武器土杖 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器土杖 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器土杖 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器土杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
 }
@@ -2728,7 +3109,28 @@ block 風杖光彈攻擊 {
         光彈特效(fromActor = "instance", toAngle = 公式::Instance角度, scale = "0.5", damage = 公式::風杖光彈傷害);
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -2736,7 +3138,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 32), duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖地震傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
 }
 block 武器初始化 {
@@ -2745,6 +3147,9 @@ block 武器初始化 {
         設定武器技能(weapon = 別名::武器風杖);
         設定武器技能(weapon = 別名::武器鐵劍);
         設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
     }
 }
 block 拾取經驗一級鹿 {
@@ -5041,15 +5446,18 @@ const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
 const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
 const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖地震傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
-const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
-const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
-const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
-const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】\n" + " - 武器傷害: 30+力量×3+敏捷"));
-const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + " - 武器傷害: 50+力量×3+體質"));
-const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + " - 地震傷害: 10+智慧+精神÷2")));
+const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 30+力量×3+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷6\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 50+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 10+智慧+精神÷2\n" + "【技能 - 石刺林】召喚8個持續15秒的石刺"))));
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
 const 別名::武器匕首 = "custom_dagger";
@@ -5193,6 +5601,33 @@ def 自定義::釋放技能泛型(weapon) : block {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((weapon == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((weapon == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((weapon == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
 }
@@ -5790,6 +6225,33 @@ block 釋放技能風杖 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器風杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
     checks {
     }
@@ -5817,6 +6279,33 @@ block 釋放技能鐵劍 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器鐵劍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
     checks {
     }
@@ -5843,6 +6332,195 @@ block 釋放技能匕首 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器匕首 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器銀槍);
+    }
+    actions {
+        if((別名::武器銀槍 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器銀槍 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器銀槍 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器銀槍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器巨錘);
+    }
+    actions {
+        if((別名::武器巨錘 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器巨錘 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器巨錘 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器巨錘 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器土杖);
+    }
+    actions {
+        if((別名::武器土杖 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器土杖 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器土杖 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器土杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
     checks {
@@ -5932,7 +6610,30 @@ block 風杖光彈攻擊 {
     checks {
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+    checks {
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -5940,7 +6641,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 32), duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖地震傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
     checks {
     }
@@ -5951,6 +6652,9 @@ block 武器初始化 {
         設定武器技能(weapon = 別名::武器風杖);
         設定武器技能(weapon = 別名::武器鐵劍);
         設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
     }
     checks {
     }
@@ -8391,15 +9095,18 @@ const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
 const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
 const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
 const 公式::銀槍物理傷害 = "30+{attacker.STR}*3+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/6";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
 const 公式::巨錘物理傷害 = "50+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
 const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
-const 公式::土杖地震傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
-const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
-const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
-const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
-const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】\n" + " - 武器傷害: 30+力量×3+敏捷"));
-const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + " - 武器傷害: 50+力量×3+體質"));
-const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 5+力量÷2\n" + " - 地震傷害: 10+智慧+精神÷2")));
+const 公式::土杖石刺傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 30+力量×3+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷6\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 50+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 10+智慧+精神÷2\n" + "【技能 - 石刺林】召喚8個持續15秒的石刺"))));
 const 別名::武器風杖 = "custom_wind_staff";
 const 別名::武器鐵劍 = "custom_iron_sword";
 const 別名::武器匕首 = "custom_dagger";
@@ -8651,6 +9358,33 @@ block 釋放技能風杖 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器風杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器風杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
     checks {
     }
@@ -8678,6 +9412,33 @@ block 釋放技能鐵劍 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if((別名::武器鐵劍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器鐵劍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
     }
     checks {
     }
@@ -8704,6 +9465,195 @@ block 釋放技能匕首 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器匕首 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器匕首 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器銀槍);
+    }
+    actions {
+        if((別名::武器銀槍 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器銀槍 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器銀槍 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器銀槍 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器銀槍 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器巨錘);
+    }
+    actions {
+        if((別名::武器巨錘 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器巨錘 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器巨錘 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器巨錘 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器巨錘 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = 別名::武器土杖);
+    }
+    actions {
+        if((別名::武器土杖 == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((別名::武器土杖 == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((別名::武器土杖 == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((別名::武器土杖 == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((別名::武器土杖 == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in 1...8) {
+                EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
         }
     }
     checks {
@@ -8793,7 +9743,30 @@ block 風杖光彈攻擊 {
     checks {
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+    checks {
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -8801,7 +9774,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 32), duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖地震傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
     checks {
     }
@@ -8812,6 +9785,9 @@ block 武器初始化 {
         設定武器技能(weapon = 別名::武器風杖);
         設定武器技能(weapon = 別名::武器鐵劍);
         設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
     }
     checks {
     }
@@ -23874,6 +24850,42 @@ block 釋放技能風杖 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(false) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
     }
     checks {
     }
@@ -23901,6 +24913,42 @@ block 釋放技能鐵劍 {
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
         }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(false) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
     }
     checks {
     }
@@ -23927,6 +24975,231 @@ block 釋放技能匕首 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
             移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(false) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_silver_spear");
+    }
+    actions {
+        if(false) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+32");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-32");
+        }
+        if(false) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = "1 + {instance.STR}/6 + {instance.CON}/3", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 100), lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = "1 + {instance.STR}/3 + {instance.CON}/6", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 101), lineWidth = 2);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if(true) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(false) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_iron_hammer");
+    }
+    actions {
+        if(false) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+32");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-32");
+        }
+        if(false) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = "1 + {instance.STR}/6 + {instance.CON}/3", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 100), lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = "1 + {instance.STR}/3 + {instance.CON}/6", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 101), lineWidth = 2);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(true) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+    }
+    checks {
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_earth_staff");
+    }
+    actions {
+        if(false) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+32");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14+16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-16");
+            光彈特效(fromActor = "instance", scale = "0.5", damage = "{instance.INT} + {instance.PSY}/2 + 10", toAngle = "{instance.bodyRotation}*180/3.14-32");
+        }
+        if(false) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = "1 + {instance.STR}/6 + {instance.CON}/3", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 100), lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = 128, duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = "1 + {instance.STR}/3 + {instance.CON}/6", deltaHpCD = 1100, deltaHpTarget = ActorMatch(group = 101), lineWidth = 2);
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = "10 + {instance.AGI}*2", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101));
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if(false) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        }
+        if(false) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+            EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 200);
+        }
+        if(true) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
         }
     }
     checks {
@@ -24016,7 +25289,34 @@ block 風杖光彈攻擊 {
     checks {
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = "custom_silver_spear", varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        EnhFF::廣義圓形範圍(x = "{spear_px}+25*{spear_nx}", y = "{spear_py}+25*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+75*{spear_nx}", y = "{spear_py}+75*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+125*{spear_nx}", y = "{spear_py}+125*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+    }
+    checks {
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -24024,7 +25324,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
     checks {
     }
@@ -24035,6 +25335,9 @@ block 武器初始化 {
         設定武器技能(weapon = "custom_wind_staff");
         設定武器技能(weapon = "custom_iron_sword");
         設定武器技能(weapon = "custom_dagger");
+        設定武器技能(weapon = "custom_silver_spear");
+        設定武器技能(weapon = "custom_iron_hammer");
+        設定武器技能(weapon = "custom_earth_staff");
     }
     checks {
     }
@@ -35447,7 +36750,7 @@ block 移動生成101_104 {
             }
             if(true) {
                 新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】\n - 武器傷害: 30+力量×3+敏捷", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 30+力量×3+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷6\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
             }
             if(true) {
             }
@@ -35489,7 +36792,7 @@ block 移動生成101_104 {
             }
             if(true) {
                 新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
             }
             if(true) {
             }
@@ -35534,7 +36837,7 @@ block 移動生成101_104 {
             }
             if(true) {
                 新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 地震傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+                新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 10+智慧+精神÷2\n【技能 - 石刺林】召喚8個持續15秒的石刺", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
             }
             if(true) {
             }
@@ -36261,15 +37564,15 @@ block 地圖初始化 {
         }
         if(true) {
             新增地圖物件(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-            新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+            新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】對攻擊方向發射光彈\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能 - 光彈散射】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         }
         if(true) {
             新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-            新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+            新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         }
         if(true) {
             新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-            新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+            新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         }
         if(true) {
         }
@@ -38014,6 +39317,69 @@ block 釋放技能匕首 {
     checks {
     }
 }
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_silver_spear");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+    }
+    checks {
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_iron_hammer");
+    }
+    actions {
+        儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+    }
+    checks {
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_earth_staff");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+    }
+    checks {
+    }
+}
 block 風杖物理攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
@@ -38098,7 +39464,34 @@ block 風杖光彈攻擊 {
     checks {
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = "custom_silver_spear", varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        EnhFF::廣義圓形範圍(x = "{spear_px}+25*{spear_nx}", y = "{spear_py}+25*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+75*{spear_nx}", y = "{spear_py}+75*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+125*{spear_nx}", y = "{spear_py}+125*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+    }
+    checks {
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -38106,7 +39499,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
     checks {
     }
@@ -38117,6 +39510,9 @@ block 武器初始化 {
         設定武器技能(weapon = "custom_wind_staff");
         設定武器技能(weapon = "custom_iron_sword");
         設定武器技能(weapon = "custom_dagger");
+        設定武器技能(weapon = "custom_silver_spear");
+        設定武器技能(weapon = "custom_iron_hammer");
+        設定武器技能(weapon = "custom_earth_staff");
     }
     checks {
     }
@@ -39657,14 +41053,14 @@ block 移動生成101_104 {
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "9+{chunk_{chunk_available_stack_now}_y}", object = "白光(左)");
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "10+{chunk_{chunk_available_stack_now}_y}", object = "白光(左)");
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】\n - 武器傷害: 30+力量×3+敏捷", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 30+力量×3+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷6\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增回氣魔法陣(x = "2+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", heal = "15", healActorCooldown = "4000", healDeviceCooldown = "1000");
         新增地圖物件(x = "4+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "石椅");
         新增告示牌(x = "4+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 地震傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 10+智慧+精神÷2\n【技能 - 石刺林】召喚8個持續15秒的石刺", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "15+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "5x4縱向房子", walkable = false);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "16+{chunk_{chunk_available_stack_now}_y}", object = "大箱子", walkable = false);
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "17+{chunk_{chunk_available_stack_now}_y}", object = "1x1金石");
@@ -39802,11 +41198,11 @@ block 地圖初始化 {
         新增地圖物件(x = "12+{chunk_{map_to_chunk_100_100}_x}", y = "6+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
         新增告示牌(x = "12+{chunk_{map_to_chunk_100_100}_x}", y = "6+{chunk_{map_to_chunk_100_100}_y}", rotation = 180, text = "【土靈召喚】\n生成一直存在35秒的土靈為你戰鬥\n - 土靈血量: 100+精神×4\n - 土靈傷害: 10+精神÷2\n冷卻40秒", buttons = [Button(id = "setXSummonEarthSpirit", text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
         新增地圖物件(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】對攻擊方向發射光彈\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能 - 光彈散射】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "16+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
@@ -41004,6 +42400,69 @@ block 釋放技能匕首 {
     checks {
     }
 }
+block 釋放技能銀槍 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_silver_spear");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        EnhFF::廣義圓形範圍(x = "{spear_px}+35*{spear_nx}", y = "{spear_py}+35*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+105*{spear_nx}", y = "{spear_py}+105*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+245*{spear_nx}", y = "{spear_py}+245*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+315*{spear_nx}", y = "{spear_py}+315*{spear_ny}", radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}/2", deltaHpCD = 2000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+    }
+    checks {
+    }
+}
+block 釋放技能巨錘 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_iron_hammer");
+    }
+    actions {
+        儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 40, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 80, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+        EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = 120, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "10+{instance.STR}+{instance.CON}", deltaHpCD = 4000, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 200);
+    }
+    checks {
+    }
+}
+block 釋放技能土杖 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = "custom_earth_staff");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-96,96)", y = "{y}+random(-96,96)", radius = 20, duration = 15000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+    }
+    checks {
+    }
+}
 block 風杖物理攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
@@ -41088,7 +42547,34 @@ block 風杖光彈攻擊 {
     checks {
     }
 }
-block 土杖地震攻擊 {
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = "custom_silver_spear", varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        EnhFF::廣義圓形範圍(x = "{spear_px}+25*{spear_nx}", y = "{spear_py}+25*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+75*{spear_nx}", y = "{spear_py}+75*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+125*{spear_nx}", y = "{spear_py}+125*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+        EnhFF::廣義圓形範圍(x = "{spear_px}+175*{spear_nx}", y = "{spear_py}+175*{spear_ny}", radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = "1+{instance.STR}/3+{instance.AGI}/6", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        等待(duration = 100);
+    }
+    checks {
+    }
+}
+block 土杖石刺攻擊 {
     __repeat__ = -1;
     __label__ = "武器";
     triggers {
@@ -41096,7 +42582,7 @@ block 土杖地震攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 500, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 600, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT} + {instance.PSY}/2 + 10", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
     }
     checks {
     }
@@ -41107,6 +42593,9 @@ block 武器初始化 {
         設定武器技能(weapon = "custom_wind_staff");
         設定武器技能(weapon = "custom_iron_sword");
         設定武器技能(weapon = "custom_dagger");
+        設定武器技能(weapon = "custom_silver_spear");
+        設定武器技能(weapon = "custom_iron_hammer");
+        設定武器技能(weapon = "custom_earth_staff");
     }
     checks {
     }
@@ -42647,14 +44136,14 @@ block 移動生成101_104 {
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "9+{chunk_{chunk_available_stack_now}_y}", object = "白光(左)");
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "10+{chunk_{chunk_available_stack_now}_y}", object = "白光(左)");
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】\n - 武器傷害: 30+力量×3+敏捷", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "13+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 30+力量×3+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷6\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2", buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "14+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質", buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增回氣魔法陣(x = "2+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", heal = "15", healActorCooldown = "4000", healDeviceCooldown = "1000");
         新增地圖物件(x = "4+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "石椅");
         新增告示牌(x = "4+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "小箱子");
-        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 地震傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", rotation = 180, text = "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 10+智慧+精神÷2\n【技能 - 石刺林】召喚8個持續15秒的石刺", buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "15+{chunk_{chunk_available_stack_now}_x}", y = "15+{chunk_{chunk_available_stack_now}_y}", object = "5x4縱向房子", walkable = false);
         新增地圖物件(x = "12+{chunk_{chunk_available_stack_now}_x}", y = "16+{chunk_{chunk_available_stack_now}_y}", object = "大箱子", walkable = false);
         新增地圖物件(x = "0+{chunk_{chunk_available_stack_now}_x}", y = "17+{chunk_{chunk_available_stack_now}_y}", object = "1x1金石");
@@ -42792,11 +44281,11 @@ block 地圖初始化 {
         新增地圖物件(x = "12+{chunk_{map_to_chunk_100_100}_x}", y = "6+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
         新增告示牌(x = "12+{chunk_{map_to_chunk_100_100}_x}", y = "6+{chunk_{map_to_chunk_100_100}_y}", rotation = 180, text = "【土靈召喚】\n生成一直存在35秒的土靈為你戰鬥\n - 土靈血量: 100+精神×4\n - 土靈傷害: 10+精神÷2\n冷卻40秒", buttons = [Button(id = "setXSummonEarthSpirit", text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
         新增地圖物件(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "4+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【風杖】\n【普通攻擊】對攻擊方向發射光彈\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能 - 光彈散射】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2", buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2", buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "小箱子");
-        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", rotation = 90, text = "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3", buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
         新增地圖物件(x = "16+{chunk_{map_to_chunk_100_100}_x}", y = "7+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "5+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");
         新增地圖物件(x = "6+{chunk_{map_to_chunk_100_100}_x}", y = "8+{chunk_{map_to_chunk_100_100}_y}", object = "草地");

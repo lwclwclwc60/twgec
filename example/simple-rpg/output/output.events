@@ -1455,6 +1455,1251 @@
             ]
         },
         {
+            "id": "釋放技能銀槍",
+            "disabled": false,
+            "folder": "武器",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "PlayerMousePositionEnh",
+                    "data": {
+                        "actorCode": "{instance}",
+                        "varX": "mouse_x",
+                        "varY": "mouse_y",
+                        "wait": true
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_px",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_py",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_dx",
+                        "valueType": "number",
+                        "value": "{mouse_x}-{spear_px}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_dy",
+                        "valueType": "number",
+                        "value": "{mouse_y}-{spear_py}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_len",
+                        "valueType": "number",
+                        "value": "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_nx",
+                        "valueType": "number",
+                        "value": "{spear_dx}/{spear_len}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_ny",
+                        "valueType": "number",
+                        "value": "{spear_dy}/{spear_len}"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+35*{spear_nx}",
+                            "y": "{spear_py}+35*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "35",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "2000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}/2",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+105*{spear_nx}",
+                            "y": "{spear_py}+105*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "35",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "2000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}/2",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+175*{spear_nx}",
+                            "y": "{spear_py}+175*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "35",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "2000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}/2",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+245*{spear_nx}",
+                            "y": "{spear_py}+245*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "35",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "2000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}/2",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+315*{spear_nx}",
+                            "y": "{spear_py}+315*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "35",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "2000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}/2",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ReleasePower",
+                    "data": {
+                        "actorMatches": [],
+                        "varname": "instance",
+                        "preventDefault": "false",
+                        "manaUsage": "0",
+                        "checkAbilityLevel": 0,
+                        "checkWeaponType": true,
+                        "weaponType": "custom_silver_spear"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "釋放技能巨錘",
+            "disabled": false,
+            "folder": "武器",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "pos_x",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "pos_y",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.y}"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{pos_x}",
+                            "y": "{pos_y}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "40",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#d38c09",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "4000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}+{instance.CON}",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "200"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{pos_x}",
+                            "y": "{pos_y}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "80",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#d38c09",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "4000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}+{instance.CON}",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "200"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{pos_x}",
+                            "y": "{pos_y}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "120",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "3000",
+                        "color": "#d38c09",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "4000",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "10+{instance.STR}+{instance.CON}",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "200"
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ReleasePower",
+                    "data": {
+                        "actorMatches": [],
+                        "varname": "instance",
+                        "preventDefault": "false",
+                        "manaUsage": "0",
+                        "checkAbilityLevel": 0,
+                        "checkWeaponType": true,
+                        "weaponType": "custom_iron_hammer"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "釋放技能土杖",
+            "disabled": false,
+            "folder": "武器",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "PlayerMousePositionEnh",
+                    "data": {
+                        "actorCode": "{instance}",
+                        "varX": "x",
+                        "varY": "y",
+                        "wait": true
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}+random(-96,96)",
+                            "y": "{y}+random(-96,96)"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "20",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "15000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "900",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "{instance.INT} + {instance.PSY}/2 + 10",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ReleasePower",
+                    "data": {
+                        "actorMatches": [],
+                        "varname": "instance",
+                        "preventDefault": "false",
+                        "manaUsage": "0",
+                        "checkAbilityLevel": 0,
+                        "checkWeaponType": true,
+                        "weaponType": "custom_earth_staff"
+                    }
+                }
+            ]
+        },
+        {
             "id": "風杖物理攻擊",
             "disabled": false,
             "folder": "武器",
@@ -1911,7 +3156,387 @@
             ]
         },
         {
-            "id": "土杖地震攻擊",
+            "id": "銀槍延伸攻擊",
+            "disabled": false,
+            "folder": "武器",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": -1,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "PlayerMousePositionEnh",
+                    "data": {
+                        "actorCode": "{instance}",
+                        "varX": "mouse_x",
+                        "varY": "mouse_y",
+                        "wait": true
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_px",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.x}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_py",
+                        "valueType": "number",
+                        "value": "{instance.gamePosition.y}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_dx",
+                        "valueType": "number",
+                        "value": "{mouse_x}-{spear_px}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_dy",
+                        "valueType": "number",
+                        "value": "{mouse_y}-{spear_py}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_len",
+                        "valueType": "number",
+                        "value": "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_nx",
+                        "valueType": "number",
+                        "value": "{spear_dx}/{spear_len}"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "spear_ny",
+                        "valueType": "number",
+                        "value": "{spear_dy}/{spear_len}"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+25*{spear_nx}",
+                            "y": "{spear_py}+25*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "25",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "500",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "600",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "100"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+75*{spear_nx}",
+                            "y": "{spear_py}+75*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "25",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "500",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "600",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "100"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+125*{spear_nx}",
+                            "y": "{spear_py}+125*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "25",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "500",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "600",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "100"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{spear_px}+175*{spear_nx}",
+                            "y": "{spear_py}+175*{spear_ny}"
+                        },
+                        "region": {
+                            "defType": "circle",
+                            "ciRad": "25",
+                            "offX": "0",
+                            "offY": "0"
+                        },
+                        "duration": "500",
+                        "color": "#c7c7c7",
+                        "alpha": "1",
+                        "lineWidth": "2",
+                        "lineAlign": "1",
+                        "angle": "0",
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": true,
+                        "dhRepeat": "cd",
+                        "dhCD": "600",
+                        "dhSet": {
+                            "deltaType": "damage",
+                            "hp": "1+{instance.STR}/3+{instance.AGI}/6",
+                            "casterCode": "{instance}",
+                            "damageType": {
+                                "damageTypeCode": "none"
+                            },
+                            "dmgWTypeOpt": "default",
+                            "hitAngleOpt": "default",
+                            "drainPctOpt": "default",
+                            "flicker": "default",
+                            "noReact": "default",
+                            "hitSfx": "default",
+                            "sfxOpt": "default",
+                            "__env__": "range"
+                        },
+                        "dhAll": false,
+                        "dhTgt": [
+                                {
+                                    "op": "in",
+                                    "ma": {
+                                        "brain": "0",
+                                        "relship": "0",
+                                        "survival": "1",
+                                        "cgr": true,
+                                        "fgr": [
+                                            {
+                                                "op": "in",
+                                                "comp": [
+                                                    {
+                                                        "op": "==",
+                                                        "val": "101"
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                    }
+                },
+                {
+                    "type": "Wait",
+                    "data": {
+                        "duration": "100"
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": [
+                {
+                    "type": "ActorFire",
+                    "data": {
+                        "actorMatches": [],
+                        "varname": "instance",
+                        "fireTriggerType": "all",
+                        "damageTypes": [],
+                        "checkWeaponType": true,
+                        "weaponTypeCheck": "include",
+                        "weaponType": "custom_silver_spear"
+                    }
+                }
+            ]
+        },
+        {
+            "id": "土杖石刺攻擊",
             "disabled": false,
             "folder": "武器",
             "startTime": 0,
@@ -1939,11 +3564,11 @@
                         },
                         "region": {
                             "defType": "circle",
-                            "ciRad": "64",
+                            "ciRad": "20",
                             "offX": "0",
                             "offY": "0"
                         },
-                        "duration": "500",
+                        "duration": "3000",
                         "color": "#d38c09",
                         "alpha": "1",
                         "lineWidth": "2",
@@ -1953,7 +3578,7 @@
                         "disAnim": "none",
                         "deltaHp": true,
                         "dhRepeat": "cd",
-                        "dhCD": "600",
+                        "dhCD": "900",
                         "dhSet": {
                             "deltaType": "damage",
                             "hp": "{instance.INT} + {instance.PSY}/2 + 10",
@@ -2054,6 +3679,48 @@
                     "type": "SetWeaponAbility",
                     "data": {
                         "weaponType": "custom_dagger",
+                        "camp": {
+                            "campAll": true
+                        },
+                        "abilityLevel": 1,
+                        "operation": "set",
+                        "ability": {
+                            "value": "sounded"
+                        }
+                    }
+                },
+                {
+                    "type": "SetWeaponAbility",
+                    "data": {
+                        "weaponType": "custom_silver_spear",
+                        "camp": {
+                            "campAll": true
+                        },
+                        "abilityLevel": 1,
+                        "operation": "set",
+                        "ability": {
+                            "value": "sounded"
+                        }
+                    }
+                },
+                {
+                    "type": "SetWeaponAbility",
+                    "data": {
+                        "weaponType": "custom_iron_hammer",
+                        "camp": {
+                            "campAll": true
+                        },
+                        "abilityLevel": 1,
+                        "operation": "set",
+                        "ability": {
+                            "value": "sounded"
+                        }
+                    }
+                },
+                {
+                    "type": "SetWeaponAbility",
+                    "data": {
+                        "weaponType": "custom_earth_staff",
                         "camp": {
                             "campAll": true
                         },
@@ -21407,7 +23074,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【銀槍】\n【普通攻擊】\n - 武器傷害: 30+力量×3+敏捷",
+                        "speech": "【銀槍】\n【普通攻擊】對攻擊方向造成延伸範圍傷害\n - 武器傷害: 30+力量×3+敏捷\n - 延伸傷害: 1+力量÷3+敏捷÷6\n【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n - 技能傷害：10+力量÷2",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -21462,7 +23129,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質",
+                        "speech": "【巨錘】\n【普通攻擊】\n - 武器傷害: 50+力量×3+體質\n【技能 - 撼地一擊】造成三段範圍傷害\n - 技能傷害: 10+力量+體質",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -21590,7 +23257,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【土杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 地震傷害: 10+智慧+精神÷2",
+                        "speech": "【土杖】\n【普通攻擊】召喚持續3秒的石刺\n - 武器傷害: 5+力量÷2\n - 石刺傷害: 10+智慧+精神÷2\n【技能 - 石刺林】召喚8個持續15秒的石刺",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -23219,7 +24886,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "90",
-                        "speech": "【風杖】\n【普通攻擊】\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2",
+                        "speech": "【風杖】\n【普通攻擊】對攻擊方向發射光彈\n - 武器傷害: 5+力量÷2\n - 光彈傷害: 10+智慧+精神÷2\n【技能 - 光彈散射】散射釋出五發光彈\n - 光彈傷害: 10+智慧+精神÷2",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -23274,7 +24941,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "90",
-                        "speech": "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2",
+                        "speech": "【匕首】\n【普通攻擊】\n - 武器傷害: 10+力量×2+敏捷\n【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n - 範圍傷害：10+敏捷×2",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -23329,7 +24996,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "90",
-                        "speech": "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3",
+                        "speech": "【鐵劍】\n【普通攻擊】\n - 武器傷害: 30+力量×3\n【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n - 對敵軍傷害量: 1+力量÷3+體質÷6\n - 對友軍回復量: 1+力量÷6+體質÷3",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
