@@ -1,0 +1,12 @@
+// OPTION: --print-ast-after --run-only=blockExtend
+def base(v): block {
+    actions {
+        print(text = v);
+    }
+}
+
+def child(v): block = base(v);
+
+def childNamed(v): block = base(v = v);
+
+block init = child("ok");

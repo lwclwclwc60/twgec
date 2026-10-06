@@ -1,0 +1,5 @@
+Compilation Error: Found unresolvable expression `(missingValue == 1)` at test/fail/transform/blockExtendStack/test.twge:5:22
+# frame 0: twge::assert at test/fail/transform/blockExtendStack/test.twge:5:22
+# frame 1: core::flow at test/fail/transform/blockExtendStack/test.twge:9:30
+# frame 2: level1::flow at test/fail/transform/blockExtendStack/test.twge:10:30
+# frame 3: level2::flow at test/fail/transform/blockExtendStack/test.twge:12:18

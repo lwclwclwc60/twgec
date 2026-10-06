@@ -62,6 +62,12 @@ void FunDefNode::print(int indent) {
   if (blockBody) {
     std::cout << "block";
     blockBody->print(indent);
+    return;
+  }
+  if (inheritanceCall) {
+    std::cout << "block = " << inheritanceCall->identifier;
+    inheritanceCall->paramApps->print(indent);
+    std::cout << ";\n";
   }
 }
 
@@ -175,16 +181,15 @@ std::unique_ptr<MetadataNode> MetadataNode::clone() {
 }
 
 std::unique_ptr<FunDefNode> FunDefNode::clone() {
-  std::unique_ptr<FunDefNode> funDefNode;
-  if (typedInstrSet) {
-    funDefNode =
-        std::make_unique<FunDefNode>(identifier, loc, typedInstrSet->clone());
-  } else {
-    funDefNode =
-        std::make_unique<FunDefNode>(identifier, loc, blockBody->clone());
-  }
+  auto funDefNode = std::make_unique<FunDefNode>(identifier, loc);
   for (auto &param : params)
     funDefNode->params.push_back(param);
+  if (typedInstrSet)
+    funDefNode->typedInstrSet = typedInstrSet->clone();
+  if (blockBody)
+    funDefNode->blockBody = blockBody->clone();
+  if (inheritanceCall)
+    funDefNode->inheritanceCall = inheritanceCall->clone();
   return funDefNode;
 }
 

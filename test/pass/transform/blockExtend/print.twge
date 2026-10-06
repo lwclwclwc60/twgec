@@ -1,0 +1,19 @@
+//-----------------------------//
+//--- AST After blockExtend ---//
+//-----------------------------//
+def base(v) : block {
+    actions {
+        print(text = v);
+    }
+}
+def child(v) : block {
+    actions {
+        print(text = v);
+    }
+}
+def childNamed(v) : block {
+    actions {
+        print(text = v);
+    }
+}
+block init = child("ok");

@@ -104,6 +104,16 @@ bool useBeforeDefineChecking(const unique_ptr<ModuleNode> &moduleNode) {
     allFunDef.insert(funDef->identifier);
   std::set<std::string> definedFunDef;
   for (auto &funDef : moduleNode->funDefs) {
+    if (funDef->inheritanceCall) {
+      const auto &baseIdentifier = funDef->inheritanceCall->identifier;
+      if (definedFunDef.count(baseIdentifier) == 0) {
+        std::cerr << "Compilation Error: Function `" << baseIdentifier
+                  << "` must be defined before inherited by `"
+                  << funDef->identifier << "` at " << funDef->loc << ".\n";
+        ret = false;
+      }
+    }
+
     std::set<std::string> uninitializedFunDef;
     std::set_difference(
         allFunDef.begin(), allFunDef.end(), definedFunDef.begin(),

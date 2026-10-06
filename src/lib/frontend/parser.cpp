@@ -164,10 +164,17 @@ std::unique_ptr<FunDefNode> Parser::parseFunDef() {
     return nullptr;
   if (tokens.front().type == TokenType::BLOCK) {
     consume(TokenType::BLOCK);
-    auto blockBody = parseBlockBody();
-    if (!blockBody)
-      return nullptr;
-    funDefNode->blockBody = std::move(blockBody);
+    if (consume(TokenType::ASSIGN, false)) {
+      auto inheritanceCall = parseInstruction();
+      if (!inheritanceCall)
+        return nullptr;
+      funDefNode->inheritanceCall = std::move(inheritanceCall);
+    } else {
+      auto blockBody = parseBlockBody();
+      if (!blockBody)
+        return nullptr;
+      funDefNode->blockBody = std::move(blockBody);
+    }
   } else {
     auto typedInstrSet = parseTypedInstrSet();
     if (!typedInstrSet)

@@ -983,6 +983,991 @@ block 遊戲初始化 {
         迴避友軍攻擊();
     }
 }
+//-----------------------------//
+//--- AST After blockExtend ---//
+//-----------------------------//
+const 公式::Instance角度 = "{instance.bodyRotation}*180/3.14";
+const 公式::Instance血量 = "98 + 10*{instance.CON} + 2*{instance.Level}";
+const 公式::Instance恢復量 = "1 + {instance.PSY} + {instance.CON}/2";
+const 公式::InstanceX坐標 = "{instance.gamePosition.x}/32";
+const 公式::InstanceY坐標 = "{instance.gamePosition.y}/32";
+const 文字::HTML等級提升 = "<span style='color: green'>Level Up</span>";
+const 角色::任何 = ActorMatch();
+const 角色::任何玩家 = ActorMatch(controller = "player");
+const 角色::任何電腦 = ActorMatch(controller = "ai");
+const 角色::任何友軍 = ActorMatch(group = 100);
+const 角色::任何敵軍 = ActorMatch(group = 101);
+const 出生點 = Point(10,10);
+const 除錯模式 = false;
+const 狀態讀寫密鑰 = "simple-rpg-test-v2";
+const 公式::風杖物理傷害 = "5+{attacker.STR}/2";
+const 公式::風杖光彈傷害 = "{instance.INT} + {instance.PSY}/2 + 10";
+const 公式::鐵劍物理傷害 = "30+{attacker.STR}*3";
+const 公式::鐵劍技能恢復 = "1 + {instance.STR}/6 + {instance.CON}/3";
+const 公式::鐵劍技能傷害 = "1 + {instance.STR}/3 + {instance.CON}/6";
+const 公式::匕首物理傷害 = "10+{attacker.STR}*2+{attacker.AGI}";
+const 公式::匕首技能傷害 = "10 + {instance.AGI}*2";
+const 公式::銀槍物理傷害 = "10+{attacker.STR}*1.5+{attacker.AGI}";
+const 公式::銀槍延伸傷害 = "1+{instance.STR}/3+{instance.AGI}/3";
+const 公式::銀槍技能傷害 = "10+{instance.STR}/2";
+const 公式::巨錘物理傷害 = "30+{attacker.STR}*3+{attacker.CON}";
+const 公式::巨錘技能傷害 = "10+{instance.STR}+{instance.CON}";
+const 公式::土杖物理傷害 = "5+{attacker.STR}/2";
+const 公式::土杖石刺傷害 = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15";
+const 文字::風杖描述 = ("【風杖】\n" + ("【普通攻擊】對攻擊方向發射光彈\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 光彈傷害: 10+智慧+精神÷2\n" + ("【技能 - 光彈散射】散射釋出五發光彈\n" + " - 光彈傷害: 10+智慧+精神÷2")))));
+const 文字::鐵劍描述 = ("【鐵劍】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3\n" + ("【技能 - 威風堂堂】對範圍内的角色造成十次傷害及治療\n" + (" - 對敵軍傷害量: 1+力量÷3+體質÷6\n" + " - 對友軍回復量: 1+力量÷6+體質÷3")))));
+const 文字::匕首描述 = ("【匕首】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 10+力量×2+敏捷\n" + ("【技能 - 背刺】移動至滑鼠指定位置，並在目的範圍內造成傷害\n" + " - 範圍傷害：10+敏捷×2"))));
+const 文字::銀槍描述 = ("【銀槍】\n" + ("【普通攻擊】對攻擊方向造成延伸範圍傷害\n" + (" - 武器傷害: 10+力量×1.5+敏捷\n" + (" - 延伸傷害: 1+力量÷3+敏捷÷3\n" + ("【技能 - 永恆之槍】對指定範圍造成持續3秒的傷害\n" + " - 技能傷害：10+力量÷2")))));
+const 文字::巨錘描述 = ("【巨錘】\n" + ("【普通攻擊】\n" + (" - 武器傷害: 30+力量×3+體質\n" + ("【技能 - 撼地一擊】造成三段範圍傷害\n" + " - 技能傷害: 10+力量+體質"))));
+const 文字::土杖描述 = ("【土杖】\n" + ("【普通攻擊】召喚持續3秒的石刺\n" + (" - 武器傷害: 5+力量÷2\n" + (" - 石刺傷害: 15+智慧×1.5+精神×0.75\n" + "【技能 - 石刺林】召喚9個持續20秒的石刺"))));
+const 別名::武器風杖 = "custom_wind_staff";
+const 別名::武器鐵劍 = "custom_iron_sword";
+const 別名::武器匕首 = "custom_dagger";
+const 別名::武器銀槍 = "custom_silver_spear";
+const 別名::武器巨錘 = "custom_iron_hammer";
+const 別名::武器土杖 = "custom_earth_staff";
+const 公式::火星領域傷害 = "2+{instance.INT}/2+{instance.PSY}/3";
+const 公式::震撼傷害 = "15+{instance.CON}";
+const 公式::震撼範圍 = "60+10*{instance.CON}^0.5";
+const 公式::土靈召喚血量 = "100+{instance.PSY}*4";
+const 公式::土靈召喚傷害 = "10+{instance.PSY}/2";
+const 文字::火星領域描述 = ("【火星領域】\n" + ("在滑鼠指定範圍內持續出現星火\n" + (" - 星火傷害: 2+智慧÷2+精神÷3\n" + "冷卻10秒")));
+const 文字::震撼描述 = ("【震撼】\n" + ("對自身附近的敵人造成傷害\n" + ("體質越高，威力及範圍越大\n" + (" - 震撼傷害: 15+體質\n" + (" - 震撼範圍: 60+10×體質^0.5\n" + "冷卻10秒")))));
+const 文字::土靈召喚 = ("【土靈召喚】\n" + ("生成一直存在35秒的土靈為你戰鬥\n" + (" - 土靈血量: 100+精神×4\n" + (" - 土靈傷害: 10+精神÷2\n" + "冷卻40秒"))));
+const 別名::技能火星領域EN = "SparkArea";
+const 別名::技能火星領域ZH = "火星領域";
+const 別名::技能震撼EN = "Shocked";
+const 別名::技能震撼ZH = "震撼";
+const 別名::技能土靈召喚EN = "SummonEarthSpirit";
+const 別名::技能土靈召喚ZH = "土靈召喚";
+const 地圖::新手村近郊099n100 = [" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ****** . ***"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ************"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  . ***"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ***"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . t00 .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00"," .  .  .  .  .  .  .  .  .  .  .  . t00 .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  . ExE"," .  .  .  .  .  .  . t00 .  .  .  .  . ********* .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  . ****** . *** .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  . *** . *** .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","t00 .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  . *************** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  . *** .  . *** .  .  .  .  .  .  .  .  .  .  .  .  . "," . ************ . ****** .  .  .  .  .  .  .  .  .  .  .  . "," .  . ****** . ****** .  . ExSExS .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村100n100 = [" .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  . ********* .  .  .  . "," .  . --------------- .  .  .  .  . LBx--------------- .  . "," .  . ------H00------ .  .  .  .  . ------------------ .  . "," .  . ---------------****** .  .  . SS1 . ---H01------ .  . "," .  . ---------------*** .  .  .  . SS2NP2------------ .  . "," .  . LBx--- . NP1 .  .  .  .  .  . SS3 . ------------ .  . "," .  . ------SW1SW2SW3 .  .  .  .  .  .  .  .  . *** .  .  . "," .  .  .  .  . ****** .  .  .  .  .  .  .  . ********* .  . ","ExW .  . ************ .  .  .  .  .  .  . ***************ExE","ExW .  . ************ .  .  .  .  .  .  .  . ********* . ExE"," .  .  . ********* .  .  .  .  .  .  .  .  .  . *** .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","***------------ .  .  . *** .  .  .  .  .  .  .  .  .  .  . ","***------------ . NP4********* .  .  .  .  . DM0 . SP0 .  . "," . ---H01------ .  .  . *** .  .  .  .  .  .  . NP3 .  .  . "," . ------------LBx--- .  .  .  .  .  .  .  .  .  .  .  .  . "," . ------------------ .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******"," .  .  .  .  .  . *********ExSExS .  .  .  .  .  . *********"];
+const 地圖::新手村近郊101n100 = [" .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  . *** . "," .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  . *** . "," .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******"," .  . ****** .  .  .  .  .  .  .  .  .  . t00 .  .  .  . ***"," .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ***"," .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  . *** .  .  .  .  .  .  . *** .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  . ******t00****** .  .  .  .  .  . "," .  .  .  .  .  .  . ****************** .  .  .  .  .  .  . "," .  .  .  .  .  . ********************* .  .  .  .  .  .  . "," .  .  .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  . "," .  . t00 .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******"," .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  . *********"," .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  . ******"," .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . ExSExS .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊099n101 = ["t00 .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  . *** .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ********* . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ************ . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** . t00"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," . ****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","t00*** .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00 .  .  . "," .  .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . ******t00*** .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . ************ .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00 .  . "," .  .  .  .  .  .  .  .  . ExSExS .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊100n101 = [" .  .  .  . *** .  .  .  . ExNExN .  .  . ****** .  .  .  . "," .  .  . ****** .  .  .  .  .  .  .  .  . *************** . "," .  .  . *** . ****** .  .  .  .  .  .  . ************ . ***"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ******t00 . "," .  .  .  . *** .  .  . *** .  .  .  .  . *** .  . ****** . "," .  .  .  .  .  .  .  . *** .  .  .  .  .  . ********* .  . "," .  .  .  .  .  .  .  . ***t00 .  .  .  .  .  . ****** .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  . t00 .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  . *** . *** .  .  .  .  .  .  .  .  .  .  . t00 .  .  . "," .  . *** . t00*** .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  . ****** .  .  .  . ExSExS .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊101n101 = [" .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  .  . "," .  .  .  . t00 .  .  .  . ************ .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . ************ .  .  .  .  . *** . "," .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  . *** . "," .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  . t00 . "," . t00 .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . *** . "," .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  . ****** . "," .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  . *** . "," .  .  .  .  . ****** .  .  .  .  . t00 .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  .  .  . "," .  . t00 .  .  .  . *************** .  .  .  .  .  .  .  . "," .  .  .  .  .  .  . ************ .  .  .  .  .  .  . t00 . "," .  .  .  .  .  .  .  . ***ExSExS .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊099n102 = [" .  .  .  .  .  .  .  .  . ExNExN .  . ********* .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  . ********* .  .  .  . "," .  .  .  .  .  .  .  .  . *** .  .  .  . ***t00 .  .  .  . "," .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  . ********* .  .  .  .  .  .  .  .  .  . "," .  .  .  . *** .  .  . *** . *** .  .  .  . *** .  . *** . "," .  .  . ********* .  .  . *** .  .  .  . *** . ************"," .  . ********* .  .  .  .  .  .  .  . *********************","************ .  .  .  .  .  .  .  .  .  . ****** . ******ExE"," . ********* .  .  .  .  .  .  .  .  .  .  . *** .  .  . ExE"," . ***t00*** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","****** .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," . ********* .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  . t00 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00 .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊100n102 = [" .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  . t00 .  .  . *** .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  . ****** .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . *************** .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . *** . *** .  . t00 .  . "," .  .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","********* .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE","ExW .  .  . t00 .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "];
+const 地圖::新手村近郊101n102 = [" .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . ","*** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","********* .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . t00","****** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","*** .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  . *************** .  .  .  . t00 .  .  .  .  .  .  . "," .  .  .  . ********* .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  . *** .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  . t00 .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . ***r03 .  .  .  .  .  . ","*** .  .  .  .  .  .  .  .  .  .  .  . *** .  .  .  .  .  . "," . *** .  .  . r04 .  .  .  .  .  .  .  .  .  .  .  . r03 . ","****** .  .  .  .  .  .  .  . *** .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  . ********* .  .  .  .  .  .  .  . "," .  .  . r05--- .  . r03********* . *** .  .  .  .  . r05---"," .  . r04------ .  .  .  . ExSExS*** .  .  .  .  . r04------"];
+const 地圖::無芒山101n103 = ["---------r05--- .  .  .  . ExNExN .  . ********* .  . r05---","---r00--------- . ****** .  .  .  .  .  . *** .  .  . ------","--------- .  .  .  . *** .  .  .  .  .  .  .  .  . ---------"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ---r01---"," .  .  .  .  .  .  .  .  .  .  . r04 .  .  .  .  . ---------","r03 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  . r05--- .  .  .  .  .  .  .  .  .  . r04"," .  .  .  .  .  .  . ------ .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  . r03 .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . r03 .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r04 .  .  .  . ","r05--- .  .  .  . r05--- .  .  .  .  .  .  .  .  .  .  .  . ","------ .  .  .  . ------ .  .  .  .  .  .  .  .  .  .  .  . "," . r04 .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ---------"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ---r00---"," . --------- .  .  .  .  .  .  . r05--- .  .  .  . ---------"," . ---r00--- .  .  .  .  .  .  . ------ .  .  .  . r03 .  . ","r04--------- .  .  .  .  .  .  .  . r03 .  .  .  .  .  . r04"];
+const 地圖::無芒山100n103 = ["r05--- .  .  .  .  .  .  . --------- .  .  .  .  . r05--- . ","------ .  .  . r03 .  .  . ---r00--- .  . r04 .  . ------ . "," .  .  .  .  .  .  .  .  . --------- .  .  .  . r05--- .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ------ .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","r03 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r04"," . --------- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," . ---r00--- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," . --------- .  .  . r03 .  .  .  . r04 .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  . r04 .  .  .  .  .  .  .  .  .  .  .  . r03 .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r05--- .  .  . "," .  .  .  .  .  .  .  .  . r03 .  .  .  .  . ------ .  .  . ","r05--- .  .  . --------- .  .  .  .  .  .  .  .  .  .  .  . ","------r04 .  . ---r00--- .  .  .  .  .  .  .  .  . r04 .  . "," .  .  .  .  . --------- . ExSExS .  .  .  .  .  .  .  . r03"];
+const 地圖::無芒山100n104 = [" .  .  .  .  .  .  .  .  . ExNExN .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r04"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r05--- . ","--------- .  .  .  .  .  .  .  .  .  .  .  .  .  . ------ . ","---r00--- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","--------- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  . r03 .  .  .  .  .  .  . r04 .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ExE"," .  .  .  .  .  .  . r04 .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . r05--- .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . ------ .  .  .  .  .  . "," .  .  .  .  . r03 .  .  .  .  .  .  .  .  .  .  .  .  .  . ","--------- .  .  .  .  .  .  .  .  .  .  .  .  . --------- . ","---r00--- .  .  .  .  .  .  .  .  .  .  .  .  . ---r00--- . ","--------- .  .  .  .  . r03 .  .  .  .  .  .  . --------- . ","r05--- .  . r04 .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","------ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r04"];
+const 地圖::石蔭村101n104 = ["---------r04 .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r04","---r00--- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","--------- .  .  .  .  .  .  .  .  . LBx--------------- .  . "," .  .  .  .  .  .  .  .  .  .  .  . ------------------ .  . ","r03 .  .  .  .  .  .  .  .  .  .  . SBx . ---H01------ .  . "," .  .  .  .  .  .  .  .  .  .  .  . SBx . ------------ .  . "," .  .  .  .  .  .  .  .  .  .  .  . SBx . ------------ .  . "," . r04 .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ","ExW .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . "," .  .  .  .  .  .  .  .  .  .  .  . SW4 . ------------ .  . "," .  .  .  .  .  .  .  .  .  .  .  . SW5 . ------------ .  . "," .  . DM1 . SP0 .  .  .  .  .  .  . SW6 . ---H01------ .  . "," .  .  .  .  .  .  .  .  .  .  .  . LBx--------------- .  . ","r04 . NP3 .  .  .  .  .  .  .  .  . ------------------r05---","r05--- .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . ------","------ .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . r03"];
+const 面板::主頁 = ("<div>【Lv{instance.Level}】</div>" + ("<div>Exp:{instance.Exp}/{instance.ExpNeeded}</div>" + ("<div>尚餘能力點：{instance.Point}</div>" + ("<div>力量：{instance.STR}</div>" + ("<div>體質：{instance.CON}</div>" + ("<div>敏捷：{instance.AGI}</div>" + ("<div>智慧：{instance.INT}</div>" + ("<div>精神：{instance.PSY}\n</div>" + "<div>按鍵X技能: 【{instance.XSkill}】</div>"))))))));
+const 面板::能力頁 = ("<div>尚餘能力點：{instance.Point}</div>" + ("<div>力量：{instance.STR}</div>" + ("<div>每一點可提升若干的武器物理傷害，詳細見各武器描述</div>" + ("<div>體質：{instance.CON}</div>" + ("<div>每一點可提升半點恢復力，及增加十點血量上限</div>" + ("<div>敏捷：{instance.AGI}</div>" + ("<div>每一點可提升若干的匕首物理傷害，並降低重量及提升武器攻擊速度</div>" + ("<div>智慧：{instance.INT}</div>" + ("<div>每一點可提升若干的杖類傷害，詳細見各武器描述</div>" + ("<div>精神：{instance.PSY}\n</div>" + "<div>每一點可提升一點恢復力，及提升小量的杖類傷害</div>"))))))))));
+__skydowLocs__ = 出生點;
+__royalLocs__ = 出生點;
+__thirdLocs__ = 出生點;
+__lives__ = 9999;
+__title__ = "RPG試驗";
+__useDefaultItems__ = true;
+__useCustomWeapons__ = true;
+__customWeapons__ = [CustomWeapon(reference = "TWilightGameEventCompiler.weapon_wind_staff", code = "wind_staff", damage = 0, fireType = "單手橫劈", pivotOnHandDegree = 58, pivotOnHandX = 2, pivotOnHandY = 9, pivotOnHandXScale = "1.3", pivotOnHandYScale = "1.5", pivotOnIconDegree = -40, pivotOnIconX = 20, pivotOnIconY = 20, weight = 5),CustomWeapon(reference = "TWilightGameEventCompiler.weapon_iron_sword", code = "iron_sword", damage = 0, fireType = "大刀砍劈", pivotOnHandDegree = 35, pivotOnHandX = -12, pivotOnIconDegree = -40, pivotOnIconX = 27, pivotOnIconY = 14),CustomWeapon(reference = "TWilightGameEventCompiler.weapon_dagger", code = "dagger", damage = 0, fireType = "小刀前刺", pivotOnHandDegree = -92, pivotOnHandX = 34, pivotOnHandY = 24, pivotOnHandXScale = "0.7", pivotOnHandYScale = "0.8", pivotOnIconDegree = -140, pivotOnIconX = 34, pivotOnIconY = 16, weight = 3),CustomWeapon(reference = "TWilightGameEventCompiler.weapon_iron_hammer", code = "iron_hammer", damage = 0, fireType = "大刀砍劈", pivotOnHandDegree = -104, pivotOnHandX = 38, pivotOnHandY = 21, pivotOnIconDegree = -46, pivotOnIconX = 41, pivotOnIconY = 18),CustomWeapon(reference = "TWilightGameEventCompiler.weapon_silver_spear", code = "silver_spear", damage = 0, fireType = "雙手突刺", pivotOnHandDegree = -91, pivotOnHandX = 59, pivotOnHandY = 17, pivotOnHandXScale = "1.1", pivotOnHandYScale = "0.9", pivotOnIconDegree = -49, pivotOnIconX = 48, pivotOnIconY = 14, pivotOnIconXScale = "1.1", pivotOnIconYScale = "0.9", weight = 4),CustomWeapon(reference = "TWilightGameEventCompiler.weapon_earth_staff", code = "earth_staff", damage = 0, fireType = "單手橫劈", pivotOnHandDegree = 17, pivotOnHandX = -1, pivotOnHandY = -5, pivotOnIconDegree = -56, pivotOnIconX = 22, pivotOnIconY = 16, weight = 4)];
+__map__ = "CG.TWilightGameEventCompiler/rpg/simple_rpg.twmap";
+__roomSize__ = 8;
+def 自定義::除錯(text) : actions {
+    if(除錯模式) {
+        print(type = "error", text = text);
+    }
+}
+def 自定義::儲存Instance整數(key, value) : actions {
+    儲存物件變數(key = key, object = "instance", type = "integer", value = value);
+}
+def 自定義::更新角色屬性(actorId) : actions {
+    儲存物件變數(key = "HP", object = actorId, type = "integer", value = ("98 + 10*{" + (actorId + (".CON} + 2*{" + (actorId + ".Level}")))));
+    設定角色屬性(actorId = actorId, attr = "maxHp", value = ("{" + (actorId + ".HP}")));
+    設定角色屬性(actorId = actorId, attr = "closeWeaponSpeed", value = ("4-3/(1+0.01*{" + (actorId + ".AGI})")));
+    設定角色屬性(actorId = actorId, attr = "weight", value = ("3*pow(0.97,{" + (actorId + ".AGI})")));
+}
+def 自定義::輔助::下載Instance數據(key) : actions {
+    取得玩家狀態(category = 狀態讀寫密鑰, key = key, playerId = "{instance}", varName = ("{instance}_" + key));
+    自定義::儲存Instance整數(key, ("{{instance}_" + (key + "}")));
+}
+def 自定義::輔助::上載Instance數據(key) : actions {
+    儲存玩家狀態(category = 狀態讀寫密鑰, key = key, playerId = "{instance}", type = "string", value = ("{{instance}." + (key + "}")));
+}
+def 自定義::上載Instance數據() : actions {
+    自定義::輔助::上載Instance數據("Point");
+    自定義::輔助::上載Instance數據("ExpNeeded");
+    自定義::輔助::上載Instance數據("Level");
+    自定義::輔助::上載Instance數據("STR");
+    自定義::輔助::上載Instance數據("CON");
+    自定義::輔助::上載Instance數據("AGI");
+    自定義::輔助::上載Instance數據("INT");
+    自定義::輔助::上載Instance數據("PSY");
+    自定義::輔助::上載Instance數據("Exp");
+    自定義::輔助::上載Instance數據("HP");
+    儲存玩家狀態(category = 狀態讀寫密鑰, key = "savedBefore", playerId = "{instance}", type = "integer", value = "1");
+}
+def 自定義::下載玩家數據泛型(hasSavedBefore) : block {
+    __repeat__ = -1;
+    __label__ = "玩家";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        比較數字(lhs = "{instance.completedInit}", op = "==", rhs = 1);
+        if(hasSavedBefore) {
+            比對字串(str = "{{instance}_savedBefore}", matchKind = "equal", value = "1");
+        } else {
+            比對字串(str = "{{instance}_savedBefore}", matchKind = "equal", value = "undefined");
+        }
+    }
+    actions {
+        儲存物件變數(key = "completedInit", object = "instance", type = "string", value = 2);
+        if(hasSavedBefore) {
+            自定義::輔助::下載Instance數據("Point");
+            自定義::輔助::下載Instance數據("ExpNeeded");
+            自定義::輔助::下載Instance數據("Level");
+            自定義::輔助::下載Instance數據("STR");
+            自定義::輔助::下載Instance數據("CON");
+            自定義::輔助::下載Instance數據("AGI");
+            自定義::輔助::下載Instance數據("INT");
+            自定義::輔助::下載Instance數據("PSY");
+            自定義::輔助::下載Instance數據("Exp");
+            自定義::輔助::下載Instance數據("HP");
+            自定義::更新角色屬性("instance");
+            角色加減血(actorCode = "instance", type = "heal", value = 9999);
+        }
+        角色說話(actorId = "instance", cleanTalk = true, text = "初始化完畢");
+    }
+}
+def 自定義::點擊裝備武器泛型(button, weapon) : block {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        告示牌按鈕(varName = "instance", buttonId = ("wear" + button));
+    }
+    actions {
+        人物裝備武器(actorCode = "instance", type = weapon, hand = 1);
+        人物裝備武器(actorCode = "instance", type = weapon, hand = 2);
+    }
+}
+def 自定義::釋放技能泛型(weapon) : block {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        發動技能(varName = "instance", weapon = weapon);
+    }
+    actions {
+        if((weapon == 別名::武器風杖)) {
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+32"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "+16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = 公式::Instance角度);
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-16"));
+            光彈特效(fromActor = "instance", scale = "0.5", damage = 公式::風杖光彈傷害, toAngle = (公式::Instance角度 + "-32"));
+        }
+        if((weapon == 別名::武器鐵劍)) {
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "heal", deltaHpValue = 公式::鐵劍技能恢復, deltaHpCD = 1100, deltaHpTarget = 角色::任何友軍, lineWidth = 2);
+            EnhFF::廣義圓形範圍(actorId = "instance", radius = (4 * 32), duration = 10000, color = "#D16500", deltaHpType = "damage", deltaHpValue = 公式::鐵劍技能傷害, deltaHpCD = 1100, deltaHpTarget = 角色::任何敵軍, lineWidth = 2);
+        }
+        if((weapon == 別名::武器匕首)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 60, duration = 500, color = "#000000", deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+            移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        }
+        if((weapon == 別名::武器銀槍)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+            儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+            儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+            儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+            儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+            儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+            儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+            for(i in 1...5) {
+                EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 70) + 35)) + "*{spear_ny}")), radius = 35, duration = 3000, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍技能傷害, deltaHpCD = 2000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            }
+        }
+        if((weapon == 別名::武器巨錘)) {
+            儲存全域變數(key = "pos_x", type = "number", value = "{instance.gamePosition.x}");
+            儲存全域變數(key = "pos_y", type = "number", value = "{instance.gamePosition.y}");
+            for(i in 1...3) {
+                EnhFF::廣義圓形範圍(x = "{pos_x}", y = "{pos_y}", radius = (40 * i), duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::巨錘技能傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                等待(duration = 200);
+            }
+        }
+        if((weapon == 別名::武器土杖)) {
+            EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+            for(i in -1...1) {
+                for(j in -1...1) {
+                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                }
+            }
+        }
+    }
+}
+def 自定義::武器物理攻擊泛型(weapon, value) : block {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色受傷(actor = 角色::任何, actorVarName = "instance", hitter = 角色::任何, hitterVarName = "attacker", weapon = weapon);
+    }
+    actions {
+        角色加減血(actorCode = "instance", casterCode = "attacker", type = "流血受傷", value = value);
+    }
+}
+def 自定義::拾取經驗泛型(drop_item_code, exp) : block {
+    __repeat__ = -1;
+    __label__ = "怪物";
+    triggers {
+        拾取武器道具(actorVarname = "instance", matchKind = "equal", itemMatchCode = drop_item_code);
+    }
+    actions {
+        自定義::儲存Instance整數("Exp", ("{instance.Exp}+" + twge::to_string(exp)));
+        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = ("<span style='color: green'>EXP+" + (twge::to_string(exp) + "</span>")));
+        自定義::上載Instance數據();
+    }
+}
+def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : block {
+    __repeat__ = -1;
+    __label__ = "怪物";
+    triggers {
+        角色死亡(actor = ActorMatch(id = actor_id), varName = "instance");
+    }
+    actions {
+        新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
+    }
+}
+def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
+    __repeat__ = -1;
+    __repeatInterval__ = interval;
+    __delay__ = 1000;
+    __label__ = "怪物";
+    checks {
+        if((monster_type == "鹿")) {
+            if(((chunk_x == "101") && (chunk_y == "102"))) {
+                計算人數(actor = ActorMatch(id = ("monster_deer_lv0" + twge::to_string(level)), matchKind = "contain"), op = "<", value = 2);
+            } else {
+                計算人數(actor = ActorMatch(id = ("monster_deer_lv0" + twge::to_string(level)), matchKind = "contain"), op = "<", value = 4);
+            }
+        }
+        if((monster_type == "山嶺石怪")) {
+            if(((chunk_x == "101") && (chunk_y == "102"))) {
+                計算人數(actor = ActorMatch(id = ("monster_stone_lv0" + twge::to_string(level)), matchKind = "contain"), op = "<", value = 1);
+            } else {
+                計算人數(actor = ActorMatch(id = ("monster_stone_lv0" + twge::to_string(level)), matchKind = "contain"), op = "<", value = 2);
+            }
+        }
+        比較數字(lhs = ("{map_used_" + (chunk_x + ("_" + (chunk_y + "}")))), op = "==", rhs = "1");
+    }
+    actions {
+        if((monster_type == "鹿")) {
+            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        }
+        if((monster_type == "山嶺石怪")) {
+            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
+            設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
+        }
+        跟隨人物(actorId = "actor", type = "跟隨自己");
+    }
+}
+def 自定義::點擊設定技能泛型(name, nameZh) : block {
+    __repeat__ = -1;
+    __label__ = "技能";
+    triggers {
+        告示牌按鈕(varName = "instance", buttonId = ("setX" + name));
+    }
+    actions {
+        儲存物件變數(key = "XSkill", object = "instance", type = "string", value = nameZh);
+    }
+}
+def 火星領域技能() : actions {
+    EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+    EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = (2 * 64), duration = 10000, color = "#912B2B", lineWidth = 3);
+    for(i in 1...60) {
+        wait(duration = 150);
+        EnhFF::廣義圓形範圍(x = "{x}+random(-64,64)", y = "{y}+random(-64,64)", radius = 40, duration = 500, color = "#FF0F0F", deltaHpType = "damage", deltaHpValue = 公式::火星領域傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+    }
+    wait(duration = 10000);
+}
+def 震撼技能() : actions {
+    EnhFF::廣義圓形範圍(actorId = "instance", radius = 公式::震撼範圍, duration = 2000, color = "#CC7700", deltaHpType = "damage", lineWidth = 3, deltaHpValue = 公式::震撼傷害, deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
+    wait(duration = 12000);
+}
+def 土靈召喚技能() : actions {
+    儲存全域變數(key = "tmp", type = "int", value = 公式::土靈召喚血量);
+    新增角色(name = "土靈({tmp})", id = "earthSpirit*", camp = "第三", hp = 公式::土靈召喚血量, x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 100, strength = 公式::土靈召喚傷害, role = "不動佛");
+    跟隨人物(actorId = "actor", type = "跟隨人物", targetId = "{instance}");
+    wait(duration = 35000);
+    角色消失(actorId = "actor");
+    wait(duration = 5000);
+}
+def 自定義::觸發技能泛型(name, nameZh, color) : block {
+    __repeat__ = -1;
+    __label__ = "技能";
+    triggers {
+        鍵盤按鍵(varName = "clicker", key = "X");
+    }
+    checks {
+        比對字串(matchKind = "equal", str = nameZh, value = "{{clicker.id}.XSkill}");
+        比較數字(lhs = ("{{clicker.id}.skill" + (name + "CD}")), op = "!=", rhs = 1);
+    }
+    actions {
+        setGlobal(key = "instance", type = "string", value = "{clicker.id}");
+        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "</span>")))));
+        自定義::儲存Instance整數(("skill" + (name + "CD")), 1);
+        if((name == 別名::技能火星領域EN)) {
+            火星領域技能();
+        }
+        if((name == 別名::技能震撼EN)) {
+            震撼技能();
+        }
+        if((name == 別名::技能土靈召喚EN)) {
+            土靈召喚技能();
+        }
+        自定義::儲存Instance整數(("skill" + (name + "CD")), 0);
+        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "冷卻完畢</span>")))));
+    }
+}
+def 地圖::生成地圖配置(x, y, object) : actions {
+    if(((object == "---") || (object == " . "))) {
+    } else if((object == "SP0")) {
+        新增地圖物件(x = x, y = y, object = "石椅");
+        新增告示牌(x = x, y = y, rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
+    } else if((object == "SW1")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SW2")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SW3")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SW4")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::銀槍描述, buttons = [Button(id = "wearSilverSpear", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SW5")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::巨錘描述, buttons = [Button(id = "wearIronHammer", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SW6")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土杖描述, buttons = [Button(id = "wearEarthStaff", text = "裝備"),Button(id = "wearNone", text = "卸下")]);
+    } else if((object == "SS1")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [Button(id = ("setX" + 別名::技能火星領域EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
+    } else if((object == "SS2")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::震撼描述, buttons = [Button(id = ("setX" + 別名::技能震撼EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
+    } else if((object == "SS3")) {
+        新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土靈召喚, buttons = [Button(id = ("setX" + 別名::技能土靈召喚EN), text = "設置於X鍵"),Button(id = "setXNone", text = "卸下")]);
+    } else if((object == "DM0")) {
+        新增回氣魔法陣(x = x, y = y, heal = "10", healActorCooldown = "4000", healDeviceCooldown = "1000");
+    } else if((object == "DM1")) {
+        新增回氣魔法陣(x = x, y = y, heal = "15", healActorCooldown = "4000", healDeviceCooldown = "1000");
+    } else if((object == "NP1")) {
+        新增角色(name = "武器商人", id = "npc01*", camp = "第三", x = x, y = y, rotation = 90, weapon1 = "fist", weapon2 = "fist", teamId = 100, role = "隱居士");
+    } else if((object == "NP2")) {
+        新增角色(name = "技能商人", id = "npc02*", camp = "第三", x = x, y = y, rotation = 180, weapon1 = "fist", weapon2 = "fist", teamId = 100, role = "赤焰精靈");
+    } else if((object == "NP3")) {
+        新增角色(name = "祭司", id = "npc03*", camp = "第三", x = x, y = y, rotation = 270, weapon1 = "fist", weapon2 = "fist", teamId = 100, role = "男靈能訓練官");
+    } else if((object == "NP4")) {
+        新增角色(name = "村長", id = "npc04*", camp = "第三", x = x, y = y, rotation = 0, weapon1 = "fist", weapon2 = "fist", teamId = 100, externRole = "TWilightGameEventCompiler.character_village_head");
+    } else if((object == "LBx")) {
+        新增地圖物件(x = x, y = y, object = "大箱子", walkable = false);
+    } else if((object == "SBx")) {
+        新增地圖物件(x = x, y = y, object = "小箱子", walkable = false);
+    } else if((object == "H00")) {
+        新增地圖物件(x = x, y = y, object = "5x4橫向房子", walkable = false);
+    } else if((object == "H01")) {
+        新增地圖物件(x = x, y = y, object = "5x4縱向房子", walkable = false);
+    } else if((object == "***")) {
+        新增地圖物件(x = x, y = y, object = "草地");
+    } else if((object == "t00")) {
+        新增地圖物件(x = x, y = y, object = "3x3綠樹");
+    } else if((object == "r00")) {
+        新增地圖物件(x = x, y = y, object = "3x3黑石");
+    } else if((object == "r01")) {
+        新增地圖物件(x = x, y = y, object = "3x3金石");
+    } else if((object == "r02")) {
+        新增地圖物件(x = x, y = y, object = "2x2白石");
+    } else if((object == "r03")) {
+        新增地圖物件(x = x, y = y, object = "1x1黑石");
+    } else if((object == "r04")) {
+        新增地圖物件(x = x, y = y, object = "1x1金石");
+    } else if((object == "r05")) {
+        新增地圖物件(x = x, y = y, object = "2x2棕石");
+    } else if((object == "ExN")) {
+        新增地圖物件(x = x, y = y, object = "白光(上)");
+    } else if((object == "ExE")) {
+        新增地圖物件(x = x, y = y, object = "白光(右)");
+    } else if((object == "ExS")) {
+        新增地圖物件(x = x, y = y, object = "白光(下)");
+    } else if((object == "ExW")) {
+        新增地圖物件(x = x, y = y, object = "白光(左)");
+    } else {
+        twge::assert(false, ("無效地圖物件: " + object));
+    }
+}
+def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+    print(text = ("xOffset:" + xOffset));
+    print(text = ("yOffset:" + yOffset));
+    for(map_row in 0...(twge::get_length(mapArray) - 1)) {
+        for(map_col in 0...((twge::get_length(twge::get_index(mapArray, map_row)) / 3) - 1)) {
+            地圖::生成地圖配置((twge::to_string(map_col) + ("+" + xOffset)), (twge::to_string(map_row) + ("+" + yOffset)), twge::get_slice(twge::get_index(mapArray, map_row), ((map_col * 3) + 0), ((map_col * 3) + 2)));
+        }
+    }
+}
+def 地圖::儲存地圖變量(x, y, map) : actions {
+    if((twge::get_slice(twge::get_index(map, 0), 27, 32) == "ExNExN")) {
+        儲存全域變數(key = ("map_" + (twge::to_string(x) + ("_" + (twge::to_string(y) + "_ExN")))), type = "int", value = 1);
+    }
+    if((twge::get_slice(twge::get_index(map, 19), 27, 32) == "ExSExS")) {
+        儲存全域變數(key = ("map_" + (twge::to_string(x) + ("_" + (twge::to_string(y) + "_ExS")))), type = "int", value = 1);
+    }
+    if(((twge::get_slice(twge::get_index(map, 9), 0, 2) == "ExW") && (twge::get_slice(twge::get_index(map, 10), 0, 2) == "ExW"))) {
+        儲存全域變數(key = ("map_" + (twge::to_string(x) + ("_" + (twge::to_string(y) + "_ExW")))), type = "int", value = 1);
+    }
+    if(((twge::get_slice(twge::get_index(map, 9), 57, 59) == "ExE") && (twge::get_slice(twge::get_index(map, 10), 57, 59) == "ExE"))) {
+        儲存全域變數(key = ("map_" + (twge::to_string(x) + ("_" + (twge::to_string(y) + "_ExE")))), type = "int", value = 1);
+    }
+    儲存全域變數(key = ("map_used_" + (twge::to_string(x) + ("_" + twge::to_string(y)))), type = "int", value = 0);
+}
+def 地圖::移動生成泛型(map_x, map_y) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 1, region_w = 1, region_x = 23, region_y = 23);
+        比較數字(lhs = "{map_used_{instance.map_x}_{instance.map_y}}", op = "==", rhs = "0");
+        比較數字(lhs = "{instance.map_x}", op = "==", rhs = map_x);
+        比較數字(lhs = "{instance.map_y}", op = "==", rhs = map_y);
+        比較數字(lhs = "{chunk_available_stack_0}", op = "!=", rhs = -1);
+        比較數字(lhs = "{chunk_available_stack_now}", op = "==", rhs = -1);
+    }
+    actions {
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = "{chunk_available_stack_0}");
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = "{chunk_available_stack_2}");
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = "{chunk_available_stack_3}");
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = "{chunk_available_stack_4}");
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = "{chunk_available_stack_5}");
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = "{chunk_available_stack_6}");
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = "{chunk_available_stack_7}");
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+        儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
+        if(((map_x == 99) && (map_y == 100))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n100);
+        } else if(((map_x == 101) && (map_y == 100))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n100);
+        } else if(((map_x == 99) && (map_y == 101))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n101);
+        } else if(((map_x == 100) && (map_y == 101))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n101);
+        } else if(((map_x == 101) && (map_y == 101))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n101);
+        } else if(((map_x == 99) && (map_y == 102))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n102);
+        } else if(((map_x == 100) && (map_y == 102))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n102);
+        } else if(((map_x == 101) && (map_y == 102))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n102);
+        } else if(((map_x == 100) && (map_y == 103))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n103);
+        } else if(((map_x == 100) && (map_y == 104))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n104);
+        } else if(((map_x == 101) && (map_y == 103))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山101n103);
+        } else if(((map_x == 101) && (map_y == 104))) {
+            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::石蔭村101n104);
+        }
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
+        儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
+        儲存全域變數(key = "map_used_{instance.map_x}_{instance.map_y}", type = "int", value = 1);
+        儲存全域變數(key = "chunk_entering_{chunk_available_stack_now}", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_{chunk_available_stack_now}", type = "int", value = 1);
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+    }
+}
+def 地圖::移動離開泛型(direction) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    triggers {
+        鍵盤按鍵(varName = "clicker", key = "Space");
+    }
+    checks {
+        if((direction == "右")) {
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExE}", op = "==", rhs = 1);
+        } else if((direction == "左")) {
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExW}", op = "==", rhs = 1);
+        } else if((direction == "下")) {
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "19*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "20*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExS}", op = "==", rhs = 1);
+        } else if((direction == "上")) {
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "0*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "1*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
+            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExN}", op = "==", rhs = 1);
+        }
+    }
+    actions {
+        setGlobal(key = "instance", type = "string", value = "{clicker.id}");
+        自定義::儲存Instance整數("tmp_grid_x_offset", "({instance.gamePosition.x}%864)/32");
+        自定義::儲存Instance整數("tmp_grid_y_offset", "({instance.gamePosition.y}%864)/32");
+        if(除錯模式) {
+            print(text = ("x: {instance.map_x}, y: {instance.map_y}, direction: " + direction), type = "error");
+            print(text = "x_offset: {instance.tmp_grid_x_offset}, y_offset: {instance.tmp_grid_x_offset}", type = "error");
+        }
+        儲存物件變數(key = "map_direction", object = "instance", type = "string", value = direction);
+        if((direction == "右")) {
+            自定義::儲存Instance整數("map_x", "{instance.map_x}+1");
+        } else if((direction == "左")) {
+            自定義::儲存Instance整數("map_x", "{instance.map_x}-1");
+        } else if((direction == "下")) {
+            自定義::儲存Instance整數("map_y", "{instance.map_y}+1");
+        } else if((direction == "上")) {
+            自定義::儲存Instance整數("map_y", "{instance.map_y}-1");
+        }
+        移動角色位置(actorId = "instance", x = 23, y = 23);
+    }
+}
+def 地圖::移動進入泛型(direction) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 1, region_w = 1, region_x = 23, region_y = 23);
+        比較數字(lhs = "{map_used_{instance.map_x}_{instance.map_y}}", op = "==", rhs = "1");
+        比對字串(str = direction, value = "{instance.map_direction}");
+    }
+    actions {
+        if((direction == "右")) {
+            移動角色位置(actorId = "instance", x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x}", y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if((direction == "左")) {
+            移動角色位置(actorId = "instance", x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + 19", y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+        } else if((direction == "下")) {
+            移動角色位置(actorId = "instance", x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}", y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y}");
+        } else if((direction == "上")) {
+            移動角色位置(actorId = "instance", x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}", y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + 19");
+        }
+        等待(duration = 1000);
+        儲存全域變數(key = "chunk_entering_{map_to_chunk_{instance.map_x}_{instance.map_y}}", type = "int", value = 0);
+    }
+}
+def 地圖::移動移除物件泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        計算人數(actor = 角色::任何玩家, op = "==", value = 0, region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        比較數字(lhs = ("{chunk_entering_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 1);
+    }
+    actions {
+        移除地圖機關(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        移除地圖物件(region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27));
+        儲存全域變數(key = ("chunk_used_" + twge::to_string(chunk_id)), type = "int", value = 0);
+        儲存全域變數(key = "map_tmp_to_release_x", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_x}")));
+        儲存全域變數(key = "map_tmp_to_release_y", type = "int", value = ("{chunk_to_map_" + (twge::to_string(chunk_id) + "_y}")));
+        儲存全域變數(key = "map_used_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = 0);
+        儲存全域變數(key = "map_to_chunk_{map_tmp_to_release_x}_{map_tmp_to_release_y}", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = chunk_id);
+    }
+}
+def 地圖::移動移除人物泛型(chunk_id) : block {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = ("{chunk_used_" + (twge::to_string(chunk_id) + "}")), op = "==", rhs = 0);
+        找出所有角色(actor = 角色::任何電腦, varname = "instance");
+        角色所在區域(actorId = "instance", region_h = 20, region_w = 20, region_x = ((chunk_id % 3) * 27), region_y = ((chunk_id / 3) * 27), checkAlive = true);
+    }
+    actions {
+        角色消失(actorId = "instance");
+    }
+}
+def 面板::顯示能力面板() : actions {
+    彈出選項視窗(actorId = "{instance}", dialogId = "dialog_point", message = 面板::能力頁, options = [Button(id = "dialog_button_point_STR_01", text = "分配一點力量"),Button(id = "dialog_button_point_STR_10", text = "分配十點力量"),Button(id = "dialog_button_point_CON_01", text = "分配一點體質"),Button(id = "dialog_button_point_CON_10", text = "分配十點體質"),Button(id = "dialog_button_point_AGI_01", text = "分配一點敏捷"),Button(id = "dialog_button_point_AGI_10", text = "分配十點敏捷"),Button(id = "dialog_button_point_INT_01", text = "分配一點智慧"),Button(id = "dialog_button_point_INT_10", text = "分配十點智慧"),Button(id = "dialog_button_point_PSY_01", text = "分配一點精神"),Button(id = "dialog_button_point_PSY_10", text = "分配十點精神")]);
+}
+def 面板::點擊能力分配泛型(type, typeZh, value) : block {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        視窗確認(buttonName = ("dialog_button_point_" + (type + ("_" + value))), playerLocalId = "instance");
+    }
+    checks {
+        比較數字(lhs = "{instance.Point}", op = ">=", rhs = value);
+    }
+    actions {
+        關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_point");
+        自定義::儲存Instance整數("Point", ("{instance.Point} - " + value));
+        自定義::儲存Instance整數(type, ("{instance." + (type + ("} + " + value))));
+        自定義::更新角色屬性("instance");
+        自定義::上載Instance數據();
+        面板::顯示能力面板();
+    }
+}
+block 下載老玩家數據 = 自定義::下載玩家數據泛型(hasSavedBefore = true);
+block 下載新玩家數據 = 自定義::下載玩家數據泛型(hasSavedBefore = false);
+block 點擊裝備武器風杖 = 自定義::點擊裝備武器泛型("WindStaff", 別名::武器風杖);
+block 點擊裝備武器鐵劍 = 自定義::點擊裝備武器泛型("IronSword", 別名::武器鐵劍);
+block 點擊裝備武器匕首 = 自定義::點擊裝備武器泛型("Dagger", 別名::武器匕首);
+block 點擊裝備武器銀槍 = 自定義::點擊裝備武器泛型("SilverSpear", 別名::武器銀槍);
+block 點擊裝備武器巨錘 = 自定義::點擊裝備武器泛型("IronHammer", 別名::武器巨錘);
+block 點擊裝備武器土杖 = 自定義::點擊裝備武器泛型("EarthStaff", 別名::武器土杖);
+block 點擊裝備武器拳頭 = 自定義::點擊裝備武器泛型("None", "fist");
+block 釋放技能風杖 = 自定義::釋放技能泛型(別名::武器風杖);
+block 釋放技能鐵劍 = 自定義::釋放技能泛型(別名::武器鐵劍);
+block 釋放技能匕首 = 自定義::釋放技能泛型(別名::武器匕首);
+block 釋放技能銀槍 = 自定義::釋放技能泛型(別名::武器銀槍);
+block 釋放技能巨錘 = 自定義::釋放技能泛型(別名::武器巨錘);
+block 釋放技能土杖 = 自定義::釋放技能泛型(別名::武器土杖);
+block 風杖物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器風杖, 公式::風杖物理傷害);
+block 鐵劍物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器鐵劍, 公式::鐵劍物理傷害);
+block 匕首物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器匕首, 公式::匕首物理傷害);
+block 銀槍物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器銀槍, 公式::銀槍物理傷害);
+block 巨錘物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器巨錘, 公式::巨錘物理傷害);
+block 土杖物理攻擊 = 自定義::武器物理攻擊泛型(別名::武器土杖, 公式::土杖物理傷害);
+block 風杖光彈攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器風杖, varName = "instance");
+    }
+    actions {
+        光彈特效(fromActor = "instance", toAngle = 公式::Instance角度, scale = "0.5", damage = 公式::風杖光彈傷害);
+    }
+}
+block 銀槍延伸攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器銀槍, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");
+        儲存全域變數(key = "spear_px", type = "number", value = "{instance.gamePosition.x}");
+        儲存全域變數(key = "spear_py", type = "number", value = "{instance.gamePosition.y}");
+        儲存全域變數(key = "spear_dx", type = "number", value = "{mouse_x}-{spear_px}");
+        儲存全域變數(key = "spear_dy", type = "number", value = "{mouse_y}-{spear_py}");
+        儲存全域變數(key = "spear_len", type = "number", value = "pow(({spear_dx}*{spear_dx}+{spear_dy}*{spear_dy}),0.5)+0.0001");
+        儲存全域變數(key = "spear_nx", type = "number", value = "{spear_dx}/{spear_len}");
+        儲存全域變數(key = "spear_ny", type = "number", value = "{spear_dy}/{spear_len}");
+        for(i in 1...4) {
+            EnhFF::廣義圓形範圍(x = ("{spear_px}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_nx}")), y = ("{spear_py}+" + (twge::to_string((((i - 1) * 50) + 25)) + "*{spear_ny}")), radius = 25, duration = 500, color = "#c7c7c7", deltaHpType = "damage", deltaHpValue = 公式::銀槍延伸傷害, deltaHpCD = 600, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+            等待(duration = 100);
+        }
+    }
+}
+block 土杖石刺攻擊 {
+    __repeat__ = -1;
+    __label__ = "武器";
+    triggers {
+        角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
+    }
+    actions {
+        EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+    }
+}
+block 武器初始化 {
+    __label__ = "武器";
+    actions {
+        設定武器技能(weapon = 別名::武器風杖);
+        設定武器技能(weapon = 別名::武器鐵劍);
+        設定武器技能(weapon = 別名::武器匕首);
+        設定武器技能(weapon = 別名::武器銀槍);
+        設定武器技能(weapon = 別名::武器巨錘);
+        設定武器技能(weapon = 別名::武器土杖);
+    }
+}
+block 拾取經驗一級鹿 = 自定義::拾取經驗泛型("deer_exp_01", 10);
+block 拾取經驗三級鹿 = 自定義::拾取經驗泛型("deer_exp_03", 12);
+block 拾取經驗五級鹿 = 自定義::拾取經驗泛型("deer_exp_05", 15);
+block 拾取經驗七級山嶺石怪 = 自定義::拾取經驗泛型("stone_exp_07", 19);
+block 拾取經驗九級山嶺石怪 = 自定義::拾取經驗泛型("stone_exp_09", 22);
+block 野獸死亡一級鹿 = 自定義::野獸死亡泛型("monster_deer_lv01", "deer_exp_01", "sariraFire");
+block 野獸死亡三級鹿 = 自定義::野獸死亡泛型("monster_deer_lv03", "deer_exp_03", "sariraFire");
+block 野獸死亡五級鹿 = 自定義::野獸死亡泛型("monster_deer_lv05", "deer_exp_05", "sariraFire");
+block 野獸死亡七級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv07", "stone_exp_07", "redStone");
+block 野獸死亡九級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv09", "stone_exp_09", "redStone");
+block 野獸重生x099y100鹿 = 自定義::野獸重生泛型(8000, "99", "100", "鹿", 1);
+block 野獸重生x101y100鹿 = 自定義::野獸重生泛型(8000, "101", "100", "鹿", 1);
+block 野獸重生x100y101鹿 = 自定義::野獸重生泛型(8000, "100", "101", "鹿", 1);
+block 野獸重生x099y101鹿 = 自定義::野獸重生泛型(10000, "99", "101", "鹿", 3);
+block 野獸重生x101y101鹿 = 自定義::野獸重生泛型(10000, "101", "101", "鹿", 3);
+block 野獸重生x100y102鹿 = 自定義::野獸重生泛型(10000, "100", "102", "鹿", 3);
+block 野獸重生x099y102鹿 = 自定義::野獸重生泛型(12000, "99", "102", "鹿", 5);
+block 野獸重生x101y102鹿 = 自定義::野獸重生泛型(20000, "101", "102", "鹿", 5);
+block 野獸重生x101y102山嶺石怪 = 自定義::野獸重生泛型(20000, "101", "102", "山嶺石怪", 7);
+block 野獸重生x101y103山嶺石怪 = 自定義::野獸重生泛型(15000, "101", "103", "山嶺石怪", 7);
+block 野獸重生x100y103山嶺石怪 = 自定義::野獸重生泛型(15000, "100", "103", "山嶺石怪", 9);
+block 野獸重生x100y104山嶺石怪 = 自定義::野獸重生泛型(15000, "100", "104", "山嶺石怪", 9);
+block 點擊設定技能火星領域 = 自定義::點擊設定技能泛型(別名::技能火星領域EN, 別名::技能火星領域ZH);
+block 點擊設定技能震撼 = 自定義::點擊設定技能泛型(別名::技能震撼EN, 別名::技能震撼ZH);
+block 點擊設定技能土靈召喚 = 自定義::點擊設定技能泛型(別名::技能土靈召喚EN, 別名::技能土靈召喚ZH);
+block 點擊設定技能無 = 自定義::點擊設定技能泛型("None", "無");
+block 觸發技能火星領域 = 自定義::觸發技能泛型(別名::技能火星領域EN, 別名::技能火星領域ZH, "#912B2B");
+block 觸發技能震撼 = 自定義::觸發技能泛型(別名::技能震撼EN, 別名::技能震撼ZH, "#CC7700");
+block 觸發技能土靈召喚 = 自定義::觸發技能泛型(別名::技能土靈召喚EN, 別名::技能土靈召喚ZH, "#A57E00");
+block 移動生成099_100 = 地圖::移動生成泛型(99, 100);
+block 移動生成101_100 = 地圖::移動生成泛型(101, 100);
+block 移動生成099_101 = 地圖::移動生成泛型(99, 101);
+block 移動生成100_101 = 地圖::移動生成泛型(100, 101);
+block 移動生成101_101 = 地圖::移動生成泛型(101, 101);
+block 移動生成099_102 = 地圖::移動生成泛型(99, 102);
+block 移動生成100_102 = 地圖::移動生成泛型(100, 102);
+block 移動生成101_102 = 地圖::移動生成泛型(101, 102);
+block 移動生成100_103 = 地圖::移動生成泛型(100, 103);
+block 移動生成101_103 = 地圖::移動生成泛型(101, 103);
+block 移動生成100_104 = 地圖::移動生成泛型(100, 104);
+block 移動生成101_104 = 地圖::移動生成泛型(101, 104);
+block 地圖初始化 {
+    __label__ = "地圖";
+    actions {
+        儲存全域變數(key = "chunk_0_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_0_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_1_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_1_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_2_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_2_y", type = "int", value = 0);
+        儲存全域變數(key = "chunk_3_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_3_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_4_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_4_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_5_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_5_y", type = "int", value = 27);
+        儲存全域變數(key = "chunk_6_x", type = "int", value = 0);
+        儲存全域變數(key = "chunk_6_y", type = "int", value = 54);
+        儲存全域變數(key = "chunk_7_x", type = "int", value = 27);
+        儲存全域變數(key = "chunk_7_y", type = "int", value = 54);
+        儲存全域變數(key = "chunk_8_x", type = "int", value = 54);
+        儲存全域變數(key = "chunk_8_y", type = "int", value = 54);
+        儲存全域變數(key = "chunk_used_0", type = "int", value = 1);
+        儲存全域變數(key = "chunk_used_1", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_2", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_3", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_4", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_5", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_6", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_7", type = "int", value = 0);
+        儲存全域變數(key = "chunk_used_8", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_1", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_2", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_3", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_4", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_5", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_6", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_7", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_8", type = "int", value = 0);
+        儲存全域變數(key = "chunk_available_stack_now", type = "int", value = -1);
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = 1);
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = 2);
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = 3);
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = 4);
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = 5);
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = 6);
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = 7);
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = 8);
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+        地圖::儲存地圖變量(99, 100, 地圖::新手村近郊099n100);
+        地圖::儲存地圖變量(100, 100, 地圖::新手村100n100);
+        地圖::儲存地圖變量(101, 100, 地圖::新手村近郊101n100);
+        地圖::儲存地圖變量(99, 101, 地圖::新手村近郊099n101);
+        地圖::儲存地圖變量(100, 101, 地圖::新手村近郊100n101);
+        地圖::儲存地圖變量(101, 101, 地圖::新手村近郊101n101);
+        地圖::儲存地圖變量(99, 102, 地圖::新手村近郊099n102);
+        地圖::儲存地圖變量(100, 102, 地圖::新手村近郊100n102);
+        地圖::儲存地圖變量(101, 102, 地圖::新手村近郊101n102);
+        地圖::儲存地圖變量(100, 103, 地圖::無芒山100n103);
+        地圖::儲存地圖變量(101, 103, 地圖::無芒山101n103);
+        地圖::儲存地圖變量(100, 104, 地圖::無芒山100n104);
+        地圖::儲存地圖變量(101, 104, 地圖::石蔭村101n104);
+        儲存全域變數(key = "chunk_to_map_0_x", type = "int", value = 100);
+        儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
+        儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
+        儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
+        地圖::生成地圖("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}", 地圖::新手村100n100);
+    }
+}
+block 地圖移動離開往上 = 地圖::移動離開泛型("上");
+block 地圖移動離開往下 = 地圖::移動離開泛型("下");
+block 地圖移動離開往左 = 地圖::移動離開泛型("左");
+block 地圖移動離開往右 = 地圖::移動離開泛型("右");
+block 地圖移動進入往上 = 地圖::移動進入泛型("上");
+block 地圖移動進入往下 = 地圖::移動進入泛型("下");
+block 地圖移動進入往左 = 地圖::移動進入泛型("左");
+block 地圖移動進入往右 = 地圖::移動進入泛型("右");
+block 移動移除物件1 = 地圖::移動移除物件泛型(1);
+block 移動移除物件2 = 地圖::移動移除物件泛型(2);
+block 移動移除物件3 = 地圖::移動移除物件泛型(3);
+block 移動移除物件4 = 地圖::移動移除物件泛型(4);
+block 移動移除物件5 = 地圖::移動移除物件泛型(5);
+block 移動移除物件6 = 地圖::移動移除物件泛型(6);
+block 移動移除物件7 = 地圖::移動移除物件泛型(7);
+block 移動移除物件8 = 地圖::移動移除物件泛型(8);
+block 移動移除人物1 = 地圖::移動移除人物泛型(1);
+block 移動移除人物2 = 地圖::移動移除人物泛型(2);
+block 移動移除人物3 = 地圖::移動移除人物泛型(3);
+block 移動移除人物4 = 地圖::移動移除人物泛型(4);
+block 移動移除人物5 = 地圖::移動移除人物泛型(5);
+block 移動移除人物6 = 地圖::移動移除人物泛型(6);
+block 移動移除人物7 = 地圖::移動移除人物泛型(7);
+block 移動移除人物8 = 地圖::移動移除人物泛型(8);
+block 可分配區域更新 {
+    __repeat__ = -1;
+    __label__ = "地圖";
+    checks {
+        比較數字(lhs = "{chunk_available_stack_0}", op = "==", rhs = -1);
+        比較數字(lhs = ("{chunk_available_stack_1}+{chunk_available_stack_2}+" + ("{chunk_available_stack_3}+{chunk_available_stack_4}+{chunk_available_stack_5}+" + "{chunk_available_stack_6}+{chunk_available_stack_7}+{chunk_available_stack_8}")), op = "!=", rhs = -8);
+    }
+    actions {
+        儲存全域變數(key = "chunk_available_stack_0", type = "int", value = "{chunk_available_stack_1}");
+        儲存全域變數(key = "chunk_available_stack_1", type = "int", value = "{chunk_available_stack_2}");
+        儲存全域變數(key = "chunk_available_stack_2", type = "int", value = "{chunk_available_stack_3}");
+        儲存全域變數(key = "chunk_available_stack_3", type = "int", value = "{chunk_available_stack_4}");
+        儲存全域變數(key = "chunk_available_stack_4", type = "int", value = "{chunk_available_stack_5}");
+        儲存全域變數(key = "chunk_available_stack_5", type = "int", value = "{chunk_available_stack_6}");
+        儲存全域變數(key = "chunk_available_stack_6", type = "int", value = "{chunk_available_stack_7}");
+        儲存全域變數(key = "chunk_available_stack_7", type = "int", value = "{chunk_available_stack_8}");
+        儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
+    }
+}
+block 查看主面板 {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        鍵盤按鍵(varName = "clicker", key = "Z");
+    }
+    actions {
+        關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_main");
+        儲存全域變數(key = "instance", type = "string", value = "{clicker.id}");
+        彈出選項視窗(actorId = "{instance}", dialogId = "dialog_main", message = 面板::主頁, options = [Button(id = "dialog_button_point", text = "分配點數")]);
+    }
+}
+block 查看能力面板 {
+    __repeat__ = -1;
+    __label__ = "面板";
+    triggers {
+        視窗確認(buttonName = "dialog_button_point", playerLocalId = "instance");
+    }
+    actions {
+        面板::顯示能力面板();
+    }
+}
+block 點擊能力分配一點力量 = 面板::點擊能力分配泛型("STR", "力量", "01");
+block 點擊能力分配一點體質 = 面板::點擊能力分配泛型("CON", "體質", "01");
+block 點擊能力分配一點敏捷 = 面板::點擊能力分配泛型("AGI", "敏捷", "01");
+block 點擊能力分配一點智慧 = 面板::點擊能力分配泛型("INT", "智慧", "01");
+block 點擊能力分配一點精神 = 面板::點擊能力分配泛型("PSY", "精神", "01");
+block 點擊能力分配十點力量 = 面板::點擊能力分配泛型("STR", "力量", "10");
+block 點擊能力分配十點體質 = 面板::點擊能力分配泛型("CON", "體質", "10");
+block 點擊能力分配十點敏捷 = 面板::點擊能力分配泛型("AGI", "敏捷", "10");
+block 點擊能力分配十點智慧 = 面板::點擊能力分配泛型("INT", "智慧", "10");
+block 點擊能力分配十點精神 = 面板::點擊能力分配泛型("PSY", "精神", "10");
+block 點擊重置能力 {
+    __repeat__ = -1;
+    __label__ = "玩家";
+    triggers {
+        告示牌按鈕(varName = "instance", buttonId = "ResetPoint");
+    }
+    actions {
+        儲存全域變數(key = "tmp_q", type = "int", value = "floor({instance.Level}/10)");
+        儲存全域變數(key = "tmp_r", type = "int", value = "{instance.Level} - 10*{tmp_q}");
+        自定義::儲存Instance整數("Point", "5 * {tmp_q} * ({tmp_q} + 3) + {tmp_r} * ({tmp_q} + 2)");
+        自定義::儲存Instance整數("STR", 0);
+        自定義::儲存Instance整數("CON", 0);
+        自定義::儲存Instance整數("AGI", 0);
+        自定義::儲存Instance整數("INT", 0);
+        自定義::儲存Instance整數("PSY", 0);
+        角色說話(actorId = "instance", text = "成功重設能力點，目前有{instance.Point}點能力點");
+        自定義::更新角色屬性("instance");
+        自定義::上載Instance數據();
+    }
+}
+block 等級提升 {
+    __repeat__ = -1;
+    __label__ = "玩家";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+        比較數字(lhs = "{instance.Exp}", op = ">=", rhs = "{instance.ExpNeeded}");
+    }
+    actions {
+        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = 文字::HTML等級提升, duration = 6000);
+        自定義::儲存Instance整數("Exp", "{instance.Exp}-{instance.ExpNeeded}");
+        自定義::儲存Instance整數("Point", "{instance.Point}+floor({instance.Level}/10)+2");
+        自定義::儲存Instance整數("ExpNeeded", "({instance.Level}+10)*({instance.Level}+10)");
+        自定義::儲存Instance整數("Level", "{instance.Level}+1");
+        自定義::儲存Instance整數("HP", 公式::Instance血量);
+        設定角色屬性(actorId = "instance", attr = "maxHp", value = "{instance.HP}");
+        自定義::上載Instance數據();
+    }
+}
+block 回血 {
+    __repeat__ = -1;
+    __repeatInterval__ = 10000;
+    __label__ = "玩家";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+    }
+    actions {
+        角色加減血(actorCode = "instance", value = 公式::Instance恢復量);
+    }
+}
+block 玩家死亡 {
+    __repeat__ = -1;
+    __label__ = "玩家";
+    triggers {
+        角色死亡(actor = 角色::任何玩家, varName = "instance");
+    }
+    actions {
+        自定義::儲存Instance整數("map_x", 100);
+        自定義::儲存Instance整數("map_y", 100);
+    }
+}
+block 玩家初始化 {
+    __repeat__ = -1;
+    __label__ = "玩家";
+    triggers {
+        角色進入戰場(actor = 角色::任何玩家, varName = "instance");
+    }
+    actions {
+        自定義::儲存Instance整數("STR", 0);
+        自定義::儲存Instance整數("CON", 0);
+        自定義::儲存Instance整數("AGI", 0);
+        自定義::儲存Instance整數("INT", 0);
+        自定義::儲存Instance整數("PSY", 0);
+        自定義::儲存Instance整數("Level", 1);
+        自定義::儲存Instance整數("Point", 2);
+        自定義::儲存Instance整數("Exp", 0);
+        自定義::儲存Instance整數("ExpNeeded", 100);
+        自定義::儲存Instance整數("HP", 100);
+        自定義::儲存Instance整數("map_x", 100);
+        自定義::儲存Instance整數("map_y", 100);
+        儲存物件變數(key = "XSkill", object = "instance", type = "string", value = "無");
+        取得玩家狀態(category = 狀態讀寫密鑰, key = "savedBefore", playerId = "{instance}", varName = "{instance}_savedBefore");
+        人物裝備武器(actorCode = "instance", type = "fist", hand = 1);
+        人物裝備武器(actorCode = "instance", type = "fist", hand = 2);
+        角色說話(actorId = "instance", cleanTalk = true, text = "玩家初始中");
+        設定角色屬性(actorId = "instance", attr = "group", value = "100");
+        等待(duration = 500);
+        自定義::儲存Instance整數("completedInit", 1);
+        for(x in 0...2) {
+            for(y in 0...2) {
+                角色重生位置(actorId = "{instance}", x = (x * 27), y = (y * 27));
+            }
+        }
+        角色重生位置(actorId = "{instance}", x = 23, y = 23);
+        角色重生位置(actorId = "{instance}", x = 10, y = 10);
+    }
+}
+block 遊戲初始化 {
+    actions {
+        迴避友軍攻擊();
+    }
+}
 //----------------------------//
 //--- AST After argBinding ---//
 //----------------------------//

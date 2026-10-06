@@ -1,0 +1,12 @@
+// OPTION: --stack-trace
+
+def core::flow(v): block {
+    actions {
+        twge::assert(v == 1);
+    }
+}
+
+def level1::flow(v): block = core::flow(v);
+def level2::flow(v): block = level1::flow(v);
+
+block mainFlow = level2::flow(missingValue);

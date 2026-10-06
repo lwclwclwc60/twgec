@@ -137,6 +137,7 @@ public:
   std::vector<std::string> params;
   std::unique_ptr<TypedInstrSetNode> typedInstrSet;
   std::unique_ptr<BlockBodyNode> blockBody;
+  std::unique_ptr<InstructionNode> inheritanceCall;
 
   // Constructor
   FunDefNode(const std::string &id, Location loc)

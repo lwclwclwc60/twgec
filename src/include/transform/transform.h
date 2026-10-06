@@ -16,6 +16,10 @@ struct PassConfig {
   bool allowUnresolvedExpression;
 };
 
+// Def block extend shorthand will be materialized into concrete block bodies
+bool blockExtend(const std::unique_ptr<ModuleNode> &moduleNode,
+                 PassConfig config);
+
 // Symbol redefinition or use before define will be checked
 bool symbolChecking(const std::unique_ptr<ModuleNode> &moduleNode,
                     PassConfig config);
@@ -45,6 +49,7 @@ bool implicitListPromotion(const std::unique_ptr<ModuleNode> &moduleNode,
                            PassConfig config);
 
 namespace pass {
+const std::string blockExtend = "blockExtend";
 const std::string symbolChecking = "symbolChecking";
 const std::string argBinding = "argBinding";
 const std::string blockInling = "blockInling";
@@ -64,6 +69,7 @@ private:
   map<std::string,
       std::function<bool(const std::unique_ptr<ModuleNode> &, PassConfig)>>
       passMap = {
+          {pass::blockExtend, blockExtend},
           {pass::symbolChecking, symbolChecking},
           {pass::argBinding, argBinding},
           {pass::blockInling, blockInling},
@@ -104,6 +110,7 @@ private:
     // Before expression propagation
     PassConfig config = {.hidden = false, .allowUnresolvedExpression = true};
     if (!(singlePass(pass::symbolChecking, config) &&
+          singlePass(pass::blockExtend, config) &&
           singlePass(pass::argBinding, config) &&
           singlePass(pass::blockInling, config) &&
           singlePass(pass::blockLegalization, config) &&
