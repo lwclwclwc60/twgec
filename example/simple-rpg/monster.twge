@@ -37,9 +37,15 @@ block 野獸死亡五級鹿 = 自定義::野獸死亡泛型("monster_deer_lv05",
 block 野獸死亡七級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv07", "stone_exp_07", "redStone");
 block 野獸死亡九級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv09", "stone_exp_09", "redStone");
 
-// TODO: Support syntax
-// def 自定義::野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, strength, role) : block = 
-//      野獸重生拳頭類泛型(actor_id, name, x, y, range, hp, "fist", "fist", strength, role);
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role,
+            x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
+            y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
+            camp = "第三", range = 10, localVarname = "actor",
+            weapon1 = "fist", weapon2 = "fist", teamId = 101);
+
+}
+
 // TODO: Support typing
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
@@ -65,24 +71,16 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if(monster_type == "鹿") {
-            新增角色(name = monster_type + "(Lv" + twge::to_string(level) + ")",
+            怪物::新增怪物(name = monster_type + "(Lv" + twge::to_string(level) + ")",
                     id = "monster_deer_lv0" + twge::to_string(level) + "*",
-                    hp = 45 + 15 * level,
-                    strength = 8 + 2 * level,
-                    x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
-                    y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
-                    camp = "第三", range = 10, localVarname = "actor",
-                    weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+                    hp = 45 + 15 * level, strength = 8 + 2 * level,
+                    role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if(monster_type == "山嶺石怪") {
-            新增角色(name = monster_type + "(Lv" + twge::to_string(level) + ")",
+            怪物::新增怪物(name = monster_type + "(Lv" + twge::to_string(level) + ")",
                     id = "monster_stone_lv0" + twge::to_string(level) + "*",
-                    hp = 60 + 20 * level,
-                    strength = 10 + 2 * level,
-                    x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
-                    y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
-                    camp = "第三", range = 10, localVarname = "actor",
-                    weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+                    hp = 60 + 20 * level, strength = 10 + 2 * level,
+                    role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }

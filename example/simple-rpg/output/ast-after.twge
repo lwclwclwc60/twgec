@@ -242,6 +242,9 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role, x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
+}
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
@@ -266,10 +269,10 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if((monster_type == "鹿")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if((monster_type == "山嶺石怪")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -1227,6 +1230,9 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role, x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
+}
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
@@ -1251,10 +1257,10 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if((monster_type == "鹿")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if((monster_type == "山嶺石怪")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -2212,6 +2218,9 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role, x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
+}
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
@@ -2236,10 +2245,10 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if((monster_type == "鹿")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if((monster_type == "山嶺石怪")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -3197,6 +3206,9 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role, x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
+}
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
@@ -3221,10 +3233,10 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if((monster_type == "鹿")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if((monster_type == "山嶺石怪")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4289,10 +4301,10 @@ block 野獸重生x099y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "99", chunk_y = "100");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "99", chunk_y = "100");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4323,10 +4335,10 @@ block 野獸重生x101y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "101", chunk_y = "100");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "101", chunk_y = "100");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4357,10 +4369,10 @@ block 野獸重生x100y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "100", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "100", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4391,10 +4403,10 @@ block 野獸重生x099y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "99", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "99", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4425,10 +4437,10 @@ block 野獸重生x101y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "101", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "101", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4459,10 +4471,10 @@ block 野獸重生x100y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "100", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "100", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4493,10 +4505,10 @@ block 野獸重生x099y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", chunk_x = "99", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", chunk_x = "99", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4527,10 +4539,10 @@ block 野獸重生x101y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", chunk_x = "101", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", chunk_x = "101", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4561,10 +4573,10 @@ block 野獸重生x101y102山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", chunk_x = "101", chunk_y = "102");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", chunk_x = "101", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4595,10 +4607,10 @@ block 野獸重生x101y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", chunk_x = "101", chunk_y = "103");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", chunk_x = "101", chunk_y = "103");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4629,10 +4641,10 @@ block 野獸重生x100y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", chunk_x = "100", chunk_y = "103");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", chunk_x = "100", chunk_y = "103");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -4663,10 +4675,10 @@ block 野獸重生x100y104山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", chunk_x = "100", chunk_y = "104");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", chunk_x = "100", chunk_y = "104");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -6668,6 +6680,9 @@ def 自定義::野獸死亡泛型(actor_id, drop_item_code, drop_item_type) : bl
         新增放置可拾取道具(itemCode = drop_item_code, x = (公式::InstanceX坐標 + "-0.5"), y = (公式::InstanceY坐標 + "-0.5"), type = drop_item_type);
     }
 }
+def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    新增角色(name = name, id = id, hp = hp, strength = strength, role = role, x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
+}
 def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, level) : block {
     __repeat__ = -1;
     __repeatInterval__ = interval;
@@ -6692,10 +6707,10 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     }
     actions {
         if((monster_type == "鹿")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(level) + "*")), hp = (45 + (15 * level)), strength = (8 + (2 * level)), role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if((monster_type == "山嶺石怪")) {
-            新增角色(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), x = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + (chunk_x + ("_" + (chunk_y + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = (monster_type + ("(Lv" + (twge::to_string(level) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(level) + "*")), hp = (60 + (20 * level)), strength = (10 + (2 * level)), role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -7832,10 +7847,10 @@ block 野獸重生x099y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "99", chunk_y = "100");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "99", chunk_y = "100");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -7868,10 +7883,10 @@ block 野獸重生x101y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "101", chunk_y = "100");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "101", chunk_y = "100");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -7904,10 +7919,10 @@ block 野獸重生x100y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", chunk_x = "100", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", chunk_x = "100", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -7940,10 +7955,10 @@ block 野獸重生x099y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "99", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "99", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -7976,10 +7991,10 @@ block 野獸重生x101y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "101", chunk_y = "101");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "101", chunk_y = "101");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8012,10 +8027,10 @@ block 野獸重生x100y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", chunk_x = "100", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", chunk_x = "100", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8048,10 +8063,10 @@ block 野獸重生x099y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", chunk_x = "99", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", chunk_x = "99", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8084,10 +8099,10 @@ block 野獸重生x101y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", chunk_x = "101", chunk_y = "102");
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", chunk_x = "101", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8120,10 +8135,10 @@ block 野獸重生x101y102山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", chunk_x = "101", chunk_y = "102");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", chunk_x = "101", chunk_y = "102");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8156,10 +8171,10 @@ block 野獸重生x101y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", chunk_x = "101", chunk_y = "103");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", chunk_x = "101", chunk_y = "103");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8192,10 +8207,10 @@ block 野獸重生x100y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", chunk_x = "100", chunk_y = "103");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", chunk_x = "100", chunk_y = "103");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -8228,10 +8243,10 @@ block 野獸重生x100y104山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", chunk_x = "100", chunk_y = "104");
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            怪物::新增怪物(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", chunk_x = "100", chunk_y = "104");
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11027,10 +11042,10 @@ block 野獸重生x099y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11063,10 +11078,10 @@ block 野獸重生x101y100鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("100" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11099,10 +11114,10 @@ block 野獸重生x100y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(1) + "*")), hp = (45 + (15 * 1)), strength = (8 + (2 * 1)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(1) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(1) + "*")), hp = (60 + (20 * 1)), strength = (10 + (2 * 1)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11135,10 +11150,10 @@ block 野獸重生x099y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11171,10 +11186,10 @@ block 野獸重生x101y101鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("101" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11207,10 +11222,10 @@ block 野獸重生x100y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(3) + "*")), hp = (45 + (15 * 3)), strength = (8 + (2 * 3)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(3) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(3) + "*")), hp = (60 + (20 * 3)), strength = (10 + (2 * 3)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11243,10 +11258,10 @@ block 野獸重生x099y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("99" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11279,10 +11294,10 @@ block 野獸重生x101y102鹿 {
     }
     actions {
         if(("鹿" == "鹿")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(5) + "*")), hp = (45 + (15 * 5)), strength = (8 + (2 * 5)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("鹿" == "山嶺石怪")) {
-            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("鹿" + ("(Lv" + (twge::to_string(5) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(5) + "*")), hp = (60 + (20 * 5)), strength = (10 + (2 * 5)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11315,10 +11330,10 @@ block 野獸重生x101y102山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("102" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11351,10 +11366,10 @@ block 野獸重生x101y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(7) + "*")), hp = (45 + (15 * 7)), strength = (8 + (2 * 7)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(7) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(7) + "*")), hp = (60 + (20 * 7)), strength = (10 + (2 * 7)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("101" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11387,10 +11402,10 @@ block 野獸重生x100y103山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("103" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -11423,10 +11438,10 @@ block 野獸重生x100y104山嶺石怪 {
     }
     actions {
         if(("山嶺石怪" == "鹿")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_deer_lv0" + (twge::to_string(9) + "*")), hp = (45 + (15 * 9)), strength = (8 + (2 * 9)), role = "鹿", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(("山嶺石怪" == "山嶺石怪")) {
-            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = ("山嶺石怪" + ("(Lv" + (twge::to_string(9) + ")"))), id = ("monster_stone_lv0" + (twge::to_string(9) + "*")), hp = (60 + (20 * 9)), strength = (10 + (2 * 9)), role = "石怪", x = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_x} + 10")))), y = ("{chunk_{map_to_chunk_" + ("100" + ("_" + ("104" + "}_y} + 10")))), camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26583,10 +26598,10 @@ block 野獸重生x099y100鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, role = "石怪", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26619,10 +26634,10 @@ block 野獸重生x101y100鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, role = "石怪", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26655,10 +26670,10 @@ block 野獸重生x100y101鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv1)", id = "monster_stone_lv01*", hp = 80, strength = 12, role = "石怪", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26691,10 +26706,10 @@ block 野獸重生x099y101鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, role = "石怪", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26727,10 +26742,10 @@ block 野獸重生x101y101鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, role = "石怪", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26763,10 +26778,10 @@ block 野獸重生x100y102鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv3)", id = "monster_stone_lv03*", hp = 120, strength = 16, role = "石怪", x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26799,10 +26814,10 @@ block 野獸重生x099y102鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv5)", id = "monster_stone_lv05*", hp = 160, strength = 20, x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv5)", id = "monster_stone_lv05*", hp = 160, strength = 20, role = "石怪", x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26831,10 +26846,10 @@ block 野獸重生x101y102鹿 {
     }
     actions {
         if(true) {
-            新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(false) {
-            新增角色(name = "鹿(Lv5)", id = "monster_stone_lv05*", hp = 160, strength = 20, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "鹿(Lv5)", id = "monster_stone_lv05*", hp = 160, strength = 20, role = "石怪", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26863,10 +26878,10 @@ block 野獸重生x101y102山嶺石怪 {
     }
     actions {
         if(false) {
-            新增角色(name = "山嶺石怪(Lv7)", id = "monster_deer_lv07*", hp = 150, strength = 22, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "山嶺石怪(Lv7)", id = "monster_deer_lv07*", hp = 150, strength = 22, role = "鹿", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(true) {
-            新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26899,10 +26914,10 @@ block 野獸重生x101y103山嶺石怪 {
     }
     actions {
         if(false) {
-            新增角色(name = "山嶺石怪(Lv7)", id = "monster_deer_lv07*", hp = 150, strength = 22, x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "山嶺石怪(Lv7)", id = "monster_deer_lv07*", hp = 150, strength = 22, role = "鹿", x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(true) {
-            新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26935,10 +26950,10 @@ block 野獸重生x100y103山嶺石怪 {
     }
     actions {
         if(false) {
-            新增角色(name = "山嶺石怪(Lv9)", id = "monster_deer_lv09*", hp = 180, strength = 26, x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "山嶺石怪(Lv9)", id = "monster_deer_lv09*", hp = 180, strength = 26, role = "鹿", x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(true) {
-            新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -26971,10 +26986,10 @@ block 野獸重生x100y104山嶺石怪 {
     }
     actions {
         if(false) {
-            新增角色(name = "山嶺石怪(Lv9)", id = "monster_deer_lv09*", hp = 180, strength = 26, x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+            新增角色(name = "山嶺石怪(Lv9)", id = "monster_deer_lv09*", hp = 180, strength = 26, role = "鹿", x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         }
         if(true) {
-            新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+            新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
             設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         }
@@ -40745,7 +40760,7 @@ block 野獸重生x099y100鹿 {
         比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40761,7 +40776,7 @@ block 野獸重生x101y100鹿 {
         比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40777,7 +40792,7 @@ block 野獸重生x100y101鹿 {
         比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40793,7 +40808,7 @@ block 野獸重生x099y101鹿 {
         比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40809,7 +40824,7 @@ block 野獸重生x101y101鹿 {
         比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40825,7 +40840,7 @@ block 野獸重生x100y102鹿 {
         比較數字(lhs = "{map_used_100_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40841,7 +40856,7 @@ block 野獸重生x099y102鹿 {
         比較數字(lhs = "{map_used_99_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40857,7 +40872,7 @@ block 野獸重生x101y102鹿 {
         比較數字(lhs = "{map_used_101_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -40873,7 +40888,7 @@ block 野獸重生x101y102山嶺石怪 {
         比較數字(lhs = "{map_used_101_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -40891,7 +40906,7 @@ block 野獸重生x101y103山嶺石怪 {
         比較數字(lhs = "{map_used_101_103}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -40909,7 +40924,7 @@ block 野獸重生x100y103山嶺石怪 {
         比較數字(lhs = "{map_used_100_103}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -40927,7 +40942,7 @@ block 野獸重生x100y104山嶺石怪 {
         比較數字(lhs = "{map_used_100_104}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -43829,7 +43844,7 @@ block 野獸重生x099y100鹿 {
         比較數字(lhs = "{map_used_99_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_99_100}_x} + 10", y = "{chunk_{map_to_chunk_99_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43845,7 +43860,7 @@ block 野獸重生x101y100鹿 {
         比較數字(lhs = "{map_used_101_100}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_101_100}_x} + 10", y = "{chunk_{map_to_chunk_101_100}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43861,7 +43876,7 @@ block 野獸重生x100y101鹿 {
         比較數字(lhs = "{map_used_100_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv1)", id = "monster_deer_lv01*", hp = 60, strength = 10, role = "鹿", x = "{chunk_{map_to_chunk_100_101}_x} + 10", y = "{chunk_{map_to_chunk_100_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43877,7 +43892,7 @@ block 野獸重生x099y101鹿 {
         比較數字(lhs = "{map_used_99_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_99_101}_x} + 10", y = "{chunk_{map_to_chunk_99_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43893,7 +43908,7 @@ block 野獸重生x101y101鹿 {
         比較數字(lhs = "{map_used_101_101}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_101_101}_x} + 10", y = "{chunk_{map_to_chunk_101_101}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43909,7 +43924,7 @@ block 野獸重生x100y102鹿 {
         比較數字(lhs = "{map_used_100_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv3)", id = "monster_deer_lv03*", hp = 90, strength = 14, role = "鹿", x = "{chunk_{map_to_chunk_100_102}_x} + 10", y = "{chunk_{map_to_chunk_100_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43925,7 +43940,7 @@ block 野獸重生x099y102鹿 {
         比較數字(lhs = "{map_used_99_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_99_102}_x} + 10", y = "{chunk_{map_to_chunk_99_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43941,7 +43956,7 @@ block 野獸重生x101y102鹿 {
         比較數字(lhs = "{map_used_101_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "鹿");
+        新增角色(name = "鹿(Lv5)", id = "monster_deer_lv05*", hp = 120, strength = 18, role = "鹿", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         跟隨人物(actorId = "actor", type = "跟隨自己");
     }
     triggers {
@@ -43957,7 +43972,7 @@ block 野獸重生x101y102山嶺石怪 {
         比較數字(lhs = "{map_used_101_102}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_102}_x} + 10", y = "{chunk_{map_to_chunk_101_102}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -43975,7 +43990,7 @@ block 野獸重生x101y103山嶺石怪 {
         比較數字(lhs = "{map_used_101_103}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv7)", id = "monster_stone_lv07*", hp = 200, strength = 24, role = "石怪", x = "{chunk_{map_to_chunk_101_103}_x} + 10", y = "{chunk_{map_to_chunk_101_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -43993,7 +44008,7 @@ block 野獸重生x100y103山嶺石怪 {
         比較數字(lhs = "{map_used_100_103}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_103}_x} + 10", y = "{chunk_{map_to_chunk_100_103}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
@@ -44011,7 +44026,7 @@ block 野獸重生x100y104山嶺石怪 {
         比較數字(lhs = "{map_used_100_104}", op = "==", rhs = "1");
     }
     actions {
-        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101, role = "石怪");
+        新增角色(name = "山嶺石怪(Lv9)", id = "monster_stone_lv09*", hp = 240, strength = 28, role = "石怪", x = "{chunk_{map_to_chunk_100_104}_x} + 10", y = "{chunk_{map_to_chunk_100_104}_y} + 10", camp = "第三", range = 10, localVarname = "actor", weapon1 = "fist", weapon2 = "fist", teamId = 101);
         設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");
         設定角色屬性(actorId = "{actor}", attr = "體型縮放", value = "1.05");
         跟隨人物(actorId = "actor", type = "跟隨自己");
