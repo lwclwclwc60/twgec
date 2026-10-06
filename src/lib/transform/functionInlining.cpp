@@ -1,5 +1,6 @@
 #include "ast.h"
 #include "transform.h"
+#include "transform/utils/stackTrace.h"
 #include <algorithm>
 #include <iostream>
 #include <map>
@@ -84,6 +85,10 @@ bool functionInling(
     auto clonedFunRootInstrSet =
         funDefNode.get()->typedInstrSet.get()->instrSet->clone();
     clonedFunRootInstrSet->propagateExp(callerParamMap);
+    // non-empty param contains the stacktrace info already
+    if (callerParamMap.empty())
+      stacktrace::prependCallFrameToInstrSet(
+          clonedFunRootInstrSet, callerInstr->identifier, callerInstr->loc);
     compositeInstrs.insert(
         pos,
         std::make_move_iterator(clonedFunRootInstrSet->instructions.begin()),

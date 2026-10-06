@@ -1,0 +1,19 @@
+// OPTION: --stack-trace
+
+def core::assertEqOne(v): actions {
+    twge::assert(v == 1);
+}
+
+def level1::forward(v): actions {
+    core::assertEqOne(v);
+}
+
+def level2::forward(v): actions {
+    level1::forward(v);
+}
+
+block mainFlow {
+    actions {
+        level2::forward(missingValue);
+    }
+}

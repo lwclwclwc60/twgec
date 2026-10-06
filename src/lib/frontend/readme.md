@@ -27,29 +27,31 @@
 ##### Regular Expression
 ```c
 // Global Scope
-ModuleNode := [ MetadataNode | BlockNode | ConstDefNode | FunDefNode]*
-- MetadataNode := MetadataToken AssignToken ExpNode
-- BlockNode := BlockToken IdentifierToken [BlockBodyNode | [AssignToken InstructionNode]]
-- ConstDefNode := ConstToken ScopedIdentifierToken AssignToken ExpNode
-- FunDefNode := DefToken ScopedIdentifierToken ParamDefsNode ColonToken [TypedInstrSetNode | [BlockToken BlockBodyNode]]
-  - ParamDefsNode = OpenParToken [IdentifierToken [CommaToken IdentifierToken]*]? CloseParToken
-  - BlockBodyNode = OpenCurToken [ MetadataNode | TypedInstrSetNode ]* CloseCurToken
+ModuleNode := [ MetadataNode | ConstDefNode | FunDefNode | BlockNode | SemicolonToken ]*
+- MetadataNode := MetadataToken AssignToken ExpNode SemicolonToken
+- ConstDefNode := ConstToken ScopedIdentifierToken AssignToken ExpNode SemicolonToken
+- FunDefNode := DefToken ScopedIdentifierToken ParamDefsNode ColonToken FunDefBody
+  - ParamDefsNode := OpenParToken [ IdentifierToken [CommaToken IdentifierToken]* ]? CloseParToken
+  - FunDefBody := BlockFunDefBody | TypedFunDefBody
+    - BlockFunDefBody := BlockToken BlockBodyNode
+    - TypedFunDefBody := TypedDefToken InstrSetNode
+- BlockNode := BlockToken IdentifierToken [ BlockBodyNode | [AssignToken InstructionNode] ]
+- BlockBodyNode := OpenCurToken [ MetadataNode | TypedInstrSetNode ]* CloseCurToken
 // Instruction Set Scope
-TypedInstrSetNode = [ActionsDefNode | ChecksDefNode | TriggersDefNode] InstrSetNode
+TypedInstrSetNode := TypedDefToken InstrSetNode
+- TypedDefToken := ActionsToken | ChecksToken | TriggersToken
 - InstrSetNode := OpenCurToken CompositeInstrNode* CloseCurToken
   - CompositeInstrNode := BranchNode | ForLoopNode | InstructionNode
     - BranchNode := IfRegionNode [ElseToken IfRegionNode]* [ElseToken InstrSetNode]?
       - IfRegionNode := IfToken OpenParToken ExpNode CloseParToken InstrSetNode
-    - ForLoopNode := ForToken OpenParToken IdentifierToken InToken ExpNode EllipsisToken ExpNode CloseParToken InstrSetNode
+    - ForLoopNode := ForToken OpenParToken IdentifierToken InToken ExpNode [EllipsisToken ExpNode]? CloseParToken InstrSetNode
 // Instruction Scope
-InstructionNode := [ScopedIdentifierToken | IntrinsicInstrNode] ParamAppsNode
-- IntrinsicInstrNode := IntrinsicAssert
-- ParamAppsNode = OpenParToken PositionalParamAppsNode? CloseParToken
-  - PositionalParamAppsNode = [IdentifierToken AssignToken ExpNode [CommaToken NamedParamAppsNode]?] | 
-                  [ExpNode [CommaToken PositionalParamAppsNode]?]
-  - NamedParamAppsNode = IdentifierToken AssignToken ExpNode [CommaToken NamedParamAppsNode]?
+InstructionNode := [ScopedIdentifierToken | IntrinsicAssertToken] ParamAppsNode SemicolonToken
+- ParamAppsNode := OpenParToken [ ArgNode [CommaToken ArgNode]* ]? CloseParToken
+  - ArgNode := NamedArgNode | ExpNode
+  - NamedArgNode := IdentifierToken AssignToken ExpNode
 // Expression
-ExpNode = LogicalOrExpNode
+ExpNode := LogicalOrExpNode
 - LogicalOrExpNode = LogicalAndExpNode [ OrToken LogicalAndExpNode ]*
 - LogicalAndExpNode = EqualityExpNode [ AndToken EqualityExpNode ]*
 - EqualityExpNode = RelationalExpNode [ [ EqualToken | NotEqualToken] RelationalExpNode ]*
@@ -58,18 +60,19 @@ ExpNode = LogicalOrExpNode
 - MultiplicativeExpNode = IntrinsicExpNode [ [MulToken | DivToken | ModToken] IntrinsicExpNode ]*
 - IntrinsicExpNode = IntrinsicNode | PrimaryExpNode
   - IntrinsicNode = IntrinsicCallNode OpenParToken ExpNode [CommaToken ExpNode]* CloseParToken
-  - IntrinsicCallNode = IntrinsicToString | IntrinsicToInt | IntrinsicToBool | IntrinsicGetIndex | IntrinsicGetLength
+  - IntrinsicCallNode = IntrinsicToString | IntrinsicToInt | IntrinsicToBool | IntrinsicGetIndex | IntrinsicGetLength | IntrinsicGetSlice
 - PrimaryExpNode = ValueNode | [OpenParToken ExpNode CloseParToken]
-ValueNode := StringValueNode | IntValueNode | BoolValueNode | VariableValueNode | PointValueNode | ActorMatchValueNode | ButtonValueNode | CustomWeaponToken
+ValueNode := StringValueNode | IntValueNode | NegativeIntValueNode | BoolValueNode | VariableValueNode | PointValueNode | ActorMatchValueNode | ButtonValueNode | CustomWeaponValueNode | ListValueNode
 - StringValueNode := StringToken
 - IntValueNode := IntToken
+- NegativeIntValueNode := SubToken IntToken
 - BoolValueNode := TrueToken | FalseToken
 - VariableValueNode := ScopedIdentifierToken
-- PointValueNode := PointToken OpenParToken IntToken CommaToken IntToken CloseParToken
+- PointValueNode := PointToken OpenParToken ExpNode CommaToken ExpNode CloseParToken
 - ActorMatchValueNode := ActorMatchToken ParamAppsNode
 - ButtonValueNode := ButtonToken ParamAppsNode
 - CustomWeaponValueNode := CustomWeaponToken ParamAppsNode
 - ListValueNode := OpenSqrToken [ExpNode [CommaToken ExpNode]*]? CloseSqrToken
 // Other
-- ScopedIdentifierToken = IdentifierToken [ScopeToken IdentifierToken]*
+- ScopedIdentifierToken := IdentifierToken [ScopeToken IdentifierToken]*
 ```

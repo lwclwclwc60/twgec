@@ -1,0 +1,5 @@
+Compilation Error: Found unresolvable expression `(missingValue == 1)` at test/fail/transform/desugarFunDefInheritanceStack/test.twge:4:18
+# frame 0: twge::assert at test/fail/transform/desugarFunDefInheritanceStack/test.twge:4:18
+# frame 1: core::assertEqOne at test/fail/transform/desugarFunDefInheritanceStack/test.twge:8:5
+# frame 2: level1::forward at test/fail/transform/desugarFunDefInheritanceStack/test.twge:12:5
+# frame 3: level2::forward at test/fail/transform/desugarFunDefInheritanceStack/test.twge:17:9

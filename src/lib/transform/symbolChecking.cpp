@@ -16,6 +16,23 @@ bool throwRedefinitionError(std::string name, Location loc1, Location loc2) {
   return false;
 }
 
+bool funParamRedefinitionChecking(const unique_ptr<ModuleNode> &moduleNode) {
+  bool ret = true;
+  for (const auto &funDef : moduleNode->funDefs) {
+    std::set<std::string> paramSet;
+    for (const auto &param : funDef->params) {
+      if (paramSet.count(param) != 0) {
+        std::cerr << "Compilation Error: Duplicated parameter `" << param
+                  << "` in function `" << funDef->identifier << "` at "
+                  << funDef->loc << "\n";
+        ret = false;
+      }
+      paramSet.insert(param);
+    }
+  }
+  return ret;
+}
+
 bool redefinitionChecking(const unique_ptr<ModuleNode> &moduleNode) {
   std::map<std::string, std::unique_ptr<ConstDefNode>> constDefMap;
   std::map<std::string, std::unique_ptr<FunDefNode>> funDefMap;
@@ -108,6 +125,7 @@ bool useBeforeDefineChecking(const unique_ptr<ModuleNode> &moduleNode) {
 bool symbolChecking(const unique_ptr<ModuleNode> &moduleNode,
                     PassConfig config) {
   return redefinitionChecking(moduleNode) &&
+         funParamRedefinitionChecking(moduleNode) &&
          useBeforeDefineChecking(moduleNode);
 }
 } // namespace transform
