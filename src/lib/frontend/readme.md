@@ -31,7 +31,9 @@ ModuleNode := [ MetadataNode | ConstDefNode | FunDefNode | BlockNode | Semicolon
 - MetadataNode := MetadataToken AssignToken ExpNode SemicolonToken
 - ConstDefNode := ConstToken ScopedIdentifierToken AssignToken ExpNode SemicolonToken
 - FunDefNode := DefToken ScopedIdentifierToken ParamDefsNode ColonToken FunDefBody
-  - ParamDefsNode := OpenParToken [ IdentifierToken [CommaToken IdentifierToken]* ]? CloseParToken
+  - ParamDefsNode := OpenParToken [ NonDefaultParamDefNode [CommaToken NonDefaultParamDefNode]* [CommaToken DefaultParamDefNode [CommaToken DefaultParamDefNode]* ]? | DefaultParamDefNode [CommaToken DefaultParamDefNode]* ]? CloseParToken
+    - NonDefaultParamDefNode := IdentifierToken
+    - DefaultParamDefNode := IdentifierToken AssignToken ExpNode
   - FunDefBody := BlockFunDefBody | TypedFunDefBody
     - BlockFunDefBody := BlockToken [ BlockBodyNode | [AssignToken InstructionNode] ]
     - TypedFunDefBody := TypedDefToken InstrSetNode
@@ -47,8 +49,8 @@ TypedInstrSetNode := TypedDefToken InstrSetNode
     - ForLoopNode := ForToken OpenParToken IdentifierToken InToken ExpNode [EllipsisToken ExpNode]? CloseParToken InstrSetNode
 // Instruction Scope
 InstructionNode := [ScopedIdentifierToken | IntrinsicAssertToken] ParamAppsNode SemicolonToken
-- ParamAppsNode := OpenParToken [ ArgNode [CommaToken ArgNode]* ]? CloseParToken
-  - ArgNode := NamedArgNode | ExpNode
+- ParamAppsNode := OpenParToken [ PositionalArgNode [CommaToken PositionalArgNode]* [CommaToken NamedArgNode [CommaToken NamedArgNode]* ]? | NamedArgNode [CommaToken NamedArgNode]* ]? CloseParToken
+  - PositionalArgNode := ExpNode
   - NamedArgNode := IdentifierToken AssignToken ExpNode
 // Expression
 ExpNode := LogicalOrExpNode

@@ -149,11 +149,28 @@ std::unique_ptr<FunDefNode> Parser::parseFunDef() {
   consume(TokenType::OPENPAR);
   std::unique_ptr<FunDefNode> funDefNode =
       std::make_unique<FunDefNode>(identifier, loc);
+  bool foundDefault = false;
   if (tokens.front().type == TokenType::IDENTIFIER)
     while (true) {
       std::string paramName = tokens.front().value;
+      Location paramLoc = tokens.front().location;
       consume(TokenType::IDENTIFIER);
       funDefNode->params.push_back(paramName);
+      if (consume(TokenType::ASSIGN, false)) {
+        foundDefault = true;
+        auto defaultExp = parseExp();
+        if (!defaultExp)
+          return nullptr;
+        funDefNode->defaultParamValues.push_back(std::move(defaultExp));
+      } else {
+        if (foundDefault) {
+          std::cerr << "SyntaxError: Non-default parameter cannot follow "
+                       "default parameter at "
+                    << paramLoc << "\n";
+          return nullptr;
+        }
+        funDefNode->defaultParamValues.push_back(nullptr);
+      }
       if (tokens.front().type == TokenType::CLOSEPAR)
         break;
       consume(TokenType::COMMA);
@@ -426,25 +443,32 @@ std::unique_ptr<ParamAppsNode> Parser::parseParamAppsNode() {
   bool foundNamed = false;
   while (tokens.front().type != TokenType::CLOSEPAR) {
     std::string identifierToken = tokens.front().value;
-    loc = tokens.front().location;
-    bool isParsingNamedArg =
-        foundNamed || (tokens.front().type == TokenType::IDENTIFIER &&
-                       getTokenWithIndex(1).type == TokenType::ASSIGN);
+    Location argLoc = tokens.front().location;
+    bool isParsingNamedArg = tokens.front().type == TokenType::IDENTIFIER &&
+                             getTokenWithIndex(1).type == TokenType::ASSIGN;
     if (isParsingNamedArg) {
+      foundNamed = true;
       if (!consume(TokenType::IDENTIFIER) || !consume(TokenType::ASSIGN))
         return nullptr;
       std::unique_ptr<ExpressionNode> expNode = parseExp();
       if (!expNode)
         return nullptr;
       std::unique_ptr<NamedParamAppsNode> namedArgNode =
-          std::make_unique<NamedParamAppsNode>(identifierToken, expNode, loc);
+          std::make_unique<NamedParamAppsNode>(identifierToken, expNode,
+                                               argLoc);
       paramAppsNode->addNamedArg(std::move(namedArgNode));
     } else {
+      if (foundNamed) {
+        std::cerr << "SyntaxError: Positional argument cannot follow named "
+                     "argument at "
+                  << argLoc << "\n";
+        return nullptr;
+      }
       std::unique_ptr<ExpressionNode> expNode = parseExp();
       if (!expNode)
         return nullptr;
       std::unique_ptr<PositionalParamAppsNode> posArgNode =
-          std::make_unique<PositionalParamAppsNode>(expNode, loc);
+          std::make_unique<PositionalParamAppsNode>(expNode, argLoc);
       paramAppsNode->addPositionalArg(std::move(posArgNode));
     }
     if (consume(TokenType::COMMA, /*errorThrowing*/ false))

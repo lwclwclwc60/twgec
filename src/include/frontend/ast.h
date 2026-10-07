@@ -135,6 +135,7 @@ class FunDefNode : public ASTNode {
 public:
   std::string identifier;
   std::vector<std::string> params;
+  std::vector<std::unique_ptr<ExpressionNode>> defaultParamValues;
   std::unique_ptr<TypedInstrSetNode> typedInstrSet;
   std::unique_ptr<BlockBodyNode> blockBody;
   std::unique_ptr<InstructionNode> inheritanceCall;
@@ -373,6 +374,9 @@ public:
 
 class ParamAppsNode : public ASTNode {
 public:
+  // `argNamesInOrder[i]` matches the i-th argument in source order.
+  // Empty string means the argument is positional.
+  std::vector<std::string> argNamesInOrder;
   std::vector<std::unique_ptr<PositionalParamAppsNode>> positional_args;
   std::vector<std::unique_ptr<NamedParamAppsNode>> named_args;
 

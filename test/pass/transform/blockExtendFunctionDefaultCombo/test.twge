@@ -1,0 +1,15 @@
+// OPTION: --print-ast-after --run-only=blockExtend,argBinding,blockInling,functionInling
+def emit(name, role, suffix = "!", ending = ".") : actions {
+    print(text = name + role + suffix + ending);
+}
+
+def baseWithDefault(v1, v2, v3 = "fallback-3", v4 = "fallback-4"): block {
+    actions {
+        emit(name = v1, role = v2);
+        emit(name = v3, role = v4, suffix = "?");
+    }
+}
+
+def childWithDefault(v1, v2): block = baseWithDefault(v1, v2);
+
+block init2 = childWithDefault("ok-1", "ok-2");

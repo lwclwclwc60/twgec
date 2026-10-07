@@ -1,0 +1,21 @@
+//----------------------------//
+//--- AST After argBinding ---//
+//----------------------------//
+def say(name, suffix = "!") : actions {
+    print(text = (name + suffix));
+}
+block init {
+    actions {
+        say(name = "A", suffix = "!");
+        say(name = "B", suffix = "?");
+    }
+}
+//--------------------------------//
+//--- AST After functionInling ---//
+//--------------------------------//
+block init {
+    actions {
+        print(text = ("A" + "!"));
+        print(text = ("B" + "?"));
+    }
+}

@@ -1,0 +1,71 @@
+//-----------------------------//
+//--- AST After blockExtend ---//
+//-----------------------------//
+def emit(name, role, suffix = "!", ending = ".") : actions {
+    print(text = (name + (role + (suffix + ending))));
+}
+def baseWithDefault(v1, v2, v3 = "fallback-3", v4 = "fallback-4") : block {
+    actions {
+        emit(name = v1, role = v2);
+        emit(name = v3, role = v4, suffix = "?");
+    }
+}
+def childWithDefault(v1, v2) : block {
+    actions {
+        emit(name = v1, role = v2);
+        emit(name = "fallback-3", role = "fallback-4", suffix = "?");
+    }
+}
+block init2 = childWithDefault("ok-1", "ok-2");
+//----------------------------//
+//--- AST After argBinding ---//
+//----------------------------//
+def emit(name, role, suffix = "!", ending = ".") : actions {
+    print(text = (name + (role + (suffix + ending))));
+}
+def baseWithDefault(v1, v2, v3 = "fallback-3", v4 = "fallback-4") : block {
+    actions {
+        emit(name = v1, role = v2, suffix = "!", ending = ".");
+        emit(name = v3, role = v4, suffix = "?", ending = ".");
+    }
+}
+def childWithDefault(v1, v2) : block {
+    actions {
+        emit(name = v1, role = v2, suffix = "!", ending = ".");
+        emit(name = "fallback-3", role = "fallback-4", suffix = "?", ending = ".");
+    }
+}
+block init2 = childWithDefault(v1 = "ok-1", v2 = "ok-2");
+//-----------------------------//
+//--- AST After blockInling ---//
+//-----------------------------//
+def emit(name, role, suffix = "!", ending = ".") : actions {
+    print(text = (name + (role + (suffix + ending))));
+}
+def baseWithDefault(v1, v2, v3 = "fallback-3", v4 = "fallback-4") : block {
+    actions {
+        emit(name = v1, role = v2, suffix = "!", ending = ".");
+        emit(name = v3, role = v4, suffix = "?", ending = ".");
+    }
+}
+def childWithDefault(v1, v2) : block {
+    actions {
+        emit(name = v1, role = v2, suffix = "!", ending = ".");
+        emit(name = "fallback-3", role = "fallback-4", suffix = "?", ending = ".");
+    }
+}
+block init2 {
+    actions {
+        emit(name = "ok-1", role = "ok-2", suffix = "!", ending = ".");
+        emit(name = "fallback-3", role = "fallback-4", suffix = "?", ending = ".");
+    }
+}
+//--------------------------------//
+//--- AST After functionInling ---//
+//--------------------------------//
+block init2 {
+    actions {
+        print(text = ("ok-1" + ("ok-2" + ("!" + "."))));
+        print(text = ("fallback-3" + ("fallback-4" + ("?" + "."))));
+    }
+}

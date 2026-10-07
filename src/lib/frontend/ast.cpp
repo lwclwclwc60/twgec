@@ -53,6 +53,8 @@ void FunDefNode::print(int indent) {
   std::cout << inden(indent) << "def " << identifier << "(";
   for (int i = 0; i < params.size(); i++) {
     std::cout << params[i];
+    if (i < defaultParamValues.size() && defaultParamValues[i])
+      std::cout << " = " << *defaultParamValues[i];
     if (i != params.size() - 1)
       std::cout << ", ";
   }
@@ -182,8 +184,15 @@ std::unique_ptr<MetadataNode> MetadataNode::clone() {
 
 std::unique_ptr<FunDefNode> FunDefNode::clone() {
   auto funDefNode = std::make_unique<FunDefNode>(identifier, loc);
-  for (auto &param : params)
+  for (size_t idx = 0; idx < params.size(); idx++) {
+    auto &param = params[idx];
     funDefNode->params.push_back(param);
+    if (idx < defaultParamValues.size() && defaultParamValues[idx])
+      funDefNode->defaultParamValues.push_back(
+          defaultParamValues[idx]->clone());
+    else
+      funDefNode->defaultParamValues.push_back(nullptr);
+  }
   if (typedInstrSet)
     funDefNode->typedInstrSet = typedInstrSet->clone();
   if (blockBody)
@@ -1096,12 +1105,14 @@ void PositionalParamAppsNode::refreshTrace() {
 }
 
 void ParamAppsNode::addNamedArg(std::unique_ptr<NamedParamAppsNode> namedArg) {
+  argNamesInOrder.push_back(namedArg->key);
   named_args.push_back(std::move(namedArg));
   refreshTrace();
 }
 
 void ParamAppsNode::addPositionalArg(
     std::unique_ptr<PositionalParamAppsNode> positionalArg) {
+  argNamesInOrder.push_back("");
   positional_args.push_back(std::move(positionalArg));
   refreshTrace();
 }

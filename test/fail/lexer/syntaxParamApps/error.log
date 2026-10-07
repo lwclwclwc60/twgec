@@ -1,0 +1,2 @@
+SyntaxError: Positional argument cannot follow named argument at test/fail/lexer/syntaxParamApps/test.twge:6:18
+SyntaxError: Cannot convert the token in a valid AST

@@ -1,0 +1,11 @@
+// OPTION: --print-ast-after --run-only=argBinding,functionInling
+def say(name, suffix = "!") : actions {
+    print(text = name + suffix);
+}
+
+block init {
+    actions {
+        say(name = "A");
+        say(name = "B", suffix = "?");
+    }
+}

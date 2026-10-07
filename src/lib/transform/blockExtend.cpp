@@ -19,6 +19,7 @@ bool bindInheritanceArgs(const unique_ptr<FunDefNode> &childFunDef,
                          const unique_ptr<InstructionNode> &inheritanceCall,
                          map<string, unique_ptr<ExpressionNode>> &boundArgs) {
   const auto &baseParams = baseFunDef->params;
+  const auto &baseDefaultParamValues = baseFunDef->defaultParamValues;
   const auto &positionalArgs = inheritanceCall->paramApps->positional_args;
   const auto &namedArgs = inheritanceCall->paramApps->named_args;
 
@@ -61,6 +62,16 @@ bool bindInheritanceArgs(const unique_ptr<FunDefNode> &childFunDef,
     auto clonedExp = namedArg->expNode->clone();
     seenArgKeys.insert(argName);
     boundArgs.insert({argName, std::move(clonedExp)});
+  }
+
+  for (size_t i = 0; i < baseParams.size(); i++) {
+    const string &paramName = baseParams[i];
+    if (seenArgKeys.count(paramName) != 0)
+      continue;
+    if (i < baseDefaultParamValues.size() && baseDefaultParamValues[i]) {
+      seenArgKeys.insert(paramName);
+      boundArgs.insert({paramName, baseDefaultParamValues[i]->clone()});
+    }
   }
 
   if (seenArgKeys.size() != baseParams.size()) {

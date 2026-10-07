@@ -1,6 +1,8 @@
 #include "ast.h"
 #include "transform.h"
+#include <map>
 #include <memory>
+#include <set>
 namespace transform {
 
 using std::string;
@@ -10,32 +12,84 @@ bool argBinding(std::map<std::string, std::unique_ptr<FunDefNode>> &funDefs,
                 std::unique_ptr<InstructionNode> &instr) {
   if (funDefs.count(instr->identifier) == 0)
     return true;
-  // Currently only the function can map positional arg into named arg
-  auto funParam = funDefs.find(instr->identifier)->second->params;
+  auto &funDef = funDefs.find(instr->identifier)->second;
+  auto &funParam = funDef->params;
+  auto &defaultParamValues = funDef->defaultParamValues;
   if (instr->paramApps->positional_args.size() > funParam.size()) {
     std::cerr << "Syntax Error: Too much positional arguments. Found at "
               << instr->loc << "\n";
     return false;
   }
-  std::vector<std::unique_ptr<NamedParamAppsNode>> bindedArgs;
-  for (int i = 0; i < instr->paramApps->positional_args.size(); i++) {
+
+  std::map<string, std::unique_ptr<NamedParamAppsNode>> bindedArgsMap;
+  std::vector<string> bindedArgOrder;
+
+  // Handle positional args
+  for (size_t i = 0; i < instr->paramApps->positional_args.size(); i++) {
     auto &posArg = instr->paramApps->positional_args[i];
-    bindedArgs.push_back(std::make_unique<NamedParamAppsNode>(
-        funParam[i], posArg.get()->expNode, posArg->loc));
+    const auto &paramName = funParam[i];
+    bindedArgOrder.push_back(paramName);
+    bindedArgsMap.insert(
+        {paramName, std::make_unique<NamedParamAppsNode>(
+                        paramName, posArg.get()->expNode, posArg->loc)});
   }
-  instr->paramApps->named_args.insert(
-      instr->paramApps->named_args.begin(),
-      std::make_move_iterator(bindedArgs.begin()),
-      std::make_move_iterator(bindedArgs.end()));
+
+  std::set<string> paramSet;
+  for (const auto &paramName : funParam)
+    paramSet.insert(paramName);
+
+  // Handle named args
+  for (auto &namedArg : instr->paramApps->named_args) {
+    const auto &argKey = namedArg->key;
+    if (paramSet.count(argKey) == 0) {
+      std::cerr << "Syntax Error: Unmatched paramter naming at " << funDef->loc
+                << "(function definition) and " << instr->loc
+                << "(function application).\n";
+      return false;
+    }
+    if (bindedArgsMap.count(argKey) != 0) {
+      std::cerr << "Syntax Error: Duplicated argument `" << argKey
+                << "` found at " << namedArg->loc << "\n";
+      return false;
+    }
+    bindedArgOrder.push_back(argKey);
+    bindedArgsMap.insert({
+        argKey,
+        std::make_unique<NamedParamAppsNode>(argKey, namedArg->expNode,
+                                             namedArg->loc),
+    });
+  }
+
+  // Handle default args
+  for (size_t i = 0; i < funParam.size(); i++) {
+    const auto &paramName = funParam[i];
+    if (bindedArgsMap.count(paramName) != 0)
+      continue;
+    if (i < defaultParamValues.size() && defaultParamValues[i]) {
+      auto defaultExp = defaultParamValues[i]->clone();
+      bindedArgOrder.push_back(paramName);
+      bindedArgsMap.insert(
+          {paramName, std::make_unique<NamedParamAppsNode>(
+                          paramName, defaultExp, defaultExp->loc)});
+    }
+  }
+
+  instr->paramApps->argNamesInOrder.clear();
+  instr->paramApps->named_args.clear();
   instr->paramApps->positional_args.clear();
+  for (const auto &argKey : bindedArgOrder)
+    instr->paramApps->addNamedArg(std::move(bindedArgsMap[argKey]));
   instr->paramApps->refreshTrace();
-  if (instr->paramApps->named_args.size() != funParam.size()) {
+
+  std::set<string> bindedArgSet;
+  for (const auto &namedArg : instr->paramApps->named_args)
+    bindedArgSet.insert(namedArg->key);
+  if (bindedArgSet.size() != funParam.size()) {
     std::cerr << "Syntax Error: Unmatched number of arguments of function `"
               << instr->identifier << "`. Expected: " << funParam.size()
-              << " arguments defined at "
-              << funDefs.find(instr->identifier)->second->loc << ". Found "
-              << instr->paramApps->named_args.size() << " arguments passed at "
-              << instr->loc << ".\n";
+              << " arguments defined at " << funDef->loc << ". Found "
+              << bindedArgSet.size() << " arguments passed at " << instr->loc
+              << ".\n";
     return false;
   }
   return true;
