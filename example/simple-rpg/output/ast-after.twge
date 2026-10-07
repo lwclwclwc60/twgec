@@ -417,7 +417,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         twge::assert(false, ("無效地圖物件: " + object));
     }
 }
-def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}") : actions {
     print(text = ("xOffset:" + xOffset));
     print(text = ("yOffset:" + yOffset));
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
@@ -466,29 +466,29 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((map_x == 99) && (map_y == 100))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n100);
+            地圖::生成地圖(地圖::新手村近郊099n100);
         } else if(((map_x == 101) && (map_y == 100))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n100);
+            地圖::生成地圖(地圖::新手村近郊101n100);
         } else if(((map_x == 99) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n101);
+            地圖::生成地圖(地圖::新手村近郊099n101);
         } else if(((map_x == 100) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n101);
+            地圖::生成地圖(地圖::新手村近郊100n101);
         } else if(((map_x == 101) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n101);
+            地圖::生成地圖(地圖::新手村近郊101n101);
         } else if(((map_x == 99) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n102);
+            地圖::生成地圖(地圖::新手村近郊099n102);
         } else if(((map_x == 100) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n102);
+            地圖::生成地圖(地圖::新手村近郊100n102);
         } else if(((map_x == 101) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n102);
+            地圖::生成地圖(地圖::新手村近郊101n102);
         } else if(((map_x == 100) && (map_y == 103))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n103);
+            地圖::生成地圖(地圖::無芒山100n103);
         } else if(((map_x == 100) && (map_y == 104))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n104);
+            地圖::生成地圖(地圖::無芒山100n104);
         } else if(((map_x == 101) && (map_y == 103))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山101n103);
+            地圖::生成地圖(地圖::無芒山101n103);
         } else if(((map_x == 101) && (map_y == 104))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::石蔭村101n104);
+            地圖::生成地圖(地圖::石蔭村101n104);
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -807,7 +807,7 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        地圖::生成地圖("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}", 地圖::新手村100n100);
+        地圖::生成地圖(地圖::新手村100n100, "{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}");
     }
 }
 block 地圖移動離開往上 = 地圖::移動離開泛型("上");
@@ -1405,7 +1405,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         twge::assert(false, ("無效地圖物件: " + object));
     }
 }
-def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}") : actions {
     print(text = ("xOffset:" + xOffset));
     print(text = ("yOffset:" + yOffset));
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
@@ -1454,29 +1454,29 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((map_x == 99) && (map_y == 100))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n100);
+            地圖::生成地圖(地圖::新手村近郊099n100);
         } else if(((map_x == 101) && (map_y == 100))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n100);
+            地圖::生成地圖(地圖::新手村近郊101n100);
         } else if(((map_x == 99) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n101);
+            地圖::生成地圖(地圖::新手村近郊099n101);
         } else if(((map_x == 100) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n101);
+            地圖::生成地圖(地圖::新手村近郊100n101);
         } else if(((map_x == 101) && (map_y == 101))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n101);
+            地圖::生成地圖(地圖::新手村近郊101n101);
         } else if(((map_x == 99) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊099n102);
+            地圖::生成地圖(地圖::新手村近郊099n102);
         } else if(((map_x == 100) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊100n102);
+            地圖::生成地圖(地圖::新手村近郊100n102);
         } else if(((map_x == 101) && (map_y == 102))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::新手村近郊101n102);
+            地圖::生成地圖(地圖::新手村近郊101n102);
         } else if(((map_x == 100) && (map_y == 103))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n103);
+            地圖::生成地圖(地圖::無芒山100n103);
         } else if(((map_x == 100) && (map_y == 104))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山100n104);
+            地圖::生成地圖(地圖::無芒山100n104);
         } else if(((map_x == 101) && (map_y == 103))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::無芒山101n103);
+            地圖::生成地圖(地圖::無芒山101n103);
         } else if(((map_x == 101) && (map_y == 104))) {
-            地圖::生成地圖("{chunk_{chunk_available_stack_now}_x}", "{chunk_{chunk_available_stack_now}_y}", 地圖::石蔭村101n104);
+            地圖::生成地圖(地圖::石蔭村101n104);
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -1795,7 +1795,7 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        地圖::生成地圖("{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}", 地圖::新手村100n100);
+        地圖::生成地圖(地圖::新手村100n100, "{chunk_{map_to_chunk_100_100}_x}", "{chunk_{map_to_chunk_100_100}_y}");
     }
 }
 block 地圖移動離開往上 = 地圖::移動離開泛型("上");
@@ -2393,7 +2393,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         twge::assert(false, ("無效地圖物件: " + object));
     }
 }
-def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}") : actions {
     print(text = ("xOffset:" + xOffset));
     print(text = ("yOffset:" + yOffset));
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
@@ -2442,29 +2442,29 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((map_x == 99) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -2783,7 +2783,7 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        地圖::生成地圖(xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}", mapArray = 地圖::新手村100n100);
+        地圖::生成地圖(mapArray = 地圖::新手村100n100, xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}");
     }
 }
 block 地圖移動離開往上 = 地圖::移動離開泛型(direction = "上");
@@ -3381,7 +3381,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         twge::assert(false, ("無效地圖物件: " + object));
     }
 }
-def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}") : actions {
     print(text = ("xOffset:" + xOffset));
     print(text = ("yOffset:" + yOffset));
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
@@ -3430,29 +3430,29 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((map_x == 99) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -4831,29 +4831,29 @@ block 移動生成099_100 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -4888,29 +4888,29 @@ block 移動生成101_100 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -4945,29 +4945,29 @@ block 移動生成099_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5002,29 +5002,29 @@ block 移動生成100_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5059,29 +5059,29 @@ block 移動生成101_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5116,29 +5116,29 @@ block 移動生成099_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5173,29 +5173,29 @@ block 移動生成100_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5230,29 +5230,29 @@ block 移動生成101_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5287,29 +5287,29 @@ block 移動生成100_103 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5344,29 +5344,29 @@ block 移動生成101_103 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5401,29 +5401,29 @@ block 移動生成100_104 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5458,29 +5458,29 @@ block 移動生成101_104 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -5555,7 +5555,7 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        地圖::生成地圖(xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}", mapArray = 地圖::新手村100n100);
+        地圖::生成地圖(mapArray = 地圖::新手村100n100, xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}");
     }
 }
 block 地圖移動離開往上 {
@@ -6855,7 +6855,7 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         twge::assert(false, ("無效地圖物件: " + object));
     }
 }
-def 地圖::生成地圖(xOffset, yOffset, mapArray) : actions {
+def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}") : actions {
     print(text = ("xOffset:" + xOffset));
     print(text = ("yOffset:" + yOffset));
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
@@ -6904,29 +6904,29 @@ def 地圖::移動生成泛型(map_x, map_y) : block {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((map_x == 99) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 99) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 100) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((map_x == 101) && (map_y == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8409,29 +8409,29 @@ block 移動生成099_100 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8468,29 +8468,29 @@ block 移動生成101_100 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (100 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8527,29 +8527,29 @@ block 移動生成099_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8586,29 +8586,29 @@ block 移動生成100_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8645,29 +8645,29 @@ block 移動生成101_101 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (101 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8704,29 +8704,29 @@ block 移動生成099_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((99 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((99 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8763,29 +8763,29 @@ block 移動生成100_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8822,29 +8822,29 @@ block 移動生成101_102 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (102 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8881,29 +8881,29 @@ block 移動生成100_103 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8940,29 +8940,29 @@ block 移動生成101_103 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (103 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -8999,29 +8999,29 @@ block 移動生成100_104 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((100 == 99) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 99) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 100) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((100 == 101) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -9058,29 +9058,29 @@ block 移動生成101_104 {
         儲存全域變數(key = "chunk_available_stack_8", type = "int", value = -1);
         儲存全域變數(key = "map_to_chunk_{instance.map_x}_{instance.map_y}", type = "int", value = "{chunk_available_stack_now}");
         if(((101 == 99) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 100))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n100);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n100, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 101))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n101);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n101, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 99) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊099n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊099n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊100n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊100n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 102))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::新手村近郊101n102);
+            地圖::生成地圖(mapArray = 地圖::新手村近郊101n102, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 100) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山100n104);
+            地圖::生成地圖(mapArray = 地圖::無芒山100n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 103))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::無芒山101n103);
+            地圖::生成地圖(mapArray = 地圖::無芒山101n103, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         } else if(((101 == 101) && (104 == 104))) {
-            地圖::生成地圖(xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}", mapArray = 地圖::石蔭村101n104);
+            地圖::生成地圖(mapArray = 地圖::石蔭村101n104, xOffset = "{chunk_{chunk_available_stack_now}_x}", yOffset = "{chunk_{chunk_available_stack_now}_y}");
         }
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_x", type = "int", value = "{instance.map_x}");
         儲存全域變數(key = "chunk_to_map_{chunk_available_stack_now}_y", type = "int", value = "{instance.map_y}");
@@ -9157,7 +9157,7 @@ block 地圖初始化 {
         儲存全域變數(key = "chunk_to_map_0_y", type = "int", value = 100);
         儲存全域變數(key = "map_to_chunk_100_100", type = "int", value = 0);
         儲存全域變數(key = "map_used_100_100", type = "int", value = 1);
-        地圖::生成地圖(xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}", mapArray = 地圖::新手村100n100);
+        地圖::生成地圖(mapArray = 地圖::新手村100n100, xOffset = "{chunk_{map_to_chunk_100_100}_x}", yOffset = "{chunk_{map_to_chunk_100_100}_y}");
     }
     checks {
     }
