@@ -421,28 +421,26 @@ def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}
     print(text = "xOffset:" + xOffset);
     print(text = "yOffset:" + yOffset);
     for(map_row in 0...(twge::get_length(mapArray) - 1)) {
-        for(map_col in 0...(twge::get_length(twge::get_index(mapArray, map_row))/3 - 1)) {
+        for(map_col in 0...(twge::get_length(mapArray[map_row])/3 - 1)) {
             地圖::生成地圖配置(
                 twge::to_string(map_col) + "+" + xOffset, twge::to_string(map_row) + "+" + yOffset,
-                twge::get_slice(twge::get_index(mapArray, map_row), map_col*3 + 0, map_col*3 + 2)
+                mapArray[map_row][map_col*3 + 0:map_col*3 + 2]
             );
         }
     }
 }
 
 def 地圖::儲存地圖變量(x, y, map) : actions {
-    if(twge::get_slice(twge::get_index(map,0),27,32) == "ExNExN") {
+    if(map[0][27:32] == "ExNExN") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExN", type = "int", value = 1);
     }
-    if(twge::get_slice(twge::get_index(map,19),27,32) == "ExSExS"){
+    if(map[19][27:32] == "ExSExS"){
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExS", type = "int", value = 1);
     }
-    if(twge::get_slice(twge::get_index(map,9),0,2) == "ExW" &&
-       twge::get_slice(twge::get_index(map,10),0,2) == "ExW") {
+    if(map[9][0:2] == "ExW" && map[10][0:2] == "ExW") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExW", type = "int", value = 1);
     }
-    if(twge::get_slice(twge::get_index(map,9),57,59) == "ExE" &&
-       twge::get_slice(twge::get_index(map,10),57,59) == "ExE") {
+    if(map[9][57:59] == "ExE" && map[10][57:59] == "ExE") {
         儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExE", type = "int", value = 1);
     }
     儲存全域變數(key = "map_used_" + twge::to_string(x) + "_" + twge::to_string(y), type = "int", value = 0);

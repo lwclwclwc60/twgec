@@ -1,0 +1,21 @@
+//---------------------------------//
+//--- AST After constantFolding ---//
+//---------------------------------//
+def showInt(v) : actions {
+    actorTalk(duration = v);
+}
+def showStr(v) : actions {
+    actorTalk(text = v);
+}
+block init {
+    actions {
+        showInt(10);
+        showInt(30);
+        showInt(3);
+        showStr("bc");
+        showStr("abc");
+        showStr("cd");
+        showStr("abcd");
+        showStr("bc");
+    }
+}

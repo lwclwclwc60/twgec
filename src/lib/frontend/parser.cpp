@@ -595,8 +595,12 @@ std::unique_ptr<ExpressionNode> Parser::parseExpMultiplicative() {
 
 std::unique_ptr<ExpressionNode> Parser::parseExpIntrinsic() {
   if (!isIntrinsicToken(tokens.front().type))
-    return parseExpPrimary();
+    return parseExpPostfix(parseExpPrimary());
 
+  return parseExpPostfix(parseIntrinsicNode());
+}
+
+std::unique_ptr<ExpressionNode> Parser::parseIntrinsicNode() {
   Location loc = tokens.front().location;
   ExpOpType op = toIntrinsicOpType(tokens.front().type);
   if (op == EXP_OP_TYPE_VOID || !consume(tokens.front().type))
@@ -606,17 +610,19 @@ std::unique_ptr<ExpressionNode> Parser::parseExpIntrinsic() {
     return nullptr;
 
   std::vector<std::unique_ptr<ExpressionNode>> args;
-  auto firstArg = parseExpLogicalOr();
-  if (!firstArg)
-    return nullptr;
-  args.push_back(std::move(firstArg));
+  if (tokens.front().type == TokenType::CLOSEPAR) {
+    consume(TokenType::CLOSEPAR);
+    return std::make_unique<ExpressionNode>(std::move(args), op, loc);
+  }
 
-  while (tokens.front().type == TokenType::COMMA) {
-    consume(TokenType::COMMA);
+  while (true) {
     auto arg = parseExpLogicalOr();
     if (!arg)
       return nullptr;
     args.push_back(std::move(arg));
+
+    if (!consume(TokenType::COMMA, false))
+      break;
   }
 
   if (!consume(TokenType::CLOSEPAR))
@@ -640,6 +646,116 @@ std::unique_ptr<ExpressionNode> Parser::parseExpPrimary() {
     return std::make_unique<ExpressionNode>(std::move(valueNode),
                                             (valueNode->loc));
   return nullptr;
+}
+
+std::unique_ptr<ExpressionNode>
+Parser::parseExpPostfix(std::unique_ptr<ExpressionNode> baseExp) {
+  if (!baseExp)
+    return nullptr;
+
+  while (tokens.front().type == TokenType::OPENSQR) {
+    baseExp = parsePostfixBracketNode(std::move(baseExp));
+    if (!baseExp)
+      return nullptr;
+  }
+
+  return baseExp;
+}
+
+std::unique_ptr<ExpressionNode>
+Parser::parsePostfixBracketNode(std::unique_ptr<ExpressionNode> baseExp) {
+  if (!baseExp)
+    return nullptr;
+
+  Location loc = tokens.front().location;
+  if (!consume(TokenType::OPENSQR))
+    return nullptr;
+
+  if (tokens.front().type == TokenType::COLON) {
+    consume(TokenType::COLON);
+
+    auto startExp = std::make_unique<ExpressionNode>(
+        std::make_unique<IntValueNode>(0, loc), loc);
+
+    std::unique_ptr<ExpressionNode> endExp;
+    if (tokens.front().type != TokenType::CLOSESQR) {
+      // array[:end]
+      endExp = parseExpLogicalOr();
+      if (!endExp)
+        return nullptr;
+    } else {
+      // array[:]
+      std::vector<std::unique_ptr<ExpressionNode>> lenArgs;
+      lenArgs.push_back(baseExp->clone());
+      auto getLengthExp = std::make_unique<ExpressionNode>(
+          std::move(lenArgs), EXP_OP_TYPE_INTRINSIC_GET_LENGTH, loc);
+      auto oneExp = std::make_unique<ExpressionNode>(
+          std::make_unique<IntValueNode>(1, loc), loc);
+      endExp = std::make_unique<ExpressionNode>(
+          std::move(getLengthExp), std::move(oneExp), EXP_OP_TYPE_SUB, loc);
+    }
+
+    if (!consume(TokenType::CLOSESQR))
+      return nullptr;
+
+    std::vector<std::unique_ptr<ExpressionNode>> args;
+    args.push_back(std::move(baseExp));
+    args.push_back(std::move(startExp));
+    args.push_back(std::move(endExp));
+    return std::make_unique<ExpressionNode>(
+        std::move(args), EXP_OP_TYPE_INTRINSIC_GET_SLICE, loc);
+  }
+
+  if (tokens.front().type == TokenType::CLOSESQR) {
+    std::cerr << "SyntaxError: Expecting index expression after '[' at " << loc
+              << "\n";
+    return nullptr;
+  }
+
+  auto startExp = parseExpLogicalOr();
+  if (!startExp)
+    return nullptr;
+
+  if (tokens.front().type != TokenType::COLON) {
+    // array[index]
+    if (!consume(TokenType::CLOSESQR))
+      return nullptr;
+    std::vector<std::unique_ptr<ExpressionNode>> args;
+    args.push_back(std::move(baseExp));
+    args.push_back(std::move(startExp));
+    return std::make_unique<ExpressionNode>(
+        std::move(args), EXP_OP_TYPE_INTRINSIC_GET_INDEX, loc);
+  }
+
+  consume(TokenType::COLON);
+
+  std::unique_ptr<ExpressionNode> endExp;
+  if (tokens.front().type != TokenType::CLOSESQR) {
+    // array[start:end]
+    endExp = parseExpLogicalOr();
+    if (!endExp)
+      return nullptr;
+  } else {
+    // array[start:]
+    std::vector<std::unique_ptr<ExpressionNode>> lenArgs;
+    lenArgs.push_back(baseExp->clone());
+    auto getLengthExp = std::make_unique<ExpressionNode>(
+        std::move(lenArgs), EXP_OP_TYPE_INTRINSIC_GET_LENGTH, loc);
+    auto oneExp = std::make_unique<ExpressionNode>(
+        std::make_unique<IntValueNode>(1, loc), loc);
+    endExp = std::make_unique<ExpressionNode>(
+        std::move(getLengthExp), std::move(oneExp), EXP_OP_TYPE_SUB, loc);
+  }
+
+  if (!consume(TokenType::CLOSESQR))
+    return nullptr;
+
+  std::vector<std::unique_ptr<ExpressionNode>> args;
+  args.push_back(std::move(baseExp));
+  args.push_back(std::move(startExp));
+  args.push_back(std::move(endExp));
+  return std::make_unique<ExpressionNode>(std::move(args),
+                                          EXP_OP_TYPE_INTRINSIC_GET_SLICE, loc);
 }
 
 std::unique_ptr<ValueNode> Parser::parseValue() {

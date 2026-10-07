@@ -1,0 +1,25 @@
+// OPTION: --print-ast-after --run-only=constantFolding
+
+const xs = [10,20,30,40];
+const s = "abcd";
+
+def showInt(v) : actions {
+    actorTalk(duration = v);
+}
+
+def showStr(v) : actions {
+    actorTalk(text = v);
+}
+
+block init {
+    actions {
+        showInt(xs[0]);
+        showInt(xs[1 + 1]);
+        showInt([[1,2],[3,4]][1][0]);
+        showStr(s[1:2]);
+        showStr(s[:2]);
+        showStr(s[2:]);
+        showStr(s[:]);
+        showStr(s[1:twge::get_length(s)-2]);
+    }
+}
