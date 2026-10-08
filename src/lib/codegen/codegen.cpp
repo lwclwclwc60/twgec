@@ -7,6 +7,7 @@
 #include "instruction/trigger.h"
 #include "keyword.h"
 #include "utils/utils.h"
+#include <cassert>
 #include <fstream>
 #include <iostream>
 
@@ -88,6 +89,9 @@ void CodeGenerator::codegenTypedInstrSet(
   }
   of << std::endl;
   for (auto i = 0; i < instructions.size(); i++) {
+    assert(
+        instructions[i]->instruction &&
+        "All control-flow/mutable statements must be lowered before codegen");
     of << inden(16) << "{\n";
     of << inden(20) << "\"type\": ";
     switch (typedInstrSet->type) {

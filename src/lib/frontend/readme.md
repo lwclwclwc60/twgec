@@ -43,12 +43,13 @@ ModuleNode := [ MetadataNode | ConstDefNode | FunDefNode | BlockNode | Semicolon
 TypedInstrSetNode := TypedDefToken InstrSetNode
 - TypedDefToken := ActionsToken | ChecksToken | TriggersToken
 - InstrSetNode := OpenCurToken CompositeInstrNode* CloseCurToken
-  - CompositeInstrNode := BranchNode | ForLoopNode | InstructionNode
+  - CompositeInstrNode := BranchNode | ForLoopNode | InstructionNode | MutableVarDefNode
     - BranchNode := IfRegionNode [ElseToken IfRegionNode]* [ElseToken InstrSetNode]?
       - IfRegionNode := IfToken OpenParToken ExpNode CloseParToken InstrSetNode
     - ForLoopNode := ForToken OpenParToken IdentifierToken InToken ExpNode [EllipsisToken ExpNode]? CloseParToken InstrSetNode
 // Instruction Scope
 InstructionNode := [ScopedIdentifierToken | IntrinsicAssertToken] ParamAppsNode SemicolonToken
+- MutableVarDefNode := LetToken IdentifierToken AssignToken ExpNode SemicolonToken
 - ParamAppsNode := OpenParToken [ PositionalArgNode [CommaToken PositionalArgNode]* [CommaToken NamedArgNode [CommaToken NamedArgNode]* ]? | NamedArgNode [CommaToken NamedArgNode]* ]? CloseParToken
   - PositionalArgNode := ExpNode
   - NamedArgNode := IdentifierToken AssignToken ExpNode

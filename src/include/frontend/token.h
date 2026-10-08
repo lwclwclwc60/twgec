@@ -17,6 +17,7 @@
   LEXER_PRINT_SWTICH_CASE(TokenType::IF, "if");                                \
   LEXER_PRINT_SWTICH_CASE(TokenType::ELSE, "else");                            \
   LEXER_PRINT_SWTICH_CASE(TokenType::FOR, "for");                              \
+  LEXER_PRINT_SWTICH_CASE(TokenType::LET, "let");                              \
   LEXER_PRINT_SWTICH_CASE(TokenType::IN, "in");                                \
   LEXER_PRINT_SWTICH_CASE(TokenType::END, "end");                              \
   LEXER_PRINT_SWTICH_CASE(TokenType::POINT, "Point");                          \
@@ -89,6 +90,7 @@ enum class TokenType {
   IF,       // if
   ELSE,     // else
   FOR,      // for
+  LET,      // let
   IN,       // in
   /* Builtin Struct */
   POINT,         // Point

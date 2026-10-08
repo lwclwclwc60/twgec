@@ -23,6 +23,9 @@ bool blockExtend(const std::unique_ptr<ModuleNode> &moduleNode,
 // Symbol redefinition or use before define will be checked
 bool symbolChecking(const std::unique_ptr<ModuleNode> &moduleNode,
                     PassConfig config);
+// Expand let/assignment mutable variables into concrete expressions
+bool mutableVarExpansion(const std::unique_ptr<ModuleNode> &moduleNode,
+                         PassConfig config);
 // Positional Arg will be converted into Named Arg
 bool argBinding(const std::unique_ptr<ModuleNode> &moduleNode,
                 PassConfig config);
@@ -51,6 +54,7 @@ bool implicitListPromotion(const std::unique_ptr<ModuleNode> &moduleNode,
 namespace pass {
 const std::string blockExtend = "blockExtend";
 const std::string symbolChecking = "symbolChecking";
+const std::string mutableVarExpansion = "mutableVarExpansion";
 const std::string argBinding = "argBinding";
 const std::string blockInling = "blockInling";
 const std::string blockLegalization = "blockLegalization";
@@ -71,6 +75,7 @@ private:
       passMap = {
           {pass::blockExtend, blockExtend},
           {pass::symbolChecking, symbolChecking},
+          {pass::mutableVarExpansion, mutableVarExpansion},
           {pass::argBinding, argBinding},
           {pass::blockInling, blockInling},
           {pass::blockLegalization, blockLegalization},
@@ -124,6 +129,7 @@ private:
           singlePass(pass::forLoopUnrolling, config) &&
           singlePass(pass::constantFolding, CSEConfig) &&
           singlePass(pass::ifStatementPropagation, config) &&
+          singlePass(pass::mutableVarExpansion, config) &&
           singlePass(pass::constantFolding, lastCSEConfig)))
       return false;
     // After expression propagation

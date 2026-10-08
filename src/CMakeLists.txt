@@ -6,6 +6,7 @@ add_executable(twgec
     lib/frontend/parser.cpp
     lib/frontend/preprocessor.cpp
     lib/transform/blockExtend.cpp
+    lib/transform/mutableVarExpansion.cpp
     lib/transform/argBinding.cpp
     lib/transform/blockInlining.cpp
     lib/transform/blockLegalization.cpp

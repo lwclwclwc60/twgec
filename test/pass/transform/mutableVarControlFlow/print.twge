@@ -1,0 +1,179 @@
+//----------------------------------//
+//--- AST After forLoopUnrolling ---//
+//----------------------------------//
+block init {
+    actions {
+        let x = 1;
+        let x = (x + 0);
+        let x = (x + 1);
+        let x = (x + 2);
+        let x = (x + 3);
+        let x = (x + 4);
+        let x = (x + 5);
+        print(text = twge::to_string(x));
+        let n = 100;
+        let n = (n + 0);
+        print(text = twge::to_string(n));
+        let n = 100;
+        let n = (n + 0);
+        let n = (n + 1);
+        print(text = twge::to_string(n));
+        let n = 100;
+        let n = (n + 0);
+        let n = (n + 1);
+        let n = (n + 2);
+        print(text = twge::to_string(n));
+        let k = 10;
+        if(true) {
+            let k = (k + 1);
+        }
+        if(false) {
+            let k = (k + 2);
+        }
+        print(text = twge::to_string(k));
+        let result = "";
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "I");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "t");
+        }
+        if(true) {
+            let result = (result + "-");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "i");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "s");
+        }
+        if(true) {
+            let result = (result + "-");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "m");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "y");
+        }
+        if(true) {
+            let result = (result + "-");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "s");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "t");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "r");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "i");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "n");
+        }
+        if(false) {
+            let result = (result + "-");
+        } else {
+            let result = (result + "g");
+        }
+        print(text = result);
+    }
+}
+//----------------------------------------//
+//--- AST After ifStatementPropagation ---//
+//----------------------------------------//
+block init {
+    actions {
+        let x = 1;
+        let x = (x + 0);
+        let x = (x + 1);
+        let x = (x + 2);
+        let x = (x + 3);
+        let x = (x + 4);
+        let x = (x + 5);
+        print(text = twge::to_string(x));
+        let n = 100;
+        let n = (n + 0);
+        print(text = twge::to_string(n));
+        let n = 100;
+        let n = (n + 0);
+        let n = (n + 1);
+        print(text = twge::to_string(n));
+        let n = 100;
+        let n = (n + 0);
+        let n = (n + 1);
+        let n = (n + 2);
+        print(text = twge::to_string(n));
+        let k = 10;
+        let k = (k + 1);
+        print(text = twge::to_string(k));
+        let result = "";
+        let result = (result + "I");
+        let result = (result + "t");
+        let result = (result + "-");
+        let result = (result + "i");
+        let result = (result + "s");
+        let result = (result + "-");
+        let result = (result + "m");
+        let result = (result + "y");
+        let result = (result + "-");
+        let result = (result + "s");
+        let result = (result + "t");
+        let result = (result + "r");
+        let result = (result + "i");
+        let result = (result + "n");
+        let result = (result + "g");
+        print(text = result);
+    }
+}
+//-------------------------------------//
+//--- AST After mutableVarExpansion ---//
+//-------------------------------------//
+block init {
+    actions {
+        print(text = twge::to_string(((((((1 + 0) + 1) + 2) + 3) + 4) + 5)));
+        print(text = twge::to_string((100 + 0)));
+        print(text = twge::to_string(((100 + 0) + 1)));
+        print(text = twge::to_string((((100 + 0) + 1) + 2)));
+        print(text = twge::to_string((10 + 1)));
+        print(text = ((((((((((((((("" + "I") + "t") + "-") + "i") + "s") + "-") + "m") + "y") + "-") + "s") + "t") + "r") + "i") + "n") + "g"));
+    }
+}
+//---------------------------------//
+//--- AST After constantFolding ---//
+//---------------------------------//
+block init {
+    actions {
+        print(text = "16");
+        print(text = "100");
+        print(text = "101");
+        print(text = "103");
+        print(text = "11");
+        print(text = "It-is-my-string");
+    }
+}

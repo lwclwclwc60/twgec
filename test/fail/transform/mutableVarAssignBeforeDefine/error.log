@@ -1,0 +1,2 @@
+SyntaxError: Expecting '(' at test/fail/transform/mutableVarAssignBeforeDefine/test.twge:5:11. Found '='
+SyntaxError: Cannot convert the token in a valid AST

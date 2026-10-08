@@ -1,2 +1,2 @@
-SyntaxError: Expecting an instruction, if-statement, or for-statement at test/fail/lexer/syntaxAction/test.twge:3:9. Found '__metadata__'
+SyntaxError: Expecting an instruction, let statement, if-statement, or for-statement at test/fail/lexer/syntaxAction/test.twge:3:9. Found '__metadata__'
 SyntaxError: Cannot convert the token in a valid AST

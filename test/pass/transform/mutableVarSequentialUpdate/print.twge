@@ -1,0 +1,18 @@
+//-------------------------------------//
+//--- AST After mutableVarExpansion ---//
+//-------------------------------------//
+block init {
+    actions {
+        print(text = twge::to_string(1));
+        print(text = twge::to_string(2));
+    }
+}
+//---------------------------------//
+//--- AST After constantFolding ---//
+//---------------------------------//
+block init {
+    actions {
+        print(text = "1");
+        print(text = "2");
+    }
+}

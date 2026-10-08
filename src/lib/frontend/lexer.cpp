@@ -19,6 +19,7 @@ std::string _const = "const";
 std::string _if = "if";
 std::string _else = "else";
 std::string _for = "for";
+std::string _let = "let";
 std::string in = "in";
 std::string Point = "Point";
 std::string ActorMatch = "ActorMatch";
@@ -44,6 +45,7 @@ const std::map<std::string, TokenType> initMap = {
     {_if, TokenType::IF},
     {_else, TokenType::ELSE},
     {_for, TokenType::FOR},
+    {_let, TokenType::LET},
     {in, TokenType::IN},
     {Point, TokenType::POINT},
     {ActorMatch, TokenType::ACTOR_MATCH},
@@ -294,6 +296,7 @@ Token Lexer::nextToken() {
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::_if)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::_else)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::_for)
+    LEXER_MATCH_KEYWORD_AND_RETURN(keyword::_let)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::in)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::Point)
     LEXER_MATCH_KEYWORD_AND_RETURN(keyword::ActorMatch)

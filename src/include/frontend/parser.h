@@ -20,6 +20,7 @@ private:
   std::unique_ptr<TypedInstrSetNode> parseTypedInstrSet();
   std::unique_ptr<InstrSetNode> parseInstrSet();
   std::unique_ptr<CompositeInstrNode> parseCompositeInstr();
+  std::unique_ptr<MutableVarDefNode> parseMutableVarDef();
   std::unique_ptr<BranchNode> parseBranch();
   std::unique_ptr<IfRegionNode> parseIfRegion();
   std::unique_ptr<ForNode> parseFor();

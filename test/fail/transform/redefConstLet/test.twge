@@ -1,0 +1,7 @@
+const x = 1;
+
+block init {
+    actions {
+        let x = 2;
+    }
+}

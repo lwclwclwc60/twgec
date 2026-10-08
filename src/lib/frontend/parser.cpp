@@ -310,8 +310,12 @@ std::unique_ptr<CompositeInstrNode> Parser::parseCompositeInstr() {
   Location loc = tokens.front().location;
   std::unique_ptr<CompositeInstrNode> compositeInstrNode =
       std::make_unique<CompositeInstrNode>(loc);
-  if (tokens.front().type == TokenType::IDENTIFIER ||
-      tokens.front().type == TokenType::INTRINSIC_ASSERT) {
+  if (tokens.front().type == TokenType::LET) {
+    compositeInstrNode->mutableVarDef = std::move(parseMutableVarDef());
+    if (!compositeInstrNode->mutableVarDef)
+      return nullptr;
+  } else if (tokens.front().type == TokenType::IDENTIFIER ||
+             tokens.front().type == TokenType::INTRINSIC_ASSERT) {
     compositeInstrNode->instruction = std::move(parseInstruction());
     if (!compositeInstrNode->instruction)
       return nullptr;
@@ -324,13 +328,31 @@ std::unique_ptr<CompositeInstrNode> Parser::parseCompositeInstr() {
     if (!compositeInstrNode->forNode)
       return nullptr;
   } else {
-    std::cerr << "SyntaxError: Expecting an instruction, if-statement, or "
-                 "for-statement at "
+    std::cerr << "SyntaxError: Expecting an instruction, let statement, "
+                 "if-statement, or for-statement at "
               << tokens.front().location << ". Found \'" << tokens.front().value
               << "\'\n";
     return nullptr;
   }
   return compositeInstrNode;
+}
+
+std::unique_ptr<MutableVarDefNode> Parser::parseMutableVarDef() {
+  Location loc = tokens.front().location;
+  if (!consume(TokenType::LET))
+    return nullptr;
+  std::string identifier = tokens.front().value;
+  if (!consume(TokenType::IDENTIFIER))
+    return nullptr;
+  if (!consume(TokenType::ASSIGN))
+    return nullptr;
+  auto expNode = parseExp();
+  if (!expNode)
+    return nullptr;
+  if (!consume(TokenType::SEMICOLON))
+    return nullptr;
+  return std::make_unique<MutableVarDefNode>(identifier, std::move(expNode),
+                                             loc);
 }
 
 std::unique_ptr<BranchNode> Parser::parseBranch() {

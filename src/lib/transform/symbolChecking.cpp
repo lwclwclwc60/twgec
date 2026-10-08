@@ -70,6 +70,66 @@ bool redefinitionChecking(const unique_ptr<ModuleNode> &moduleNode) {
   return true;
 }
 
+bool constMutableRedefinitionChecking(
+    std::unique_ptr<InstrSetNode> &instrSet,
+    const std::map<std::string, Location> &constDefLocMap) {
+  for (auto &compositeInstr : instrSet->instructions) {
+    if (compositeInstr->mutableVarDef) {
+      const auto &varName = compositeInstr->mutableVarDef->identifier;
+      if (constDefLocMap.count(varName) != 0)
+        return throwRedefinitionError(varName, constDefLocMap.at(varName),
+                                      compositeInstr->mutableVarDef->loc);
+      continue;
+    }
+
+    if (compositeInstr->branchNode) {
+      auto &branchNode = compositeInstr->branchNode;
+      for (auto &ifRegion : branchNode->ifRegions)
+        if (!constMutableRedefinitionChecking(ifRegion->region, constDefLocMap))
+          return false;
+      if (branchNode->elseRegion)
+        if (!constMutableRedefinitionChecking(branchNode->elseRegion,
+                                              constDefLocMap))
+          return false;
+      continue;
+    }
+
+    if (compositeInstr->forNode)
+      if (!constMutableRedefinitionChecking(compositeInstr->forNode->region,
+                                            constDefLocMap))
+        return false;
+  }
+  return true;
+}
+
+bool constMutableRedefinitionChecking(
+    const unique_ptr<ModuleNode> &moduleNode) {
+  std::map<std::string, Location> constDefLocMap;
+  for (const auto &constDef : moduleNode->constDefs)
+    constDefLocMap.insert({constDef->key, constDef->loc});
+
+  for (auto &funDef : moduleNode->funDefs) {
+    if (funDef->typedInstrSet)
+      if (!constMutableRedefinitionChecking(funDef->typedInstrSet->instrSet,
+                                            constDefLocMap))
+        return false;
+    if (funDef->blockBody)
+      for (auto &typedInstrSet : funDef->blockBody->typedInstrSets)
+        if (!constMutableRedefinitionChecking(typedInstrSet->instrSet,
+                                              constDefLocMap))
+          return false;
+  }
+
+  for (auto &block : moduleNode->blocks)
+    if (block->blockBody)
+      for (auto &typedInstrSet : block->blockBody->typedInstrSets)
+        if (!constMutableRedefinitionChecking(typedInstrSet->instrSet,
+                                              constDefLocMap))
+          return false;
+
+  return true;
+}
+
 bool hasUnitializedFun(std::unique_ptr<InstrSetNode> &instrSet,
                        std::set<std::string> uninitializedFunDef) {
   bool ret = false;
@@ -135,6 +195,7 @@ bool useBeforeDefineChecking(const unique_ptr<ModuleNode> &moduleNode) {
 bool symbolChecking(const unique_ptr<ModuleNode> &moduleNode,
                     PassConfig config) {
   return redefinitionChecking(moduleNode) &&
+         constMutableRedefinitionChecking(moduleNode) &&
          funParamRedefinitionChecking(moduleNode) &&
          useBeforeDefineChecking(moduleNode);
 }

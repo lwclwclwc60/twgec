@@ -1,0 +1,8 @@
+// OPTION: --run-only=mutableVarExpansion
+
+block init {
+    actions {
+        x = 1;
+        print(text = twge::to_string(x));
+    }
+}

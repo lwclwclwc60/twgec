@@ -25,6 +25,7 @@ class IfRegionNode;
 class ForNode;
 // Instruction level
 class InstructionNode;
+class MutableVarDefNode;
 class ParamAppsNode;
 class NamedParamAppsNode;
 class PositionalParamAppsNode;
@@ -261,6 +262,7 @@ public:
 class CompositeInstrNode : public ASTNode {
 public:
   std::unique_ptr<InstructionNode> instruction;
+  std::unique_ptr<MutableVarDefNode> mutableVarDef;
   std::unique_ptr<BranchNode> branchNode;
   std::unique_ptr<ForNode> forNode;
 
@@ -268,6 +270,8 @@ public:
   CompositeInstrNode(Location loc) : ASTNode(loc) {}
   CompositeInstrNode(Location loc, std::unique_ptr<InstructionNode> instruction)
       : ASTNode(loc), instruction(std::move(instruction)) {}
+  CompositeInstrNode(Location loc, std::unique_ptr<MutableVarDefNode> varDef)
+      : ASTNode(loc), mutableVarDef(std::move(varDef)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<BranchNode> branchNode)
       : ASTNode(loc), branchNode(std::move(branchNode)) {}
   CompositeInstrNode(Location loc, std::unique_ptr<ForNode> forNode)
@@ -367,6 +371,22 @@ public:
   // Function
   void print(int indent = 0) override;
   std::unique_ptr<InstructionNode> clone();
+  bool propagateExp(ExpressionMap &) override;
+  bool foldValue() override;
+  bool hasUnresolvedValue(SymbolSet except = {}) override;
+};
+
+class MutableVarDefNode : public ASTNode {
+public:
+  std::string identifier;
+  std::unique_ptr<ExpressionNode> expNode;
+
+  MutableVarDefNode(std::string identifier,
+                    std::unique_ptr<ExpressionNode> expNode, Location loc)
+      : ASTNode(loc), identifier(identifier), expNode(std::move(expNode)) {}
+
+  void print(int indent = 0) override;
+  std::unique_ptr<MutableVarDefNode> clone();
   bool propagateExp(ExpressionMap &) override;
   bool foldValue() override;
   bool hasUnresolvedValue(SymbolSet except = {}) override;

@@ -112,6 +112,8 @@ void InstrSetNode::print(int indent) {
 void CompositeInstrNode::print(int indent) {
   if (instruction)
     instruction->print(indent);
+  if (mutableVarDef)
+    mutableVarDef->print(indent);
   if (branchNode)
     branchNode->print(indent);
   if (forNode)
@@ -159,6 +161,11 @@ void InstructionNode::print(int indent) {
   std::cout << inden(indent) << identifier;
   paramApps->print(indent);
   std::cout << ";\n";
+}
+
+void MutableVarDefNode::print(int indent) {
+  std::cout << inden(indent) << "let " << identifier << " = " << *expNode
+            << ";\n";
 }
 
 void ParamAppsNode::print(int indent) {
@@ -240,6 +247,8 @@ std::unique_ptr<InstrSetNode> InstrSetNode::clone() {
 std::unique_ptr<CompositeInstrNode> CompositeInstrNode::clone() {
   if (instruction)
     return std::make_unique<CompositeInstrNode>(loc, instruction->clone());
+  else if (mutableVarDef)
+    return std::make_unique<CompositeInstrNode>(loc, mutableVarDef->clone());
   else if (branchNode)
     return std::make_unique<CompositeInstrNode>(loc, branchNode->clone());
   else if (forNode)
@@ -272,6 +281,10 @@ std::unique_ptr<ForNode> ForNode::clone() {
 std::unique_ptr<InstructionNode> InstructionNode::clone() {
   return std::make_unique<InstructionNode>(identifier, paramApps->clone(), loc,
                                            intrinsicType, isNoOp);
+}
+
+std::unique_ptr<MutableVarDefNode> MutableVarDefNode::clone() {
+  return std::make_unique<MutableVarDefNode>(identifier, expNode->clone(), loc);
 }
 
 std::unique_ptr<ParamAppsNode> ParamAppsNode::clone() {
@@ -476,6 +489,8 @@ bool CompositeInstrNode::propagateExp(
     std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
   if (instruction)
     return instruction->propagateExp(varExpMap);
+  if (mutableVarDef)
+    return mutableVarDef->propagateExp(varExpMap);
   if (branchNode)
     return branchNode->propagateExp(varExpMap);
   if (forNode)
@@ -522,6 +537,11 @@ bool ForNode::propagateExp(
 bool InstructionNode::propagateExp(
     std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
   return paramApps->propagateExp(varExpMap);
+}
+
+bool MutableVarDefNode::propagateExp(
+    std::map<std::string, std::unique_ptr<ExpressionNode>> &varExpMap) {
+  return expNode->propagateExp(varExpMap);
 }
 
 bool ParamAppsNode::propagateExp(
@@ -624,6 +644,8 @@ bool InstrSetNode::foldValue() {
 bool CompositeInstrNode::foldValue() {
   if (instruction)
     return instruction->foldValue();
+  if (mutableVarDef)
+    return mutableVarDef->foldValue();
   if (branchNode)
     return branchNode->foldValue();
   if (forNode)
@@ -723,6 +745,8 @@ bool InstructionNode::foldValue() {
   loc.printCallTrace(std::cerr);
   std::abort();
 }
+
+bool MutableVarDefNode::foldValue() { return expNode->foldValue(); }
 
 bool ParamAppsNode::foldValue() {
   bool ret = true;
@@ -1190,6 +1214,8 @@ bool InstrSetNode::hasUnresolvedValue(std::set<std::string> except) {
 bool CompositeInstrNode::hasUnresolvedValue(std::set<std::string> except) {
   if (instruction)
     return instruction->hasUnresolvedValue(except);
+  if (mutableVarDef)
+    return mutableVarDef->hasUnresolvedValue(except);
   if (branchNode)
     return branchNode->hasUnresolvedValue(except);
   if (forNode)
@@ -1230,6 +1256,10 @@ bool InstructionNode::hasUnresolvedValue(std::set<std::string> except) {
   if (paramApps)
     paramApps->loc.ownerSymbol = identifier;
   return paramApps->hasUnresolvedValue(except);
+}
+
+bool MutableVarDefNode::hasUnresolvedValue(std::set<std::string> except) {
+  return expNode->hasUnresolvedValue(except);
 }
 
 bool ParamAppsNode::hasUnresolvedValue(std::set<std::string> except) {

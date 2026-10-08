@@ -1,0 +1,1 @@
+Compilation Error: Redefinition of `x` found at test/fail/transform/redefConstLet/test.twge:1:7 and test/fail/transform/redefConstLet/test.twge:5:9

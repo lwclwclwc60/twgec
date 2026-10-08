@@ -1,0 +1,10 @@
+// OPTION: --print-ast-after --run-only=mutableVarExpansion,constantFolding
+
+block init {
+    actions {
+        let a = 1;
+        print(text = twge::to_string(a));
+        let a = 2;
+        print(text = twge::to_string(a));
+    }
+}

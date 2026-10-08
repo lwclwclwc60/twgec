@@ -1633,6 +1633,174 @@ block skydowWin {
     checks {
     }
 }
+//-------------------------------------//
+//--- AST After mutableVarExpansion ---//
+//-------------------------------------//
+__skydowLocs__ = Point(7,1);
+__royalLocs__ = Point(22,18);
+__thirdLocs__ = [Point(28,1),Point(1,28)];
+__title__ = "皇家天影之爭";
+__useDefaultItems__ = true;
+__map__ = "CG.TWEventsGameTemplate/gamemap.twmap";
+block init {
+    actions {
+        setGlobal(key = "royalHp", type = "integer", value = 100);
+        setGlobal(key = "skydowHp", type = "integer", value = 100);
+        addActor(name = "狙擊手(200)", id = "sniper*", camp = "天影", hp = 200, x = 11, y = 7, movableRange = 0, weapon1 = "盾牌", weapon2 = "狙擊槍", role = "天影武士1");
+        addActor(name = "狙擊手(200)", id = "sniper*", camp = "皇家", hp = 200, x = 18, y = 12, movableRange = 0, weapon1 = "盾牌", weapon2 = "狙擊槍", role = "皇家機械人");
+        addActor(name = "軍營(500)", id = "camp_skydow", camp = "天影", hp = 500, x = 9, y = 6, movableRange = 0, weapon1 = "拳頭", weapon2 = "拳頭", externRole = "TWilightGameEventCompiler.character_camp");
+        addActor(name = "軍營(500)", id = "camp_royal", camp = "皇家", hp = 500, x = 20, y = 13, movableRange = 0, weapon1 = "拳頭", weapon2 = "拳頭", externRole = "TWilightGameEventCompiler.character_camp");
+        addMapSign(x = 27, y = 17, rotation = 0, text = "【守望者】\n使用防護罩時，恢復30點體力", buttons = [Button(id = "chooseJobR1", text = "選擇")]);
+        addMapSign(x = 27, y = 16, rotation = 0, text = "【新兵訓練師】\n我方士兵血量上限加10", buttons = [Button(id = "chooseJobR2", text = "選擇")]);
+        addMapSign(x = 2, y = 2, rotation = 180, text = "【龍騎士】\n使用黑龍波時，會額外召喚出一條黑龍波", buttons = [Button(id = "chooseJobS1", text = "選擇")]);
+        addMapSign(x = 2, y = 3, rotation = 180, text = "【忍者】\n使用影分身時，會召喚一個持續10秒的100血分身", buttons = [Button(id = "chooseJobS2", text = "選擇")]);
+    }
+    checks {
+    }
+    triggers {
+    }
+}
+block spawn {
+    __delay__ = 5000;
+    __repeat__ = -1;
+    __repeatInterval__ = 10000;
+    actions {
+        addActor(name = "天影士兵({skydowHp})", camp = "天影", hp = "{skydowHp}", x = 1, y = 1, role = "天影士兵", patrol = [Point(14,1),Point(15,18)]);
+        addActor(name = "皇家士兵({royalHp})", camp = "皇家", hp = "{royalHp}", x = 28, y = 18, role = "皇家士兵", patrol = [Point(15,18),Point(14,1)]);
+        setGlobal(key = "skydowHp", type = "integer", value = "{skydowHp} + 1");
+        setGlobal(key = "royalHp", type = "integer", value = "{royalHp} + 1");
+    }
+    checks {
+    }
+    triggers {
+    }
+}
+block sniperAttack {
+    __repeat__ = -1;
+    triggers {
+        actorFire(actor = ActorMatch(id = "sniper"), varName = "instance");
+    }
+    actions {
+        setGlobal(key = "angle", type = "number", value = "{instance.bodyRotation}*180/3.14");
+        enblastEffect(fromActor = "{instance}", toAngle = "{angle}");
+    }
+    checks {
+    }
+}
+block chooseJobR1 {
+    __repeat__ = -1;
+    triggers {
+        clickButton(varName = "instance", buttonId = "chooseJobR1");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "undefined");
+    }
+    actions {
+        setObjectVar(object = "instance", key = "job", type = "string", value = "守望者");
+        actorTalk(actorId = "instance", text = "已選擇職業：{instance.job}");
+    }
+}
+block chooseJobR2 {
+    __repeat__ = -1;
+    triggers {
+        clickButton(varName = "instance", buttonId = "chooseJobR2");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "undefined");
+    }
+    actions {
+        setObjectVar(object = "instance", key = "job", type = "string", value = "新兵訓練師");
+        actorTalk(actorId = "instance", text = "已選擇職業：{instance.job}");
+        setGlobal(key = "royalHp", type = "integer", value = "{royalHp} + 10");
+    }
+}
+block chooseJobS1 {
+    __repeat__ = -1;
+    triggers {
+        clickButton(varName = "instance", buttonId = "chooseJobS1");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "undefined");
+    }
+    actions {
+        setObjectVar(object = "instance", key = "job", type = "string", value = "龍騎士");
+        actorTalk(actorId = "instance", text = "已選擇職業：{instance.job}");
+    }
+}
+block chooseJobS2 {
+    __repeat__ = -1;
+    triggers {
+        clickButton(varName = "instance", buttonId = "chooseJobS2");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "undefined");
+    }
+    actions {
+        setObjectVar(object = "instance", key = "job", type = "string", value = "忍者");
+        actorTalk(actorId = "instance", text = "已選擇職業：{instance.job}");
+    }
+}
+block releasePowerR1 {
+    __repeat__ = -1;
+    triggers {
+        releasePower(varName = "instance", ability = "防護罩");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "守望者");
+    }
+    actions {
+        deltaHp(actorCode = "instance", value = 30);
+    }
+}
+block releasePowerS1 {
+    __repeat__ = -1;
+    triggers {
+        releasePower(varName = "instance", weapon = "大刀");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "龍騎士");
+    }
+    actions {
+        longBo(actorCode = "instance");
+    }
+}
+block releasePowerS2 {
+    __repeat__ = -1;
+    triggers {
+        releasePower(varName = "instance", ability = "分身術");
+    }
+    checks {
+        checkString(value = "{instance.job}", matchKind = "equal", str = "忍者");
+    }
+    actions {
+        setGlobal(key = "tempX", type = "number", value = "{instance.x}/32");
+        setGlobal(key = "tempY", type = "number", value = "{instance.y}/32");
+        addActor(name = "分身", localVarname = "actor", camp = "天影", hp = 100, x = "{tempX}", y = "{tempY}", weapon1 = "爪子", weapon2 = "步槍", role = "天影武士1");
+        actorFollow(actorId = "actor", type = "actor", targetId = "{instance}");
+        wait(duration = 10000);
+        actorDisappear(actorId = "actor");
+    }
+}
+block royalWin {
+    triggers {
+        actorDead(actor = ActorMatch(id = "camp_skydow"));
+    }
+    actions {
+        missionComplete(camp = "royal");
+    }
+    checks {
+    }
+}
+block skydowWin {
+    triggers {
+        actorDead(actor = ActorMatch(id = "camp_royal"));
+    }
+    actions {
+        missionComplete(camp = "skydow");
+    }
+    checks {
+    }
+}
 //---------------------------------------//
 //--- AST After implicitListPromotion ---//
 //---------------------------------------//
