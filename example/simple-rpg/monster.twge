@@ -5,9 +5,10 @@ def 自定義::拾取經驗泛型(drop_item_code, exp) : block {
         拾取武器道具(actorVarname = "instance", matchKind = "equal", itemMatchCode = drop_item_code);
     }
     actions {
-        自定義::儲存Instance整數("Exp", "{instance.Exp}+"+twge::to_string(exp));
+        let expStr = twge::to_string(exp);
+        自定義::儲存Instance整數("Exp", "{instance.Exp}+"+expStr);
         // TODO: Support return string type function
-        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = "<span style='color: green'>EXP+"+twge::to_string(exp)+"</span>");
+        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = "<span style='color: green'>EXP+"+expStr+"</span>");
         // TODO: Support Call event
         自定義::上載Instance數據();
     }
@@ -38,9 +39,10 @@ block 野獸死亡七級山嶺石怪 = 自定義::野獸死亡泛型("monster_st
 block 野獸死亡九級山嶺石怪 = 自定義::野獸死亡泛型("monster_stone_lv09", "stone_exp_09", "redStone");
 
 def 怪物::新增怪物(name, id, hp, strength, role, chunk_x, chunk_y) : actions {
+    let chunkId = "{map_to_chunk_" + chunk_x + "_" + chunk_y + "}";
     新增角色(name = name, id = id, hp = hp, strength = strength, role = role,
-            x = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_x} + 10",
-            y = "{chunk_{map_to_chunk_" + chunk_x + "_" + chunk_y + "}_y} + 10", 
+            x = "{chunk_"+chunkId+"_x} + 10",
+            y = "{chunk_"+chunkId+"_y} + 10", 
             camp = "第三", range = 10, localVarname = "actor",
             weapon1 = "fist", weapon2 = "fist", teamId = 101);
 
@@ -53,32 +55,37 @@ def 自定義::野獸重生泛型(interval, chunk_x, chunk_y, monster_type, leve
     __delay__ = 1000;
     __label__ = "怪物";
     checks {
+        let levelStr = twge::to_string(level);
         if(monster_type == "鹿") {
+            let actor = ActorMatch(id = "monster_deer_lv0" + levelStr, matchKind = "contain");
             if(chunk_x == "101" && chunk_y == "102") {
-                計算人數(actor = ActorMatch(id = "monster_deer_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 2);
+                計算人數(actor = actor, op = "<", value = 2);
             } else {
-                計算人數(actor = ActorMatch(id = "monster_deer_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 4);
+                計算人數(actor = actor, op = "<", value = 4);
             }
         }
         if(monster_type == "山嶺石怪") {
+            let actor = ActorMatch(id = "monster_stone_lv0" + levelStr, matchKind = "contain");
             if(chunk_x == "101" && chunk_y == "102") {
-                計算人數(actor = ActorMatch(id = "monster_stone_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 1);
+                計算人數(actor = actor, op = "<", value = 1);
             } else {
-                計算人數(actor = ActorMatch(id = "monster_stone_lv0" + twge::to_string(level), matchKind = "contain"), op = "<", value = 2);
+                計算人數(actor = actor, op = "<", value = 2);
             }
         }
         比較數字(lhs = "{map_used_" + chunk_x +"_" + chunk_y + "}", op = "==", rhs = "1");
     }
     actions {
+        let levelStr = twge::to_string(level);
+        let name = monster_type + "(Lv" + levelStr + ")";
         if(monster_type == "鹿") {
-            怪物::新增怪物(name = monster_type + "(Lv" + twge::to_string(level) + ")",
-                    id = "monster_deer_lv0" + twge::to_string(level) + "*",
+            怪物::新增怪物(name = name,
+                    id = "monster_deer_lv0" + levelStr + "*",
                     hp = 45 + 15 * level, strength = 8 + 2 * level,
                     role = "鹿", chunk_x = chunk_x, chunk_y = chunk_y);
         }
         if(monster_type == "山嶺石怪") {
-            怪物::新增怪物(name = monster_type + "(Lv" + twge::to_string(level) + ")",
-                    id = "monster_stone_lv0" + twge::to_string(level) + "*",
+            怪物::新增怪物(name = name,
+                    id = "monster_stone_lv0" + levelStr + "*",
                     hp = 60 + 20 * level, strength = 10 + 2 * level,
                     role = "石怪", chunk_x = chunk_x, chunk_y = chunk_y);
             設定角色屬性(actorId = "{actor}", attr = "體重", value = "6");

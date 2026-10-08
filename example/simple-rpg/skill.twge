@@ -54,7 +54,8 @@ EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             color = "#912B2B", lineWidth = 3);
     for(i in 1...60) {
         wait(duration = 150);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-64,64)", y="{y}+random(-64,64)", 
+        let random = "random(-64,64)";
+        EnhFF::廣義圓形範圍(x = "{x}+"+random, y = "{y}+"+random, 
                 radius = 40, duration = 500, color = "#FF0F0F", 
                 deltaHpType = "damage", deltaHpValue = 公式::火星領域傷害,
                 deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);

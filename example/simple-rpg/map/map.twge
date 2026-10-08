@@ -319,6 +319,8 @@ const 地圖::石蔭村101n104 = [
 ];
 
 def 地圖::生成地圖配置(x, y, object) : actions {
+    let buttonTakeOffX = Button(id = "setXNone", text = "卸下");
+    let buttonTakeOffWeapon = Button(id = "wearNone", text = "卸下");
     // '---' 用作padding
     if(object == "---" || object == " . ") {}
     // 生成Sign (SP - Point, SW - Weapon, SS - Skill)
@@ -327,37 +329,37 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增告示牌(x = x, y = y, rotation = 180, text = "【重置能力點分配】", buttons = [Button(id = "ResetPoint", text = "確認")]);
     } else if(object == "SW1") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::風杖描述, buttons = [Button(id = "wearWindStaff", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SW2") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::匕首描述, buttons = [Button(id = "wearDagger", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SW3") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 90, text = 文字::鐵劍描述, buttons = [Button(id = "wearIronSword", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SW4") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::銀槍描述, buttons = [Button(id = "wearSilverSpear", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::銀槍描述, buttons = [Button(id = "wearSilverSpear", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SW5") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::巨錘描述, buttons = [Button(id = "wearIronHammer", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::巨錘描述, buttons = [Button(id = "wearIronHammer", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SW6") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土杖描述, buttons = [Button(id = "wearEarthStaff", text = "裝備"), Button(id = "wearNone", text = "卸下")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土杖描述, buttons = [Button(id = "wearEarthStaff", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SS1") {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [
             Button(id = "setX" + 別名::技能火星領域EN, text = "設置於X鍵"), 
-            Button(id = "setXNone", text = "卸下")]);
+            buttonTakeOffX]);
     } else if(object == "SS2") {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::震撼描述, buttons = [
             Button(id = "setX" + 別名::技能震撼EN, text = "設置於X鍵"), 
-            Button(id = "setXNone", text = "卸下")]);
+            buttonTakeOffX]);
     } else if(object == "SS3") {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::土靈召喚, buttons = [
             Button(id = "setX" + 別名::技能土靈召喚EN, text = "設置於X鍵"), 
-            Button(id = "setXNone", text = "卸下")]);
+            buttonTakeOffX]);
     // 生成Device (DM - 魔法陣)
     } else if(object == "DM0") {
         新增回氣魔法陣(x = x, y = y, heal = "10", healActorCooldown = "4000", healDeviceCooldown = "1000");
@@ -431,19 +433,22 @@ def 地圖::生成地圖(mapArray, xOffset = "{chunk_{chunk_available_stack_now}
 }
 
 def 地圖::儲存地圖變量(x, y, map) : actions {
+    let x_str = twge::to_string(x);
+    let y_str = twge::to_string(y);
+    let prefix = "map_" + x_str + "_" + y_str + "_";
     if(map[0][27:32] == "ExNExN") {
-        儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExN", type = "int", value = 1);
+        儲存全域變數(key = prefix + "ExN", type = "int", value = 1);
     }
     if(map[19][27:32] == "ExSExS"){
-        儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExS", type = "int", value = 1);
+        儲存全域變數(key = prefix + "ExS", type = "int", value = 1);
     }
     if(map[9][0:2] == "ExW" && map[10][0:2] == "ExW") {
-        儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExW", type = "int", value = 1);
+        儲存全域變數(key = prefix + "ExW", type = "int", value = 1);
     }
     if(map[9][57:59] == "ExE" && map[10][57:59] == "ExE") {
-        儲存全域變數(key = "map_" + twge::to_string(x) + "_" + twge::to_string(y) + "_ExE", type = "int", value = 1);
+        儲存全域變數(key = prefix + "ExE", type = "int", value = 1);
     }
-    儲存全域變數(key = "map_used_" + twge::to_string(x) + "_" + twge::to_string(y), type = "int", value = 0);
+    儲存全域變數(key = "map_used_" + x_str + "_" + y_str, type = "int", value = 0);
 }
 
 

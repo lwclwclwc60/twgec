@@ -37,30 +37,33 @@ def 地圖::移動離開泛型(direction) : block {
     }
     checks {
         // 864 = 27*32 where 27 is the stride and 32 is the pixel size
+        let xLoc = "{{clicker.id}.gamePosition.x} % 864";
+        let yLoc = "{{clicker.id}.gamePosition.y} % 864";
+        let mapId = "{{clicker.id}.map_x}_{{clicker.id}.map_y}";
         if(direction == "右") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "19*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "20*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExE}", op = "==", rhs = 1);
+            比較數字(lhs = xLoc, op = ">=", rhs = "19*32");
+            比較數字(lhs = xLoc, op = "<=", rhs = "20*32");
+            比較數字(lhs = yLoc, op = ">=", rhs = "9*32");
+            比較數字(lhs = yLoc, op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_"+mapId+"_ExE}", op = "==", rhs = 1);
         } else if(direction == "左") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "0*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "1*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExW}", op = "==", rhs = 1);
+            比較數字(lhs = xLoc, op = ">=", rhs = "0*32");
+            比較數字(lhs = xLoc, op = "<=", rhs = "1*32");
+            比較數字(lhs = yLoc, op = ">=", rhs = "9*32");
+            比較數字(lhs = yLoc, op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_"+mapId+"_ExW}", op = "==", rhs = 1);
         } else if(direction == "下") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "19*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "20*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExS}", op = "==", rhs = 1);
+            比較數字(lhs = yLoc, op = ">=", rhs = "19*32");
+            比較數字(lhs = yLoc, op = "<=", rhs = "20*32");
+            比較數字(lhs = xLoc, op = ">=", rhs = "9*32");
+            比較數字(lhs = xLoc, op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_"+mapId+"_ExS}", op = "==", rhs = 1);
         } else if(direction == "上") {
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = ">=", rhs = "0*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.y} % 864", op = "<=", rhs = "1*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = ">=", rhs = "9*32");
-            比較數字(lhs = "{{clicker.id}.gamePosition.x} % 864", op = "<=", rhs = "11*32");
-            比較數字(lhs = "{map_{{clicker.id}.map_x}_{{clicker.id}.map_y}_ExN}", op = "==", rhs = 1);
+            比較數字(lhs = yLoc, op = ">=", rhs = "0*32");
+            比較數字(lhs = yLoc, op = "<=", rhs = "1*32");
+            比較數字(lhs = xLoc, op = ">=", rhs = "9*32");
+            比較數字(lhs = xLoc, op = "<=", rhs = "11*32");
+            比較數字(lhs = "{map_"+mapId+"_ExN}", op = "==", rhs = 1);
         }
     }
     actions {
@@ -100,25 +103,26 @@ def 地圖::移動進入泛型(direction) : block {
         比對字串(str = direction, value = "{instance.map_direction}");
     }
     actions {
+        let chunkId = "{map_to_chunk_{instance.map_x}_{instance.map_y}}";
         if(direction == "右") {
             移動角色位置(actorId = "instance",
-                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x}",
-                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+                x = "{chunk_"+chunkId+"_x}",
+                y = "{chunk_"+chunkId+"_y} + {instance.tmp_grid_y_offset}");
         } else if(direction == "左") {
             移動角色位置(actorId = "instance",
-                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + 19",
-                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + {instance.tmp_grid_y_offset}");
+                x = "{chunk_"+chunkId+"_x} + 19",
+                y = "{chunk_"+chunkId+"_y} + {instance.tmp_grid_y_offset}");
         } else if(direction == "下") {
             移動角色位置(actorId = "instance",
-                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
-                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y}");
+                x = "{chunk_"+chunkId+"_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_"+chunkId+"_y}");
         } else if(direction == "上") {
             移動角色位置(actorId = "instance",
-                x = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_x} + {instance.tmp_grid_x_offset}",
-                y = "{chunk_{map_to_chunk_{instance.map_x}_{instance.map_y}}_y} + 19");
+                x = "{chunk_"+chunkId+"_x} + {instance.tmp_grid_x_offset}",
+                y = "{chunk_"+chunkId+"_y} + 19");
         }
         等待(duration = 1000);
-        儲存全域變數(key = "chunk_entering_{map_to_chunk_{instance.map_x}_{instance.map_y}}", type = "int", value = 0);
+        儲存全域變數(key = "chunk_entering_"+chunkId, type = "int", value = 0);
     }
 }
 block 地圖移動進入往上 = 地圖::移動進入泛型("上");
