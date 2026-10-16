@@ -2,9 +2,10 @@ const PIXEL_TO_GRID = 32;
 
 block init {
     actions {
-        EnhFF::generalCircularRange(actorId = "instance", radius = 30, lineWidth = 2);
+        EnhFF::generalCircularRange(actorId = "instance", radius = 30, alpha = "0.8", lineWidth = 2);
         EnhFF::廣義圓形範圍(x = 5*PIXEL_TO_GRID, y = 5*PIXEL_TO_GRID, radius = 4*PIXEL_TO_GRID, 
             color = "#ff8888", deltaHpValue = "10", deltaHpType = "damage",
             deltaHpTarget = ActorMatch(controller = "ai", id = "deer", group = 101));
+        EnhFF::generalCircularRange(defType = "rectangle", x = 100, y = 120, width = 90, height = 50, alpha = "0.5");
     }
 }

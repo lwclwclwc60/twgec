@@ -23,28 +23,42 @@ JsonObjectNode action::ActionEnhFFGeneralCircularRange::method(
       {"x", defaultMap.get("x")},
       {"y", defaultMap.get("y")},
   });
-  JsonObjectNode regionNode = JsonObjectNode({
-      {"defType", "\"circle\""},
-      {"ciRad", defaultMap.get("radius")},
-      {"offX", defaultMap.get("offsetX")},
-      {"offY", defaultMap.get("offsetY")},
-  });
-  std::string actorId = defaultMap.get("actorId");
+  std::string defType = defaultMap.get(
+      "defType", EnhFFGeneralCircularRangeDefTypeKind::keywordEnum);
+  JsonObjectNode regionNode = JsonObjectNode();
+  regionNode.addNode("defType", defType)
+      .addNode("offX", defaultMap.get("offsetX"))
+      .addNode("offY", defaultMap.get("offsetY"));
+  if (defType == "\"rectangle\"") {
+    regionNode.addNode("reWid", defaultMap.get("width"))
+        .addNode("reHei", defaultMap.get("height"));
+  } else {
+    regionNode.addNode("ciRad", defaultMap.get("radius"));
+  }
+  std::string actorCode = defaultMap.get("actorId");
   JsonObjectNode dataNode = JsonObjectNode();
-  if (actorId != "\"\"")
+  if (actorCode != "\"\"") {
     dataNode.addNode("select", "\"actor\"")
-        .addNode("actorCode", defaultMap.get("actorId"))
+        .addNode("actorCode", actorCode)
         .addNode("onActorLayer", "\"over\"");
-  else
-    dataNode.addNode("select", "\"map\"").addNode("pos", posNode.to_string(24));
+  } else {
+    dataNode.addNode("select", "\"map\"")
+        .addNode("pos", posNode.to_string(24))
+        .addNode("onMapLayer", "\"sky\"");
+  }
   std::string duration = defaultMap.get("duration");
   dataNode.addNode("region", regionNode.to_string(24))
       .addNode("duration", duration)
       .addNode("color", defaultMap.get("color"))
-      .addNode("alpha", "\"1\"")
+      .addNode("alpha", defaultMap.get("alpha"))
       .addNode("lineWidth", defaultMap.get("lineWidth"))
       .addNode("lineAlign", "\"1\"")
+      .addNode("fill", defaultMap.get("fill"))
+      .addNode("fillColor", defaultMap.get("fillColor"))
+      .addNode("fillAlpha", defaultMap.get("fillAlpha"))
       .addNode("angle", "\"0\"")
+      .addNode("rot", "false")
+      .addNode("orbit", "false")
       .addNode("bornAnim", "\"none\"")
       .addNode("disAnim", "\"none\"");
   std::string deltaHpValue = defaultMap.get("deltaHpValue");
@@ -80,6 +94,8 @@ JsonObjectNode action::ActionEnhFFGeneralCircularRange::method(
     } else {
       dataNode.addNode("dhAll", "true");
     }
+  } else {
+    dataNode.addNode("deltaHp", "false");
   }
   return dataNode;
 }

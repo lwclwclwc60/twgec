@@ -396,20 +396,27 @@ const InstructionConfig EnhFFPlayerMousePositionConfig =
         .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
         .addParam("varX", AST_STRING, CODEGEN_STRING, "x")
         .addParam("varY", AST_STRING, CODEGEN_STRING, "y")
-        .setCodegenName("PlayerMousePositionEnh");
+        .setCodegenName("PlayerMousePositionEnhFF");
 const InstructionConfig EnhFFGeneralCircularRangeConfig =
     InstructionConfig("EnhFF", "generalCircularRange", "廣義圓形範圍")
         .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
         // If actorId is filled. `actor` mode will be used
         // Otherwise, `map` mode will be used
+        .addParam("defType", AST_STRING, CODEGEN_STRING, "circle")
         .addParam("x", AST_INT, CODEGEN_STRING, "0")
         .addParam("y", AST_INT, CODEGEN_STRING, "0")
         .addParam("radius", AST_INT, CODEGEN_STRING, "0")
+        .addParam("width", AST_INT, CODEGEN_STRING, "0")
+        .addParam("height", AST_INT, CODEGEN_STRING, "0")
         .addParam("offsetX", AST_INT, CODEGEN_STRING, "0")
         .addParam("offsetY", AST_INT, CODEGEN_STRING, "0")
         .addParam("duration", AST_INT, CODEGEN_STRING, "10000")
         .addParam("color", AST_STRING, CODEGEN_STRING, "#ffffff")
+        .addParam("alpha", AST_INT, CODEGEN_STRING, "1")
         .addParam("lineWidth", AST_INT, CODEGEN_STRING, "1")
+        .addParam("fill", AST_BOOL, CODEGEN_BOOL, "false")
+        .addParam("fillColor", AST_STRING, CODEGEN_STRING, "#ffffff")
+        .addParam("fillAlpha", AST_INT, CODEGEN_STRING, "1")
         .addParam("deltaHpType", AST_STRING, CODEGEN_STRING, "heal")
         .addParam("deltaHpValue", AST_INT, CODEGEN_STRING, "")
         .addParam("deltaHpCD", AST_INT, CODEGEN_STRING, "10000")

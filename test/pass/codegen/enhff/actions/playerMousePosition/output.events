@@ -73,7 +73,7 @@
             "devOnly": false,
             "actions": [
                 {
-                    "type": "PlayerMousePositionEnh",
+                    "type": "PlayerMousePositionEnhFF",
                     "data": {
                         "actorCode": "instance",
                         "varX": "myX",
@@ -82,7 +82,7 @@
                     }
                 },
                 {
-                    "type": "PlayerMousePositionEnh",
+                    "type": "PlayerMousePositionEnhFF",
                     "data": {
                         "actorCode": "instance2",
                         "varX": "myX",

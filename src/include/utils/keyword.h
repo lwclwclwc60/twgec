@@ -379,6 +379,20 @@ static KeywordEnum keywordEnum("match kind",
                                });
 } // namespace matchKind
 
+namespace EnhFFGeneralCircularRangeDefTypeKind {
+const string keywordCircle = "circle";
+const string keywordRectangle = "rectangle";
+const string keywordCircleZh = "圓形";
+const string keywordRectangleZh = "矩形";
+static KeywordEnum keywordEnum("enhff general circular range defType kind",
+                               {
+                                   {keywordCircle, keywordCircle},
+                                   {keywordRectangle, keywordRectangle},
+                                   {keywordCircleZh, keywordCircle},
+                                   {keywordRectangleZh, keywordRectangle},
+                               });
+} // namespace EnhFFGeneralCircularRangeDefTypeKind
+
 namespace abilityKind {
 const string keywordEnblastShield = "enblastShield";
 const string keywordWarp = "warp";
