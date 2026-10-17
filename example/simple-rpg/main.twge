@@ -23,7 +23,7 @@ block 點擊重置能力 {
         自定義::儲存Instance整數("INT", 0);
         自定義::儲存Instance整數("PSY", 0);
         角色說話(actorId = "instance", text = "成功重設能力點，目前有{instance.Point}點能力點");
-        自定義::更新角色屬性("instance");
+        自定義::更新角色屬性();
         自定義::上載Instance數據();
     }
 }
@@ -41,8 +41,7 @@ block 等級提升 {
         自定義::儲存Instance整數("Point", "{instance.Point}+floor({instance.Level}/10)+2");
         自定義::儲存Instance整數("ExpNeeded", "({instance.Level}+10)*({instance.Level}+10)");
         自定義::儲存Instance整數("Level", "{instance.Level}+1");
-        自定義::儲存Instance整數("HP", 公式::Instance血量);
-        設定角色屬性(actorId = "instance", attr = "maxHp", value = "{instance.HP}");
+        自定義::更新角色屬性();
         自定義::上載Instance數據();
     }
 }
@@ -56,6 +55,45 @@ block 回血 {
     }
     actions {
         角色加減血(actorCode = "instance", value = 公式::Instance恢復量);
+        自定義::儲存Instance整數("CurrentMP", "min({instance.MaxMP}, {instance.CurrentMP} + {instance.RegenMP})");
+    }
+}
+
+block 玩家狀態更新 {
+    __repeat__ = -1;
+    __repeatInterval__ = 1000;
+    __label__ = "玩家";
+    checks {
+        找出所有角色(actor = 角色::任何玩家, varname = "instance");
+    }
+    actions {
+        let duration = 1010;
+        EnhFF::廣義圓形範圍(defType = "rectangle", actorId = "instance",
+            color = "#00ffee", duration = duration, lineWidth = 0,
+            fill = true, fillColor = "#00ffee",
+            offsetX = "-19*(1-{instance.CurrentMP}/{instance.MaxMP})", offsetY = -39, 
+            width = "38*{instance.CurrentMP}/{instance.MaxMP}", height = 3);
+        EnhFF::廣義圓形範圍(defType = "rectangle",actorId = "instance",
+            color = "#000000", duration = duration, lineWidth = 0,
+            fill = true, fillColor = "#000000", fillAlpha = "0.4",
+            offsetX = "19*({instance.CurrentMP}/{instance.MaxMP})", offsetY = -39, 
+            width = "38-38*{instance.CurrentMP}/{instance.MaxMP}", height = 3);
+        EnhFF::廣義圓形範圍(defType = "rectangle",actorId = "instance",
+            color = "#d7f9f1", duration = duration, lineWidth = 1,
+            fill = true, fillColor = "#d7f9f1", fillAlpha = "1-{instance.skill{instance.ZSkill}CD}",
+            offsetX = 25, offsetY = -40, width = 5, height = 5);
+        EnhFF::廣義圓形範圍(defType = "rectangle",actorId = "instance",
+            color = "#d7dff9", duration = duration, lineWidth = 1,
+            fill = true, fillColor = "#d7dff9", fillAlpha = "1-{instance.skill{instance.XSkill}CD}",
+            offsetX = 30, offsetY = -40, width = 5, height = 5);
+        EnhFF::廣義圓形範圍(defType = "rectangle",actorId = "instance",
+            color = "#f9d7df", duration = duration, lineWidth = 1,
+            fill = true, fillColor = "#f9d7df", fillAlpha = "1-{instance.skill{instance.CSkill}CD}",
+            offsetX = 25, offsetY = -35, width = 5, height = 5);
+        EnhFF::廣義圓形範圍(defType = "rectangle",actorId = "instance",
+            color = "#f9f1d7", duration = duration, lineWidth = 1,
+            fill = true, fillColor = "#f9f1d7", fillAlpha = "1-{instance.skill{instance.VSkill}CD}",
+            offsetX = 30, offsetY = -35, width = 5, height = 5);
     }
 }
 
@@ -68,6 +106,7 @@ block 玩家死亡 {
     actions {
             自定義::儲存Instance整數("map_x", 100);
             自定義::儲存Instance整數("map_y", 100);
+            自定義::儲存Instance整數("CurrentMP", "{instance.MaxMP}");
     }
 }
 
@@ -88,9 +127,19 @@ block 玩家初始化 {
         自定義::儲存Instance整數("Exp", 0);
         自定義::儲存Instance整數("ExpNeeded", 100);
         自定義::儲存Instance整數("HP", 100);
+        自定義::儲存Instance整數("MaxMP", 100);
+        自定義::儲存Instance整數("CurrentMP", 100);
+        自定義::儲存Instance整數("RegenMP", 10);
         自定義::儲存Instance整數("map_x", 100);
         自定義::儲存Instance整數("map_y", 100);
-        儲存物件變數(key = "XSkill", object = "instance", type = "string", value = "無");
+        自定義::儲存Instance整數("skill"+別名::技能治療領域EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能火星領域EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能震撼EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能土靈召喚EN+"CD", 0);
+        儲存物件變數(key = "ZSkill", object = "instance", type = "string", value = "None");
+        儲存物件變數(key = "XSkill", object = "instance", type = "string", value = "None");
+        儲存物件變數(key = "CSkill", object = "instance", type = "string", value = "None");
+        儲存物件變數(key = "VSkill", object = "instance", type = "string", value = "None");
         取得玩家狀態(category = 狀態讀寫密鑰, key = "savedBefore", playerId = "{instance}", varName = "{instance}_savedBefore");
         人物裝備武器(actorCode = "instance", type = "fist", hand = 1);
         人物裝備武器(actorCode = "instance", type = "fist", hand = 2);

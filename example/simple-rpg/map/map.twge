@@ -45,10 +45,10 @@ const 地圖::新手村100n100 = [
 " .  .  .  .  . ****** .  .  .  .  .  .  .  .  .  .  .  .  . ",
 " .  .  .  .  .  .  .  .  .  .  .  .  . ********* .  .  .  . ",
 " .  . --------------- .  .  .  .  . LBx--------------- .  . ",
-" .  . ------H00------ .  .  .  .  . ------------------ .  . ",
-" .  . ---------------****** .  .  . SS1 . ---H01------ .  . ",
-" .  . ---------------*** .  .  .  . SS2NP2------------ .  . ",
-" .  . LBx--- . NP1 .  .  .  .  .  . SS3 . ------------ .  . ",
+" .  . ------H00------ .  .  .  .  . SS1--------------- .  . ",
+" .  . ---------------****** .  .  . SS2 . ---H01------ .  . ",
+" .  . ---------------*** .  .  .  . SS3NP2------------ .  . ",
+" .  . LBx--- . NP1 .  .  .  .  .  . SS4 . ------------ .  . ",
 " .  . ------SW1SW2SW3 .  .  .  .  .  .  .  .  . *** .  .  . ",
 " .  .  .  .  . ****** .  .  .  .  .  .  .  . ********* .  . ",
 "ExW .  . ************ .  .  .  .  .  .  . ***************ExE",
@@ -319,7 +319,6 @@ const 地圖::石蔭村101n104 = [
 ];
 
 def 地圖::生成地圖配置(x, y, object) : actions {
-    let buttonTakeOffX = Button(id = "setXNone", text = "卸下");
     let buttonTakeOffWeapon = Button(id = "wearNone", text = "卸下");
     // '---' 用作padding
     if(object == "---" || object == " . ") {}
@@ -346,20 +345,32 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::土杖描述, buttons = [Button(id = "wearEarthStaff", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SS1") {
-        新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [
-            Button(id = "setX" + 別名::技能火星領域EN, text = "設置於X鍵"), 
-            buttonTakeOffX]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::治療領域描述, buttons = [
+            Button(id = "setZ" + 別名::技能治療領域EN, text = "設置於Z鍵"), 
+            Button(id = "setX" + 別名::技能治療領域EN, text = "設置於X鍵"), 
+            Button(id = "setC" + 別名::技能治療領域EN, text = "設置於C鍵"), 
+            Button(id = "setV" + 別名::技能治療領域EN, text = "設置於V鍵")]);
     } else if(object == "SS2") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::震撼描述, buttons = [
-            Button(id = "setX" + 別名::技能震撼EN, text = "設置於X鍵"), 
-            buttonTakeOffX]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [
+            Button(id = "setZ" + 別名::技能火星領域EN, text = "設置於Z鍵"), 
+            Button(id = "setX" + 別名::技能火星領域EN, text = "設置於X鍵"), 
+            Button(id = "setC" + 別名::技能火星領域EN, text = "設置於C鍵"), 
+            Button(id = "setV" + 別名::技能火星領域EN, text = "設置於V鍵")]);
     } else if(object == "SS3") {
         新增地圖物件(x = x, y = y, object = "小箱子");
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::震撼描述, buttons = [
+            Button(id = "setZ" + 別名::技能震撼EN, text = "設置於Z鍵"),
+            Button(id = "setX" + 別名::技能震撼EN, text = "設置於X鍵"),
+            Button(id = "setC" + 別名::技能震撼EN, text = "設置於C鍵"),
+            Button(id = "setV" + 別名::技能震撼EN, text = "設置於V鍵")]);
+    } else if(object == "SS4") {
+        新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::土靈召喚, buttons = [
-            Button(id = "setX" + 別名::技能土靈召喚EN, text = "設置於X鍵"), 
-            buttonTakeOffX]);
+            Button(id = "setZ" + 別名::技能土靈召喚EN, text = "設置於Z鍵"),
+            Button(id = "setX" + 別名::技能土靈召喚EN, text = "設置於X鍵"),
+            Button(id = "setC" + 別名::技能土靈召喚EN, text = "設置於C鍵"),
+            Button(id = "setV" + 別名::技能土靈召喚EN, text = "設置於V鍵")]);
     // 生成Device (DM - 魔法陣)
     } else if(object == "DM0") {
         新增回氣魔法陣(x = x, y = y, heal = "10", healActorCooldown = "4000", healDeviceCooldown = "1000");

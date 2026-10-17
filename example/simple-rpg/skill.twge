@@ -1,17 +1,24 @@
+const 公式::治療領域回復 = "2+{instance.PSY}/3";
 const 公式::火星領域傷害 = "2+{instance.INT}/2+{instance.PSY}/3";
 const 公式::震撼傷害 = "15+{instance.CON}";
 const 公式::震撼範圍 = "60+10*{instance.CON}^0.5";
 const 公式::土靈召喚血量 = "100+{instance.PSY}*4";
 const 公式::土靈召喚傷害 = "10+{instance.PSY}/2";
 
+const 文字::治療領域描述 = 
+"【治療領域】(30MP)\n" + 
+"在滑鼠指定範圍內10秒持續回復血量\n" + 
+" - 回覆量: 2+精神÷3\n" +
+"冷卻30秒";
+
 const 文字::火星領域描述 = 
-"【火星領域】\n" + 
+"【火星領域】(30MP)\n" + 
 "在滑鼠指定範圍內持續出現星火\n" + 
 " - 星火傷害: 2+智慧÷2+精神÷3\n" +
 "冷卻10秒";
 
 const 文字::震撼描述 = 
-"【震撼】\n" + 
+"【震撼】(25MP)\n" + 
 "對自身附近的敵人造成傷害\n" +
 "體質越高，威力及範圍越大\n" + 
 " - 震撼傷害: 15+體質\n" +
@@ -19,12 +26,14 @@ const 文字::震撼描述 =
 "冷卻10秒";
 
 const 文字::土靈召喚 = 
-"【土靈召喚】\n" + 
+"【土靈召喚】(40MP)\n" + 
 "生成一直存在35秒的土靈為你戰鬥\n" + 
 " - 土靈血量: 100+精神×4\n" +
 " - 土靈傷害: 10+精神÷2\n" +
 "冷卻40秒";
 
+const 別名::技能治療領域EN = "HealArea";
+const 別名::技能治療領域ZN = "治療領域";
 const 別名::技能火星領域EN = "SparkArea";
 const 別名::技能火星領域ZH = "火星領域";
 const 別名::技能震撼EN = "Shocked";
@@ -32,24 +41,64 @@ const 別名::技能震撼ZH = "震撼";
 const 別名::技能土靈召喚EN = "SummonEarthSpirit";
 const 別名::技能土靈召喚ZH = "土靈召喚";
 
-def 自定義::點擊設定技能泛型(name, nameZh) : block {
-    __repeat__ = -1;
+block 技能初始化 {
     __label__ = "技能";
-    triggers {
-        告示牌按鈕(varName = "instance", buttonId = "setX" + name);
-    }
     actions {
-        儲存物件變數(key = "XSkill", object = "instance", type = "string", value = nameZh);
+        儲存全域變數(key = "skill_zh_" + 別名::技能治療領域EN, type = "string", value = 別名::技能治療領域ZN);
+        儲存全域變數(key = "skill_zh_" + 別名::技能火星領域EN, type = "string", value = 別名::技能火星領域ZH);
+        儲存全域變數(key = "skill_zh_" + 別名::技能震撼EN, type = "string", value = 別名::技能震撼ZH);
+        儲存全域變數(key = "skill_zh_" + 別名::技能土靈召喚EN, type = "string", value = 別名::技能土靈召喚ZH);
+        儲存全域變數(key = "skill_zh_None", type = "string", value = "無");
+        儲存全域變數(key = "skill_mp_" + 別名::技能治療領域EN, type = "int", value = 30);
+        儲存全域變數(key = "skill_mp_" + 別名::技能火星領域EN, type = "int", value = 30);
+        儲存全域變數(key = "skill_mp_" + 別名::技能震撼EN, type = "int", value = 25);
+        儲存全域變數(key = "skill_mp_" + 別名::技能土靈召喚EN, type = "int", value = 40);
+        儲存全域變數(key = "skill_color_" + 別名::技能治療領域EN, type = "string", value = "#ffe604");
+        儲存全域變數(key = "skill_color_" + 別名::技能火星領域EN, type = "string", value = "#912B2B");
+        儲存全域變數(key = "skill_color_" + 別名::技能震撼EN, type = "string", value = "#CC7700");
+        儲存全域變數(key = "skill_color_" + 別名::技能土靈召喚EN, type = "string", value = "#A57E00");
     }
 }
 
-block 點擊設定技能火星領域 = 自定義::點擊設定技能泛型(別名::技能火星領域EN, 別名::技能火星領域ZH);
-block 點擊設定技能震撼 = 自定義::點擊設定技能泛型(別名::技能震撼EN, 別名::技能震撼ZH);
-block 點擊設定技能土靈召喚 = 自定義::點擊設定技能泛型(別名::技能土靈召喚EN, 別名::技能土靈召喚ZH);
-block 點擊設定技能無 = 自定義::點擊設定技能泛型("None","無");
+def 自定義::點擊設定技能泛型(keystroke, name) : block {
+    __repeat__ = -1;
+    __label__ = "技能";
+    triggers {
+        告示牌按鈕(varName = "instance", buttonId = "set" + keystroke + name);
+    }
+    actions {
+        儲存物件變數(key = keystroke + "Skill", object = "instance", type = "string", value = name);
+    }
+}
+
+block 點擊設定Z技能治療領域 = 自定義::點擊設定技能泛型("Z", 別名::技能治療領域EN);
+block 點擊設定X技能治療領域 = 自定義::點擊設定技能泛型("X", 別名::技能治療領域EN);
+block 點擊設定C技能治療領域 = 自定義::點擊設定技能泛型("C", 別名::技能治療領域EN);
+block 點擊設定V技能治療領域 = 自定義::點擊設定技能泛型("V", 別名::技能治療領域EN);
+block 點擊設定Z技能火星領域 = 自定義::點擊設定技能泛型("Z", 別名::技能火星領域EN);
+block 點擊設定X技能火星領域 = 自定義::點擊設定技能泛型("X", 別名::技能火星領域EN);
+block 點擊設定C技能火星領域 = 自定義::點擊設定技能泛型("C", 別名::技能火星領域EN);
+block 點擊設定V技能火星領域 = 自定義::點擊設定技能泛型("V", 別名::技能火星領域EN);
+block 點擊設定Z技能震撼 = 自定義::點擊設定技能泛型("Z", 別名::技能震撼EN);
+block 點擊設定X技能震撼 = 自定義::點擊設定技能泛型("X", 別名::技能震撼EN);
+block 點擊設定C技能震撼 = 自定義::點擊設定技能泛型("C", 別名::技能震撼EN);
+block 點擊設定V技能震撼 = 自定義::點擊設定技能泛型("V", 別名::技能震撼EN);
+block 點擊設定Z技能土靈召喚 = 自定義::點擊設定技能泛型("Z", 別名::技能土靈召喚EN);
+block 點擊設定X技能土靈召喚 = 自定義::點擊設定技能泛型("X", 別名::技能土靈召喚EN);
+block 點擊設定C技能土靈召喚 = 自定義::點擊設定技能泛型("C", 別名::技能土靈召喚EN);
+block 點擊設定V技能土靈召喚 = 自定義::點擊設定技能泛型("V", 別名::技能土靈召喚EN);
+
+def 治療領域技能() : actions {
+    EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+    EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", 
+            radius = 64, duration = 10000, color = "#ffe604", 
+            deltaHpType = "heal", deltaHpValue = 公式::治療領域回復,
+            deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    wait(duration = 30000);
+}
 
 def 火星領域技能() : actions {
-EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+    EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     EnhFF::廣義圓形範圍(x = "{x}", y="{y}", radius = 2*64, duration = 10000,
             color = "#912B2B", lineWidth = 3);
     for(i in 1...60) {
@@ -82,20 +131,27 @@ def 土靈召喚技能() : actions {
     wait(duration = 5000);
 }
 
-def 自定義::觸發技能泛型(name, nameZh, color) : block {
+def 自定義::觸發技能泛型(keystroke, name) : block {
     __repeat__ = -1;
     __label__ = "技能";
     triggers {
-        鍵盤按鍵(varName = "clicker", key = "X");
+        鍵盤按鍵(varName = "clicker", key = keystroke);
     }
     checks {
-        比對字串(matchKind = "equal", str = nameZh, value = "{{clicker.id}.XSkill}");
+        let mp = "{skill_mp_" + name + "}";
+        比對字串(matchKind = "equal", str = name, value = "{{clicker.id}."+keystroke+"Skill}");
         比較數字(lhs = "{{clicker.id}.skill"+name+"CD}", op = "!=", rhs = 1);
+        比較數字(lhs = "{{clicker.id}.CurrentMP}", op = ">=", rhs = mp);
     }
     actions {
+        let nameZh = "{skill_zh_" + name + "}";
+        let color = "{skill_color_" + name + "}";
+        let mp = "{skill_mp_" + name + "}";
         setGlobal(key = "instance", type = "string", value = "{clicker.id}");
         地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = "<span style='color: "+color+"'>"+nameZh+"</span>");
         自定義::儲存Instance整數("skill"+name+"CD", 1);
+        自定義::儲存Instance整數("CurrentMP", "{instance.CurrentMP} - " + mp);
+        if(name == 別名::技能治療領域EN) {治療領域技能();}
         if(name == 別名::技能火星領域EN) {火星領域技能();}
         if(name == 別名::技能震撼EN) {震撼技能();}
         if(name == 別名::技能土靈召喚EN) {土靈召喚技能();}
@@ -104,6 +160,19 @@ def 自定義::觸發技能泛型(name, nameZh, color) : block {
     }
 }
 
-block 觸發技能火星領域 = 自定義::觸發技能泛型(別名::技能火星領域EN, 別名::技能火星領域ZH, "#912B2B");
-block 觸發技能震撼 = 自定義::觸發技能泛型(別名::技能震撼EN, 別名::技能震撼ZH, "#CC7700");
-block 觸發技能土靈召喚 = 自定義::觸發技能泛型(別名::技能土靈召喚EN, 別名::技能土靈召喚ZH, "#A57E00");
+block 觸發Z技能治療領域 = 自定義::觸發技能泛型("Z", 別名::技能治療領域EN);
+block 觸發X技能治療領域 = 自定義::觸發技能泛型("X", 別名::技能治療領域EN);
+block 觸發C技能治療領域 = 自定義::觸發技能泛型("C", 別名::技能治療領域EN);
+block 觸發V技能治療領域 = 自定義::觸發技能泛型("V", 別名::技能治療領域EN);
+block 觸發Z技能火星領域 = 自定義::觸發技能泛型("Z", 別名::技能火星領域EN);
+block 觸發X技能火星領域 = 自定義::觸發技能泛型("X", 別名::技能火星領域EN);
+block 觸發C技能火星領域 = 自定義::觸發技能泛型("C", 別名::技能火星領域EN);
+block 觸發V技能火星領域 = 自定義::觸發技能泛型("V", 別名::技能火星領域EN);
+block 觸發Z技能震撼 = 自定義::觸發技能泛型("Z", 別名::技能震撼EN);
+block 觸發X技能震撼 = 自定義::觸發技能泛型("X", 別名::技能震撼EN);
+block 觸發C技能震撼 = 自定義::觸發技能泛型("C", 別名::技能震撼EN);
+block 觸發V技能震撼 = 自定義::觸發技能泛型("V", 別名::技能震撼EN);
+block 觸發Z技能土靈召喚 = 自定義::觸發技能泛型("Z", 別名::技能土靈召喚EN);
+block 觸發X技能土靈召喚 = 自定義::觸發技能泛型("X", 別名::技能土靈召喚EN);
+block 觸發C技能土靈召喚 = 自定義::觸發技能泛型("C", 別名::技能土靈召喚EN);
+block 觸發V技能土靈召喚 = 自定義::觸發技能泛型("V", 別名::技能土靈召喚EN);

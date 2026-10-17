@@ -1,13 +1,17 @@
 const 面板::主頁 =
 "<div>【Lv{instance.Level}】</div>" +
 "<div>Exp:{instance.Exp}/{instance.ExpNeeded}</div>" +
+"<div>MP:{instance.CurrentMP}/{instance.MaxMP}</div>" +
 "<div>尚餘能力點：{instance.Point}</div>" +
 "<div>力量：{instance.STR}</div>" +
 "<div>體質：{instance.CON}</div>" +
 "<div>敏捷：{instance.AGI}</div>" +
 "<div>智慧：{instance.INT}</div>" +
 "<div>精神：{instance.PSY}\n</div>" +
-"<div>按鍵X技能: 【{instance.XSkill}】</div>";
+"<div>按鍵Z技能: 【{skill_zh_{instance.ZSkill}}】</div>" +
+"<div>按鍵X技能: 【{skill_zh_{instance.XSkill}}】</div>" +
+"<div>按鍵C技能: 【{skill_zh_{instance.CSkill}}】</div>" +
+"<div>按鍵V技能: 【{skill_zh_{instance.VSkill}}】</div>";
 
 const 面板::能力頁 = 
 "<div>尚餘能力點：{instance.Point}</div>" +
@@ -44,7 +48,7 @@ block 查看主面板 {
     __repeat__ = -1;
     __label__ = "面板";
     triggers {
-        鍵盤按鍵(varName = "clicker", key = "Z");
+        鍵盤按鍵(varName = "clicker", key = "M");
     }
     actions {
         關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_main");
@@ -79,7 +83,7 @@ def 面板::點擊能力分配泛型(type, typeZh, value) : block {
         關閉彈出視窗(actorId = "{instance}", dialogId = "dialog_point");
         自定義::儲存Instance整數("Point", "{instance.Point} - " + value);
         自定義::儲存Instance整數(type, "{instance."+type+"} + " + value);
-        自定義::更新角色屬性("instance");
+        自定義::更新角色屬性();
         自定義::上載Instance數據();
         面板::顯示能力面板();
     }

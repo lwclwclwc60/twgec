@@ -1,7 +1,9 @@
 //------------------- 自定義常量 -------------------//
 const 公式::Instance角度 = "{instance.bodyRotation}*180/3.14";
 const 公式::Instance血量 = "98 + 10*{instance.CON} + 2*{instance.Level}";
+const 公式::Instance魔量 = "98 + 8*{instance.PSY} + 5*{instance.INT} + 2*{instance.Level}";
 const 公式::Instance恢復量 = "1 + {instance.PSY} + {instance.CON}/2";
+const 公式::Instance魔恢復量 = "10 + {instance.PSY} + {instance.INT}/2";
 const 公式::InstanceX坐標 = "{instance.gamePosition.x}/32";
 const 公式::InstanceY坐標 = "{instance.gamePosition.y}/32";
 
@@ -58,9 +60,12 @@ def 自定義::儲存Instance整數(key, value): actions {
     儲存物件變數(key = key, object = "instance", type = "integer", value = value);
 }
 
-def 自定義::更新角色屬性(actorId): actions {
-    儲存物件變數(key = "HP", object = actorId, type = "integer", value = "98 + 10*{"+actorId+".CON} + 2*{"+actorId+".Level}");
-    設定角色屬性(actorId = actorId, attr = "maxHp", value = "{"+actorId+".HP}");
-    設定角色屬性(actorId = actorId, attr = "closeWeaponSpeed", value = "4-3/(1+0.01*{"+actorId+".AGI})");
-    設定角色屬性(actorId = actorId, attr = "weight", value = "3*pow(0.97,{"+actorId+".AGI})");
+def 自定義::更新角色屬性(): actions {
+    自定義::儲存Instance整數("HP", 公式::Instance血量);
+    設定角色屬性(actorId = "instance", attr = "maxHp", value = "{instance.HP}");
+    自定義::儲存Instance整數("MaxMP", 公式::Instance魔量);
+    自定義::儲存Instance整數("RegenMP", 公式::Instance魔恢復量);
+    自定義::儲存Instance整數("CurrentMP", "min({instance.CurrentMP}, {instance.MaxMP})");
+    設定角色屬性(actorId = "instance", attr = "closeWeaponSpeed", value = "4-3/(1+0.01*{instance.AGI})");
+    設定角色屬性(actorId = "instance", attr = "weight", value = "3*pow(0.97,{instance.AGI})");
 }

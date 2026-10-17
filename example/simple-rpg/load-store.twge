@@ -46,8 +46,9 @@ def 自定義::下載玩家數據泛型(hasSavedBefore) : block {
             自定義::輔助::下載Instance數據("PSY");
             自定義::輔助::下載Instance數據("Exp");
             自定義::輔助::下載Instance數據("HP");
-            自定義::更新角色屬性("instance");
+            自定義::更新角色屬性();
             角色加減血(actorCode = "instance", type = "heal", value = 9999);
+            自定義::儲存Instance整數("CurrentMP", "{instance.MaxMP}");
         }
         角色說話(actorId = "instance", cleanTalk = true, text = "初始化完畢");
     }
