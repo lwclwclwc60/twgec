@@ -56,7 +56,7 @@ JsonObjectNode action::ActionEnhFFGeneralCircularRange::method(
       .addNode("fill", defaultMap.get("fill"))
       .addNode("fillColor", defaultMap.get("fillColor"))
       .addNode("fillAlpha", defaultMap.get("fillAlpha"))
-      .addNode("angle", "\"0\"")
+      .addNode("angle", defaultMap.get("rotation"))
       .addNode("rot", "false")
       .addNode("orbit", "false")
       .addNode("bornAnim", "\"none\"")

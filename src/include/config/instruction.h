@@ -427,6 +427,7 @@ const InstructionConfig EnhFFGeneralCircularRangeConfig =
         .addParam("fill", AST_BOOL, CODEGEN_BOOL, "false")
         .addParam("fillColor", AST_STRING, CODEGEN_STRING, "#ffffff")
         .addParam("fillAlpha", AST_INT, CODEGEN_STRING, "1")
+        .addParam("rotation", AST_INT, CODEGEN_STRING, "0")
         .addParam("deltaHpType", AST_STRING, CODEGEN_STRING, "heal")
         .addParam("deltaHpValue", AST_INT, CODEGEN_STRING, "")
         .addParam("deltaHpCD", AST_INT, CODEGEN_STRING, "10000")

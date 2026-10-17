@@ -206,7 +206,7 @@
                         "fill": false,
                         "fillColor": "#ffffff",
                         "fillAlpha": "1",
-                        "angle": "0",
+                        "angle": "45",
                         "rot": false,
                         "orbit": false,
                         "bornAnim": "none",

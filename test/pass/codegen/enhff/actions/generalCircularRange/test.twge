@@ -6,6 +6,6 @@ block init {
         EnhFF::廣義圓形範圍(x = 5*PIXEL_TO_GRID, y = 5*PIXEL_TO_GRID, radius = 4*PIXEL_TO_GRID, 
             color = "#ff8888", deltaHpValue = "10", deltaHpType = "damage",
             deltaHpTarget = ActorMatch(controller = "ai", id = "deer", group = 101));
-        EnhFF::generalCircularRange(defType = "rectangle", x = 100, y = 120, width = 90, height = 50, alpha = "0.5");
+        EnhFF::generalCircularRange(defType = "rectangle", x = 100, y = 120, width = 90, height = 50, alpha = "0.5", rotation = 45);
     }
 }
