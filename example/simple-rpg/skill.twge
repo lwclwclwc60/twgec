@@ -90,6 +90,7 @@ block 點擊設定V技能土靈召喚 = 自定義::點擊設定技能泛型("V",
 
 def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        新增地圖音效(x = "{x}/32", y="{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", 
             radius = 64, duration = 10000, color = "#ffe604", 
             deltaHpType = "heal", deltaHpValue = 公式::治療領域回復,
@@ -113,6 +114,7 @@ def 火星領域技能() : actions {
 }
 
 def 震撼技能() : actions {
+    新增地圖音效(actorId = "instance", resource = 音效::axeshock, volume = 2);
     EnhFF::廣義圓形範圍(actorId = "instance", 
             radius = 公式::震撼範圍, duration = 2000, color = "#CC7700", 
             deltaHpType = "damage", lineWidth = 3, deltaHpValue = 公式::震撼傷害,

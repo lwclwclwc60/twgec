@@ -108,6 +108,7 @@ def 自定義::釋放技能泛型(weapon) : block {
                 deltaHpType = "damage", deltaHpValue = 公式::匕首技能傷害,
                 deltaHpCD = 4000, deltaHpTarget = 角色::任何敵軍);
         移動角色位置(actorId = "{instance}", x = "{x}/32", y = "{y}/32");
+        新增地圖音效(actorId = "instance", resource = 音效::knife_hit, volume = 2);
         }
         if(weapon == 別名::武器銀槍) {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "mouse_x", varY = "mouse_y");

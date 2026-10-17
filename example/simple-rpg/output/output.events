@@ -1488,6 +1488,17 @@
                         "shiftY": "0",
                         "keepAbStates": false
                     }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "actor",
+                        "actorCode": "instance",
+                        "alive": true,
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/knife_hit.mp3",
+                        "volume": "2",
+                        "skip": "0"
+                    }
                 }
             ],
             "checks": [],
@@ -7378,6 +7389,22 @@
                     }
                 },
                 {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{x}/32",
+                            "y": "{y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "map",
@@ -7604,6 +7631,22 @@
                         "varX": "x",
                         "varY": "y",
                         "wait": true
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{x}/32",
+                            "y": "{y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3",
+                        "volume": "1",
+                        "skip": "0"
                     }
                 },
                 {
@@ -7836,6 +7879,22 @@
                     }
                 },
                 {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{x}/32",
+                            "y": "{y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "map",
@@ -8062,6 +8121,22 @@
                         "varX": "x",
                         "varY": "y",
                         "wait": true
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{x}/32",
+                            "y": "{y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3",
+                        "volume": "1",
+                        "skip": "0"
                     }
                 },
                 {
@@ -27757,6 +27832,17 @@
                     }
                 },
                 {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "actor",
+                        "actorCode": "instance",
+                        "alive": true,
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/axeshock.mp3",
+                        "volume": "2",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "actor",
@@ -27971,6 +28057,17 @@
                         "key": "CurrentMP",
                         "valueType": "integer",
                         "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "actor",
+                        "actorCode": "instance",
+                        "alive": true,
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/axeshock.mp3",
+                        "volume": "2",
+                        "skip": "0"
                     }
                 },
                 {
@@ -28191,6 +28288,17 @@
                     }
                 },
                 {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "actor",
+                        "actorCode": "instance",
+                        "alive": true,
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/axeshock.mp3",
+                        "volume": "2",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "actor",
@@ -28405,6 +28513,17 @@
                         "key": "CurrentMP",
                         "valueType": "integer",
                         "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "actor",
+                        "actorCode": "instance",
+                        "alive": true,
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/axeshock.mp3",
+                        "volume": "2",
+                        "skip": "0"
                     }
                 },
                 {
