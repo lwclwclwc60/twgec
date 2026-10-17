@@ -95,6 +95,12 @@ def 治療領域技能() : actions {
             radius = 64, duration = 10000, color = "#ffe604", 
             deltaHpType = "heal", deltaHpValue = 公式::治療領域回復,
             deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, 
+            height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}",
+            height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}",
+            height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 

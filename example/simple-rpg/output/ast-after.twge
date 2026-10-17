@@ -341,10 +341,16 @@ def 自定義::釋放技能泛型(weapon) : block {
             }
         }
         if((weapon == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -440,6 +446,9 @@ def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 def 火星領域技能() : actions {
@@ -861,8 +870,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
 }
 block 武器初始化 {
@@ -1575,10 +1588,16 @@ def 自定義::釋放技能泛型(weapon) : block {
             }
         }
         if((weapon == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -1674,6 +1693,9 @@ def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 def 火星領域技能() : actions {
@@ -2095,8 +2117,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
 }
 block 武器初始化 {
@@ -2809,10 +2835,16 @@ def 自定義::釋放技能泛型(weapon) : block {
             }
         }
         if((weapon == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -2908,6 +2940,9 @@ def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 def 火星領域技能() : actions {
@@ -3329,8 +3364,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
 }
 block 武器初始化 {
@@ -4043,10 +4082,16 @@ def 自定義::釋放技能泛型(weapon) : block {
             }
         }
         if((weapon == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4142,6 +4187,9 @@ def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 def 火星領域技能() : actions {
@@ -4691,10 +4739,16 @@ block 釋放技能風杖 {
             }
         }
         if((別名::武器風杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4747,10 +4801,16 @@ block 釋放技能鐵劍 {
             }
         }
         if((別名::武器鐵劍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4803,10 +4863,16 @@ block 釋放技能匕首 {
             }
         }
         if((別名::武器匕首 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4859,10 +4925,16 @@ block 釋放技能銀槍 {
             }
         }
         if((別名::武器銀槍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4915,10 +4987,16 @@ block 釋放技能巨錘 {
             }
         }
         if((別名::武器巨錘 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -4971,10 +5049,16 @@ block 釋放技能土杖 {
             }
         }
         if((別名::武器土杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -5079,8 +5163,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
 }
 block 武器初始化 {
@@ -8448,10 +8536,16 @@ def 自定義::釋放技能泛型(weapon) : block {
             }
         }
         if((weapon == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -8547,6 +8641,9 @@ def 治療領域技能() : actions {
     EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
     新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
     EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
     wait(duration = 30000);
 }
 def 火星領域技能() : actions {
@@ -9114,10 +9211,16 @@ block 釋放技能風杖 {
             }
         }
         if((別名::武器風杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9172,10 +9275,16 @@ block 釋放技能鐵劍 {
             }
         }
         if((別名::武器鐵劍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9230,10 +9339,16 @@ block 釋放技能匕首 {
             }
         }
         if((別名::武器匕首 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9288,10 +9403,16 @@ block 釋放技能銀槍 {
             }
         }
         if((別名::武器銀槍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9346,10 +9467,16 @@ block 釋放技能巨錘 {
             }
         }
         if((別名::武器巨錘 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9404,10 +9531,16 @@ block 釋放技能土杖 {
             }
         }
         if((別名::武器土杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -9530,8 +9663,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -13186,10 +13323,16 @@ block 釋放技能風杖 {
             }
         }
         if((別名::武器風杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13244,10 +13387,16 @@ block 釋放技能鐵劍 {
             }
         }
         if((別名::武器鐵劍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13302,10 +13451,16 @@ block 釋放技能匕首 {
             }
         }
         if((別名::武器匕首 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13360,10 +13515,16 @@ block 釋放技能銀槍 {
             }
         }
         if((別名::武器銀槍 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13418,10 +13579,16 @@ block 釋放技能巨錘 {
             }
         }
         if((別名::武器巨錘 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13476,10 +13643,16 @@ block 釋放技能土杖 {
             }
         }
         if((別名::武器土杖 == 別名::武器土杖)) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             for(i in -1...1) {
                 for(j in -1...1) {
-                    EnhFF::廣義圓形範圍(x = ("{x}+random(-16,16)+64*" + twge::to_string(i)), y = ("{y}+random(-16,16)+64*" + twge::to_string(j)), radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    儲存全域變數(key = "tmp_x", type = "number", value = ("{x}+random(-16,16)+64*" + twge::to_string(i)));
+                    儲存全域變數(key = "tmp_y", type = "number", value = ("{y}+random(-16,16)+64*" + twge::to_string(j)));
+                    新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = 音效::arrow_shoot);
+                    EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+                    EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
                 }
             }
         }
@@ -13602,8 +13775,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = 別名::武器土杖, varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::arrow_shoot);
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = 公式::土杖石刺傷害, deltaHpCD = 900, deltaHpTarget = 角色::任何敵軍, deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -14562,6 +14739,9 @@ block 觸發Z技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能治療領域EN == 別名::技能火星領域EN)) {
@@ -14615,6 +14795,9 @@ block 觸發X技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能治療領域EN == 別名::技能火星領域EN)) {
@@ -14668,6 +14851,9 @@ block 觸發C技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能治療領域EN == 別名::技能火星領域EN)) {
@@ -14721,6 +14907,9 @@ block 觸發V技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能治療領域EN == 別名::技能火星領域EN)) {
@@ -14774,6 +14963,9 @@ block 觸發Z技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能火星領域EN == 別名::技能火星領域EN)) {
@@ -14827,6 +15019,9 @@ block 觸發X技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能火星領域EN == 別名::技能火星領域EN)) {
@@ -14880,6 +15075,9 @@ block 觸發C技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能火星領域EN == 別名::技能火星領域EN)) {
@@ -14933,6 +15131,9 @@ block 觸發V技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能火星領域EN == 別名::技能火星領域EN)) {
@@ -14986,6 +15187,9 @@ block 觸發Z技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能震撼EN == 別名::技能火星領域EN)) {
@@ -15039,6 +15243,9 @@ block 觸發X技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能震撼EN == 別名::技能火星領域EN)) {
@@ -15092,6 +15299,9 @@ block 觸發C技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能震撼EN == 別名::技能火星領域EN)) {
@@ -15145,6 +15355,9 @@ block 觸發V技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能震撼EN == 別名::技能火星領域EN)) {
@@ -15198,6 +15411,9 @@ block 觸發Z技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能土靈召喚EN == 別名::技能火星領域EN)) {
@@ -15251,6 +15467,9 @@ block 觸發X技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能土靈召喚EN == 別名::技能火星領域EN)) {
@@ -15304,6 +15523,9 @@ block 觸發C技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能土靈召喚EN == 別名::技能火星領域EN)) {
@@ -15357,6 +15579,9 @@ block 觸發V技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = 音效::gettingEnergy);
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = 公式::治療領域回復, deltaHpCD = 1010, deltaHpTarget = 角色::任何友軍);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if((別名::技能土靈召喚EN == 別名::技能火星領域EN)) {
@@ -30264,16 +30489,62 @@ block 釋放技能風杖 {
             等待(duration = 200);
         }
         if(false) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30334,16 +30605,62 @@ block 釋放技能鐵劍 {
             等待(duration = 200);
         }
         if(false) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30404,16 +30721,62 @@ block 釋放技能匕首 {
             等待(duration = 200);
         }
         if(false) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30474,16 +30837,62 @@ block 釋放技能銀槍 {
             等待(duration = 200);
         }
         if(false) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30544,16 +30953,62 @@ block 釋放技能巨錘 {
             等待(duration = 200);
         }
         if(false) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30614,16 +31069,62 @@ block 釋放技能土杖 {
             等待(duration = 200);
         }
         if(true) {
+            let radius = 20;
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-            EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+            儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+            儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+            新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+            EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
         }
     }
     checks {
@@ -30751,8 +31252,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = "custom_earth_staff", varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -31703,6 +32208,9 @@ block 觸發Z技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -31931,6 +32439,9 @@ block 觸發X技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -32159,6 +32670,9 @@ block 觸發C技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -32387,6 +32901,9 @@ block 觸發V技能治療領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -32615,6 +33132,9 @@ block 觸發Z技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(true) {
@@ -32843,6 +33363,9 @@ block 觸發X技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(true) {
@@ -33071,6 +33594,9 @@ block 觸發C技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(true) {
@@ -33299,6 +33825,9 @@ block 觸發V技能火星領域 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(true) {
@@ -33527,6 +34056,9 @@ block 觸發Z技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -33755,6 +34287,9 @@ block 觸發X技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -33983,6 +34518,9 @@ block 觸發C技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -34211,6 +34749,9 @@ block 觸發V技能震撼 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -34439,6 +34980,9 @@ block 觸發Z技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -34667,6 +35211,9 @@ block 觸發X技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -34895,6 +35442,9 @@ block 觸發C技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -35123,6 +35673,9 @@ block 觸發V技能土靈召喚 {
             EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
             新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
             EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+            EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
             wait(duration = 30000);
         }
         if(false) {
@@ -53568,16 +54121,62 @@ block 釋放技能土杖 {
         發動技能(varName = "instance", weapon = "custom_earth_staff");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = radius, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = radius, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = radius, duration = 20000, color = "#b17302");
     }
     checks {
     }
@@ -53704,8 +54303,12 @@ block 土杖石刺攻擊 {
         角色發動攻擊(weapon = "custom_earth_staff", varName = "instance");
     }
     actions {
+        let radius = 20;
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = radius, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = radius, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = radius, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -54407,6 +55010,9 @@ block 觸發Z技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "冷卻完畢</span>")))));
@@ -54435,6 +55041,9 @@ block 觸發X技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "冷卻完畢</span>")))));
@@ -54463,6 +55072,9 @@ block 觸發C技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "冷卻完畢</span>")))));
@@ -54491,6 +55103,9 @@ block 觸發V技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + (color + ("'>" + (nameZh + "冷卻完畢</span>")))));
@@ -63201,15 +63816,60 @@ block 釋放技能土杖 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
     }
     checks {
     }
@@ -63333,7 +63993,10 @@ block 土杖石刺攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 20, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = 20, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -63966,6 +64629,9 @@ block 觸發Z技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + ("{skill_color_HealArea}" + ("'>" + ("{skill_zh_HealArea}" + "冷卻完畢</span>")))));
@@ -63990,6 +64656,9 @@ block 觸發X技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + ("{skill_color_HealArea}" + ("'>" + ("{skill_zh_HealArea}" + "冷卻完畢</span>")))));
@@ -64014,6 +64683,9 @@ block 觸發C技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + ("{skill_color_HealArea}" + ("'>" + ("{skill_zh_HealArea}" + "冷卻完畢</span>")))));
@@ -64038,6 +64710,9 @@ block 觸發V技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = ("<span style='color: " + ("{skill_color_HealArea}" + ("'>" + ("{skill_zh_HealArea}" + "冷卻完畢</span>")))));
@@ -67204,15 +67879,60 @@ block 釋放技能土杖 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*-1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*0", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*-1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*0", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
-        EnhFF::廣義圓形範圍(x = "{x}+random(-16,16)+64*1", y = "{y}+random(-16,16)+64*1", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*-1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*0");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*-1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*0");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
+        儲存全域變數(key = "tmp_x", type = "number", value = "{x}+random(-16,16)+64*1");
+        儲存全域變數(key = "tmp_y", type = "number", value = "{y}+random(-16,16)+64*1");
+        新增地圖音效(x = "{tmp_x}/32", y = "{tmp_y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
+        EnhFF::廣義圓形範圍(x = "{tmp_x}", y = "{tmp_y}", radius = 20, duration = 20000, color = "#b17302", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 20, width = 1, duration = 20000, color = "#b17302");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{tmp_x}", y = "{tmp_y}", height = 1, width = 20, duration = 20000, color = "#b17302");
     }
     checks {
     }
@@ -67336,7 +68056,10 @@ block 土杖石刺攻擊 {
     }
     actions {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
+        新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 20, duration = 3000, color = "#d38c09", deltaHpType = "damage", deltaHpValue = "{instance.INT}*1.5 + {instance.PSY}*0.75 + 15", deltaHpCD = 900, deltaHpTarget = ActorMatch(group = 101), deltaHpCasterCode = "{instance}", lineWidth = 2);
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 20, width = 1, duration = 3000, color = "#d38c09");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = 1, width = 20, duration = 3000, color = "#d38c09");
     }
     checks {
     }
@@ -67969,6 +68692,9 @@ block 觸發Z技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>");
@@ -67993,6 +68719,9 @@ block 觸發X技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>");
@@ -68017,6 +68746,9 @@ block 觸發C技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>");
@@ -68041,6 +68773,9 @@ block 觸發V技能治療領域 {
         EnhFF::玩家滑鼠座標(actorId = "{instance}", varX = "x", varY = "y");
         新增地圖音效(x = "{x}/32", y = "{y}/32", resource = "TwilightWarsLib.sounds1/twilight_wars_sound_effects/gettingEnergy.mp3");
         EnhFF::廣義圓形範圍(x = "{x}", y = "{y}", radius = 64, duration = 10000, color = "#ffe604", deltaHpType = "heal", deltaHpValue = "2+{instance.PSY}/3", deltaHpCD = 1010, deltaHpTarget = ActorMatch(group = 100));
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", rotation = 45, height = "64*pow(2,0.5)", width = "64*pow(2,0.5)", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "64", width = "1", duration = 10000, color = "#ffe604");
+        EnhFF::廣義圓形範圍(defType = "rectangle", x = "{x}", y = "{y}", height = "1", width = "64", duration = 10000, color = "#ffe604");
         wait(duration = 30000);
         儲存物件變數(key = "skillHealAreaCD", object = "instance", type = "integer", value = 0);
         地圖標示文字(x = "{instance.gamePosition.x}/32", y = "{instance.gamePosition.y}/32", html = true, text = "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>");

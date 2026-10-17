@@ -2266,12 +2266,44 @@
                     }
                 },
                 {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*-1",
-                            "y": "{y}+random(-16,16)+64*-1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2342,8 +2374,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*-1",
-                            "y": "{y}+random(-16,16)+64*0"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2414,8 +2542,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*-1",
-                            "y": "{y}+random(-16,16)+64*1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2486,8 +2710,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*0",
-                            "y": "{y}+random(-16,16)+64*-1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2558,8 +2878,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*0",
-                            "y": "{y}+random(-16,16)+64*0"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2630,8 +3046,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*0",
-                            "y": "{y}+random(-16,16)+64*1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2702,8 +3214,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*1",
-                            "y": "{y}+random(-16,16)+64*-1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*-1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2774,8 +3382,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*1",
-                            "y": "{y}+random(-16,16)+64*0"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*0"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2846,8 +3550,104 @@
                     "data": {
                         "select": "map",
                         "pos": {
-                            "x": "{x}+random(-16,16)+64*1",
-                            "y": "{y}+random(-16,16)+64*1"
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_x",
+                        "valueType": "number",
+                        "value": "{x}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "SetGlobal",
+                    "data": {
+                        "key": "tmp_y",
+                        "valueType": "number",
+                        "value": "{y}+random(-16,16)+64*1"
+                    }
+                },
+                {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{tmp_x}/32",
+                            "y": "{tmp_y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
                         },
                         "onMapLayer": "sky",
                         "region": {
@@ -2911,6 +3711,70 @@
                                     }
                                 }
                             ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{tmp_x}",
+                            "y": "{tmp_y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "20000",
+                        "color": "#b17302",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
                     }
                 }
             ],
@@ -3810,6 +4674,22 @@
                     }
                 },
                 {
+                    "type": "MapSoundEffect",
+                    "data": {
+                        "posType": "loc",
+                        "location": {
+                            "x": "{x}/32",
+                            "y": "{y}/32",
+                            "range": "0"
+                        },
+                        "shiftX": "0",
+                        "shiftY": "0",
+                        "alias": "TwilightWarsLib.sounds1/twilight_wars_sound_effects/arrow_shoot.mp3",
+                        "volume": "1",
+                        "skip": "0"
+                    }
+                },
+                {
                     "type": "GeneralCircularRangeEnhFF",
                     "data": {
                         "select": "map",
@@ -3879,6 +4759,70 @@
                                     }
                                 }
                             ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "20"
+                        },
+                        "duration": "3000",
+                        "color": "#d38c09",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "20",
+                            "reHei": "1"
+                        },
+                        "duration": "3000",
+                        "color": "#d38c09",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
                     }
                 }
             ],
@@ -7477,6 +8421,102 @@
                     }
                 },
                 {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64*pow(2,0.5)",
+                            "reHei": "64*pow(2,0.5)"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "45",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "64"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64",
+                            "reHei": "1"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
                     "type": "Wait",
                     "data": {
                         "duration": "30000"
@@ -7719,6 +8759,102 @@
                                     }
                                 }
                             ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64*pow(2,0.5)",
+                            "reHei": "64*pow(2,0.5)"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "45",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "64"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64",
+                            "reHei": "1"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
                     }
                 },
                 {
@@ -7967,6 +9103,102 @@
                     }
                 },
                 {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64*pow(2,0.5)",
+                            "reHei": "64*pow(2,0.5)"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "45",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "64"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64",
+                            "reHei": "1"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
                     "type": "Wait",
                     "data": {
                         "duration": "30000"
@@ -8209,6 +9441,102 @@
                                     }
                                 }
                             ]
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64*pow(2,0.5)",
+                            "reHei": "64*pow(2,0.5)"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "45",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "1",
+                            "reHei": "64"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
+                    }
+                },
+                {
+                    "type": "GeneralCircularRangeEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "{x}",
+                            "y": "{y}"
+                        },
+                        "onMapLayer": "sky",
+                        "region": {
+                            "defType": "rectangle",
+                            "offX": "0",
+                            "offY": "0",
+                            "reWid": "64",
+                            "reHei": "1"
+                        },
+                        "duration": "10000",
+                        "color": "#ffe604",
+                        "alpha": "1",
+                        "lineWidth": "1",
+                        "lineAlign": "1",
+                        "fill": false,
+                        "fillColor": "#ffffff",
+                        "fillAlpha": "1",
+                        "angle": "0",
+                        "rot": false,
+                        "orbit": false,
+                        "bornAnim": "none",
+                        "disAnim": "none",
+                        "deltaHp": false
                     }
                 },
                 {
