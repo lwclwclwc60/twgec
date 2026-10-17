@@ -119,6 +119,8 @@ Supported Actions:
         cookies: string = "", varName: string = ""
     getUserState                取得玩家狀態
         category: string = "", key: string = "", playerId: string = "", varName: string = ""
+    mapSoundEffect              新增地圖音效
+        actorId: string = "", resource: string = "", volume: int|string = 1, x: int|string = 0, y: int|string = 0
     mapWarp                     設定地圖傳送點
         direction: string = "right", fromX: int|string = 0, fromY: int|string = 0, toX: int|string = 0, toY: int|string = 0
     missionComplete             任務完成

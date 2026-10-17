@@ -169,6 +169,8 @@ void CodeGenerator::codegenAction(std::ofstream &of,
     of << action::ActionGetCookie::CODEGEN_FUNC;
   if (identifier == "getUserState" || identifier == "取得玩家狀態")
     of << action::ActionGetUserState::CODEGEN_FUNC;
+  if (identifier == "mapSoundEffect" || identifier == "新增地圖音效")
+    of << action::ActionMapSoundEffect::CODEGEN_FUNC;
   if (identifier == "mapWarp" || identifier == "設定地圖傳送點")
     of << action::ActionMapWarp::CODEGEN_FUNC;
   if (identifier == "missionComplete" || identifier == "任務完成")

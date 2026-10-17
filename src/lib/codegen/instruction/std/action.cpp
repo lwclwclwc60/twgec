@@ -429,6 +429,31 @@ action::ActionGetUserState::method(DefaultMap defaultMap,
 }
 
 JsonObjectNode
+action::ActionMapSoundEffect::method(DefaultMap defaultMap,
+                                     UserDefinedMetadata userDefinedMeta) {
+  JsonObjectNode dataNode = JsonObjectNode();
+  std::string actorCode = defaultMap.get("actorId");
+  if (actorCode != "\"\"") {
+    dataNode.addNode("posType", "\"actor\"")
+        .addNode("actorCode", actorCode)
+        .addNode("alive", "true");
+  } else {
+    JsonObjectNode locationNode = JsonObjectNode({
+        {"x", defaultMap.get("x")},
+        {"y", defaultMap.get("y")},
+        {"range", "\"0\""},
+    });
+    dataNode.addNode("posType", "\"loc\"")
+        .addNode("location", locationNode.to_string(24))
+        .addNode("shiftX", "\"0\"")
+        .addNode("shiftY", "\"0\"");
+  }
+  return dataNode.addNode("alias", defaultMap.get("resource"))
+      .addNode("volume", defaultMap.get("volume"))
+      .addNode("skip", "\"0\"");
+}
+
+JsonObjectNode
 action::ActionMapWarp::method(DefaultMap defaultMap,
                               UserDefinedMetadata userDefinedMeta) {
   JsonObjectNode locationNode = JsonObjectNode({

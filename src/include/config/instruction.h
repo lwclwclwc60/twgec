@@ -321,6 +321,16 @@ const InstructionConfig mapWarpConfig =
         .addParam("toX", AST_INT, CODEGEN_STRING, "0")
         .addParam("toY", AST_INT, CODEGEN_STRING, "0")
         .addParam("direction", AST_STRING, CODEGEN_STRING, "right");
+const InstructionConfig mapSoundEffectConfig =
+    InstructionConfig("mapSoundEffect", "新增地圖音效")
+        .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        // If actorId is filled, actor position mode is used.
+        // Otherwise map coordinate mode uses x and y.
+        .addParam("x", AST_INT, CODEGEN_STRING, "0")
+        .addParam("y", AST_INT, CODEGEN_STRING, "0")
+        .addParam("resource", AST_STRING, CODEGEN_STRING, "")
+        .addParam("volume", AST_INT, CODEGEN_STRING, "1")
+        .setCodegenName("MapSoundEffect");
 const InstructionConfig missionCompleteConfig =
     InstructionConfig("missionComplete", "任務完成")
         .addParam("camp", AST_STRING, CODEGEN_STRING, "all");
@@ -446,6 +456,7 @@ const std::vector<InstructionConfig> actionList = {
     equipWeaponConfig,
     getCookieConfig,
     getUserStateConfig,
+    mapSoundEffectConfig,
     mapWarpConfig,
     missionCompleteConfig,
     longBoConfig,

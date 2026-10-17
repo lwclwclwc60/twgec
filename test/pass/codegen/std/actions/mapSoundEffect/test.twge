@@ -1,0 +1,6 @@
+block init {
+    actions {
+        mapSoundEffect(actorId = "instance", resource = "run.mp3", volume = "0.8");
+        新增地圖音效(x = 12, y = 34, resource = "run.mp3", volume = 1);
+    }
+}
