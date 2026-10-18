@@ -4960,24 +4960,24 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Exp+10",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "1000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>EXP+10</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -5128,24 +5128,24 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Exp+12",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "1000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>EXP+12</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -5296,24 +5296,24 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Exp+15",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "1000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>EXP+15</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -5464,24 +5464,24 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Exp+19",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "1000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>EXP+19</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -5632,24 +5632,24 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Exp+22",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "1000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>EXP+22</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -7617,31 +7617,31 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_zh_HealArea",
+                        "key": "skill_zh_SanctumHeal",
                         "valueType": "string",
-                        "value": "治療領域"
+                        "value": "聖癒陣"
                     }
                 },
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_zh_SparkArea",
+                        "key": "skill_zh_Flameflow",
                         "valueType": "string",
-                        "value": "火星領域"
+                        "value": "流火陣"
                     }
                 },
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_zh_Shocked",
+                        "key": "skill_zh_QuakeRift",
                         "valueType": "string",
-                        "value": "震撼"
+                        "value": "裂地震擊"
                     }
                 },
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_zh_SummonEarthSpirit",
+                        "key": "skill_zh_EarthSpirit",
                         "valueType": "string",
                         "value": "土靈召喚"
                     }
@@ -7657,7 +7657,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_mp_HealArea",
+                        "key": "skill_mp_SanctumHeal",
                         "valueType": "integer",
                         "value": "30"
                     }
@@ -7665,7 +7665,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_mp_SparkArea",
+                        "key": "skill_mp_Flameflow",
                         "valueType": "integer",
                         "value": "30"
                     }
@@ -7673,7 +7673,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_mp_Shocked",
+                        "key": "skill_mp_QuakeRift",
                         "valueType": "integer",
                         "value": "25"
                     }
@@ -7681,7 +7681,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_mp_SummonEarthSpirit",
+                        "key": "skill_mp_EarthSpirit",
                         "valueType": "integer",
                         "value": "40"
                     }
@@ -7689,7 +7689,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_color_HealArea",
+                        "key": "skill_color_SanctumHeal",
                         "valueType": "string",
                         "value": "#ffe604"
                     }
@@ -7697,7 +7697,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_color_SparkArea",
+                        "key": "skill_color_Flameflow",
                         "valueType": "string",
                         "value": "#912B2B"
                     }
@@ -7705,7 +7705,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_color_Shocked",
+                        "key": "skill_color_QuakeRift",
                         "valueType": "string",
                         "value": "#CC7700"
                     }
@@ -7713,7 +7713,7 @@
                 {
                     "type": "SetGlobal",
                     "data": {
-                        "key": "skill_color_SummonEarthSpirit",
+                        "key": "skill_color_EarthSpirit",
                         "valueType": "string",
                         "value": "#A57E00"
                     }
@@ -7723,7 +7723,7 @@
             "triggers": []
         },
         {
-            "id": "點擊設定Z技能治療領域",
+            "id": "點擊設定Z技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7738,7 +7738,7 @@
                         "objectId": "instance",
                         "key": "ZSkill",
                         "valueType": "string",
-                        "value": "HealArea"
+                        "value": "SanctumHeal"
                     }
                 }
             ],
@@ -7750,14 +7750,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setZHealArea",
+                        "buttonCode": "setZSanctumHeal",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定X技能治療領域",
+            "id": "點擊設定X技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7772,7 +7772,7 @@
                         "objectId": "instance",
                         "key": "XSkill",
                         "valueType": "string",
-                        "value": "HealArea"
+                        "value": "SanctumHeal"
                     }
                 }
             ],
@@ -7784,14 +7784,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setXHealArea",
+                        "buttonCode": "setXSanctumHeal",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定C技能治療領域",
+            "id": "點擊設定C技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7806,7 +7806,7 @@
                         "objectId": "instance",
                         "key": "CSkill",
                         "valueType": "string",
-                        "value": "HealArea"
+                        "value": "SanctumHeal"
                     }
                 }
             ],
@@ -7818,14 +7818,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setCHealArea",
+                        "buttonCode": "setCSanctumHeal",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定V技能治療領域",
+            "id": "點擊設定V技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7840,7 +7840,7 @@
                         "objectId": "instance",
                         "key": "VSkill",
                         "valueType": "string",
-                        "value": "HealArea"
+                        "value": "SanctumHeal"
                     }
                 }
             ],
@@ -7852,14 +7852,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setVHealArea",
+                        "buttonCode": "setVSanctumHeal",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定Z技能火星領域",
+            "id": "點擊設定Z技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7874,7 +7874,7 @@
                         "objectId": "instance",
                         "key": "ZSkill",
                         "valueType": "string",
-                        "value": "SparkArea"
+                        "value": "Flameflow"
                     }
                 }
             ],
@@ -7886,14 +7886,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setZSparkArea",
+                        "buttonCode": "setZFlameflow",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定X技能火星領域",
+            "id": "點擊設定X技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7908,7 +7908,7 @@
                         "objectId": "instance",
                         "key": "XSkill",
                         "valueType": "string",
-                        "value": "SparkArea"
+                        "value": "Flameflow"
                     }
                 }
             ],
@@ -7920,14 +7920,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setXSparkArea",
+                        "buttonCode": "setXFlameflow",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定C技能火星領域",
+            "id": "點擊設定C技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7942,7 +7942,7 @@
                         "objectId": "instance",
                         "key": "CSkill",
                         "valueType": "string",
-                        "value": "SparkArea"
+                        "value": "Flameflow"
                     }
                 }
             ],
@@ -7954,14 +7954,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setCSparkArea",
+                        "buttonCode": "setCFlameflow",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定V技能火星領域",
+            "id": "點擊設定V技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -7976,7 +7976,7 @@
                         "objectId": "instance",
                         "key": "VSkill",
                         "valueType": "string",
-                        "value": "SparkArea"
+                        "value": "Flameflow"
                     }
                 }
             ],
@@ -7988,14 +7988,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setVSparkArea",
+                        "buttonCode": "setVFlameflow",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定Z技能震撼",
+            "id": "點擊設定Z技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8010,7 +8010,7 @@
                         "objectId": "instance",
                         "key": "ZSkill",
                         "valueType": "string",
-                        "value": "Shocked"
+                        "value": "QuakeRift"
                     }
                 }
             ],
@@ -8022,14 +8022,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setZShocked",
+                        "buttonCode": "setZQuakeRift",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定X技能震撼",
+            "id": "點擊設定X技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8044,7 +8044,7 @@
                         "objectId": "instance",
                         "key": "XSkill",
                         "valueType": "string",
-                        "value": "Shocked"
+                        "value": "QuakeRift"
                     }
                 }
             ],
@@ -8056,14 +8056,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setXShocked",
+                        "buttonCode": "setXQuakeRift",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定C技能震撼",
+            "id": "點擊設定C技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8078,7 +8078,7 @@
                         "objectId": "instance",
                         "key": "CSkill",
                         "valueType": "string",
-                        "value": "Shocked"
+                        "value": "QuakeRift"
                     }
                 }
             ],
@@ -8090,14 +8090,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setCShocked",
+                        "buttonCode": "setCQuakeRift",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "點擊設定V技能震撼",
+            "id": "點擊設定V技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8112,7 +8112,7 @@
                         "objectId": "instance",
                         "key": "VSkill",
                         "valueType": "string",
-                        "value": "Shocked"
+                        "value": "QuakeRift"
                     }
                 }
             ],
@@ -8124,7 +8124,7 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setVShocked",
+                        "buttonCode": "setVQuakeRift",
                         "varnameDevice": ""
                     }
                 }
@@ -8146,7 +8146,7 @@
                         "objectId": "instance",
                         "key": "ZSkill",
                         "valueType": "string",
-                        "value": "SummonEarthSpirit"
+                        "value": "EarthSpirit"
                     }
                 }
             ],
@@ -8158,7 +8158,7 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setZSummonEarthSpirit",
+                        "buttonCode": "setZEarthSpirit",
                         "varnameDevice": ""
                     }
                 }
@@ -8180,7 +8180,7 @@
                         "objectId": "instance",
                         "key": "XSkill",
                         "valueType": "string",
-                        "value": "SummonEarthSpirit"
+                        "value": "EarthSpirit"
                     }
                 }
             ],
@@ -8192,7 +8192,7 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setXSummonEarthSpirit",
+                        "buttonCode": "setXEarthSpirit",
                         "varnameDevice": ""
                     }
                 }
@@ -8214,7 +8214,7 @@
                         "objectId": "instance",
                         "key": "CSkill",
                         "valueType": "string",
-                        "value": "SummonEarthSpirit"
+                        "value": "EarthSpirit"
                     }
                 }
             ],
@@ -8226,7 +8226,7 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setCSummonEarthSpirit",
+                        "buttonCode": "setCEarthSpirit",
                         "varnameDevice": ""
                     }
                 }
@@ -8248,7 +8248,7 @@
                         "objectId": "instance",
                         "key": "VSkill",
                         "valueType": "string",
-                        "value": "SummonEarthSpirit"
+                        "value": "EarthSpirit"
                     }
                 }
             ],
@@ -8260,14 +8260,14 @@
                         "actorMatches": [],
                         "varname": "instance",
                         "checkButtoncode": true,
-                        "buttonCode": "setVSummonEarthSpirit",
+                        "buttonCode": "setVEarthSpirit",
                         "varnameDevice": ""
                     }
                 }
             ]
         },
         {
-            "id": "觸發Z技能治療領域",
+            "id": "觸發Z技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8285,31 +8285,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -8320,7 +8320,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_HealArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_SanctumHeal}"
                     }
                 },
                 {
@@ -8526,30 +8526,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -8559,7 +8559,7 @@
                     "data": {
                         "value": "{{clicker.id}.ZSkill}",
                         "method": "equal",
-                        "str": "HealArea",
+                        "str": "SanctumHeal",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -8570,7 +8570,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillHealAreaCD}",
+                        "value1": "{{clicker.id}.skillSanctumHealCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -8584,7 +8584,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_HealArea}",
+                        "value2": "{skill_mp_SanctumHeal}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -8608,7 +8608,7 @@
             ]
         },
         {
-            "id": "觸發X技能治療領域",
+            "id": "觸發X技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8626,31 +8626,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -8661,7 +8661,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_HealArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_SanctumHeal}"
                     }
                 },
                 {
@@ -8867,30 +8867,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -8900,7 +8900,7 @@
                     "data": {
                         "value": "{{clicker.id}.XSkill}",
                         "method": "equal",
-                        "str": "HealArea",
+                        "str": "SanctumHeal",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -8911,7 +8911,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillHealAreaCD}",
+                        "value1": "{{clicker.id}.skillSanctumHealCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -8925,7 +8925,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_HealArea}",
+                        "value2": "{skill_mp_SanctumHeal}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -8949,7 +8949,7 @@
             ]
         },
         {
-            "id": "觸發C技能治療領域",
+            "id": "觸發C技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -8967,31 +8967,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -9002,7 +9002,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_HealArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_SanctumHeal}"
                     }
                 },
                 {
@@ -9208,30 +9208,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -9241,7 +9241,7 @@
                     "data": {
                         "value": "{{clicker.id}.CSkill}",
                         "method": "equal",
-                        "str": "HealArea",
+                        "str": "SanctumHeal",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -9252,7 +9252,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillHealAreaCD}",
+                        "value1": "{{clicker.id}.skillSanctumHealCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -9266,7 +9266,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_HealArea}",
+                        "value2": "{skill_mp_SanctumHeal}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -9290,7 +9290,7 @@
             ]
         },
         {
-            "id": "觸發V技能治療領域",
+            "id": "觸發V技能聖癒陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -9308,31 +9308,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -9343,7 +9343,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_HealArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_SanctumHeal}"
                     }
                 },
                 {
@@ -9549,30 +9549,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_SanctumHeal}",
+                        "filters": [],
+                        "text": "SanctumHeal is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_HealArea}'>{skill_zh_HealArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -9582,7 +9582,7 @@
                     "data": {
                         "value": "{{clicker.id}.VSkill}",
                         "method": "equal",
-                        "str": "HealArea",
+                        "str": "SanctumHeal",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -9593,7 +9593,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillHealAreaCD}",
+                        "value1": "{{clicker.id}.skillSanctumHealCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -9607,7 +9607,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_HealArea}",
+                        "value2": "{skill_mp_SanctumHeal}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -9631,7 +9631,7 @@
             ]
         },
         {
-            "id": "觸發Z技能火星領域",
+            "id": "觸發Z技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -9649,31 +9649,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -9684,7 +9684,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SparkArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_Flameflow}"
                     }
                 },
                 {
@@ -14417,30 +14417,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -14450,7 +14450,7 @@
                     "data": {
                         "value": "{{clicker.id}.ZSkill}",
                         "method": "equal",
-                        "str": "SparkArea",
+                        "str": "Flameflow",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -14461,7 +14461,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSparkAreaCD}",
+                        "value1": "{{clicker.id}.skillFlameflowCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -14475,7 +14475,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SparkArea}",
+                        "value2": "{skill_mp_Flameflow}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -14499,7 +14499,7 @@
             ]
         },
         {
-            "id": "觸發X技能火星領域",
+            "id": "觸發X技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -14517,31 +14517,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -14552,7 +14552,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SparkArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_Flameflow}"
                     }
                 },
                 {
@@ -19285,30 +19285,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -19318,7 +19318,7 @@
                     "data": {
                         "value": "{{clicker.id}.XSkill}",
                         "method": "equal",
-                        "str": "SparkArea",
+                        "str": "Flameflow",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -19329,7 +19329,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSparkAreaCD}",
+                        "value1": "{{clicker.id}.skillFlameflowCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -19343,7 +19343,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SparkArea}",
+                        "value2": "{skill_mp_Flameflow}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -19367,7 +19367,7 @@
             ]
         },
         {
-            "id": "觸發C技能火星領域",
+            "id": "觸發C技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -19385,31 +19385,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -19420,7 +19420,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SparkArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_Flameflow}"
                     }
                 },
                 {
@@ -24153,30 +24153,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -24186,7 +24186,7 @@
                     "data": {
                         "value": "{{clicker.id}.CSkill}",
                         "method": "equal",
-                        "str": "SparkArea",
+                        "str": "Flameflow",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -24197,7 +24197,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSparkAreaCD}",
+                        "value1": "{{clicker.id}.skillFlameflowCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -24211,7 +24211,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SparkArea}",
+                        "value2": "{skill_mp_Flameflow}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -24235,7 +24235,7 @@
             ]
         },
         {
-            "id": "觸發V技能火星領域",
+            "id": "觸發V技能流火陣",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -24253,31 +24253,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -24288,7 +24288,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SparkArea}"
+                        "value": "{instance.CurrentMP} - {skill_mp_Flameflow}"
                     }
                 },
                 {
@@ -29021,30 +29021,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_Flameflow}",
+                        "filters": [],
+                        "text": "Flameflow is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SparkArea}'>{skill_zh_SparkArea}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -29054,7 +29054,7 @@
                     "data": {
                         "value": "{{clicker.id}.VSkill}",
                         "method": "equal",
-                        "str": "SparkArea",
+                        "str": "Flameflow",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -29065,7 +29065,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSparkAreaCD}",
+                        "value1": "{{clicker.id}.skillFlameflowCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -29079,7 +29079,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SparkArea}",
+                        "value2": "{skill_mp_Flameflow}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -29103,7 +29103,7 @@
             ]
         },
         {
-            "id": "觸發Z技能震撼",
+            "id": "觸發Z技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -29121,31 +29121,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -29156,7 +29156,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                        "value": "{instance.CurrentMP} - {skill_mp_QuakeRift}"
                     }
                 },
                 {
@@ -29249,30 +29249,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -29282,7 +29282,7 @@
                     "data": {
                         "value": "{{clicker.id}.ZSkill}",
                         "method": "equal",
-                        "str": "Shocked",
+                        "str": "QuakeRift",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -29293,7 +29293,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillShockedCD}",
+                        "value1": "{{clicker.id}.skillQuakeRiftCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -29307,7 +29307,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_Shocked}",
+                        "value2": "{skill_mp_QuakeRift}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -29331,7 +29331,7 @@
             ]
         },
         {
-            "id": "觸發X技能震撼",
+            "id": "觸發X技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -29349,31 +29349,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -29384,7 +29384,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                        "value": "{instance.CurrentMP} - {skill_mp_QuakeRift}"
                     }
                 },
                 {
@@ -29477,30 +29477,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -29510,7 +29510,7 @@
                     "data": {
                         "value": "{{clicker.id}.XSkill}",
                         "method": "equal",
-                        "str": "Shocked",
+                        "str": "QuakeRift",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -29521,7 +29521,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillShockedCD}",
+                        "value1": "{{clicker.id}.skillQuakeRiftCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -29535,7 +29535,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_Shocked}",
+                        "value2": "{skill_mp_QuakeRift}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -29559,7 +29559,7 @@
             ]
         },
         {
-            "id": "觸發C技能震撼",
+            "id": "觸發C技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -29577,31 +29577,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -29612,7 +29612,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                        "value": "{instance.CurrentMP} - {skill_mp_QuakeRift}"
                     }
                 },
                 {
@@ -29705,30 +29705,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -29738,7 +29738,7 @@
                     "data": {
                         "value": "{{clicker.id}.CSkill}",
                         "method": "equal",
-                        "str": "Shocked",
+                        "str": "QuakeRift",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -29749,7 +29749,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillShockedCD}",
+                        "value1": "{{clicker.id}.skillQuakeRiftCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -29763,7 +29763,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_Shocked}",
+                        "value2": "{skill_mp_QuakeRift}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -29787,7 +29787,7 @@
             ]
         },
         {
-            "id": "觸發V技能震撼",
+            "id": "觸發V技能裂地震擊",
             "disabled": false,
             "folder": "技能",
             "startTime": 0,
@@ -29805,31 +29805,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -29840,7 +29840,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_Shocked}"
+                        "value": "{instance.CurrentMP} - {skill_mp_QuakeRift}"
                     }
                 },
                 {
@@ -29933,30 +29933,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_QuakeRift}",
+                        "filters": [],
+                        "text": "QuakeRift is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_Shocked}'>{skill_zh_Shocked}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -29966,7 +29966,7 @@
                     "data": {
                         "value": "{{clicker.id}.VSkill}",
                         "method": "equal",
-                        "str": "Shocked",
+                        "str": "QuakeRift",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -29977,7 +29977,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillShockedCD}",
+                        "value1": "{{clicker.id}.skillQuakeRiftCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -29991,7 +29991,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_Shocked}",
+                        "value2": "{skill_mp_QuakeRift}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -30033,31 +30033,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -30068,7 +30068,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SummonEarthSpirit}"
+                        "value": "{instance.CurrentMP} - {skill_mp_EarthSpirit}"
                     }
                 },
                 {
@@ -30165,30 +30165,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -30198,7 +30198,7 @@
                     "data": {
                         "value": "{{clicker.id}.ZSkill}",
                         "method": "equal",
-                        "str": "SummonEarthSpirit",
+                        "str": "EarthSpirit",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -30209,7 +30209,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSummonEarthSpiritCD}",
+                        "value1": "{{clicker.id}.skillEarthSpiritCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -30223,7 +30223,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SummonEarthSpirit}",
+                        "value2": "{skill_mp_EarthSpirit}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -30265,31 +30265,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -30300,7 +30300,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SummonEarthSpirit}"
+                        "value": "{instance.CurrentMP} - {skill_mp_EarthSpirit}"
                     }
                 },
                 {
@@ -30397,30 +30397,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -30430,7 +30430,7 @@
                     "data": {
                         "value": "{{clicker.id}.XSkill}",
                         "method": "equal",
-                        "str": "SummonEarthSpirit",
+                        "str": "EarthSpirit",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -30441,7 +30441,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSummonEarthSpiritCD}",
+                        "value1": "{{clicker.id}.skillEarthSpiritCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -30455,7 +30455,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SummonEarthSpirit}",
+                        "value2": "{skill_mp_EarthSpirit}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -30497,31 +30497,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -30532,7 +30532,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SummonEarthSpirit}"
+                        "value": "{instance.CurrentMP} - {skill_mp_EarthSpirit}"
                     }
                 },
                 {
@@ -30629,30 +30629,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -30662,7 +30662,7 @@
                     "data": {
                         "value": "{{clicker.id}.CSkill}",
                         "method": "equal",
-                        "str": "SummonEarthSpirit",
+                        "str": "EarthSpirit",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -30673,7 +30673,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSummonEarthSpiritCD}",
+                        "value1": "{{clicker.id}.skillEarthSpiritCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -30687,7 +30687,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SummonEarthSpirit}",
+                        "value2": "{skill_mp_EarthSpirit}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -30729,31 +30729,31 @@
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "1"
                     }
@@ -30764,7 +30764,7 @@
                         "objectId": "instance",
                         "key": "CurrentMP",
                         "valueType": "integer",
-                        "value": "{instance.CurrentMP} - {skill_mp_SummonEarthSpirit}"
+                        "value": "{instance.CurrentMP} - {skill_mp_EarthSpirit}"
                     }
                 },
                 {
@@ -30861,30 +30861,30 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "0"
                     }
                 },
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "{skill_color_EarthSpirit}",
+                        "filters": [],
+                        "text": "EarthSpirit is ready",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: {skill_color_SummonEarthSpirit}'>{skill_zh_SummonEarthSpirit}冷卻完畢</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "3000"
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -30894,7 +30894,7 @@
                     "data": {
                         "value": "{{clicker.id}.VSkill}",
                         "method": "equal",
-                        "str": "SummonEarthSpirit",
+                        "str": "EarthSpirit",
                         "eventLocal": "",
                         "_logi": {
                             "_and_or": ""
@@ -30905,7 +30905,7 @@
                 {
                     "type": "NumberCheck",
                     "data": {
-                        "value1": "{{clicker.id}.skillSummonEarthSpiritCD}",
+                        "value1": "{{clicker.id}.skillEarthSpiritCD}",
                         "operator": "!=",
                         "value2": "1",
                         "_logi": {
@@ -30919,7 +30919,7 @@
                     "data": {
                         "value1": "{{clicker.id}.CurrentMP}",
                         "operator": ">=",
-                        "value2": "{skill_mp_SummonEarthSpirit}",
+                        "value2": "{skill_mp_EarthSpirit}",
                         "_logi": {
                             "_and_or": ""
                         },
@@ -44036,7 +44036,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【治療領域】(30MP)\n在滑鼠指定範圍內10秒持續回復血量\n - 回覆量: 2+精神÷3\n冷卻30秒",
+                        "speech": "【聖癒陣】(30MP)\n在滑鼠指定範圍內10秒持續回復血量\n - 回覆量: 2+精神÷3\n冷卻30秒",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -44046,25 +44046,25 @@
                             "varnameButton": "",
                             "btns": [
                                 {
-                                    "buttonCode": "setZHealArea",
+                                    "buttonCode": "setZSanctumHeal",
                                     "close": true,
                                     "label": "設置於Z鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setXHealArea",
+                                    "buttonCode": "setXSanctumHeal",
                                     "close": true,
                                     "label": "設置於X鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setCHealArea",
+                                    "buttonCode": "setCSanctumHeal",
                                     "close": true,
                                     "label": "設置於C鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setVHealArea",
+                                    "buttonCode": "setVSanctumHeal",
                                     "close": true,
                                     "label": "設置於V鍵",
                                     "icon": ""
@@ -44137,7 +44137,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【火星領域】(30MP)\n在滑鼠指定範圍內持續出現星火\n - 星火傷害: 2+智慧÷2+精神÷3\n冷卻10秒",
+                        "speech": "【流火陣】(30MP)\n在滑鼠指定範圍內持續出現星火\n - 星火傷害: 2+智慧÷2+精神÷3\n冷卻10秒",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -44147,25 +44147,25 @@
                             "varnameButton": "",
                             "btns": [
                                 {
-                                    "buttonCode": "setZSparkArea",
+                                    "buttonCode": "setZFlameflow",
                                     "close": true,
                                     "label": "設置於Z鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setXSparkArea",
+                                    "buttonCode": "setXFlameflow",
                                     "close": true,
                                     "label": "設置於X鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setCSparkArea",
+                                    "buttonCode": "setCFlameflow",
                                     "close": true,
                                     "label": "設置於C鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setVSparkArea",
+                                    "buttonCode": "setVFlameflow",
                                     "close": true,
                                     "label": "設置於V鍵",
                                     "icon": ""
@@ -44238,7 +44238,7 @@
                         ],
                         "shape": "wood",
                         "rotation": "180",
-                        "speech": "【震撼】(25MP)\n對自身附近的敵人造成傷害\n體質越高，威力及範圍越大\n - 震撼傷害: 15+體質\n - 震撼範圍: 60+10×體質^0.5\n冷卻10秒",
+                        "speech": "【裂地震擊】(25MP)\n對自身附近的敵人造成傷害\n體質越高，威力及範圍越大\n - 裂地震擊傷害: 15+體質\n - 裂地震擊範圍: 60+10×體質^0.5\n冷卻10秒",
                         "parsePolicy": "view",
                         "showButtons": true,
                         "btnsGroup": {
@@ -44248,25 +44248,25 @@
                             "varnameButton": "",
                             "btns": [
                                 {
-                                    "buttonCode": "setZShocked",
+                                    "buttonCode": "setZQuakeRift",
                                     "close": true,
                                     "label": "設置於Z鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setXShocked",
+                                    "buttonCode": "setXQuakeRift",
                                     "close": true,
                                     "label": "設置於X鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setCShocked",
+                                    "buttonCode": "setCQuakeRift",
                                     "close": true,
                                     "label": "設置於C鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setVShocked",
+                                    "buttonCode": "setVQuakeRift",
                                     "close": true,
                                     "label": "設置於V鍵",
                                     "icon": ""
@@ -44440,25 +44440,25 @@
                             "varnameButton": "",
                             "btns": [
                                 {
-                                    "buttonCode": "setZSummonEarthSpirit",
+                                    "buttonCode": "setZEarthSpirit",
                                     "close": true,
                                     "label": "設置於Z鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setXSummonEarthSpirit",
+                                    "buttonCode": "setXEarthSpirit",
                                     "close": true,
                                     "label": "設置於X鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setCSummonEarthSpirit",
+                                    "buttonCode": "setCEarthSpirit",
                                     "close": true,
                                     "label": "設置於C鍵",
                                     "icon": ""
                                 },
                                 {
-                                    "buttonCode": "setVSummonEarthSpirit",
+                                    "buttonCode": "setVEarthSpirit",
                                     "close": true,
                                     "label": "設置於V鍵",
                                     "icon": ""
@@ -52827,24 +52827,24 @@
             "devOnly": false,
             "actions": [
                 {
-                    "type": "TipOnMap",
+                    "type": "PopupEffectEnhFF",
                     "data": {
-                        "locs": [
-                            {
-                                "x": "{instance.gamePosition.x}/32",
-                                "y": "{instance.gamePosition.y}/32",
-                                "range": "0"
-                            }
-                        ],
-                        "shiftX": "0",
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#2bff00",
+                        "filters": [],
+                        "text": "Level Up",
+                        "size": "20",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "2000",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
                         "shiftY": "0",
-                        "cleanTalk": false,
-                        "speech": "<span style='color: green'>Level Up</span>",
-                        "html": true,
-                        "align": "center",
-                        "scalePolicy": "withWindowMinOne",
-                        "stay": "time",
-                        "duration": "6000"
+                        "scale": "1",
+                        "behind": false
                     }
                 },
                 {
@@ -53158,6 +53158,27 @@
                         "key": "CurrentMP",
                         "valueType": "integer",
                         "value": "min({instance.MaxMP}, {instance.CurrentMP} + {instance.RegenMP})"
+                    }
+                },
+                {
+                    "type": "PopupEffectEnhFF",
+                    "data": {
+                        "select": "actor",
+                        "actorCode": "{instance}",
+                        "color": "#00ffee",
+                        "filters": [],
+                        "text": "+{instance.RegenMP}",
+                        "size": "18",
+                        "radians": "270",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "250",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
+                        "shiftY": "0",
+                        "scale": "1",
+                        "behind": false
                     }
                 }
             ],
@@ -53628,7 +53649,7 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillHealAreaCD",
+                        "key": "skillSanctumHealCD",
                         "valueType": "integer",
                         "value": "0"
                     }
@@ -53637,7 +53658,7 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSparkAreaCD",
+                        "key": "skillFlameflowCD",
                         "valueType": "integer",
                         "value": "0"
                     }
@@ -53646,7 +53667,7 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillShockedCD",
+                        "key": "skillQuakeRiftCD",
                         "valueType": "integer",
                         "value": "0"
                     }
@@ -53655,7 +53676,7 @@
                     "type": "SetObjectVar",
                     "data": {
                         "objectId": "instance",
-                        "key": "skillSummonEarthSpiritCD",
+                        "key": "skillEarthSpiritCD",
                         "valueType": "integer",
                         "value": "0"
                     }

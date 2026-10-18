@@ -345,28 +345,28 @@ def 地圖::生成地圖配置(x, y, object) : actions {
         新增地圖物件(x = x, y = y, object = "小箱子");
         新增告示牌(x = x, y = y, rotation = 180, text = 文字::土杖描述, buttons = [Button(id = "wearEarthStaff", text = "裝備"), buttonTakeOffWeapon]);
     } else if(object == "SS1") {
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::治療領域描述, buttons = [
-            Button(id = "setZ" + 別名::技能治療領域EN, text = "設置於Z鍵"), 
-            Button(id = "setX" + 別名::技能治療領域EN, text = "設置於X鍵"), 
-            Button(id = "setC" + 別名::技能治療領域EN, text = "設置於C鍵"), 
-            Button(id = "setV" + 別名::技能治療領域EN, text = "設置於V鍵")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::聖癒陣描述, buttons = [
+            Button(id = "setZ" + 別名::技能聖癒陣EN, text = "設置於Z鍵"), 
+            Button(id = "setX" + 別名::技能聖癒陣EN, text = "設置於X鍵"), 
+            Button(id = "setC" + 別名::技能聖癒陣EN, text = "設置於C鍵"), 
+            Button(id = "setV" + 別名::技能聖癒陣EN, text = "設置於V鍵")]);
     } else if(object == "SS2") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::火星領域描述, buttons = [
-            Button(id = "setZ" + 別名::技能火星領域EN, text = "設置於Z鍵"), 
-            Button(id = "setX" + 別名::技能火星領域EN, text = "設置於X鍵"), 
-            Button(id = "setC" + 別名::技能火星領域EN, text = "設置於C鍵"), 
-            Button(id = "setV" + 別名::技能火星領域EN, text = "設置於V鍵")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::流火陣描述, buttons = [
+            Button(id = "setZ" + 別名::技能流火陣EN, text = "設置於Z鍵"), 
+            Button(id = "setX" + 別名::技能流火陣EN, text = "設置於X鍵"), 
+            Button(id = "setC" + 別名::技能流火陣EN, text = "設置於C鍵"), 
+            Button(id = "setV" + 別名::技能流火陣EN, text = "設置於V鍵")]);
     } else if(object == "SS3") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::震撼描述, buttons = [
-            Button(id = "setZ" + 別名::技能震撼EN, text = "設置於Z鍵"),
-            Button(id = "setX" + 別名::技能震撼EN, text = "設置於X鍵"),
-            Button(id = "setC" + 別名::技能震撼EN, text = "設置於C鍵"),
-            Button(id = "setV" + 別名::技能震撼EN, text = "設置於V鍵")]);
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::裂地震擊描述, buttons = [
+            Button(id = "setZ" + 別名::技能裂地震擊EN, text = "設置於Z鍵"),
+            Button(id = "setX" + 別名::技能裂地震擊EN, text = "設置於X鍵"),
+            Button(id = "setC" + 別名::技能裂地震擊EN, text = "設置於C鍵"),
+            Button(id = "setV" + 別名::技能裂地震擊EN, text = "設置於V鍵")]);
     } else if(object == "SS4") {
         新增地圖物件(x = x, y = y, object = "小箱子");
-        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土靈召喚, buttons = [
+        新增告示牌(x = x, y = y, rotation = 180, text = 文字::土靈召喚描述, buttons = [
             Button(id = "setZ" + 別名::技能土靈召喚EN, text = "設置於Z鍵"),
             Button(id = "setX" + 別名::技能土靈召喚EN, text = "設置於X鍵"),
             Button(id = "setC" + 別名::技能土靈召喚EN, text = "設置於C鍵"),

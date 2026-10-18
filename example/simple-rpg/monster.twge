@@ -8,7 +8,7 @@ def 自定義::拾取經驗泛型(drop_item_code, exp) : block {
         let expStr = twge::to_string(exp);
         自定義::儲存Instance整數("Exp", "{instance.Exp}+"+expStr);
         // TODO: Support return string type function
-        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = "<span style='color: green'>EXP+"+expStr+"</span>");
+        EnhFF::快跳文字(actorId = "{instance}", text = "Exp+"+expStr, color = "#2bff00", size = 18, duration = 1000);
         // TODO: Support Call event
         自定義::上載Instance數據();
     }

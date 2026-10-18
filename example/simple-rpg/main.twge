@@ -37,7 +37,7 @@ block 等級提升 {
         比較數字(lhs = "{instance.Exp}", op = ">=", rhs = "{instance.ExpNeeded}");
     }
     actions {
-        地圖標示文字(x = 公式::InstanceX坐標, y = 公式::InstanceY坐標, html = true, text = 文字::HTML等級提升, duration = 6000);
+        EnhFF::快跳文字(actorId = "{instance}", text = "Level Up", color = "#2bff00", size = 20, duration = 2000);
         自定義::儲存Instance整數("Exp", "{instance.Exp}-{instance.ExpNeeded}");
         自定義::儲存Instance整數("Point", "{instance.Point}+floor({instance.Level}/10)+2");
         自定義::儲存Instance整數("ExpNeeded", "({instance.Level}+10)*({instance.Level}+10)");
@@ -57,6 +57,7 @@ block 回血 {
     actions {
         角色加減血(actorCode = "instance", value = 公式::Instance恢復量);
         自定義::儲存Instance整數("CurrentMP", "min({instance.MaxMP}, {instance.CurrentMP} + {instance.RegenMP})");
+        EnhFF::快跳文字(actorId = "{instance}", text = "+{instance.RegenMP}", color = "#00ffee", size = 18, duration = 250);
     }
 }
 
@@ -133,9 +134,9 @@ block 玩家初始化 {
         自定義::儲存Instance整數("RegenMP", 10);
         自定義::儲存Instance整數("map_x", 100);
         自定義::儲存Instance整數("map_y", 100);
-        自定義::儲存Instance整數("skill"+別名::技能治療領域EN+"CD", 0);
-        自定義::儲存Instance整數("skill"+別名::技能火星領域EN+"CD", 0);
-        自定義::儲存Instance整數("skill"+別名::技能震撼EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能聖癒陣EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能流火陣EN+"CD", 0);
+        自定義::儲存Instance整數("skill"+別名::技能裂地震擊EN+"CD", 0);
         自定義::儲存Instance整數("skill"+別名::技能土靈召喚EN+"CD", 0);
         儲存物件變數(key = "ZSkill", object = "instance", type = "string", value = "None");
         儲存物件變數(key = "XSkill", object = "instance", type = "string", value = "None");
