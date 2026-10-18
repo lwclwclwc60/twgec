@@ -53,6 +53,7 @@ REGISTER_CODE_GEN(Wait);
 // EnhFF module
 REGISTER_CODE_GEN(EnhFFPlayerMousePosition);
 REGISTER_CODE_GEN(EnhFFGeneralCircularRange);
+REGISTER_CODE_GEN(EnhFFPopupEffect);
 
 #undef REGISTER_CODE_GEN
 } // namespace action

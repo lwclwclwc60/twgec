@@ -99,3 +99,34 @@ JsonObjectNode action::ActionEnhFFGeneralCircularRange::method(
   }
   return dataNode;
 }
+
+JsonObjectNode
+action::ActionEnhFFPopupEffect::method(DefaultMap defaultMap,
+                                       UserDefinedMetadata userDefinedMeta) {
+  JsonObjectNode dataNode = JsonObjectNode();
+  std::string actorCode = defaultMap.get("actorId");
+  if (actorCode != "\"\"") {
+    dataNode.addNode("select", "\"actor\"").addNode("actorCode", actorCode);
+  } else {
+    JsonObjectNode posNode = JsonObjectNode({
+        {"x", defaultMap.get("x")},
+        {"y", defaultMap.get("y")},
+    });
+    dataNode.addNode("select", "\"map\"").addNode("pos", posNode.to_string(24));
+  }
+
+  return dataNode.addNode("color", defaultMap.get("color"))
+      .addNode("filters", "[]")
+      .addNode("text", defaultMap.get("text"))
+      .addNode("size", defaultMap.get("size"))
+      .addNode("radians", defaultMap.get("angle"))
+      .addNode("rotateAngle", "\"0\"")
+      .addNode("speed", "\"8\"")
+      .addNode("duration", defaultMap.get("duration"))
+      .addNode("delay", "\"0\"")
+      .addNode("iconLinkage", "\"\"")
+      .addNode("shiftX", "\"1\"")
+      .addNode("shiftY", "\"0\"")
+      .addNode("scale", "\"1\"")
+      .addNode("behind", "false");
+}

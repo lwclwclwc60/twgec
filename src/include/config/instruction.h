@@ -435,6 +435,19 @@ const InstructionConfig EnhFFGeneralCircularRangeConfig =
                   "[]")
         .addParam("deltaHpCasterCode", AST_STRING, CODEGEN_STRING, "")
         .setCodegenName("GeneralCircularRangeEnhFF");
+const InstructionConfig EnhFFPopupEffectConfig =
+    InstructionConfig("EnhFF", "popupEffect", "快跳文字")
+        .addParam("actorId", AST_STRING, CODEGEN_STRING, "")
+        // If actorId is filled, actor mode is used.
+        // Otherwise map mode uses x and y coordinates.
+        .addParam("x", AST_INT, CODEGEN_STRING, "0")
+        .addParam("y", AST_INT, CODEGEN_STRING, "0")
+        .addParam("text", AST_STRING, CODEGEN_STRING, "text")
+        .addParam("color", AST_STRING, CODEGEN_STRING, "#ffffff")
+        .addParam("size", AST_INT, CODEGEN_STRING, "26")
+        .addParam("angle", AST_INT, CODEGEN_STRING, "270")
+        .addParam("duration", AST_INT, CODEGEN_STRING, "333")
+        .setCodegenName("PopupEffectEnhFF");
 
 const std::vector<InstructionConfig> actionList = {
     // Standard Module
@@ -474,6 +487,7 @@ const std::vector<InstructionConfig> actionList = {
     waitConfig,
     EnhFFPlayerMousePositionConfig,
     EnhFFGeneralCircularRangeConfig,
+    EnhFFPopupEffectConfig,
 };
 
 const InstructionConfig actorCountConfig =

@@ -1,0 +1,125 @@
+{
+    "$schema": "https://code.gamelet.com/gassets/schema/events/v1",
+    "config": {
+        "stage": {
+            "width": 600,
+            "height": 500,
+            "backgroundColor": "#999999",
+            "resolutionPolicy": "showAll",
+            "alignHorizontal": "center",
+            "alignVertical": "middle"
+        },
+        "preload": {
+            "sources": [],
+            "resourcesExclude": []
+        },
+        "configs": {
+            "TwilightWarsConfig": {
+                "title": "我的任務",
+                "serverConfig": {
+                    "minPlayers": 1,
+                    "supportSignin": true,
+                    "mustLogin": true,
+                    "allowGuest": true,
+                    "supportMsgServer": true,
+                    "gamezoneCode": "mission",
+                    "roomType": "close",
+                    "roomSize": 4
+                },
+                "runGame": true,
+                "gameStartFadein": "fadein",
+                "lives": 3,
+                "debugCamp": "ask",
+                "releaseCamp": "ask",
+                "setInitFocus": false,
+                "initFocus": {
+                    "x": "0",
+                    "y": "0"
+                },
+                "campOptions": {
+                    "campOpSkydow": true,
+                    "campOpRoyal": true,
+                    "campOpThird": true
+                },
+                "map": "CG.TWEventsGameTemplate/gamemap.twmap",
+                "maxAbilityLevel": 2,
+                "nextGameEnabled": true,
+                "disableNextGameOnMissionComplete": false,
+                "playDefaultMusic": true,
+                "cameraAfterOver": "restrict",
+                "useDefaultItems": false,
+                "useDefaultCampLocs": false,
+                "skydowLocs": [],
+                "royalLocs": [],
+                "thirdLocs": [],
+                "useCustomWeapons": false,
+                "customWeapons": [],
+                "useCustomItems": false,
+                "customItems": [],
+                "enabled": true,
+                "@use": 0
+            }
+        }
+    },
+    "events": [
+        {
+            "id": "init",
+            "disabled": false,
+            "folder": "",
+            "startTime": 0,
+            "checkInterval": 10,
+            "repeats": 0,
+            "repeatInterval": 0,
+            "devOnly": false,
+            "actions": [
+                {
+                    "type": "PopupEffectEnhFF",
+                    "data": {
+                        "select": "actor",
+                        "actorCode": "instance",
+                        "color": "#00ff00",
+                        "filters": [],
+                        "text": "+50",
+                        "size": "30",
+                        "radians": "315",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "500",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
+                        "shiftY": "0",
+                        "scale": "1",
+                        "behind": false
+                    }
+                },
+                {
+                    "type": "PopupEffectEnhFF",
+                    "data": {
+                        "select": "map",
+                        "pos": {
+                            "x": "100",
+                            "y": "200"
+                        },
+                        "color": "#ffcc00",
+                        "filters": [],
+                        "text": "暴擊",
+                        "size": "26",
+                        "radians": "180",
+                        "rotateAngle": "0",
+                        "speed": "8",
+                        "duration": "333",
+                        "delay": "0",
+                        "iconLinkage": "",
+                        "shiftX": "1",
+                        "shiftY": "0",
+                        "scale": "1",
+                        "behind": false
+                    }
+                }
+            ],
+            "checks": [],
+            "triggers": []
+        }
+    ]
+}

@@ -153,6 +153,8 @@ Supported Actions:
         actorId: string = "", varX: string = "x", varY: string = "y"
     EnhFF::generalCircularRange EnhFF::廣義圓形範圍
         actorId: string = "", alpha: int|string = 1, color: string = "#ffffff", defType: string = "circle", deltaHpCD: int|string = 10000, deltaHpCasterCode: string = "", deltaHpTarget: ActorMatch = [], deltaHpType: string = "heal", deltaHpValue: int|string = 0, duration: int|string = 10000, fill: bool = false, fillAlpha: int|string = 1, fillColor: string = "#ffffff", height: int|string = 0, lineWidth: int|string = 1, offsetX: int|string = 0, offsetY: int|string = 0, radius: int|string = 0, rotation: int|string = 0, width: int|string = 0, x: int|string = 0, y: int|string = 0
+    EnhFF::popupEffect          EnhFF::快跳文字
+        actorId: string = "", angle: int|string = 270, color: string = "#ffffff", duration: int|string = 333, size: int|string = 26, text: string = "text", x: int|string = 0, y: int|string = 0
 
 Supported Checks:
     actorCount                  計算人數

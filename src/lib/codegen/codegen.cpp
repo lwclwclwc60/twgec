@@ -206,6 +206,8 @@ void CodeGenerator::codegenAction(std::ofstream &of,
   if (identifier == "EnhFF::generalCircularRange" ||
       identifier == "EnhFF::廣義圓形範圍")
     of << action::ActionEnhFFGeneralCircularRange::CODEGEN_FUNC;
+  if (identifier == "EnhFF::popupEffect" || identifier == "EnhFF::快跳文字")
+    of << action::ActionEnhFFPopupEffect::CODEGEN_FUNC;
   return;
 }
 
